@@ -1,1 +1,26 @@
+- country: "United States (USA)"
+  visa_type: "F-1 Student Visa"
+  cost: "$185 (Application) + $350 (SEVIS)"
+  proof_of_funds: "Yes (1 year tuition + living)"
+  work_rights: "On-campus only (20 hrs/week)"
+  post_study_work: "1 year (OPT) + 2 years (STEM Extension)"
+  exams_needed: ["TOEFL / IELTS", "SAT / GRE"]
+  flag: "🇺🇸"
 
+- country: "Germany"
+  visa_type: "Student Visa (Visum zu Studienzwecken)"
+  cost: "€75 (approx. ₹6,700)"
+  proof_of_funds: "Blocked Account (€11,208/year)"
+  work_rights: "120 full days or 240 half days/year"
+  post_study_work: "18 months to find a job"
+  exams_needed: ["IELTS / TOEFL", "German B1/B2 (Recommended)"]
+  flag: "🇩🇪"
+
+- country: "United Kingdom (UK)"
+  visa_type: "Student Route Visa"
+  cost: "£490 (approx. ₹51,000)"
+  proof_of_funds: "Tuition + £1,334/month (London) or £1,023/month (outside)"
+  work_rights: "20 hrs/week during term time"
+  post_study_work: "2 years (Graduate Route)"
+  exams_needed: ["IELTS for UKVI"]
+  flag: "🇬🇧"
