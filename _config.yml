@@ -1,0 +1,5 @@
+title: VidyaVantage
+description: "From Grade 9 to Global PhD"
+theme: jekyll-theme-cayman  # We will start with a clean default, then customize
+plugins:
+  - jekyll-seo-tag
