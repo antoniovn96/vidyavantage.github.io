@@ -1,0 +1,13 @@
+- name: "Indian Institute of Science (IISc)"
+  location: "Bangalore, India"
+  type: "Research"
+  courses: ["BS Research", "M.Tech", "PhD"]
+  fees: "₹30,000/year"
+  website: "https://iisc.ac.in"
+
+- name: "Stanford University"
+  location: "California, USA"
+  type: "Private"
+  courses: ["Computer Science", "MBA", "Law"]
+  fees: "$60,000/year"
+  website: "https://stanford.edu"
