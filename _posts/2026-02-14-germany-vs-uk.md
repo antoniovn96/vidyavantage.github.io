@@ -6,19 +6,29 @@ category: study-abroad
 category_label: "Study Abroad"
 image: "https://images.unsplash.com/photo-1527866959252-deab85ef7d1b?q=80&w=1000&auto=format&fit=crop"
 excerpt: "The ultimate battle of Cost vs. Time. We compare Tuition, Visa Rules, and Job Markets for Indian students."
-seo_title: "Germany vs UK Masters 2026: Cost, Visa & Jobs for Indian Students"
-seo_description: "Deciding between MS in Germany or UK? We analyze the 2026 visa rules, tuition fees, and post-study work opportunities to help you choose."
+description: "Germany vs UK Masters 2026: The ultimate battle of Cost vs. Time. We compare Tuition fees, Graduate Route Visas, and ROI for Indian students."
 keywords: "Germany vs UK masters, MS in Germany cost for Indian students, UK graduate route visa 2026, study abroad comparison"
 ---
 
 <style>
-  .comparison-table { width: 100%; border-collapse: collapse; margin: 30px 0; }
+  /* Custom Styles for this Blog Post */
+  .comparison-table { width: 100%; border-collapse: collapse; margin: 30px 0; font-size: 0.95rem; }
   .comparison-table th { background: #0A2342; color: white; padding: 15px; text-align: left; }
   .comparison-table td { border: 1px solid #ddd; padding: 15px; }
   .comparison-table tr:nth-child(even) { background-color: #f9f9f9; }
-  .winner-check { color: #2B8A3E; font-weight: bold; }
-  .loser-cross { color: #C92A2A; font-weight: bold; }
-  .blog-cta { background: #e3f2fd; padding: 30px; border-left: 5px solid #D4AF37; margin: 40px 0; }
+  
+  .winner-check { color: #2B8A3E; font-weight: bold; } /* Green for Wins */
+  .loser-cross { color: #C92A2A; font-weight: bold; } /* Red for Losses */
+  
+  .blog-cta { 
+    background: #f4f6f8; 
+    padding: 30px; 
+    border-left: 5px solid #D4AF37; 
+    margin: 40px 0; 
+    border-radius: 5px;
+  }
+  
+  img { border-radius: 8px; margin: 20px 0; width: 100%; height: auto; object-fit: cover; }
 </style>
 
 # The Great Debate: Bratwurst vs. Fish & Chips
@@ -99,7 +109,7 @@ How fast can you start earning?
 3.  You are in Finance, Business, or Law.
 
 <div class="blog-cta">
-  <h3>😕 Still Confused?</h3>
+  <h3 style="margin-top:0;">😕 Still Confused?</h3>
   <p>Don't take a risk with your career. Book a 30-minute session with our <strong>Germany vs UK Specialist</strong> to analyze your profile.</p>
-  <a href="../book-expert/" class="btn">Book My Session</a>
+  <a href="{{ '/book-expert/' | relative_url }}" class="btn">Book My Session</a>
 </div>
