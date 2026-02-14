@@ -4,5 +4,12 @@ theme: jekyll-theme-cayman
 plugins:
   - jekyll-seo-tag
 
-# Link to your custom CSS
-css: /assets/css/style.css
+# ---------------------------------------------------
+# CRITICAL FIX FOR YOUR LINKS
+# ---------------------------------------------------
+url: "https://antoniovn96.github.io"
+baseurl: "/vidyavantage.github.io"
+
+# Link to your custom CSS (Using relative_url is handled by the theme usually, 
+# but this helps define the path)
+css: "/assets/css/style.css"
