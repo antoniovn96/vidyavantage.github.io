@@ -210,3 +210,67 @@ title: Home
 <div style="text-align: center; margin-bottom: 60px;">
   <a href="./book-expert/" class="btn-gold" style="padding: 15px 40px;">Book a Session</a>
 </div>
+<style>
+  .site-footer {
+    background-color: #0A2342;
+    color: white;
+    padding: 60px 20px 20px;
+    margin-top: 80px;
+    border-top: 5px solid #D4AF37;
+    font-size: 0.9rem;
+  }
+  .footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+  }
+  .footer-col { flex: 1; min-width: 250px; }
+  .footer-heading { color: #D4AF37; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
+  .footer-links a { display: block; color: #f4f6f8; text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
+  .footer-links a:hover { color: #D4AF37; padding-left: 5px; }
+  .copyright { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #888; }
+</style>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-heading">VidyaVantage</div>
+      <p>The only verified career map for Indian students. From Grade 9 stream selection to Global PhD admissions.</p>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-heading">Quick Links</div>
+      <div class="footer-links">
+        <a href="./stream-selector/">Stream Selector</a>
+        <a href="./colleges/">College Database</a>
+        <a href="./visas/">Visa Rules</a>
+        <a href="./blog/">Career Blog</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-heading">Services</div>
+      <div class="footer-links">
+        <a href="./book-expert/">Book a Counsellor</a>
+        <a href="#">School Partnerships</a>
+        <a href="#">For Parents</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-heading">Legal</div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Disclaimer</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="copyright">
+    © 2026 VidyaVantage. Built with 💙 in Bangalore.
+  </div>
+</footer>
