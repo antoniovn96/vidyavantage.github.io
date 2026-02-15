@@ -139,7 +139,7 @@ permalink: /school-partnership/
 
       <div class="form-group">
         <label>School Name</label>
-        <input type="text" name="School_Name" required placeholder="e.g. St. Joseph's High School">
+        <input type="text" name="School_Name" required placeholder="e.g. St. Michals's High School">
       </div>
 
       <div class="form-group">
