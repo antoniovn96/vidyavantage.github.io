@@ -99,23 +99,12 @@ permalink: /career-search/
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
   }
 
-  /* MATHS TAGS */
-  .math-tag {
-    font-size: 0.7rem;
-    background: #e3f2fd;
-    color: #1565c0;
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-left: 5px;
-    border: 1px solid #90caf9;
-  }
-
   /* 5. INFO PANEL */
   .info-panel {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 320px;
+    width: 340px;
     background: white;
     border-left: 5px solid #D4AF37;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -149,7 +138,7 @@ permalink: /career-search/
 
 <div style="text-align: center; padding: 80px 20px 40px; background: #0A2342; color: white;">
   <h1 style="margin:0;">Interactive Career Tree</h1>
-  <p style="opacity:0.8;">Click any career to trace your path from Class 10.</p>
+  <p style="opacity:0.8;">Click any career to see details. <br>10th doesn't decide your life, but it decides your next path.</p>
 </div>
 
 <div class="tree-wrapper">
@@ -159,86 +148,105 @@ permalink: /career-search/
       <span class="node-box" id="root" onclick="selectNode('root', null)">Class 10th (Pass)</span>
       
       <ul>
+        
         <li>
-          <span class="node-box" id="comm" onclick="selectNode('comm', 'root')">Commerce Stream</span>
+          <span class="node-box" id="sci" onclick="selectNode('sci', 'root')">1. Science Stream</span>
           <ul>
             
+            <li>
+              <span class="node-box" id="med_track" onclick="selectNode('med_track', 'sci')">🔬 Medical (PCB)</span>
+              <ul>
+                <li><span class="node-box" id="mbbs" onclick="selectNode('mbbs', 'med_track')">MBBS (Doctor)</span></li>
+                <li><span class="node-box" id="dentist" onclick="selectNode('dentist', 'med_track')">Dentist (BDS)</span></li>
+                <li><span class="node-box" id="allied" onclick="selectNode('allied', 'med_track')">Physio / Nursing / Pharma</span></li>
+                <li><span class="node-box" id="vet" onclick="selectNode('vet', 'med_track')">Veterinary Doctor</span></li>
+                <li><span class="node-box" id="nutrition" onclick="selectNode('nutrition', 'med_track')">Nutritionist / Psych</span></li>
+              </ul>
+            </li>
+
+            <li>
+              <span class="node-box" id="eng_track" onclick="selectNode('eng_track', 'sci')">⚙️ Engineering (PCM)</span>
+              <ul>
+                <li><span class="node-box" id="btech" onclick="selectNode('btech', 'eng_track')">B.Tech (CSE / Mech / Civil)</span></li>
+                <li><span class="node-box" id="arch" onclick="selectNode('arch', 'eng_track')">Architecture</span></li>
+                <li><span class="node-box" id="aviation" onclick="selectNode('aviation', 'eng_track')">Aviation / Merchant Navy</span></li>
+                <li><span class="node-box" id="tech_new" onclick="selectNode('tech_new', 'eng_track')">Data Science / Game Dev</span></li>
+              </ul>
+            </li>
+
+            <li>
+              <span class="node-box" id="research_track" onclick="selectNode('research_track', 'sci')">🧠 Research / New-Age</span>
+              <ul>
+                <li><span class="node-box" id="scientist" onclick="selectNode('scientist', 'research_track')">Scientist / ISRO</span></li>
+                <li><span class="node-box" id="forensic" onclick="selectNode('forensic', 'research_track')">Forensic Science</span></li>
+                <li><span class="node-box" id="genetics" onclick="selectNode('genetics', 'research_track')">Genetics / Neuro</span></li>
+                <li><span class="node-box" id="robotics" onclick="selectNode('robotics', 'research_track')">AI & Robotics</span></li>
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+
+        <li>
+          <span class="node-box" id="comm" onclick="selectNode('comm', 'root')">2. Commerce Stream</span>
+          <ul>
             <li>
               <span class="node-box" id="fin_track" onclick="selectNode('fin_track', 'comm')">Finance & Accounts</span>
               <ul>
                 <li><span class="node-box" id="ca" onclick="selectNode('ca', 'fin_track')">Chartered Accountant (CA)</span></li>
                 <li><span class="node-box" id="cs" onclick="selectNode('cs', 'fin_track')">Company Secretary (CS)</span></li>
-                <li><span class="node-box" id="cma" onclick="selectNode('cma', 'fin_track')">Cost Mgmt Accountant</span></li>
+                <li><span class="node-box" id="bank_job" onclick="selectNode('bank_job', 'fin_track')">Banking / Stock Market</span></li>
               </ul>
             </li>
-
             <li>
-              <span class="node-box" id="biz_track" onclick="selectNode('biz_track', 'comm')">Business & MBA</span>
+              <span class="node-box" id="biz_track" onclick="selectNode('biz_track', 'comm')">Business & Mgmt</span>
               <ul>
-                <li><span class="node-box" id="mba" onclick="selectNode('mba', 'biz_track')">MBA (Finance/HR/Mkt)</span><span class="math-tag">Maths Pref</span></li>
-                <li><span class="node-box" id="startup" onclick="selectNode('startup', 'biz_track')">Entrepreneurship</span></li>
-                <li><span class="node-box" id="bba" onclick="selectNode('bba', 'biz_track')">BBA / Management</span></li>
+                <li><span class="node-box" id="mba" onclick="selectNode('mba', 'biz_track')">MBA / Entrepreneur</span></li>
+                <li><span class="node-box" id="digital" onclick="selectNode('digital', 'biz_track')">Digital Marketing</span></li>
+                <li><span class="node-box" id="logistics" onclick="selectNode('logistics', 'biz_track')">Logistics / Supply Chain</span></li>
               </ul>
             </li>
-
-            <li>
-              <span class="node-box" id="new_age" onclick="selectNode('new_age', 'comm')">New-Age / Tech</span>
-              <ul>
-                <li><span class="node-box" id="data_analyst" onclick="selectNode('data_analyst', 'new_age')">Data Analytics</span><span class="math-tag">Maths Req</span></li>
-                <li><span class="node-box" id="fintech" onclick="selectNode('fintech', 'new_age')">FinTech Expert</span></li>
-                <li><span class="node-box" id="stock" onclick="selectNode('stock', 'new_age')">Stock Trader / Inv. Banker</span><span class="math-tag">Maths Req</span></li>
-                <li><span class="node-box" id="digi_mark" onclick="selectNode('digi_mark', 'new_age')">Digital Marketing</span></li>
-              </ul>
-            </li>
-
-            <li>
-              <span class="node-box" id="govt_track" onclick="selectNode('govt_track', 'comm')">Banking & Govt</span>
-              <ul>
-                <li><span class="node-box" id="bank_po" onclick="selectNode('bank_po', 'govt_track')">Bank PO / RBI</span></li>
-                <li><span class="node-box" id="upsc_comm" onclick="selectNode('upsc_comm', 'govt_track')">UPSC (Civil Services)</span></li>
-              </ul>
-            </li>
-
-             <li>
-              <span class="node-box" id="law_comm" onclick="selectNode('law_comm', 'comm')">Legal Careers</span>
-              <ul>
-                <li><span class="node-box" id="corp_law" onclick="selectNode('corp_law', 'law_comm')">Corporate Lawyer</span></li>
-              </ul>
-            </li>
-
           </ul>
         </li>
 
         <li>
-          <span class="node-box" id="pcm" onclick="selectNode('pcm', 'root')">Science (PCM)</span>
+          <span class="node-box" id="arts" onclick="selectNode('arts', 'root')">3. Arts / Humanities</span>
           <ul>
             <li>
-              <span class="node-box" id="btech" onclick="selectNode('btech', 'pcm')">Engineering (B.Tech)</span>
+              <span class="node-box" id="govt_track" onclick="selectNode('govt_track', 'arts')">Govt / Law</span>
               <ul>
-                <li><span class="node-box" id="cse" onclick="selectNode('cse', 'btech')">Software/IT</span></li>
-                <li><span class="node-box" id="mech" onclick="selectNode('mech', 'btech')">Mechanical</span></li>
+                <li><span class="node-box" id="ias" onclick="selectNode('ias', 'govt_track')">UPSC (IAS / IPS)</span></li>
+                <li><span class="node-box" id="lawyer" onclick="selectNode('lawyer', 'govt_track')">Lawyer / Judge</span></li>
               </ul>
             </li>
-            <li><span class="node-box" id="barch" onclick="selectNode('barch', 'pcm')">Architecture</span></li>
-            <li><span class="node-box" id="pilot" onclick="selectNode('pilot', 'pcm')">Commercial Pilot</span></li>
+            <li>
+              <span class="node-box" id="creative_track" onclick="selectNode('creative_track', 'arts')">Creative / Social</span>
+              <ul>
+                <li><span class="node-box" id="psych" onclick="selectNode('psych', 'creative_track')">Psychologist</span></li>
+                <li><span class="node-box" id="journ" onclick="selectNode('journ', 'creative_track')">Journalist / Media</span></li>
+                <li><span class="node-box" id="design" onclick="selectNode('design', 'creative_track')">Designer / Teacher</span></li>
+              </ul>
+            </li>
           </ul>
         </li>
 
         <li>
-          <span class="node-box" id="pcb" onclick="selectNode('pcb', 'root')">Science (PCB)</span>
+          <span class="node-box" id="diploma" onclick="selectNode('diploma', 'root')">4. Diploma (Skip +2)</span>
           <ul>
-            <li><span class="node-box" id="mbbs" onclick="selectNode('mbbs', 'pcb')">MBBS (Doctor)</span></li>
-            <li><span class="node-box" id="dentist" onclick="selectNode('dentist', 'pcb')">Dentist</span></li>
-            <li><span class="node-box" id="biotech" onclick="selectNode('biotech', 'pcb')">Biotechnology</span></li>
-          </ul>
-        </li>
-
-        <li>
-          <span class="node-box" id="arts" onclick="selectNode('arts', 'root')">Arts / Humanities</span>
-          <ul>
-            <li><span class="node-box" id="ias" onclick="selectNode('ias', 'arts')">UPSC (IAS/IPS)</span></li>
-            <li><span class="node-box" id="psych" onclick="selectNode('psych', 'arts')">Psychology</span></li>
-            <li><span class="node-box" id="design" onclick="selectNode('design', 'arts')">Design (NIFT)</span></li>
+            <li>
+              <span class="node-box" id="tech_dip" onclick="selectNode('tech_dip', 'diploma')">Technical Diploma</span>
+              <ul>
+                <li><span class="node-box" id="mech_dip" onclick="selectNode('mech_dip', 'tech_dip')">Mech / Civil / Elec</span></li>
+                <li><span class="node-box" id="auto_dip" onclick="selectNode('auto_dip', 'tech_dip')">Automobile / Comp</span></li>
+              </ul>
+            </li>
+            <li>
+              <span class="node-box" id="voc_dip" onclick="selectNode('voc_dip', 'diploma')">Vocational</span>
+              <ul>
+                <li><span class="node-box" id="hotel" onclick="selectNode('hotel', 'voc_dip')">Hotel Management</span></li>
+                <li><span class="node-box" id="fashion" onclick="selectNode('fashion', 'voc_dip')">Fashion / Animation</span></li>
+              </ul>
+            </li>
           </ul>
         </li>
 
@@ -250,61 +258,88 @@ permalink: /career-search/
 <div id="info-box" class="info-panel">
   <button onclick="closeInfo()" style="float:right; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#999;">&times;</button>
   <h3 id="panel-title" style="color:#0A2342; margin-top:0;">Title</h3>
-  <p><strong>⏱️ Duration:</strong> <span id="panel-time"></span></p>
-  <p><strong>📝 Exams/Stats:</strong> <span id="panel-exam" style="color:#D4AF37; font-weight:bold;"></span></p>
+  <div id="panel-tags" style="margin-bottom:10px;"></div>
+  <p><strong>👉 Good if:</strong> <span id="panel-good" style="color:#D4AF37; font-weight:bold;"></span></p>
   <hr style="border:0; border-top:1px solid #eee;">
-  <p id="panel-desc" style="font-size:0.9rem; color:#555;">Desc</p>
+  <p id="panel-desc" style="font-size:0.9rem; color:#555; line-height:1.5;">Desc</p>
   <a href="{{ '/book-expert/' | relative_url }}" class="btn" style="background:#0A2342; color:white; padding:10px; display:block; text-align:center; text-decoration:none; border-radius:5px; margin-top:15px;">Talk to Counsellor</a>
 </div>
 
 <script>
   // --- DATABASE ---
   const data = {
-    "root": { title: "Class 10 Pass", time: "1 Year", exam: "Boards", desc: "The foundation. Your choice here defines your future options." },
+    // ROOT
+    "root": { title: "Class 10 Pass", good: "You are ready to choose your path", desc: "10th doesn't decide your life — it only decides your next path. You have 4 major routes." },
     
-    // COMMERCE STREAM DETAILS
-    "comm": { title: "Commerce Stream", time: "2 Years", exam: "Maths vs Non-Maths", desc: "The BIG decision. 'With Maths' opens high-end finance & analytics. 'Without Maths' is great for CA, Law, and Management." },
+    // --- 1. SCIENCE ---
+    "sci": { 
+      title: "Science Stream", 
+      good: "You are decent in Maths/Science OR want max options", 
+      desc: "Subjects: Physics, Chem, Maths/Bio. Big Advantage: You can switch to Commerce/Arts later, but they cannot switch to Science." 
+    },
+    "med_track": { title: "Medical Line (PCB)", good: "You like Biology or helping people", desc: "Focus on PCB. Leads to NEET exam." },
+    "mbbs": { title: "MBBS (Doctor)", good: "You can study hard for 5+ years", desc: "Top medical degree. Treat patients, surgery, hospitals." },
+    "dentist": { title: "Dentist (BDS)", good: "You want medical field with work-life balance", desc: "Dental surgery and care." },
+    "allied": { title: "Allied Health", good: "You want shorter courses", desc: "Nursing, Pharmacy, Physiotherapy. Very high demand." },
+    "vet": { title: "Veterinary Doctor", good: "You love animals", desc: "Treating animals. Requires NEET." },
+    "nutrition": { title: "Nutritionist / Psych", good: "You like health & mind", desc: "Diet planning or Mental health therapy." },
+
+    "eng_track": { title: "Engineering Line (PCM)", good: "You like Maths, Machines, or Logic", desc: "Focus on PCM. Leads to JEE/CET exams." },
+    "btech": { title: "B.Tech / B.E", good: "Problem Solving", desc: "Mechanical, Civil, ECE, CSE. Build things and software." },
+    "arch": { title: "Architecture", good: "Drawing + Logic", desc: "Design buildings. Requires NATA exam." },
+    "aviation": { title: "Aviation / Navy", good: "Adventure & Travel", desc: "Pilot or Merchant Navy. High pay, high discipline." },
+    "tech_new": { title: "New-Age Tech", good: "Coding & Data", desc: "Data Science, Game Dev, AI. The future of tech." },
+
+    "research_track": { title: "Research & New-Age", good: "You are curious & innovative", desc: "For scientists and inventors." },
+    "scientist": { title: "Scientist (ISRO/DRDO)", good: "Deep thinking", desc: "Space science, Physics research." },
+    "forensic": { title: "Forensic Science", good: "Investigation", desc: "Crime scene analysis and lab work." },
+    "genetics": { title: "Genetics / Neuro", good: "Biology Research", desc: "Study of genes and brain science." },
+    "robotics": { title: "AI & Robotics", good: "Building Bots", desc: "Creating intelligent machines." },
+
+    // --- 2. COMMERCE ---
+    "comm": { 
+      title: "Commerce Stream", 
+      good: "You handle numbers/logic but dislike heavy science", 
+      desc: "Subjects: Accounts, Econ, Business. High earning potential with less academic stress than Science." 
+    },
+    "fin_track": { title: "Finance & Accounts", good: "You love money management", desc: "Core finance careers." },
+    "ca": { title: "Chartered Accountant", good: "Hard work & Numbers", desc: "Audit and Tax expert. Tough exam but high respect." },
+    "cs": { title: "Company Secretary", good: "Law & Corporate Rules", desc: "Legal compliance for companies." },
+    "bank_job": { title: "Banking / Stock Mkt", good: "Fast calculations", desc: "Investment banker, Stock trader, Bank PO." },
+
+    "biz_track": { title: "Business & Mgmt", good: "Leadership & Strategy", desc: "Running companies and teams." },
+    "mba": { title: "MBA / Entrepreneur", good: "Starting businesses", desc: "Master of Business Admin. CEO roles." },
+    "digital": { title: "Digital Marketing", good: "Creativity + Data", desc: "Social media, SEO, Ads." },
+    "logistics": { title: "Logistics", good: "Organization", desc: "Supply chain management. Moving goods globally." },
+
+    // --- 3. ARTS ---
+    "arts": { 
+      title: "Arts / Humanities", 
+      good: "Creativity, Social Understanding, Debating", 
+      desc: "Subjects: Psych, History, Pol Sci. Underrated but powerful for Govt jobs and Creativity." 
+    },
+    "govt_track": { title: "Govt & Law", good: "Service & Arguments", desc: "Serving the nation or fighting for justice." },
+    "ias": { title: "UPSC (IAS/IPS)", good: "Power & Responsibility", desc: "Civil Services. Arts is the best base for this." },
+    "lawyer": { title: "Lawyer / Judge", good: "Logic & Speaking", desc: "Legal practice. Corporate or Criminal law." },
+
+    "creative_track": { title: "Creative & Social", good: "Understanding People", desc: "Helping society and expression." },
+    "psych": { title: "Psychologist", good: "Empathy", desc: "Therapy and mental health." },
+    "journ": { title: "Journalist / Media", good: "Storytelling", desc: "News, Reporting, Media production." },
+    "design": { title: "Designer / Teacher", good: "Artistic Skill", desc: "Fashion, Interior, or Professor." },
+
+    // --- 4. DIPLOMA ---
+    "diploma": { 
+      title: "Diploma (Polytechnic)", 
+      good: "You hate theory & want hands-on work", 
+      desc: "Skip 11th/12th. 3-Year practical course. Direct entry to Engineering 2nd year later." 
+    },
+    "tech_dip": { title: "Technical Diploma", good: "Machines & Tools", desc: "Mechanical, Civil, Electrical." },
+    "mech_dip": { title: "Mech/Civil/Elec", good: "Fixing things", desc: "Core technical jobs early in career." },
+    "auto_dip": { title: "Auto / Computer", good: "Cars or Code", desc: "Automobile repair or basic coding." },
     
-    "fin_track": { title: "Finance & Accounts", time: "Professional", exam: "ICAI / ICSI", desc: "The most popular route. Auditing, Taxes, and Costing." },
-    "ca": { title: "Chartered Accountant (CA)", time: "4.5 - 5 Years", exam: "Difficulty: ⭐⭐⭐⭐⭐", desc: "Audit companies & taxes. Salary: ₹8-25 LPA. Requires long study hours & handling pressure." },
-    "cs": { title: "Company Secretary (CS)", time: "3 - 4 Years", exam: "Difficulty: ⭐⭐⭐⭐", desc: "Corporate law advisor. More theory/law than maths. Salary: High growth in corporate sector." },
-    "cma": { title: "Cost Mgmt Accountant", time: "3 - 4 Years", exam: "Difficulty: ⭐⭐⭐⭐", desc: "Budgeting & Profit Planning. Best for corporate finance roles." },
-
-    "biz_track": { title: "Business & Management", time: "Degree + Masters", exam: "CAT / GMAT", desc: "Leadership, HR, Marketing, and Operations." },
-    "mba": { title: "MBA", time: "2 Years (Post Grad)", exam: "CAT / GMAT", desc: "Salary: ₹6-40 LPA. Top colleges prefer Maths background. Leads to CEO/Management roles." },
-    "startup": { title: "Entrepreneurship", time: "Anytime", exam: "None", desc: "Start an online business, agency, or trading. Commerce is the BEST background for this." },
-    "bba": { title: "BBA", time: "3 Years", exam: "IPMAT / CUET", desc: "Foundation for MBA. Good for students who like presentations and leadership." },
-
-    "new_age": { title: "New-Age Careers", time: "Skill Based", exam: "Portfolio", desc: "Exploding demand in India. Tech + Finance mix." },
-    "data_analyst": { title: "Data Analytics", time: "6-12 Months", exam: "Python/SQL Skills", desc: "Requires Maths. Analyze business data using Excel & SQL. Huge demand." },
-    "fintech": { title: "FinTech Expert", time: "Varies", exam: "Tech Skills", desc: "Finance + Technology. One of the fastest growing fields globally." },
-    "stock": { title: "Stock Trader / Inv. Banker", time: "High Stress", exam: "CFA / NISM", desc: "Portfolio management & trading. Maths/Stats is highly recommended." },
-    "digi_mark": { title: "Digital Marketing", time: "3-6 Months", exam: "Certifications", desc: "SEO, Ads, Content Strategy. No Maths required. Great for creative minds." },
-
-    "govt_track": { title: "Banking & Govt", time: "Prep (1-2 Yrs)", exam: "Competitive Exams", desc: "Stable jobs with good perks." },
-    "bank_po": { title: "Bank PO / RBI", time: "Prep", exam: "IBPS / SBI PO", desc: "Commerce students do very well here. Manage banking operations." },
-    "upsc_comm": { title: "UPSC (Civil Services)", time: "Prep", exam: "CSE", desc: "IAS/IPS/IRS. Commerce is a strong optional subject for Mains." },
-
-    "law_comm": { title: "Legal Careers", time: "5 Years", exam: "CLAT", desc: "Integrated BBA-LLB or B.Com-LLB." },
-    "corp_law": { title: "Corporate Lawyer", time: "5 Years", exam: "CLAT", desc: "Legal advisor to companies. Very high salary potential. Maths not required." },
-
-    // SCIENCE & ARTS (Brief for context)
-    "pcm": { title: "Science (PCM)", time: "2 Years", exam: "Boards", desc: "Physics, Chem, Math. Hardest stream." },
-    "btech": { title: "B.Tech", time: "4 Years", exam: "JEE", desc: "Engineering." },
-    "cse": { title: "Software Engineer", time: "Job Ready", exam: "Interviews", desc: "Coding & AI." },
-    "mech": { title: "Mechanical Eng", time: "Job Ready", exam: "GATE", desc: "Machines & Robotics." },
-    "barch": { title: "Architecture", time: "5 Years", exam: "NATA", desc: "Building Design." },
-    "pilot": { title: "Pilot", time: "18 Months", exam: "DGCA", desc: "Aviation." },
-
-    "pcb": { title: "Science (PCB)", time: "2 Years", exam: "Boards", desc: "Physics, Chem, Biology." },
-    "mbbs": { title: "MBBS", time: "5.5 Years", exam: "NEET", desc: "Doctor." },
-    "dentist": { title: "Dentist", time: "5 Years", exam: "NEET", desc: "Dental Surgery." },
-    "biotech": { title: "Biotech", time: "Masters", exam: "GATE", desc: "Research." },
-
-    "arts": { title: "Arts / Humanities", time: "2 Years", exam: "Boards", desc: "History, Pol Sci. For UPSC/Law." },
-    "ias": { title: "UPSC (IAS)", time: "Prep", exam: "CSE", desc: "Civil Services." },
-    "psych": { title: "Psychology", time: "Masters", exam: "License", desc: "Therapy/HR." },
-    "design": { title: "Design", time: "4 Years", exam: "NIFT", desc: "Fashion/Interior." }
+    "voc_dip": { title: "Vocational", good: "Specific Skills", desc: "Non-technical practical careers." },
+    "hotel": { title: "Hotel Management", good: "Hospitality", desc: "Chefs, Hotel operations." },
+    "fashion": { title: "Fashion / Animation", good: "Visual Art", desc: "Designing clothes or VFX/Movies." }
   };
 
   function selectNode(id, parentId) {
@@ -328,8 +363,7 @@ permalink: /career-search/
     const info = data[id];
     if(info) {
       document.getElementById('panel-title').innerText = info.title;
-      document.getElementById('panel-time').innerText = info.time;
-      document.getElementById('panel-exam').innerText = info.exam;
+      document.getElementById('panel-good').innerText = info.good;
       document.getElementById('panel-desc').innerText = info.desc;
       document.getElementById('info-box').style.display = 'block';
     }
