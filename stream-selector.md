@@ -1,10 +1,15 @@
 ---
 layout: default
-title: "AI Stream Selector 🧭"
+title: "Stream Selector: Find Your Perfect Match 🧭"
 permalink: /stream-selector/
-image: "/assets/images/stream-preview.png"
-description: "Not just a career test. A psychometric engine to predict your perfect stream based on aptitude, tolerance, and motivation."
+image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=630&fit=crop"
+description: "Don't guess your future. Take this 2-minute psychometric test to find your perfect stream based on aptitude, tolerance, and motivation."
 ---
+
+<meta property="og:title" content="Stream Selector: Find Your Perfect Match 🧭" />
+<meta property="og:description" content="Don't guess your future. Take this 2-minute psychometric test to find your perfect stream based on aptitude, tolerance, and motivation." />
+<meta property="og:image" content="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&h=630&fit=crop" />
+<meta property="twitter:card" content="summary_large_image" />
 
 <style>
   /* 1. LAYOUT & RESET */
@@ -423,7 +428,7 @@ description: "Not just a career test. A psychometric engine to predict your perf
     },
     {
       cat: "Learning Brain Type",
-      text: "Which homework do you delay the most? (Reverse Scored)",
+      text: "Which homework do you delay the most?", // Removed (Reverse Scored)
       options: [
         { t: "Long calculations", s: {sci:0, comm:1, arts:1, skill:2} },
         { t: "Long theory answers", s: {sci:2, comm:2, arts:0, skill:1} },
