@@ -1,284 +1,429 @@
 ---
 layout: default
-title: "Global Visa Intelligence Hub 🌏"
+title: "Global Visa Intelligence Hub"
 permalink: /visas/
 image: "/assets/images/visa-preview.png"
-description: "Compare student visas for USA, UK, Canada, Germany, and Australia. Check costs, work rights, and PR rules for Indian students."
+description: "Compare student visas for USA, UK, Canada, Germany, Australia, and UAE. Check costs, work rights, and PR rules for Indian students."
 ---
 
 <style>
-  /* 1. LAYOUT RESET */
+  /* 1. GLOBAL RESET & FONTS */
   .main-content {
     max-width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
   }
   
-  body { background-color: #f0f2f5; font-family: 'Segoe UI', sans-serif; }
+  body { 
+    background-color: #f4f7f6; 
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+  }
 
   /* 2. HERO SECTION */
   .visa-hero {
-    background: linear-gradient(rgba(10, 35, 66, 0.9), rgba(10, 35, 66, 0.9)), url('https://images.unsplash.com/photo-1524813686514-a57563d77965?w=1200&auto=format&fit=crop');
+    background: linear-gradient(rgba(10, 35, 66, 0.95), rgba(10, 35, 66, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     color: white;
     text-align: center;
-    padding: 100px 20px 60px;
-    border-bottom: 5px solid #D4AF37;
+    padding: 100px 20px 80px;
+    border-bottom: 4px solid #D4AF37;
   }
   
-  /* FIXED: Title Visibility */
   .visa-hero h1 { 
-    font-size: 3.5rem; 
-    margin: 0; 
+    font-size: 3rem; 
+    margin: 0 0 15px 0; 
     color: #ffffff !important; 
-    text-shadow: 0 4px 15px rgba(0,0,0,0.5); 
-    font-weight: 800;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+    font-weight: 700;
+    letter-spacing: 1px;
   }
   
   .visa-hero p { 
-    font-size: 1.3rem; 
+    font-size: 1.2rem; 
     color: #e0e0e0 !important; 
-    margin-top: 15px; 
-    font-weight: 500;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
   }
 
-  /* 3. COUNTRY SELECTOR (Tabs) */
+  /* 3. TIER NAVIGATION */
+  .tier-nav {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    text-align: center;
+  }
+
+  .tier-label {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
   .country-tabs {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
-    margin-top: -35px;
-    padding: 0 20px;
   }
 
   .tab-btn {
-    background: white;
-    border: none;
-    padding: 15px 35px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: bold;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
     color: #555;
     cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    transition: all 0.2s;
   }
 
-  .tab-btn:hover { transform: translateY(-3px); }
+  .tab-btn:hover { background: #e9ecef; }
   
   .tab-btn.active {
-    background: #D4AF37;
-    color: #0A2342;
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+    background: #0A2342;
+    color: white;
+    border-color: #0A2342;
   }
 
-  /* 4. CONTENT DISPLAY AREA */
+  /* 4. COUNTRY CONTENT CARD */
   .country-content {
-    max-width: 1100px;
-    margin: 50px auto;
-    padding: 20px;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
   }
 
   .visa-card {
     background: white;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.08);
     overflow: hidden;
     display: none;
-    animation: fadeIn 0.5s ease-out;
+    margin-bottom: 40px;
+    border: 1px solid #e0e0e0;
   }
   
   .visa-card.active { display: block; }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Card Header with IMAGE */
+  /* Card Header Image */
   .vc-header {
-    height: 200px;
+    height: 250px;
     position: relative;
     color: white;
-    overflow: hidden;
   }
 
   .vc-bg-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.6);
+    filter: brightness(0.5);
   }
 
   .vc-title-overlay {
     position: absolute;
-    bottom: 20px;
-    left: 30px;
+    bottom: 30px;
+    left: 40px;
     z-index: 2;
   }
 
-  .vc-title-overlay h2 { margin: 0; font-size: 3rem; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-  .vc-tag { background: #D4AF37; color: #0A2342; padding: 5px 15px; border-radius: 4px; font-weight: bold; font-size: 1rem; display: inline-block; margin-top: 5px; }
+  .vc-title-overlay h2 { 
+    margin: 0; 
+    font-size: 3rem; 
+    font-weight: 700; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+  
+  .vc-tag { 
+    background: #D4AF37; 
+    color: #0A2342; 
+    padding: 6px 12px; 
+    font-weight: bold; 
+    font-size: 0.9rem; 
+    display: inline-block; 
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
 
-  /* Data Grid */
-  .vc-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
+  /* 5. DATA GRID (8 SECTIONS) */
+  .vc-section {
     padding: 40px;
-    background: white;
+    border-bottom: 1px solid #eee;
   }
 
-  .data-point h4 { color: #888; font-size: 0.85rem; text-transform: uppercase; margin: 0 0 8px; letter-spacing: 1px; }
-  .data-point p { color: #0A2342; font-size: 1.25rem; font-weight: bold; margin: 0; }
+  .section-title {
+    color: #0A2342;
+    font-size: 1.4rem;
+    margin: 0 0 20px 0;
+    border-left: 4px solid #D4AF37;
+    padding-left: 15px;
+    font-weight: 700;
+  }
 
-  /* NEW: EXAM SECTION */
-  .exam-section {
+  /* Quick Facts Table */
+  .facts-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .facts-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+  }
+  
+  .facts-table td:first-child {
+    font-weight: bold;
+    color: #555;
+    width: 40%;
+  }
+
+  .facts-table td:last-child {
+    color: #0A2342;
+    font-weight: 600;
+  }
+
+  /* Cost Calculator Box */
+  .cost-box {
     background: #f8f9fa;
-    padding: 30px 40px;
-    border-top: 1px solid #eee;
-  }
-  
-  .exam-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 15px;
-  }
-
-  .exam-box {
-    background: white;
-    padding: 15px;
+    padding: 25px;
     border-radius: 8px;
-    border-left: 4px solid #0A2342;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
   }
 
-  /* Verdict Section */
-  .vc-verdict {
-    background: #fff;
-    padding: 30px 40px;
-    border-top: 1px solid #eee;
-  }
-
-  .verdict-box {
-    border-left: 5px solid #D4AF37;
-    padding-left: 20px;
-    background: #fffcf0;
-    padding: 20px;
-    border-radius: 0 10px 10px 0;
-  }
-
-  /* 5. ROADMAP STEPS */
-  .roadmap-steps {
-    max-width: 1000px;
-    margin: 60px auto;
-    padding: 20px;
-  }
-  
-  .step-container {
+  .cost-row {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
+    margin-bottom: 10px;
+    font-size: 1rem;
   }
 
-  .step-card {
-    flex: 1;
-    min-width: 180px;
-    background: white;
-    padding: 25px 20px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    position: relative;
-    border-bottom: 4px solid transparent;
-    transition: all 0.3s;
-  }
-
-  .step-card:hover { transform: translateY(-5px); border-bottom-color: #D4AF37; }
-
-  .step-num {
-    background: #0A2342;
-    color: white;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 15px;
+  .cost-total {
+    border-top: 2px solid #ccc;
+    padding-top: 10px;
+    margin-top: 10px;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    color: #0A2342;
+  }
+
+  /* Eligibility Badge */
+  .eligibility-check {
+    background: #e3f2fd;
+    color: #0d47a1;
+    padding: 15px;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    border: 1px solid #bbdefb;
+    transition: background 0.2s;
+  }
+  
+  .eligibility-check:hover { background: #bbdefb; }
+
+  /* Warning Box */
+  .warning-box {
+    background: #fff3e0;
+    border-left: 4px solid #ff9800;
+    padding: 20px;
+    color: #e65100;
+  }
+
+  /* 6. CTA BOTTOM */
+  .cta-section {
+    text-align: center;
+    margin-bottom: 80px;
+    padding: 40px;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
   }
 
 </style>
 
 <div class="visa-hero">
-  <h1>Your Ticket to the World ✈️</h1>
-  <p>Verified Intelligence on Costs, Visas, and Exams for Indian Students.</p>
+  <h1>Global Visa Intelligence Hub</h1>
+  <p>Verified data on Visa Success, Total Costs, and PR Chances for Indian Students.</p>
 </div>
 
-<div class="country-tabs">
-  <button class="tab-btn active" onclick="openCountry('usa')">🇺🇸 USA</button>
-  <button class="tab-btn" onclick="openCountry('uk')">🇬🇧 UK</button>
-  <button class="tab-btn" onclick="openCountry('canada')">🇨🇦 Canada</button>
-  <button class="tab-btn" onclick="openCountry('germany')">🇩🇪 Germany</button>
-  <button class="tab-btn" onclick="openCountry('australia')">🇦🇺 Australia</button>
-  <button class="tab-btn" onclick="openCountry('ireland')">🇮🇪 Ireland</button>
+<div class="tier-nav">
+  <span class="tier-label">Tier 1: Most Popular</span>
+  <div class="country-tabs">
+    <button class="tab-btn active" onclick="openCountry('canada')">Canada</button>
+    <button class="tab-btn" onclick="openCountry('australia')">Australia</button>
+    <button class="tab-btn" onclick="openCountry('uk')">UK</button>
+    <button class="tab-btn" onclick="openCountry('usa')">USA</button>
+    <button class="tab-btn" onclick="openCountry('germany')">Germany</button>
+  </div>
+  
+  <div style="margin-top:15px;">
+    <span class="tier-label">Tier 2: Fast Growing</span>
+    <div class="country-tabs">
+      <button class="tab-btn" onclick="openCountry('ireland')">Ireland</button>
+      <button class="tab-btn" onclick="openCountry('uae')">UAE (Dubai)</button>
+      <button class="tab-btn" onclick="openCountry('france')">France</button>
+      <button class="tab-btn" onclick="openCountry('nz')">New Zealand</button>
+    </div>
+  </div>
 </div>
 
 <div class="country-content">
 
-  <div id="usa" class="visa-card active">
+  <div id="canada" class="visa-card active">
     <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1550951298-5c7b95a66b6a?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-title-overlay">
-        <h2>United States</h2>
-        <span class="vc-tag">#1 for Tech & Research</span>
-      </div>
-    </div>
-    
-    <div class="vc-grid">
-      <div class="data-point"><h4>Avg Tuition (Year)</h4><p>₹25 - 50 Lakhs</p></div>
-      <div class="data-point"><h4>Living Cost (Year)</h4><p>₹12 - 18 Lakhs</p></div>
-      <div class="data-point"><h4>Stay Back Visa</h4><p>3 Years (STEM)</p></div>
-      <div class="data-point"><h4>Part-Time Work</h4><p>20 Hrs (On-Campus)</p></div>
-    </div>
-
-    <div class="exam-section">
-      <h3 style="margin-top:0; color:#0A2342;">📚 Required Exams & Scores</h3>
-      <div class="exam-grid">
-        <div class="exam-box">
-          <strong>GRE (Graduate Record Exam)</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">Essential for MS/PhD.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 310+ / 340</div>
-        </div>
-        <div class="exam-box">
-          <strong>TOEFL / IELTS</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">English Proficiency.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 90+ (TOEFL) or 6.5+ (IELTS)</div>
-        </div>
-        <div class="exam-box">
-          <strong>SAT (Undergrad Only)</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">For Bachelors degree.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 1300+ / 1600</div>
-        </div>
+        <h2>Canada</h2>
+        <span class="vc-tag">PR Friendly Destination</span>
       </div>
     </div>
 
-    <div class="vc-verdict">
-      <div class="verdict-box">
-        <h3 style="margin-top:0; color:#0A2342;">The VidyaVantage Verdict:</h3>
-        <p><strong>✅ Pros:</strong> Highest salaries globally. OPT (Stay back) allows you to recover cost quickly.</p>
-        <p><strong>⚠️ Cons:</strong> H1B Visa is a lottery. Strict interview process.</p>
+    <div class="vc-section">
+      <h3 class="section-title">1. Visa Success Rate</h3>
+      <table class="facts-table">
+        <tr><td>Approval Chance</td><td>60-70% (SDS Category)</td></tr>
+        <tr><td>Main Rejection Reason</td><td>Weak Financial Proof / Course Mismatch</td></tr>
+        <tr><td>English Requirement</td><td>IELTS 6.0 Overall (SDS Rule)</td></tr>
+        <tr><td>Backlogs Accepted</td><td>Up to 5-6 (varies by college)</td></tr>
+      </table>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">2. Total Annual Cost</h3>
+      <div class="cost-box">
+        <div class="cost-row"><span>Average Tuition</span><span>15 - 25 Lakhs</span></div>
+        <div class="cost-row"><span>Living Expenses (GIC)</span><span>12 - 13 Lakhs</span></div>
+        <div class="cost-total"><div class="cost-row"><span>REALISTIC BUDGET</span><span>27 - 38 Lakhs / Year</span></div></div>
+        <p style="font-size:0.9rem; color:#666; margin-top:10px;">*GIC amount is mandatory to show in advance.</p>
       </div>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">3. Part-Time Work Rules</h3>
+      <p><strong>Hours:</strong> 20 Hours per week (Off-campus allowed).</p>
+      <p><strong>During Breaks:</strong> Full-time work allowed.</p>
+      <p><strong>Minimum Wage:</strong> approx CAD 15-17 per hour.</p>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">4. Post Study Work (PGWP)</h3>
+      <p><strong>Duration:</strong> Up to 3 Years.</p>
+      <p><strong>Rule:</strong> Course must be 2+ years for a 3-year permit. Shorter courses get shorter permits.</p>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">5. PR & Settlement</h3>
+      <p><strong>Difficulty:</strong> Moderate.</p>
+      <p><strong>Pathway:</strong> Canadian Experience Class (CEC) via Express Entry.</p>
+      <p><strong>Timeline:</strong> Possible within 3-5 years if you secure a skilled job.</p>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">6. Intakes & Processing</h3>
+      <p><strong>Primary Intake:</strong> September (Fall).</p>
+      <p><strong>Secondary Intake:</strong> January (Winter).</p>
+      <p><strong>Processing Time:</strong> 4 - 8 Weeks (SDS).</p>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">7. High Demand Courses</h3>
+      <ul style="line-height:1.8;">
+        <li>Health Administration</li>
+        <li>Computer Science & IT</li>
+        <li>Supply Chain Management</li>
+        <li>Engineering Management</li>
+      </ul>
+    </div>
+
+    <div class="vc-section" style="border-bottom:none;">
+      <h3 class="section-title">8. Who Should NOT Choose Canada?</h3>
+      <div class="warning-box">
+        Do not choose Canada if you cannot handle extreme cold weather (-20C) or if you are looking for immediate PR without skilled work experience. The housing market in Toronto/Vancouver is currently very expensive.
+      </div>
+      <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-check">Check Your Canada Eligibility in 30 Seconds</a>
+    </div>
+  </div>
+
+  <div id="australia" class="visa-card">
+    <div class="vc-header">
+      <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <div class="vc-title-overlay">
+        <h2>Australia</h2>
+        <span class="vc-tag">High Lifestyle & Wages</span>
+      </div>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">1. Visa Success Rate</h3>
+      <table class="facts-table">
+        <tr><td>Approval Chance</td><td>80-90% (Level 1 Universities)</td></tr>
+        <tr><td>Main Rejection Reason</td><td>Non-Genuine Temporary Entrant (GTE)</td></tr>
+        <tr><td>English Requirement</td><td>IELTS 6.5 Overall</td></tr>
+        <tr><td>Gap Accepted</td><td>Strictly scrutinized</td></tr>
+      </table>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">2. Total Annual Cost</h3>
+      <div class="cost-box">
+        <div class="cost-row"><span>Average Tuition</span><span>25 - 40 Lakhs</span></div>
+        <div class="cost-row"><span>Living Expenses</span><span>15 - 18 Lakhs</span></div>
+        <div class="cost-total"><div class="cost-row"><span>REALISTIC BUDGET</span><span>40 - 58 Lakhs / Year</span></div></div>
+      </div>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">3. Part-Time Work Rules</h3>
+      <p><strong>Hours:</strong> 48 Hours per fortnight (24 hrs/week).</p>
+      <p><strong>Wage:</strong> Highest in the world (approx AUD 23/hour).</p>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">4. Post Study Work</h3>
+      <p><strong>Duration:</strong> 2 to 4 Years.</p>
+      <p><strong>Bonus:</strong> Extra years granted for studying in Regional Areas (Perth, Adelaide, Gold Coast).</p>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">5. PR & Settlement</h3>
+      <p><strong>Difficulty:</strong> Hard (Points Based).</p>
+      <p><strong>Pathway:</strong> General Skilled Migration (189/190 Visas).</p>
+      <p><strong>Tip:</strong> Nursing, Teaching, and IT have higher PR chances.</p>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">6. Intakes & Processing</h3>
+      <p><strong>Major Intakes:</strong> February and July.</p>
+      <p><strong>Processing Time:</strong> 4 - 12 Weeks.</p>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">7. High Demand Courses</h3>
+      <ul style="line-height:1.8;">
+        <li>Nursing & Public Health</li>
+        <li>Data Science</li>
+        <li>Engineering (Civil/Mining)</li>
+      </ul>
+    </div>
+
+    <div class="vc-section" style="border-bottom:none;">
+      <h3 class="section-title">8. Who Should NOT Choose Australia?</h3>
+      <div class="warning-box">
+        Do not choose Australia if you are on a tight budget. Tuition and rent are very high. Also avoid if you have a large unexplained study gap.
+      </div>
+      <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-check">Check Your Australia Eligibility in 30 Seconds</a>
     </div>
   </div>
 
@@ -287,80 +432,74 @@ description: "Compare student visas for USA, UK, Canada, Germany, and Australia.
       <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-title-overlay">
         <h2>United Kingdom</h2>
-        <span class="vc-tag">Best for 1-Year Masters</span>
-      </div>
-    </div>
-    
-    <div class="vc-grid">
-      <div class="data-point"><h4>Avg Tuition (Year)</h4><p>₹20 - 35 Lakhs</p></div>
-      <div class="data-point"><h4>Living Cost (Year)</h4><p>₹12 - 15 Lakhs</p></div>
-      <div class="data-point"><h4>Stay Back Visa</h4><p>2 Years (Graduate Route)</p></div>
-      <div class="data-point"><h4>Part-Time Work</h4><p>20 Hrs (Off-Campus OK)</p></div>
-    </div>
-
-    <div class="exam-section">
-      <h3 style="margin-top:0; color:#0A2342;">📚 Required Exams & Scores</h3>
-      <div class="exam-grid">
-        <div class="exam-box">
-          <strong>IELTS Academic</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">Mandatory for Visa.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 6.5 (No Band < 6.0)</div>
-        </div>
-        <div class="exam-box">
-          <strong>No GRE Required</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">Most UK Universities do not ask for GRE.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Focus on GPA</div>
-        </div>
+        <span class="vc-tag">1-Year Masters</span>
       </div>
     </div>
 
-    <div class="vc-verdict">
-      <div class="verdict-box">
-        <h3 style="margin-top:0; color:#0A2342;">The VidyaVantage Verdict:</h3>
-        <p><strong>✅ Pros:</strong> Short duration (1 Year Masters). 2 Year guaranteed work search visa.</p>
-        <p><strong>⚠️ Cons:</strong> Job market is competitive. High rent in London.</p>
+    <div class="vc-section">
+      <h3 class="section-title">1. Visa Success Rate</h3>
+      <table class="facts-table">
+        <tr><td>Approval Chance</td><td>95% (Very High)</td></tr>
+        <tr><td>Main Rejection Reason</td><td>Credibility Interview Fail</td></tr>
+        <tr><td>English Requirement</td><td>IELTS 6.5 (Waiver possible)</td></tr>
+      </table>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">2. Total Annual Cost</h3>
+      <div class="cost-box">
+        <div class="cost-row"><span>Average Tuition</span><span>20 - 30 Lakhs</span></div>
+        <div class="cost-row"><span>Living Expenses</span><span>12 - 15 Lakhs</span></div>
+        <div class="cost-total"><div class="cost-row"><span>REALISTIC BUDGET</span><span>32 - 45 Lakhs (Total)</span></div></div>
+        <p style="font-size:0.9rem; color:#666;">*Note: Masters is only 1 year, so this is the total cost.</p>
       </div>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">4. Post Study Work (Graduate Route)</h3>
+      <p><strong>Duration:</strong> 2 Years flat.</p>
+      <p><strong>Rule:</strong> You can work in any job (even cashier/driver) during these 2 years to recover costs.</p>
+    </div>
+
+    <div class="vc-section" style="border-bottom:none;">
+      <h3 class="section-title">8. Who Should NOT Choose UK?</h3>
+      <div class="warning-box">
+        Do not choose UK if your primary goal is permanent settlement (PR). The PR route takes 5+ years of sponsored work, which is difficult to secure.
+      </div>
+      <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-check">Check Your UK Eligibility in 30 Seconds</a>
     </div>
   </div>
 
-  <div id="canada" class="visa-card">
+  <div id="usa" class="visa-card">
     <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <img src="https://images.unsplash.com/photo-1550951298-5c7b95a66b6a?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-title-overlay">
-        <h2>Canada</h2>
-        <span class="vc-tag">The PR Pathway</span>
-      </div>
-    </div>
-    
-    <div class="vc-grid">
-      <div class="data-point"><h4>Avg Tuition (Year)</h4><p>₹15 - 30 Lakhs</p></div>
-      <div class="data-point"><h4>Living Cost (Year)</h4><p>₹20 Lakhs (GIC)</p></div>
-      <div class="data-point"><h4>Stay Back Visa</h4><p>Up to 3 Years (PGWP)</p></div>
-      <div class="data-point"><h4>Part-Time Work</h4><p>24 Hrs/Week</p></div>
-    </div>
-
-    <div class="exam-section">
-      <h3 style="margin-top:0; color:#0A2342;">📚 Required Exams & Scores</h3>
-      <div class="exam-grid">
-        <div class="exam-box">
-          <strong>IELTS Academic</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">Strict requirement for SDS Visa.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 6.0 in each band</div>
-        </div>
-        <div class="exam-box">
-          <strong>PTE Academic</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">Accepted by most colleges.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 60+</div>
-        </div>
+        <h2>USA</h2>
+        <span class="vc-tag">Highest Salaries</span>
       </div>
     </div>
 
-    <div class="vc-verdict">
-      <div class="verdict-box">
-        <h3 style="margin-top:0; color:#0A2342;">The VidyaVantage Verdict:</h3>
-        <p><strong>✅ Pros:</strong> Clear path to Permanent Residency (PR). Friendly to immigrants.</p>
-        <p><strong>⚠️ Cons:</strong> Housing crisis in major cities. Extreme winter weather.</p>
+    <div class="vc-section">
+      <h3 class="section-title">1. Visa Success Rate</h3>
+      <table class="facts-table">
+        <tr><td>Approval Chance</td><td>80% (Interview Based)</td></tr>
+        <tr><td>Main Rejection Reason</td><td>Applying to low-tier colleges</td></tr>
+        <tr><td>English Requirement</td><td>TOEFL 90+ / IELTS 6.5</td></tr>
+      </table>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">4. Post Study Work (OPT)</h3>
+      <p><strong>STEM Degrees:</strong> 3 Years work permit.</p>
+      <p><strong>Non-STEM:</strong> 1 Year work permit.</p>
+    </div>
+
+    <div class="vc-section" style="border-bottom:none;">
+      <h3 class="section-title">8. Who Should NOT Choose USA?</h3>
+      <div class="warning-box">
+        Do not choose USA if you fear interviews. The visa depends entirely on a 2-minute interview officer's mood. Also avoid if doing non-STEM courses (only 1 year stay back).
       </div>
+      <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-check">Check Your USA Eligibility in 30 Seconds</a>
     </div>
   </div>
 
@@ -372,77 +511,55 @@ description: "Compare student visas for USA, UK, Canada, Germany, and Australia.
         <span class="vc-tag">Free Education</span>
       </div>
     </div>
-    
-    <div class="vc-grid">
-      <div class="data-point"><h4>Avg Tuition (Year)</h4><p>ZERO (Public)</p></div>
-      <div class="data-point"><h4>Living Cost (Year)</h4><p>₹11 Lakhs (Blocked Acc)</p></div>
-      <div class="data-point"><h4>Stay Back Visa</h4><p>18 Months</p></div>
-      <div class="data-point"><h4>Part-Time Work</h4><p>20 Hrs/Week</p></div>
-    </div>
 
-    <div class="exam-section">
-      <h3 style="margin-top:0; color:#0A2342;">📚 Required Exams & Scores</h3>
-      <div class="exam-grid">
-        <div class="exam-box">
-          <strong>IELTS / TOEFL</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">For English-taught programs.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 6.5 Bands</div>
-        </div>
-        <div class="exam-box">
-          <strong>German Language (Goethe)</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">Highly recommended for jobs.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Level: A1/A2 (Basics)</div>
-        </div>
-        <div class="exam-box">
-          <strong>GRE</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">Required by top TU9 Universities.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 315+</div>
-        </div>
+    <div class="vc-section">
+      <h3 class="section-title">2. Total Annual Cost</h3>
+      <div class="cost-box">
+        <div class="cost-row"><span>Tuition (Public)</span><span>ZERO</span></div>
+        <div class="cost-row"><span>Living (Blocked Acc)</span><span>11 - 12 Lakhs</span></div>
+        <div class="cost-total"><div class="cost-row"><span>REALISTIC BUDGET</span><span>12 Lakhs / Year</span></div></div>
       </div>
     </div>
 
-    <div class="vc-verdict">
-      <div class="verdict-box">
-        <h3 style="margin-top:0; color:#0A2342;">The VidyaVantage Verdict:</h3>
-        <p><strong>✅ Pros:</strong> No tuition fees (save ₹30 Lakhs!). Strongest economy in Europe.</p>
-        <p><strong>⚠️ Cons:</strong> Language barrier is real. Academic entry is very strict.</p>
+    <div class="vc-section" style="border-bottom:none;">
+      <h3 class="section-title">8. Who Should NOT Choose Germany?</h3>
+      <div class="warning-box">
+        Do not choose Germany if you are unwilling to learn the German language. While courses are in English, daily life and jobs require German skills.
       </div>
+      <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-check">Check Your Germany Eligibility in 30 Seconds</a>
     </div>
   </div>
 
-  <div id="australia" class="visa-card">
+  <div id="uae" class="visa-card">
     <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <img src="https://images.unsplash.com/photo-1512453979798-5ea904ac6605?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-title-overlay">
-        <h2>Australia</h2>
-        <span class="vc-tag">Lifestyle & Quality</span>
-      </div>
-    </div>
-    
-    <div class="vc-grid">
-      <div class="data-point"><h4>Avg Tuition (Year)</h4><p>₹25 - 40 Lakhs</p></div>
-      <div class="data-point"><h4>Living Cost (Year)</h4><p>₹15 - 20 Lakhs</p></div>
-      <div class="data-point"><h4>Stay Back Visa</h4><p>2 - 4 Years</p></div>
-      <div class="data-point"><h4>Part-Time Work</h4><p>24 Hrs/Week</p></div>
-    </div>
-
-    <div class="exam-section">
-      <h3 style="margin-top:0; color:#0A2342;">📚 Required Exams & Scores</h3>
-      <div class="exam-grid">
-        <div class="exam-box">
-          <strong>IELTS / PTE</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">Strict Visa Requirement.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 6.5 (No Band < 6.0)</div>
-        </div>
+        <h2>UAE (Dubai)</h2>
+        <span class="vc-tag">Luxury & Safety</span>
       </div>
     </div>
 
-    <div class="vc-verdict">
-      <div class="verdict-box">
-        <h3 style="margin-top:0; color:#0A2342;">The VidyaVantage Verdict:</h3>
-        <p><strong>✅ Pros:</strong> High minimum wage. Great weather. Extra stay back for regional areas.</p>
-        <p><strong>⚠️ Cons:</strong> Very expensive. Visa rejection rates for Indians are high currently.</p>
+    <div class="vc-section">
+      <h3 class="section-title">1. Visa Success Rate</h3>
+      <table class="facts-table">
+        <tr><td>Approval Chance</td><td>99% (Easiest)</td></tr>
+        <tr><td>Processing Time</td><td>2-3 Weeks</td></tr>
+        <tr><td>Sponsor</td><td>University sponsors Visa</td></tr>
+      </table>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">4. Post Study Work</h3>
+      <p><strong>Golden Visa:</strong> Outstanding students (GPA 3.8+) get a 5-10 year visa.</p>
+      <p><strong>Standard:</strong> 1 Year renewable job-seeker visa.</p>
+    </div>
+
+    <div class="vc-section" style="border-bottom:none;">
+      <h3 class="section-title">8. Who Should NOT Choose UAE?</h3>
+      <div class="warning-box">
+        Do not choose UAE if you want "Citizenship". You will likely never get a passport here. It is great for making money tax-free, but not for permanent immigration.
       </div>
+      <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-check">Check Your Dubai Eligibility in 30 Seconds</a>
     </div>
   </div>
 
@@ -451,73 +568,39 @@ description: "Compare student visas for USA, UK, Canada, Germany, and Australia.
       <img src="https://images.unsplash.com/photo-1590089415225-401cd6f9ad5d?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-title-overlay">
         <h2>Ireland</h2>
-        <span class="vc-tag">Silicon Valley of Europe</span>
-      </div>
-    </div>
-    
-    <div class="vc-grid">
-      <div class="data-point"><h4>Avg Tuition (Year)</h4><p>₹12 - 25 Lakhs</p></div>
-      <div class="data-point"><h4>Living Cost (Year)</h4><p>₹12 - 15 Lakhs</p></div>
-      <div class="data-point"><h4>Stay Back Visa</h4><p>2 Years</p></div>
-      <div class="data-point"><h4>Part-Time Work</h4><p>20 Hrs/Week</p></div>
-    </div>
-
-    <div class="exam-section">
-      <h3 style="margin-top:0; color:#0A2342;">📚 Required Exams & Scores</h3>
-      <div class="exam-grid">
-        <div class="exam-box">
-          <strong>IELTS / PTE</strong>
-          <p style="margin:5px 0; font-size:0.9rem; color:#666;">Accepted by all colleges.</p>
-          <div style="color:#2e7d32; font-weight:bold;">Target: 6.5 Bands</div>
-        </div>
+        <span class="vc-tag">Europe's Tech Hub</span>
       </div>
     </div>
 
-    <div class="vc-verdict">
-      <div class="verdict-box">
-        <h3 style="margin-top:0; color:#0A2342;">The VidyaVantage Verdict:</h3>
-        <p><strong>✅ Pros:</strong> English speaking EU country. Home to Google/Meta HQs (Tech Jobs).</p>
-        <p><strong>⚠️ Cons:</strong> Smaller job market than UK/US. Housing shortage in Dublin.</p>
+    <div class="vc-section">
+      <h3 class="section-title">1. Visa Success Rate</h3>
+      <table class="facts-table">
+        <tr><td>Approval Chance</td><td>90-95%</td></tr>
+        <tr><td>Main Requirement</td><td>Paid Fees + Finance Proof</td></tr>
+      </table>
+    </div>
+
+    <div class="vc-section">
+      <h3 class="section-title">4. Post Study Work</h3>
+      <p><strong>Masters:</strong> 2 Years stay back.</p>
+      <p><strong>Bachelors:</strong> 1 Year stay back.</p>
+    </div>
+
+    <div class="vc-section" style="border-bottom:none;">
+      <h3 class="section-title">8. Who Should NOT Choose Ireland?</h3>
+      <div class="warning-box">
+        Do not choose Ireland if you are in a niche non-tech field. The market is small compared to UK/Germany. Housing in Dublin is notoriously difficult to find.
       </div>
+      <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-check">Check Your Ireland Eligibility in 30 Seconds</a>
     </div>
   </div>
 
 </div>
 
-<div class="roadmap-steps">
-  <h2 style="text-align:center; color:#0A2342; margin-bottom:40px;">Your 5-Step Application Roadmap</h2>
-  <div class="step-container">
-    <div class="step-card">
-      <div class="step-num">1</div>
-      <h3>Profile Check</h3>
-      <p style="font-size:0.9rem; color:#666;">GPA & Budget Analysis.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">2</div>
-      <h3>Tests Prep</h3>
-      <p style="font-size:0.9rem; color:#666;">IELTS/GRE (3 Months).</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">3</div>
-      <h3>Apply</h3>
-      <p style="font-size:0.9rem; color:#666;">Shortlist & Send Docs.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">4</div>
-      <h3>Visa</h3>
-      <p style="font-size:0.9rem; color:#666;">Loan & Embassy Interview.</p>
-    </div>
-    <div class="step-card">
-      <div class="step-num">5</div>
-      <h3>Fly!</h3>
-      <p style="font-size:0.9rem; color:#666;">Housing & Travel.</p>
-    </div>
-  </div>
-</div>
-
-<div style="text-align: center; margin-bottom: 80px;">
-  <p style="font-size:1.2rem; color:#555;">Don't let a small mistake reject your visa.</p>
-  <a href="{{ '/book-expert/' | relative_url }}" style="background: #0A2342; color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s;">Talk to a Visa Expert</a>
+<div class="cta-section">
+  <h2>Confused by the Options?</h2>
+  <p>Don't guess with your future. Get a verified profile evaluation.</p>
+  <a href="{{ '/book-expert/' | relative_url }}" style="background: #0A2342; color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; display:inline-block; margin-top:10px;">Talk to a Visa Expert</a>
 </div>
 
 <script>
