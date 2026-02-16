@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Christ University, and St. Joseph's."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for RVCE, IISc, Christ University, and St. Joseph's."
 ---
 
 <style>
@@ -108,6 +108,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/iisc/' | relative_url }}" class="view-btn" style="background: #005a9c; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card" style="border-top-color: #FFC107;">
+    <img src="https://rvce.edu.in/sites/default/files/slider/slider1.jpg" class="card-img" alt="RVCE Bangalore">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #003366;">RV College of Engineering</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Mysuru Road</span>
+        <span class="tag">🏆 Est. 1963</span>
+      </div>
+      <p class="card-desc">
+        Bangalore's most preferred engineering college. Known for high academic rigor, excellent placements in CSE/ISE, and vibrant campus life.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/rvce/' | relative_url }}" class="view-btn" style="background: #003366; color: #FFC107;">
         View Programs ➔
       </a>
     </div>
