@@ -1,7 +1,9 @@
 ---
 layout: default
-title: Complete Career Roadmap
+title: The Ultimate Career Roadmap (Class 10-12)
 permalink: /career-search/
+image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=630&fit=crop"
+description: "Confused after Class 10? Explore the complete interactive roadmap for Science, Commerce, Arts, and Diploma streams. Check exams, salaries, and career paths in India."
 ---
 
 <style>
@@ -14,15 +16,42 @@ permalink: /career-search/
   
   body { background-color: #f4f6f8; }
 
-  /* 2. VERTICAL TREE CONTAINER */
+  /* 2. QUOTES CAROUSEL */
+  .quote-container {
+    background: #0A2342;
+    color: #D4AF37;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height: 60px; /* Fixed height for consistency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .quote-slide {
+    font-size: 1.1rem;
+    font-style: italic;
+    font-weight: 500;
+    opacity: 0;
+    position: absolute;
+    transition: opacity 1s ease-in-out;
+    width: 90%;
+  }
+
+  .quote-slide.active { opacity: 1; }
+
+  /* 3. VERTICAL TREE CONTAINER */
   .tree-wrapper {
     max-width: 900px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 40px 20px 80px;
     font-family: 'Open Sans', sans-serif;
   }
 
-  /* 3. TREE CSS */
+  /* 4. TREE CSS */
   ul.tree, ul.tree ul {
     list-style: none;
     margin: 0;
@@ -70,14 +99,14 @@ permalink: /career-search/
     bottom: 0;
   }
 
-  /* 4. NODE STYLING */
+  /* 5. NODE STYLING */
   .node-box {
     display: inline-block;
     padding: 8px 15px;
     border: 2px solid #ccc;
     background: white;
-    border-radius: 50px;
-    font-weight: bold;
+    border-radius: 4px; /* Squared off slightly for cleaner look */
+    font-weight: 600;
     color: #0A2342;
     cursor: pointer;
     transition: all 0.2s;
@@ -99,7 +128,7 @@ permalink: /career-search/
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
   }
 
-  /* 5. INFO PANEL */
+  /* 6. INFO PANEL */
   .info-panel {
     position: fixed;
     bottom: 20px;
@@ -131,14 +160,28 @@ permalink: /career-search/
     text-decoration: none;
     font-weight: bold;
     z-index: 500;
+    font-size: 0.9rem;
   }
 </style>
 
-<a href="{{ '/' | relative_url }}" class="back-btn">← Home</a>
+<a href="{{ '/' | relative_url }}" class="back-btn">Back to Home</a>
 
-<div style="text-align: center; padding: 80px 20px 40px; background: #0A2342; color: white;">
-  <h1 style="margin:0;">Interactive Career Tree</h1>
-  <p style="opacity:0.8;">Click any career to see details. <br>10th doesn't decide your life, but it decides your next path.</p>
+<div style="text-align: center; padding: 80px 20px 20px; background: #0A2342; color: white;">
+  <h1 style="margin:0;">Interactive Career Roadmap</h1>
+  <p style="opacity:0.8; font-size: 1.1rem; margin-top: 10px;">Click any career box to see subjects, exams, and advice.</p>
+</div>
+
+<div class="quote-container">
+  <div class="quote-slide active">"The future belongs to those who believe in the beauty of their dreams." — Eleanor Roosevelt</div>
+  <div class="quote-slide">"Choose a job you love, and you will never have to work a day in your life." — Confucius</div>
+  <div class="quote-slide">"Education is the passport to the future." — Malcolm X</div>
+  <div class="quote-slide">"Don't watch the clock; do what it does. Keep going." — Sam Levenson</div>
+  <div class="quote-slide">"Your time is limited, so don't waste it living someone else's life." — Steve Jobs</div>
+  <div class="quote-slide">"Opportunities don't happen. You create them." — Chris Grosser</div>
+  <div class="quote-slide">"Success is not the key to happiness. Happiness is the key to success." — Albert Schweitzer</div>
+  <div class="quote-slide">"The only way to do great work is to love what you do." — Steve Jobs</div>
+  <div class="quote-slide">"Believe you can and you're halfway there." — Theodore Roosevelt</div>
+  <div class="quote-slide">"The best way to predict the future is to create it." — Peter Drucker</div>
 </div>
 
 <div class="tree-wrapper">
@@ -154,7 +197,7 @@ permalink: /career-search/
           <ul>
             
             <li>
-              <span class="node-box" id="med_track" onclick="selectNode('med_track', 'sci')">🔬 Medical (PCB)</span>
+              <span class="node-box" id="med_track" onclick="selectNode('med_track', 'sci')">Medical (PCB)</span>
               <ul>
                 <li><span class="node-box" id="mbbs" onclick="selectNode('mbbs', 'med_track')">MBBS (Doctor)</span></li>
                 <li><span class="node-box" id="dentist" onclick="selectNode('dentist', 'med_track')">Dentist (BDS)</span></li>
@@ -165,7 +208,7 @@ permalink: /career-search/
             </li>
 
             <li>
-              <span class="node-box" id="eng_track" onclick="selectNode('eng_track', 'sci')">⚙️ Engineering (PCM)</span>
+              <span class="node-box" id="eng_track" onclick="selectNode('eng_track', 'sci')">Engineering (PCM)</span>
               <ul>
                 <li><span class="node-box" id="btech" onclick="selectNode('btech', 'eng_track')">B.Tech (CSE / Mech / Civil)</span></li>
                 <li><span class="node-box" id="arch" onclick="selectNode('arch', 'eng_track')">Architecture</span></li>
@@ -175,7 +218,7 @@ permalink: /career-search/
             </li>
 
             <li>
-              <span class="node-box" id="research_track" onclick="selectNode('research_track', 'sci')">🧠 Research / New-Age</span>
+              <span class="node-box" id="research_track" onclick="selectNode('research_track', 'sci')">Research / New-Age</span>
               <ul>
                 <li><span class="node-box" id="scientist" onclick="selectNode('scientist', 'research_track')">Scientist / ISRO</span></li>
                 <li><span class="node-box" id="forensic" onclick="selectNode('forensic', 'research_track')">Forensic Science</span></li>
@@ -259,14 +302,29 @@ permalink: /career-search/
   <button onclick="closeInfo()" style="float:right; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#999;">&times;</button>
   <h3 id="panel-title" style="color:#0A2342; margin-top:0;">Title</h3>
   <div id="panel-tags" style="margin-bottom:10px;"></div>
-  <p><strong>👉 Good if:</strong> <span id="panel-good" style="color:#D4AF37; font-weight:bold;"></span></p>
+  <p><strong>Best Suited For:</strong> <span id="panel-good" style="color:#D4AF37; font-weight:bold;"></span></p>
   <hr style="border:0; border-top:1px solid #eee;">
   <p id="panel-desc" style="font-size:0.9rem; color:#555; line-height:1.5;">Desc</p>
   <a href="{{ '/book-expert/' | relative_url }}" class="btn" style="background:#0A2342; color:white; padding:10px; display:block; text-align:center; text-decoration:none; border-radius:5px; margin-top:15px;">Talk to Counsellor</a>
 </div>
 
 <script>
-  // --- DATABASE ---
+  // --- CAROUSEL LOGIC ---
+  let slideIndex = 0;
+  const slides = document.querySelectorAll(".quote-slide");
+  
+  function showSlides() {
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove("active");
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}
+    slides[slideIndex-1].classList.add("active");
+    setTimeout(showSlides, 4000); // Change image every 4 seconds
+  }
+  showSlides();
+
+  // --- DATABASE (NO EMOJIS) ---
   const data = {
     // ROOT
     "root": { title: "Class 10 Pass", good: "You are ready to choose your path", desc: "10th doesn't decide your life — it only decides your next path. You have 4 major routes." },
