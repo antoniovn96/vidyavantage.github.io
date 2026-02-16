@@ -34,19 +34,37 @@
         text-decoration: none;
         letter-spacing: 1px;
       }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
       .nav-links a {
         color: white;
-        margin-left: 20px;
         text-decoration: none;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        font-weight: 500;
         transition: color 0.3s;
       }
       .nav-links a:hover { color: #D4AF37; }
 
-      /* CONTENT WRAPPER (Makes sure blog isn't too wide) */
+      /* Special Style for Book Expert Button */
+      .nav-btn {
+        border: 1px solid #D4AF37;
+        padding: 8px 15px;
+        border-radius: 20px;
+        color: #D4AF37 !important;
+        font-weight: bold;
+      }
+      .nav-btn:hover {
+        background: #D4AF37;
+        color: #0A2342 !important;
+      }
+
+      /* CONTENT WRAPPER */
       .main-content {
         flex: 1; /* Pushes footer down */
-        max-width: 900px; /* Reading width */
+        max-width: 1000px;
         margin: 0 auto;
         padding: 40px 20px;
         width: 100%;
@@ -77,8 +95,9 @@
       .copyright { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #888; }
       
       /* Mobile Fixes */
-      @media (max-width: 768px) {
-        .nav-links { display: none; } /* Simplify for mobile */
+      @media (max-width: 900px) {
+        .top-nav { flex-direction: column; gap: 15px; }
+        .nav-links { flex-wrap: wrap; justify-content: center; font-size: 0.85rem; }
       }
     </style>
   </head>
@@ -87,11 +106,14 @@
     
     <nav class="top-nav">
       <a href="{{ '/' | relative_url }}" class="nav-logo">VIDYAVANTAGE</a>
+      
       <div class="nav-links">
+        <a href="{{ '/career-search/' | relative_url }}">Roadmap</a>
+        <a href="{{ '/stream-selector/' | relative_url }}">Stream Selector</a>
         <a href="{{ '/visas/' | relative_url }}">Global Visas</a>
         <a href="{{ '/colleges/' | relative_url }}">Colleges</a>
         <a href="{{ '/blog/' | relative_url }}">Blog</a>
-        <a href="{{ '/book-expert/' | relative_url }}" style="color: #D4AF37; font-weight: bold;">Book Expert</a>
+        <a href="{{ '/book-expert/' | relative_url }}" class="nav-btn">Book Expert</a>
       </div>
     </nav>
 
@@ -109,8 +131,9 @@
           <div class="footer-heading">Quick Links</div>
           <div class="footer-links">
             <a href="{{ '/stream-selector/' | relative_url }}">Stream Selector</a>
+            <a href="{{ '/career-search/' | relative_url }}">Career Roadmap</a>
             <a href="{{ '/visas/' | relative_url }}">Visa Rules</a>
-            <a href="{{ '/blog/' | relative_url }}">Career Blog</a>
+            <a href="{{ '/colleges/' | relative_url }}">Top Colleges</a>
           </div>
         </div>
         <div class="footer-col">
