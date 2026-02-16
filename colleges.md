@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for St. Joseph's, Christ University, and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Christ University, and St. Joseph's."
 ---
 
 <style>
@@ -94,21 +94,21 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
 
 <div class="college-grid">
 
-  <div class="college-card">
-    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&h=300&fit=crop" class="card-img" alt="St Josephs">
+  <div class="college-card" style="border-top-color: #005a9c;">
+    <img src="https://iisc.ac.in/wp-content/uploads/2020/08/main-building.jpg" class="card-img" alt="IISc Bangalore">
     <div class="card-body">
-      <h2 class="college-name">St. Joseph's University</h2>
+      <h2 class="college-name" style="color: #005a9c;">Indian Institute of Science (IISc)</h2>
       <div class="college-meta">
         <span class="tag">📍 Bengaluru</span>
-        <span class="tag">🏆 Est. 1882</span>
+        <span class="tag">🏆 NIRF Rank #1</span>
       </div>
       <p class="card-desc">
-        One of the oldest and most prestigious institutions in Bangalore. Known for excellence in Commerce, Humanities, and Basic Sciences with a strong focus on holistic development.
+        India's premier institute for advanced scientific and technological research. Offers B.Sc (Research), B.Tech in Mathematics & Computing, M.Tech, and PhD programs.
       </p>
     </div>
     <div class="card-footer">
-      <a href="{{ '/colleges/st-josephs/' | relative_url }}" class="view-btn" style="background: #0A2342; color: #D4AF37;">
-        View Courses ➔
+      <a href="{{ '/colleges/iisc/' | relative_url }}" class="view-btn" style="background: #005a9c; color: white;">
+        View Programs ➔
       </a>
     </div>
   </div>
@@ -132,4 +132,23 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
+  <div class="college-card">
+    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&h=300&fit=crop" class="card-img" alt="St Josephs">
+    <div class="card-body">
+      <h2 class="college-name">St. Joseph's University</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Bengaluru</span>
+        <span class="tag">🏆 Est. 1882</span>
+      </div>
+      <p class="card-desc">
+        One of the oldest and most prestigious institutions in Bangalore. Known for excellence in Commerce, Humanities, and Basic Sciences with a strong focus on holistic development.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/st-josephs/' | relative_url }}" class="view-btn" style="background: #0A2342; color: #D4AF37;">
+        View Courses ➔
+      </a>
+    </div>
   </div>
+
+</div>
