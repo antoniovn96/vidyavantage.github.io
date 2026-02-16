@@ -3,175 +3,118 @@ layout: default
 title: "St. Joseph's University, Bengaluru 🎓"
 permalink: /colleges/st-josephs/
 image: "https://images.unsplash.com/photo-1562774053-701939374585?w=1200&h=630&fit=crop"
-description: "Complete list of Undergraduate, PG, and Diploma courses at St. Joseph's University with batch timings, fees, and entrance exam details."
+description: "Explore Undergraduate, PG, and Diploma courses at St. Joseph's University. Check batch timings (Morning/Evening), fees, and entrance exams."
 ---
 
 <style>
-  /* 1. LAYOUT RESET */
-  .main-content {
-    max-width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  
-  body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+  /* 1. GLOBAL LAYOUT */
+  .main-content { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; color: #333; }
 
   /* 2. HERO SECTION */
   .uni-hero {
-    background: linear-gradient(rgba(10, 35, 66, 0.9), rgba(10, 35, 66, 0.8)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&auto=format&fit=crop');
+    background: linear-gradient(rgba(10, 35, 66, 0.9), rgba(10, 35, 66, 0.7)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     color: white;
     text-align: center;
     padding: 100px 20px;
     margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   }
-
-  .uni-hero h1 { font-size: 3rem; margin: 0; color: white !important; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-  .uni-hero p { font-size: 1.2rem; color: #ddd !important; margin-top: 10px; }
+  .uni-hero h1 { font-size: 3.5rem; margin: 0; color: white !important; font-weight: 800; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+  .uni-hero p { font-size: 1.3rem; color: #e0e0e0 !important; margin-top: 15px; font-weight: 500; }
   
   .visit-btn {
-    display: inline-block;
-    background: #D4AF37;
-    color: #0A2342;
-    padding: 10px 25px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 20px;
-    transition: transform 0.2s;
+    display: inline-block; background: #D4AF37; color: #0A2342; padding: 12px 30px; 
+    border-radius: 50px; text-decoration: none; font-weight: bold; margin-top: 25px; 
+    transition: transform 0.2s; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
   }
-  .visit-btn:hover { transform: scale(1.05); text-decoration: none; color: #0A2342; }
+  .visit-btn:hover { transform: translateY(-3px); color: #0A2342; }
 
   /* 3. TABS */
-  .level-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-    padding: 0 20px;
-  }
-
+  .level-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; padding: 0 20px; }
   .tab-btn {
-    background: white;
-    border: 1px solid #ddd;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-weight: bold;
-    color: #555;
-    cursor: pointer;
+    background: white; border: none; padding: 12px 30px; border-radius: 50px;
+    font-weight: 700; color: #555; cursor: pointer; transition: all 0.3s;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: all 0.3s;
   }
+  .tab-btn.active { background: #0A2342; color: white; box-shadow: 0 5px 15px rgba(10, 35, 66, 0.3); }
 
-  .tab-btn.active {
-    background: #0A2342;
-    color: white;
-    border-color: #0A2342;
-    box-shadow: 0 5px 15px rgba(10, 35, 66, 0.3);
-  }
-
-  /* 4. COURSE CARDS */
-  .course-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px 60px;
-    display: none;
-    animation: fadeIn 0.5s;
-  }
-  
+  /* 4. COURSE CARDS GRID */
+  .course-container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; display: none; animation: fadeIn 0.5s; }
   .course-container.active { display: block; }
-
-  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-
-  .school-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    margin-bottom: 30px;
-    overflow: hidden;
-    border-top: 5px solid #0A2342;
-  }
-
-  .school-header {
-    background: #f8f9fa;
-    padding: 20px 30px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .school-header h2 { margin: 0; color: #0A2342; font-size: 1.5rem; }
-
-  /* TABLE STYLES */
-  .course-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .course-table th, .course-table td {
-    padding: 15px 30px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-    font-size: 0.95rem;
-  }
-
-  .course-table th {
-    background: #fff;
-    color: #888;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-
-  .course-table tr:last-child td { border-bottom: none; }
-  .course-table tr:hover { background: #fdfdfd; }
-
-  .batch-time { color: #555; font-size: 0.9rem; white-space: pre-line; line-height: 1.4; }
   
-  /* BADGES & BUTTONS */
-  .badge { padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-  .badge-no { background: #e8f5e9; color: #2e7d32; } /* Green */
-  .badge-yes { background: #ffebee; color: #c62828; } /* Red */
-
-  .details-btn {
-    background: #0A2342; 
-    color: white; 
-    border: none; 
-    padding: 6px 12px; 
-    border-radius: 4px; 
-    cursor: pointer; 
-    font-size: 0.85rem; 
-    margin-left: 10px;
-    transition: background 0.2s;
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
   }
-  .details-btn:hover { background: #D4AF37; color: #0A2342; }
 
-  /* MODAL STYLES */
+  .course-card {
+    background: white; border-radius: 15px; overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: transform 0.3s;
+    display: flex; flex-direction: column; border-top: 5px solid #0A2342;
+  }
+  .course-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+
+  .card-body { padding: 25px; flex-grow: 1; }
+  .school-label { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 5px; display: block;}
+  .card-title { font-size: 1.3rem; font-weight: 700; color: #0A2342; margin: 0 0 15px 0; line-height: 1.3; }
+  
+  /* Batch Timing Badges */
+  .batch-badge { 
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #f0f4f8; padding: 6px 12px; border-radius: 6px; 
+    font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 8px; width: 100%;
+  }
+  .batch-icon { font-size: 1rem; }
+
+  .card-footer {
+    padding: 20px; border-top: 1px solid #eee; background: #fafafa;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  
+  .details-btn {
+    background: transparent; border: 2px solid #0A2342; color: #0A2342; 
+    padding: 8px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.2s;
+  }
+  .details-btn:hover { background: #0A2342; color: white; }
+
+  /* 5. MODAL STYLES */
   .modal-overlay {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center;
-    backdrop-filter: blur(3px);
+    background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center;
+    backdrop-filter: blur(5px);
   }
   .modal-content {
-    background: white; width: 90%; max-width: 600px; padding: 30px; border-radius: 12px;
-    position: relative; animation: slideDown 0.3s; margin: 5% auto;
-    max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    background: white; width: 95%; max-width: 600px; border-radius: 16px;
+    position: relative; animation: slideUp 0.3s; overflow: hidden; display: flex; flex-direction: column;
+    max-height: 90vh;
   }
-  .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #aaa; line-height: 1; }
-  .close-btn:hover { color: #000; }
+  .modal-header { background: #0A2342; padding: 20px 30px; color: white; display: flex; justify-content: space-between; align-items: center; }
+  .modal-header h2 { margin: 0; font-size: 1.3rem; }
+  .close-btn { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
   
-  @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-body { padding: 30px; overflow-y: auto; }
+  
+  .info-group { margin-bottom: 25px; }
+  .info-title { font-size: 1rem; font-weight: 800; color: #0A2342; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .info-text { color: #555; line-height: 1.6; font-size: 0.95rem; }
 
-  .fee-box { background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #D4AF37; }
-  .fee-row { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.95rem; }
-  .fee-row strong { color: #555; }
+  @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+  /* Responsive */
+  @media (max-width: 768px) {
+    .uni-hero h1 { font-size: 2.2rem; }
+    .course-grid { grid-template-columns: 1fr; }
+  }
 </style>
 
 <div class="uni-hero">
   <h1>St. Joseph's University</h1>
-  <p>Bengaluru, Karnataka • Est. 1882</p>
+  <p>Faith and Toil • Est. 1882</p>
   <a href="https://sju.edu.in" target="_blank" class="visit-btn">Visit Official Website ↗</a>
 </div>
 
@@ -182,209 +125,271 @@ description: "Complete list of Undergraduate, PG, and Diploma courses at St. Jos
 </div>
 
 <div id="ug" class="course-container active">
+  <div class="course-grid">
 
-  <div class="school-card">
-    <div class="school-header"><h2>School of Business</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><strong>B.Com (Regular)</strong></td>
-          <td class="batch-time">Batch 1: 7am-12pm<br>Batch 2: 12pm-4pm<br>Batch 3: 4:45pm-8:45pm</td>
-          <td>
-            <span class="badge badge-no">No</span>
-            <button onclick="openModal('bcom-modal')" class="details-btn">Details ℹ️</button>
-          </td>
-        </tr>
-        
-        <tr><td><strong>B.Com (Industry Integrated)</strong></td><td class="batch-time">7:00 AM - 12:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>B.Com (Intl. Finance & Acc.)</strong></td><td class="batch-time">Batch 1: 7am-12pm<br>Batch 2: 4:45pm-8:45pm</td><td><span class="badge badge-yes">YES</span></td></tr>
-        <tr><td><strong>BBA (Regular)</strong></td><td class="batch-time">Batch 1: 7am-12pm<br>Batch 2: 4:45pm-8:45pm</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>BBA (Strategic Finance)</strong></td><td class="batch-time">Batch 1: 7am-12pm<br>Batch 2: 4pm-8:45pm</td><td><span class="badge badge-yes">YES</span></td></tr>
-        <tr><td><strong>BBA (Branding & Entrep.)</strong></td><td class="batch-time">7:00 AM - 12:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-      </tbody>
-    </table>
+    <div class="course-card">
+      <div class="card-body">
+        <span class="school-label">School of Business</span>
+        <h3 class="card-title">Bachelor of Commerce (B.Com)</h3>
+        <div class="batch-badge">☀️ Batch 1: 7am - 12pm</div>
+        <div class="batch-badge">🌤️ Batch 2: 12pm - 4pm</div>
+        <div class="batch-badge">🌇 Batch 3: 4:45pm - 8:45pm</div>
+        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Core commerce education focusing on Accounting, Finance, and Taxation.</p>
+      </div>
+      <div class="card-footer">
+        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
+        <button onclick="openModal('bcom-modal')" class="details-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-body">
+        <span class="school-label">School of Business</span>
+        <h3 class="card-title">Bachelor of Business Admin (BBA)</h3>
+        <div class="batch-badge">☀️ Batch 1: 7am - 12pm</div>
+        <div class="batch-badge">🌇 Batch 2: 4:45pm - 8:45pm</div>
+        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Foundational management course covering Marketing, HR, and Operations.</p>
+      </div>
+      <div class="card-footer">
+        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
+        <button onclick="openModal('bba-modal')" class="details-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-body">
+        <span class="school-label">School of IT</span>
+        <h3 class="card-title">Bachelor of Computer Applications (BCA)</h3>
+        <div class="batch-badge">☀️ Batch 1: 9am - 4pm</div>
+        <div class="batch-badge">🌇 Batch 2: 4pm - 9pm</div>
+        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Practical software development, programming, and database management.</p>
+      </div>
+      <div class="card-footer">
+        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
+        <button onclick="openModal('bca-modal')" class="details-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-body">
+        <span class="school-label">School of Communication</span>
+        <h3 class="card-title">B.A. Visual Communication</h3>
+        <div class="batch-badge">☀️ 7am - 1pm</div>
+        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Design, Photography, and Media studies. Requires portfolio/test.</p>
+      </div>
+      <div class="card-footer">
+        <span style="font-weight:bold; color:#e65100;">⚠️ Entrance Test</span>
+        <button onclick="openModal('viscom-modal')" class="details-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-body">
+        <span class="school-label">School of Sciences</span>
+        <h3 class="card-title">B.Sc (PCM / CBZ / MCB)</h3>
+        <div class="batch-badge">☀️ 9am - 4pm (General)</div>
+        <div class="batch-badge">☀️ 7am - 1pm (Bio/Micro)</div>
+        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Multiple combinations available: Physics-Chem-Maths or Chem-Botany-Zoology.</p>
+      </div>
+      <div class="card-footer">
+        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
+        <button onclick="openModal('bsc-modal')" class="details-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-body">
+        <span class="school-label">School of Business</span>
+        <h3 class="card-title">B.Com (International Finance)</h3>
+        <div class="batch-badge">☀️ Batch 1: 7am - 12pm</div>
+        <div class="batch-badge">🌇 Batch 2: 4:45pm - 8:45pm</div>
+        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Specialized for ACCA/CPA aspirants with global accounting focus.</p>
+      </div>
+      <div class="card-footer">
+        <span style="font-weight:bold; color:#e65100;">⚠️ Entrance Test</span>
+        <button onclick="openModal('bcom-intl-modal')" class="details-btn">View Details</button>
+      </div>
+    </div>
+
   </div>
-
-  <div class="school-card">
-    <div class="school-header"><h2>School of Information Technology</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Bachelor of Computer Applications (BCA)</strong></td><td class="batch-time">Batch 1: 9am-4pm<br>Batch 2: 4pm-9pm</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>BCA (Data Analytics)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>B.Sc (Comp Sci, Maths, Stats)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="school-card">
-    <div class="school-header"><h2>School of Communication & Media</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr><td><strong>B.A. Visual Communication</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-yes">YES</span></td></tr>
-        <tr><td><strong>B.Voc (Digital Media & Animation)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-yes">YES</span></td></tr>
-        <tr><td><strong>B.Voc (Visual Media & Filmmaking)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-yes">YES</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="school-card">
-    <div class="school-header"><h2>School of Humanities & Social Sciences</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr><td><strong>B.A. (Econ, Pol Sci, Sociology)</strong></td><td class="batch-time">9:00 AM - 4:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>B.A. (History, Econ, Pol Sci)</strong></td><td class="batch-time">Batch 1: 9am-4pm<br>Batch 2: 4:45pm-8:45pm</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>B.A. (Journalism, Econ, Psych)</strong></td><td class="batch-time">4:00 PM - 9:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>B.A. (English, Journalism, Psych)</strong></td><td class="batch-time">Batch 1: 7am-1pm<br>Batch 2: 9am-4pm</td><td><span class="badge badge-yes">YES</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="school-card">
-    <div class="school-header"><h2>School of Chemical Sciences</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr><td><strong>B.Sc (Chem, Biotech, Bio)</strong></td><td class="batch-time">9:00 AM - 4:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>B.Sc (Biochem, Micro, Zoo)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>B.Sc (PCM - Physics, Chem, Math)</strong></td><td class="batch-time">9:00 AM - 4:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
 </div>
 
 <div id="pg" class="course-container">
+  <div class="course-grid">
+    
+    <div class="course-card">
+      <div class="card-body">
+        <span class="school-label">School of Business</span>
+        <h3 class="card-title">Master of Commerce (M.Com)</h3>
+        <div class="batch-badge">☀️ Batch 1: 7am - 11am</div>
+        <div class="batch-badge">🌇 Batch 2: 4:45pm - 8:45pm</div>
+      </div>
+      <div class="card-footer">
+        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
+        <button onclick="openModal('mcom-modal')" class="details-btn">View Details</button>
+      </div>
+    </div>
 
-  <div class="school-card">
-    <div class="school-header"><h2>School of Business</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr><td><strong>M.Com</strong></td><td class="batch-time">Batch 1: 7am-11am<br>Batch 2: 4:45pm-8:45pm</td><td><span class="badge badge-no">No</span></td></tr>
-      </tbody>
-    </table>
+    <div class="course-card">
+      <div class="card-body">
+        <span class="school-label">School of IT</span>
+        <h3 class="card-title">Master of Computer Applications (MCA)</h3>
+        <div class="batch-badge">🌤️ 1pm - 7pm</div>
+      </div>
+      <div class="card-footer">
+        <span style="font-weight:bold; color:#e65100;">⚠️ Entrance Test</span>
+        <button onclick="openModal('mca-modal')" class="details-btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-body">
+        <span class="school-label">School of Languages</span>
+        <h3 class="card-title">Master of Arts (English)</h3>
+        <div class="batch-badge">☀️ Batch 1: 9am - 4pm</div>
+        <div class="batch-badge">🌇 Batch 2: 4:45pm - 8:45pm</div>
+      </div>
+      <div class="card-footer">
+        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
+        <button onclick="openModal('ma-eng-modal')" class="details-btn">View Details</button>
+      </div>
+    </div>
+
   </div>
-
-  <div class="school-card">
-    <div class="school-header"><h2>School of Information Technology</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr><td><strong>MCA (Master of Computer App)</strong></td><td class="batch-time">1:00 PM - 7:00 PM</td><td><span class="badge badge-yes">YES</span></td></tr>
-        <tr><td><strong>M.Sc (Big Data Analytics)</strong></td><td class="batch-time">9:00 AM - 4:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>M.Sc (Computer Science)</strong></td><td class="batch-time">9:00 AM - 4:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>M.Sc (Cyber Security & AI)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="school-card">
-    <div class="school-header"><h2>School of Communication</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr><td><strong>M.A. (Advertising & PR)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-yes">YES</span></td></tr>
-        <tr><td><strong>M.A. (Journalism & Mass Comm)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-yes">YES</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="school-card">
-    <div class="school-header"><h2>School of Chemical & Life Sciences</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr><td><strong>M.Sc (Analytical Chemistry)</strong></td><td class="batch-time">9:00 AM - 4:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>M.Sc (Organic Chemistry)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>M.Sc (Biotechnology)</strong></td><td class="batch-time">7:00 AM - 1:00 PM</td><td><span class="badge badge-yes">YES</span></td></tr>
-        <tr><td><strong>M.Sc (Food Science)</strong></td><td class="batch-time">9:00 AM - 4:00 PM</td><td><span class="badge badge-yes">YES</span></td></tr>
-        <tr><td><strong>M.Sc (Microbiology)</strong></td><td class="batch-time">9:00 AM - 4:00 PM</td><td><span class="badge badge-yes">YES</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-</div>
-
-<div id="diploma" class="course-container">
-
-  <div class="school-card">
-    <div class="school-header"><h2>PG Diploma Programmes</h2></div>
-    <table class="course-table">
-      <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
-      <tbody>
-        <tr><td><strong>PG Diploma in Financial Mgmt</strong></td><td class="batch-time">Sat: Offline (9-3)<br>Sun: Online (9-3)</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>PG Diploma in HR Management</strong></td><td class="batch-time">Sat: Offline (9-3)<br>Sun: Online (9-3)</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>PG Diploma in Cyber Security</strong></td><td class="batch-time">Weekdays: Online (6-9pm)<br>Weekends: Offline</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>PG Diploma in Data Analytics</strong></td><td class="batch-time">Weekdays: Online (6-9pm)<br>Weekends: Offline</td><td><span class="badge badge-no">No</span></td></tr>
-        <tr><td><strong>Exec. Diploma Digital Media</strong></td><td class="batch-time">Tue/Thu: Online (7:30-8:30pm)<br>Sat: Offline (11:30-1)</td><td><span class="badge badge-no">No</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
 </div>
 
 <div id="bcom-modal" class="modal-overlay" onclick="closeModal(event, 'bcom-modal')">
   <div class="modal-content">
-    <span class="close-btn" onclick="document.getElementById('bcom-modal').style.display='none'">&times;</span>
-    
-    <h2 style="color:#0A2342; border-bottom:2px solid #D4AF37; padding-bottom:10px; margin-top:0;">Bachelor of Commerce (B.Com)</h2>
-    
-    <p><strong>Overview:</strong> The regular B.Com. programme facilitates students to acquire specialized knowledge in Accounting, Finance, Taxation, Banking, Insurance, and HR.</p>
-
-    <div class="fee-box">
-      <h4 style="margin-top:0; color:#0A2342;">💰 Fee Structure (Per Year)</h4>
-      <div class="fee-row"><strong>Karnataka:</strong> <span>₹1,05,000</span></div>
-      <div class="fee-row"><strong>Non-Karnataka:</strong> <span>₹1,20,000</span></div>
-      <div class="fee-row"><strong>NRI / OCI:</strong> <span>₹1,65,000</span></div>
-      <div class="fee-row"><strong>Foreign Nationals:</strong> <span>₹2,05,000 ($2,278)</span></div>
-      <hr style="margin:8px 0; border:0; border-top:1px dashed #ccc;">
-      <div class="fee-row"><strong>Admission Fee (One-time):</strong> <span>₹5,000</span></div>
+    <div class="modal-header">
+      <h2>Bachelor of Commerce (B.Com)</h2>
+      <button class="close-btn" onclick="document.getElementById('bcom-modal').style.display='none'">&times;</button>
     </div>
+    <div class="modal-body">
+      <div class="info-group">
+        <div class="info-title">📋 Eligibility</div>
+        <div class="info-text">
+          Pass in <strong>Class 12 (PUC)</strong> from Karnataka or equivalent board. Commerce/Arts/Science students can apply, but Commerce background is preferred for easier adaptation.
+        </div>
+      </div>
+      <div class="info-group">
+        <div class="info-title">📅 Selection Process</div>
+        <div class="info-text">
+          1. <strong>Application Review:</strong> Based on 12th Marks.<br>
+          2. <strong>Interview:</strong> Two rounds of interview (Subject Knowledge + Personal).<br>
+          3. <strong>Fee Payment:</strong> Within 3 days of selection.
+        </div>
+      </div>
+      <div class="info-group">
+        <div class="info-title">💰 Fee Structure (Approx/Year)</div>
+        <div class="info-text">
+          • Karnataka: ₹1,05,000<br>
+          • Non-Karnataka: ₹1,20,000<br>
+          • NRI: ₹1,65,000
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <h4 style="color:#0A2342; margin-bottom:5px;">📋 Eligibility</h4>
-    <p style="margin-top:0;">Candidates must have completed a 2-year Pre-University programme in Karnataka or equivalent (12th Grade). Study of two languages is mandatory.</p>
+<div id="bba-modal" class="modal-overlay" onclick="closeModal(event, 'bba-modal')">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Bachelor of Business Admin (BBA)</h2>
+      <button class="close-btn" onclick="document.getElementById('bba-modal').style.display='none'">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="info-group">
+        <div class="info-title">📋 Eligibility</div>
+        <div class="info-text">
+          Pass in <strong>Class 12 (10+2)</strong> with a minimum of 50% aggregate. Students from any stream (Arts/Science/Commerce) are eligible.
+        </div>
+      </div>
+      <div class="info-group">
+        <div class="info-title">📅 Selection Process</div>
+        <div class="info-text">
+          • <strong>Merit Based:</strong> Primarily based on 10th and 11th/12th marks.<br>
+          • <strong>Interview:</strong> Focus on communication skills and general awareness.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <h4 style="color:#0A2342; margin-bottom:5px;">📅 Selection Process</h4>
-    <ul style="margin-top:0; padding-left:20px;">
-      <li><strong>Step 1:</strong> Online Application & Document Upload</li>
-      <li><strong>Step 2:</strong> Interview (Two Rounds)</li>
-      <li><strong>Step 3:</strong> Fee Payment (within 3 days of selection)</li>
-    </ul>
+<div id="bca-modal" class="modal-overlay" onclick="closeModal(event, 'bca-modal')">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Bachelor of Computer Applications (BCA)</h2>
+      <button class="close-btn" onclick="document.getElementById('bca-modal').style.display='none'">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="info-group">
+        <div class="info-title">📋 Eligibility</div>
+        <div class="info-text">
+          Pass in Class 12. <strong>Mathematics</strong> background is highly recommended and often prioritized. Students without Maths may need to do a bridge course.
+        </div>
+      </div>
+      <div class="info-group">
+        <div class="info-title">📅 Selection Process</div>
+        <div class="info-text">
+          • <strong>Merit + Interview:</strong> High weightage on Maths scores in Class 10/12.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <div style="text-align:center; margin-top:25px;">
-      <a href="https://sju.edu.in/courses/st-joseph-university/school-of-business/Department-of-Commerce/bachelor-of-commerce" target="_blank" style="background:#D4AF37; color:#0A2342; padding:12px 25px; text-decoration:none; font-weight:bold; border-radius:50px; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
-        Visit Official Page ↗
-      </a>
+<div id="viscom-modal" class="modal-overlay" onclick="closeModal(event, 'viscom-modal')">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>B.A. Visual Communication</h2>
+      <button class="close-btn" onclick="document.getElementById('viscom-modal').style.display='none'">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="info-group">
+        <div class="info-title">📋 Eligibility</div>
+        <div class="info-text">
+          Pass in Class 12 (any stream). A creative portfolio (drawings, photos, videos) is a huge plus.
+        </div>
+      </div>
+      <div class="info-group">
+        <div class="info-title">⚠️ Entrance Test</div>
+        <div class="info-text">
+          SJU Entrance Test (SJUET) is <strong>Mandatory</strong>. It tests creative aptitude and general knowledge.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="bsc-modal" class="modal-overlay" onclick="closeModal(event, 'bsc-modal')">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Bachelor of Science (B.Sc)</h2>
+      <button class="close-btn" onclick="document.getElementById('bsc-modal').style.display='none'">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="info-group">
+        <div class="info-title">📋 Eligibility</div>
+        <div class="info-text">
+          Pass in Class 12 (Science Stream).<br>
+          • For PCM: Maths is mandatory.<br>
+          • For CBZ/Microbiology: Biology/Chemistry is mandatory.
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
+  // Tab Logic
   function openLevel(levelId) {
-    // 1. Hide all containers
-    const containers = document.querySelectorAll('.course-container');
-    containers.forEach(el => el.classList.remove('active'));
-
-    // 2. Reset buttons
-    const btns = document.querySelectorAll('.tab-btn');
-    btns.forEach(btn => btn.classList.remove('active'));
-
-    // 3. Show selected
+    document.querySelectorAll('.course-container').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById(levelId).classList.add('active');
     event.currentTarget.classList.add('active');
   }
 
-  function openModal(id) {
-    document.getElementById(id).style.display = 'flex'; // Changed to flex for centering
-  }
-
-  function closeModal(e, id) {
-    if(e.target.className === 'modal-overlay') {
-      document.getElementById(id).style.display = 'none';
-    }
-  }
+  // Modal Logic
+  function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+  function closeModal(e, id) { if(e.target.className === 'modal-overlay') document.getElementById(id).style.display = 'none'; }
 </script>
