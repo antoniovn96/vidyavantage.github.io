@@ -123,7 +123,7 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* 5. CARD HEADER (FIXED VISIBILITY) */
+  /* 5. CARD HEADER */
   .vc-header {
     height: 250px;
     position: relative;
@@ -142,7 +142,6 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     transform: scale(1.05);
   }
 
-  /* Gradient Overlay for Text Readability */
   .vc-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -173,7 +172,7 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     text-transform: uppercase;
   }
 
-  /* 6. COLLAPSIBLE SECTIONS (ACCORDION) */
+  /* 6. COLLAPSIBLE SECTIONS */
   details {
     border-bottom: 1px solid #eee;
     transition: all 0.3s;
@@ -181,7 +180,7 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
 
   details[open] {
     background: #fdfdfd;
-    border-left: 5px solid #D4AF37; /* Gold highlight when open */
+    border-left: 5px solid #D4AF37;
   }
 
   summary {
@@ -193,12 +192,11 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     display: flex;
     justify-content: space-between;
     align-items: center;
-    list-style: none; /* Hides default triangle */
+    list-style: none;
   }
 
   summary:hover { background: #f8f9fa; }
 
-  /* Custom + Icon */
   summary:after {
     content: '+'; 
     font-size: 1.5rem;
@@ -208,7 +206,6 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
   
   details[open] summary:after { content: '-'; }
 
-  /* The Content Inside */
   .details-content {
     padding: 0 25px 25px 25px;
     color: #555;
@@ -240,7 +237,7 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     font-weight: 700;
   }
 
-  /* Data Boxes inside accordion */
+  /* Data Boxes */
   .data-box {
     background: white;
     border: 1px solid #e0e0e0;
@@ -264,7 +261,6 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     font-weight: bold;
   }
 
-  /* List Styles */
   .content-list {
     list-style: none;
     padding: 0;
@@ -275,7 +271,6 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
   }
   .content-list li:last-child { border-bottom: none; }
 
-  /* Warning Box Style */
   .warning-msg {
     background: #fff3e0;
     color: #e65100;
@@ -312,9 +307,9 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
   <span class="tier-label">Tier 1: Most Popular</span>
   <div class="country-tabs">
     <button class="tab-btn active" onclick="openCountry('canada')">Canada</button>
-    <button class="tab-btn" onclick="openCountry('usa')">USA</button>
-    <button class="tab-btn" onclick="openCountry('uk')">UK</button>
     <button class="tab-btn" onclick="openCountry('australia')">Australia</button>
+    <button class="tab-btn" onclick="openCountry('uk')">UK</button>
+    <button class="tab-btn" onclick="openCountry('usa')">USA</button>
     <button class="tab-btn" onclick="openCountry('germany')">Germany</button>
   </div>
   
@@ -442,20 +437,7 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     </details>
 
     <details>
-      <summary>📄 8. Documents Required</summary>
-      <div class="details-content">
-        <ul class="content-list">
-          <li>Passport</li>
-          <li>10th, 12th, Degree Marksheets</li>
-          <li>IELTS / PTE Scorecard</li>
-          <li>Statement of Purpose (SOP)</li>
-          <li>Proof of Funds (GIC)</li>
-        </ul>
-      </div>
-    </details>
-
-    <details>
-      <summary>⚠️ 9. Who Should / Should Not</summary>
+      <summary>⚠️ 8. Who Should / Should Not</summary>
       <div class="details-content">
         <div class="data-box">
           <span class="data-label">Good Profiles</span>
@@ -469,45 +451,119 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     </details>
   </div>
 
-  <div id="usa" class="visa-card">
+  <div id="australia" class="visa-card">
     <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1550951298-5c7b95a66b6a?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <img src="https://images.unsplash.com/photo-1523482580672-01e6f2eb6056?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
-        <span class="vc-tag">Highest Salaries</span>
-        <div class="vc-title"><h2>United States</h2></div>
+        <span class="vc-tag">High Salary & Job Market</span>
+        <div class="vc-title"><h2>Australia</h2></div>
       </div>
     </div>
 
     <details open>
-      <summary>🏁 1. Visa Success Rate</summary>
+      <summary>📊 1. Quick Facts</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">Approval Chance</span><span class="data-value">80% (Interview Based)</span></div>
-        <div class="data-box"><span class="data-label">Update</span><span class="data-value">Mandatory In-Person Interview</span></div>
+        <table class="facts-table">
+          <tr><td>Intakes</td><td>Feb (Major), July, Nov</td></tr>
+          <tr><td>IELTS Requirement</td><td>6.0 - 6.5 Overall</td></tr>
+          <tr><td>Processing Time</td><td>3 - 6 Weeks</td></tr>
+          <tr><td>Work While Studying</td><td>24 Hours / Week</td></tr>
+        </table>
       </div>
     </details>
 
     <details>
-      <summary>💰 2. Total Cost Calculator</summary>
+      <summary>💰 2. Total Cost to Study</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">Tuition</span><span class="data-value">₹25 - 50 Lakhs</span></div>
-        <div class="data-box"><span class="data-label">Living</span><span class="data-value">₹12 - 18 Lakhs</span></div>
-        <p><strong>Total Realistic Budget:</strong> ₹37 - 68 Lakhs / Year</p>
+        <div class="data-box">
+          <span class="data-label">Tuition Fees (Per Year)</span>
+          <ul class="content-list">
+            <li><strong>Diploma:</strong> AUD 12,000 - 18,000</li>
+            <li><strong>Bachelors:</strong> AUD 20,000 - 35,000</li>
+            <li><strong>Masters:</strong> AUD 22,000 - 40,000</li>
+          </ul>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Living & Funds</span>
+          <span class="data-value">AUD 29,710/Year (Funds Required)</span>
+        </div>
+        <div class="data-box" style="background:#e8f5e9; border-color:#c8e6c9;">
+          <span class="data-label">Average Yearly Budget</span>
+          <span class="data-value">₹22 - ₹35 Lakhs</span>
+        </div>
       </div>
     </details>
 
     <details>
-      <summary>💼 3. Work Rules & PSW</summary>
+      <summary>💼 3. Part-Time Work</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">Part-Time</span><span class="data-value">20 Hrs (On-Campus Only)</span></div>
-        <div class="data-box"><span class="data-label">OPT (Stay Back)</span><span class="data-value">3 Years (STEM Degrees)</span></div>
+        <div class="data-box">
+          <span class="data-label">Hourly Wage</span>
+          <span class="data-value">AUD 23+ (Highest Globally)</span>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Monthly Earning</span>
+          <span class="data-value">AUD 1,500 - 2,200 Approx</span>
+        </div>
+        <p><strong>Spouse:</strong> Can work full-time if partner is in Masters.</p>
       </div>
     </details>
 
     <details>
-      <summary>⚠️ 4. Who Should AVOID?</summary>
+      <summary>🎓 4. Post-Study Work (Subclass 485)</summary>
       <div class="details-content">
-        <div class="warning-msg">Do not choose USA if you have a weak financial background or fear interviews. Rejection rates for non-STEM courses are higher.</div>
-        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Eligibility</a>
+        <table class="facts-table">
+          <tr><td>Diploma</td><td>18 Months</td></tr>
+          <tr><td>Bachelors</td><td>2 - 3 Years</td></tr>
+          <tr><td>Masters</td><td>3 - 5 Years</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>🏠 5. Permanent Residency (PR)</summary>
+      <div class="details-content">
+        <p>PR is points-based. Easier if your course is on the Skill Shortage List.</p>
+        <p><strong>Common Routes:</strong> 189/190 Visa or Employer Sponsorship.</p>
+        <p><strong>Timeline:</strong> Possible in 3-6 years.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🧠 6. High Demand Courses</summary>
+      <div class="details-content">
+        <ul class="content-list">
+          <li>Nursing & Healthcare</li>
+          <li>Social Work</li>
+          <li>Engineering (Civil/Mech)</li>
+          <li>IT & Cybersecurity</li>
+          <li>Early Childhood Education</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>📅 7. Intakes & Timeline</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>February Intake</td><td>Apply by Aug - Oct</td></tr>
+          <tr><td>July Intake</td><td>Apply by Feb - April</td></tr>
+          <tr><td>November Intake</td><td>Apply by May - June</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>⚠️ 8. Who Should / Should Not</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Good Profiles</span>
+          <p>Students wanting high salary, ready to work hard, and skilled professionals.</p>
+        </div>
+        <div class="warning-msg">
+          <strong>Not Ideal For:</strong> Very low budget students or those with low English scores.
+        </div>
+        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Free Eligibility for Australia</a>
       </div>
     </details>
   </div>
@@ -516,26 +572,145 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     <div class="vc-header">
       <img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
-        <span class="vc-tag">1-Year Masters</span>
+        <span class="vc-tag">Fast Degree (1 Year)</span>
         <div class="vc-title"><h2>United Kingdom</h2></div>
+      </div>
+    </div>
+
+    <details open>
+      <summary>📊 1. Quick Facts</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>Intakes</td><td>Sep (Major), Jan, May</td></tr>
+          <tr><td>IELTS Requirement</td><td>6.0 - 6.5</td></tr>
+          <tr><td>Processing Time</td><td>~3 Weeks</td></tr>
+          <tr><td>Work While Studying</td><td>20 Hours / Week</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>💰 2. Total Cost to Study</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Tuition Fees</span>
+          <ul class="content-list">
+            <li><strong>Bachelors:</strong> £12,000 - 18,000 / Year</li>
+            <li><strong>Masters:</strong> £14,000 - 22,000 (Total)</li>
+          </ul>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Living Expenses</span>
+          <span class="data-value">£800 - 1,200 / Month</span>
+        </div>
+        <div class="data-box" style="background:#e8f5e9; border-color:#c8e6c9;">
+          <span class="data-label">Average Total Budget (Masters)</span>
+          <span class="data-value">₹20 - ₹30 Lakhs (Complete)</span>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>💼 3. Part-Time Work</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Hourly Wage</span>
+          <span class="data-value">£10 - £12 / Hour</span>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Monthly Earning</span>
+          <span class="data-value">£700 - £1,000 Approx</span>
+        </div>
+        <p><strong>Spouse:</strong> Allowed mainly for PhD/Research students.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🎓 4. Post-Study Work (Graduate Route)</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>Bachelors / Masters</td><td>2 Years</td></tr>
+          <tr><td>PhD</td><td>3 Years</td></tr>
+        </table>
+        <p>No job offer is needed to stay during this period.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🏠 5. PR & Settlement</summary>
+      <div class="details-content">
+        <p>Possible after obtaining a long-term work visa (Skilled Worker Route).</p>
+        <p><strong>Timeline:</strong> About 5 years of working in the UK.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🧠 6. High Demand Courses</summary>
+      <div class="details-content">
+        <ul class="content-list">
+          <li>Business & Management</li>
+          <li>Finance & Accounting</li>
+          <li>Data Science / AI</li>
+          <li>Healthcare & Public Health</li>
+          <li>Law</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>📅 7. Intakes & Timeline</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>September Intake</td><td>Apply by Jan - May</td></tr>
+          <tr><td>January Intake</td><td>Apply by July - Sept</td></tr>
+          <tr><td>May Intake</td><td>Apply by Oct - Nov</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>⚠️ 8. Who Should / Should Not</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Good Profiles</span>
+          <p>Students wanting a fast Master's (1 year) and career-focused individuals.</p>
+        </div>
+        <div class="warning-msg">
+          <strong>Not Ideal For:</strong> Students only targeting PR without skills, or those with very low budgets.
+        </div>
+        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Free Eligibility for UK</a>
+      </div>
+    </details>
+  </div>
+
+  <div id="usa" class="visa-card">
+    <div class="vc-header">
+      <img src="https://images.unsplash.com/photo-1550951298-5c7b95a66b6a?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <div class="vc-overlay">
+        <span class="vc-tag">Highest Salaries</span>
+        <div class="vc-title"><h2>United States</h2></div>
       </div>
     </div>
     <details open>
       <summary>🏁 1. Visa Success Rate</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">Approval</span><span class="data-value">95% (Very High)</span></div>
+        <div class="data-box"><span class="data-label">Approval Chance</span><span class="data-value">80% (Interview Based)</span></div>
+        <div class="data-box"><span class="data-label">Update</span><span class="data-value">Mandatory In-Person Interview</span></div>
       </div>
     </details>
     <details>
       <summary>💰 2. Total Cost Calculator</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">Total Cost</span><span class="data-value">₹32 - 45 Lakhs (1 Year)</span></div>
+        <div class="data-box"><span class="data-label">Tuition</span><span class="data-value">₹25 - 50 Lakhs</span></div>
+        <div class="data-box"><span class="data-label">Living</span><span class="data-value">₹12 - 18 Lakhs</span></div>
+        <p><strong>Total Realistic Budget:</strong> ₹37 - 68 Lakhs / Year</p>
       </div>
     </details>
     <details>
-      <summary>💼 3. Work Rules</summary>
+      <summary>💼 3. Work Rules & PSW</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">PSW</span><span class="data-value">2 Years (Graduate Route)</span></div>
+        <div class="data-box"><span class="data-label">Part-Time</span><span class="data-value">20 Hrs (On-Campus Only)</span></div>
+        <div class="data-box"><span class="data-label">OPT (Stay Back)</span><span class="data-value">3 Years (STEM Degrees)</span></div>
       </div>
     </details>
   </div>
@@ -559,28 +734,6 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
       <summary>⚠️ 2. Warning</summary>
       <div class="details-content">
         <div class="warning-msg">Avoid if you won't learn German.</div>
-      </div>
-    </details>
-  </div>
-
-  <div id="australia" class="visa-card">
-    <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1523482580672-01e6f2eb6056?w=1000&auto=format&fit=crop" class="vc-bg-img">
-      <div class="vc-overlay">
-        <span class="vc-tag">High Wages</span>
-        <div class="vc-title"><h2>Australia</h2></div>
-      </div>
-    </div>
-    <details open>
-      <summary>🏁 1. Visa Success</summary>
-      <div class="details-content">
-        <div class="data-box"><span class="data-label">Approval</span><span class="data-value">80% (Strict GTE)</span></div>
-      </div>
-    </details>
-    <details>
-      <summary>💰 2. Cost</summary>
-      <div class="details-content">
-        <div class="data-box"><span class="data-label">Budget</span><span class="data-value">₹40 - 58 Lakhs / Year</span></div>
       </div>
     </details>
   </div>
@@ -653,12 +806,6 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
       <div class="details-content">
         <div class="data-box"><span class="data-label">Golden Visa</span><span class="data-value">10-Year Residency for Toppers</span></div>
         <div class="data-box"><span class="data-label">Income Tax</span><span class="data-value">0% (Tax Free Salary)</span></div>
-      </div>
-    </details>
-    <details>
-      <summary>⚠️ 2. Warning</summary>
-      <div class="details-content">
-        <div class="warning-msg">No Citizenship possible.</div>
       </div>
     </details>
   </div>
