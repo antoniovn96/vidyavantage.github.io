@@ -19,7 +19,7 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
   /* 2. QUOTES CAROUSEL */
   .quote-container {
     background: #0A2342;
-    color: #D4AF37;
+    color: #FFD700; /* Brighter Gold */
     padding: 20px;
     text-align: center;
     position: relative;
@@ -154,21 +154,22 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
     top: 20px;
     left: 20px;
     background: #0A2342;
-    color: white;
+    color: white !important;
     padding: 8px 20px;
     border-radius: 20px;
     text-decoration: none;
     font-weight: bold;
     z-index: 500;
     font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   }
 </style>
 
 <a href="{{ '/' | relative_url }}" class="back-btn">Back to Home</a>
 
-<div style="text-align: center; padding: 80px 20px 20px; background: #0A2342; color: white;">
-  <h1 style="margin:0;">The Ultimate Career Roadmap 🚀</h1>
-  <p style="opacity:0.8; font-size: 1.1rem; margin-top: 10px;">Click any career box to see subjects, exams, and advice.</p>
+<div style="text-align: center; padding: 100px 20px 40px; background: #0A2342;">
+  <h1 style="margin:0; color: #ffffff !important; font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">The Ultimate Career Roadmap 🚀</h1>
+  <p style="color: #e0e0e0 !important; font-size: 1.2rem; margin-top: 10px;">Click any career box to see subjects, exams, and advice.</p>
 </div>
 
 <div class="quote-container">
