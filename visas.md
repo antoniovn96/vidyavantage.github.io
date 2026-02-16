@@ -216,6 +216,30 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     animation: fadeIn 0.3s;
   }
 
+  /* Quick Facts Table */
+  .facts-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+  }
+  
+  .facts-table td {
+    padding: 12px 5px;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+  }
+  
+  .facts-table td:first-child {
+    font-weight: 600;
+    color: #666;
+    width: 40%;
+  }
+
+  .facts-table td:last-child {
+    color: #0A2342;
+    font-weight: 700;
+  }
+
   /* Data Boxes inside accordion */
   .data-box {
     background: white;
@@ -239,6 +263,17 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     color: #0A2342;
     font-weight: bold;
   }
+
+  /* List Styles */
+  .content-list {
+    list-style: none;
+    padding: 0;
+  }
+  .content-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .content-list li:last-child { border-bottom: none; }
 
   /* Warning Box Style */
   .warning-msg {
@@ -276,8 +311,8 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
 <div class="tier-nav">
   <span class="tier-label">Tier 1: Most Popular</span>
   <div class="country-tabs">
-    <button class="tab-btn active" onclick="openCountry('usa')">USA</button>
-    <button class="tab-btn" onclick="openCountry('canada')">Canada</button>
+    <button class="tab-btn active" onclick="openCountry('canada')">Canada</button>
+    <button class="tab-btn" onclick="openCountry('usa')">USA</button>
     <button class="tab-btn" onclick="openCountry('uk')">UK</button>
     <button class="tab-btn" onclick="openCountry('australia')">Australia</button>
     <button class="tab-btn" onclick="openCountry('germany')">Germany</button>
@@ -296,9 +331,147 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
 
 <div class="country-content">
 
-  <div id="usa" class="visa-card active">
+  <div id="canada" class="visa-card active">
     <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1534270804882-6b5048b1c1fc?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <div class="vc-overlay">
+        <span class="vc-tag">#1 Choice for PR</span>
+        <div class="vc-title"><h2>Canada</h2></div>
+      </div>
+    </div>
+
+    <details open>
+      <summary>📊 1. Quick Facts (At a Glance)</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>Intakes</td><td>Sep (Major), Jan, May</td></tr>
+          <tr><td>IELTS Requirement</td><td>6.0 - 6.5 Overall</td></tr>
+          <tr><td>Visa Success</td><td>High (if finances clear)</td></tr>
+          <tr><td>Processing Time</td><td>4-8 Weeks</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>💰 2. Total Cost to Study</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Tuition Fees (Per Year)</span>
+          <ul class="content-list">
+            <li><strong>Diploma:</strong> CAD 14,000 - 18,000</li>
+            <li><strong>Bachelors:</strong> CAD 17,000 - 25,000</li>
+            <li><strong>Masters:</strong> CAD 18,000 - 30,000</li>
+          </ul>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Bank Balance Required</span>
+          <span class="data-value">CAD 20,635 (GIC) + Tuition</span>
+        </div>
+        <div class="data-box" style="background:#e8f5e9; border-color:#c8e6c9;">
+          <span class="data-label">Average Yearly Budget</span>
+          <span class="data-value">₹18 - ₹28 Lakhs</span>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>💼 3. Part-Time Work Rules</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Allowed Hours</span>
+          <span class="data-value">24 Hours / Week</span>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Minimum Wage</span>
+          <span class="data-value">CAD 15 - 18 / Hour</span>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Monthly Earning</span>
+          <span class="data-value">CAD 900 - 1,400 (Approx)</span>
+        </div>
+        <p><strong>Note:</strong> Spouse can work full-time in most programs.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🎓 4. Post-Study Work Permit (PGWP)</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>1 Year Course</td><td>1 Year Work Permit</td></tr>
+          <tr><td>2 Year Course</td><td>3 Year Work Permit</td></tr>
+        </table>
+        <p>This work experience is critical for applying for PR later.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🏠 5. Permanent Residency (PR)</summary>
+      <div class="details-content">
+        <p>Canada is famous for settlement options. Most common routes:</p>
+        <ul class="content-list">
+          <li>Express Entry</li>
+          <li>Provincial Nominee Program (PNP)</li>
+          <li>Canadian Experience Class</li>
+        </ul>
+        <p><strong>Success Rate:</strong> Many students become PR within 2-4 years.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🧠 6. High Demand Courses</summary>
+      <div class="details-content">
+        <ul class="content-list">
+          <li>Healthcare & Nursing</li>
+          <li>IT & Software / Data Analytics</li>
+          <li>Construction & Civil</li>
+          <li>Business & Supply Chain</li>
+          <li>Early Childhood Education</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>📅 7. Intakes & Timeline</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>September Intake</td><td>Apply by Jan - March</td></tr>
+          <tr><td>January Intake</td><td>Apply by June - August</td></tr>
+          <tr><td>May Intake</td><td>Apply by Oct - Nov</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>📄 8. Documents Required</summary>
+      <div class="details-content">
+        <ul class="content-list">
+          <li>Passport</li>
+          <li>10th, 12th, Degree Marksheets</li>
+          <li>IELTS / PTE Scorecard</li>
+          <li>Statement of Purpose (SOP)</li>
+          <li>Proof of Funds (GIC)</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>⚠️ 9. Who Should / Should Not</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Good Profiles</span>
+          <p>Moderate budget, Planning for PR, Willing to work part-time.</p>
+        </div>
+        <div class="warning-msg">
+          <strong>Not Ideal For:</strong> Students with very low IELTS (below 6), no financial documents, or those who cannot handle cold weather.
+        </div>
+        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Free Eligibility for Canada</a>
+      </div>
+    </details>
+  </div>
+
+  <div id="usa" class="visa-card">
+    <div class="vc-header">
+      <img src="https://images.unsplash.com/photo-1550951298-5c7b95a66b6a?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
         <span class="vc-tag">Highest Salaries</span>
         <div class="vc-title"><h2>United States</h2></div>
@@ -308,32 +481,16 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     <details open>
       <summary>🏁 1. Visa Success Rate</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Approval Chance</span>
-          <span class="data-value">80% (Interview Based)</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">2025 Update</span>
-          <span class="data-value">Mandatory In-Person Interview. No waivers.</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Exams Needed</span>
-          <span class="data-value">TOEFL 90+ / IELTS 6.5</span>
-        </div>
+        <div class="data-box"><span class="data-label">Approval Chance</span><span class="data-value">80% (Interview Based)</span></div>
+        <div class="data-box"><span class="data-label">Update</span><span class="data-value">Mandatory In-Person Interview</span></div>
       </div>
     </details>
 
     <details>
       <summary>💰 2. Total Cost Calculator</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Tuition Fee</span>
-          <span class="data-value">₹25 - 50 Lakhs / Year</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Living Expenses</span>
-          <span class="data-value">₹12 - 18 Lakhs / Year</span>
-        </div>
+        <div class="data-box"><span class="data-label">Tuition</span><span class="data-value">₹25 - 50 Lakhs</span></div>
+        <div class="data-box"><span class="data-label">Living</span><span class="data-value">₹12 - 18 Lakhs</span></div>
         <p><strong>Total Realistic Budget:</strong> ₹37 - 68 Lakhs / Year</p>
       </div>
     </details>
@@ -341,110 +498,16 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     <details>
       <summary>💼 3. Work Rules & PSW</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Part-Time Work</span>
-          <span class="data-value">20 Hrs/Week (Strictly On-Campus)</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Post Study Work (OPT)</span>
-          <span class="data-value">3 Years (For STEM Degrees)</span>
-        </div>
-        <p><em>Warning: Off-campus work is illegal without permission.</em></p>
+        <div class="data-box"><span class="data-label">Part-Time</span><span class="data-value">20 Hrs (On-Campus Only)</span></div>
+        <div class="data-box"><span class="data-label">OPT (Stay Back)</span><span class="data-value">3 Years (STEM Degrees)</span></div>
       </div>
     </details>
 
     <details>
-      <summary>🛂 4. PR & Settlement</summary>
+      <summary>⚠️ 4. Who Should AVOID?</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Difficulty</span>
-          <span class="data-value">Very Hard (10+ Years)</span>
-        </div>
-        <p>You need the H1B Visa (Lottery System). Do not go to the USA if your only goal is quick citizenship.</p>
-      </div>
-    </details>
-
-    <details>
-      <summary>⚠️ 5. Who Should AVOID?</summary>
-      <div class="details-content">
-        <div class="warning-msg">
-          Do not choose USA if you have a weak financial background or fear interviews. Rejection rates for non-STEM courses are higher.
-        </div>
-        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Eligibility Now</a>
-      </div>
-    </details>
-  </div>
-
-  <div id="canada" class="visa-card">
-    <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?w=1000&auto=format&fit=crop" class="vc-bg-img">
-      <div class="vc-overlay">
-        <span class="vc-tag">PR Friendly</span>
-        <div class="vc-title"><h2>Canada</h2></div>
-      </div>
-    </div>
-
-    <details open>
-      <summary>🏁 1. Visa Success Rate</summary>
-      <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Approval Chance</span>
-          <span class="data-value">60-70% (SDS Category)</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Key Requirement</span>
-          <span class="data-value">IELTS 6.0 Overall (Strict for SDS)</span>
-        </div>
-      </div>
-    </details>
-
-    <details>
-      <summary>💰 2. Total Cost Calculator</summary>
-      <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Tuition Fee</span>
-          <span class="data-value">₹15 - 25 Lakhs / Year</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Living (GIC)</span>
-          <span class="data-value">₹13 Lakhs (Mandatory Deposit)</span>
-        </div>
-        <p><strong>Total Realistic Budget:</strong> ₹28 - 38 Lakhs / Year</p>
-      </div>
-    </details>
-
-    <details>
-      <summary>💼 3. Work Rules & PSW</summary>
-      <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Part-Time Work</span>
-          <span class="data-value">20 Hrs/Week (Off-campus allowed)</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Stay Back (PGWP)</span>
-          <span class="data-value">Up to 3 Years</span>
-        </div>
-      </div>
-    </details>
-
-    <details>
-      <summary>🛂 4. PR & Settlement</summary>
-      <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Difficulty</span>
-          <span class="data-value">Moderate (Points System)</span>
-        </div>
-        <p>Best country for PR. You can get it within 3-4 years via Express Entry.</p>
-      </div>
-    </details>
-
-    <details>
-      <summary>⚠️ 5. Who Should AVOID?</summary>
-      <div class="details-content">
-        <div class="warning-msg">
-          Avoid if you hate extreme cold (-20°C). Housing in Toronto/Vancouver is very expensive right now.
-        </div>
-        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Eligibility Now</a>
+        <div class="warning-msg">Do not choose USA if you have a weak financial background or fear interviews. Rejection rates for non-STEM courses are higher.</div>
+        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Eligibility</a>
       </div>
     </details>
   </div>
@@ -457,53 +520,22 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
         <div class="vc-title"><h2>United Kingdom</h2></div>
       </div>
     </div>
-
     <details open>
       <summary>🏁 1. Visa Success Rate</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Approval Chance</span>
-          <span class="data-value">95% (Very High)</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Exams</span>
-          <span class="data-value">IELTS 6.5 (Often waived)</span>
-        </div>
+        <div class="data-box"><span class="data-label">Approval</span><span class="data-value">95% (Very High)</span></div>
       </div>
     </details>
-
     <details>
       <summary>💰 2. Total Cost Calculator</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Tuition Fee</span>
-          <span class="data-value">₹20 - 30 Lakhs (Total for 1 Year)</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Living</span>
-          <span class="data-value">₹12 - 15 Lakhs</span>
-        </div>
+        <div class="data-box"><span class="data-label">Total Cost</span><span class="data-value">₹32 - 45 Lakhs (1 Year)</span></div>
       </div>
     </details>
-
     <details>
-      <summary>💼 3. Work Rules & PSW</summary>
+      <summary>💼 3. Work Rules</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Stay Back Visa</span>
-          <span class="data-value">2 Years (Graduate Route)</span>
-        </div>
-        <p>You can work in ANY job (even non-field jobs) for 2 years after graduating.</p>
-      </div>
-    </details>
-
-    <details>
-      <summary>⚠️ 4. Who Should AVOID?</summary>
-      <div class="details-content">
-        <div class="warning-msg">
-          Avoid if you need PR quickly. Settling in the UK takes 5+ years of sponsored work, which is hard to find.
-        </div>
-        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Eligibility Now</a>
+        <div class="data-box"><span class="data-label">PSW</span><span class="data-value">2 Years (Graduate Route)</span></div>
       </div>
     </details>
   </div>
@@ -516,37 +548,17 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
         <div class="vc-title"><h2>Germany</h2></div>
       </div>
     </div>
-
     <details open>
-      <summary>🏁 1. Visa Success Rate</summary>
+      <summary>💰 1. Total Cost</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Approval Chance</span>
-          <span class="data-value">High (If university admits you)</span>
-        </div>
+        <div class="data-box"><span class="data-label">Tuition (Public)</span><span class="data-value">ZERO</span></div>
+        <div class="data-box"><span class="data-label">Living</span><span class="data-value">₹11 Lakhs / Year</span></div>
       </div>
     </details>
-
     <details>
-      <summary>💰 2. Total Cost Calculator</summary>
+      <summary>⚠️ 2. Warning</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Tuition (Public)</span>
-          <span class="data-value">ZERO (Free)</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Living (Blocked Acc)</span>
-          <span class="data-value">₹11 Lakhs / Year</span>
-        </div>
-      </div>
-    </details>
-
-    <details>
-      <summary>⚠️ 3. Who Should AVOID?</summary>
-      <div class="details-content">
-        <div class="warning-msg">
-          Avoid if you are not willing to learn German. English works in class, but not for jobs or daily life.
-        </div>
+        <div class="warning-msg">Avoid if you won't learn German.</div>
       </div>
     </details>
   </div>
@@ -559,42 +571,16 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
         <div class="vc-title"><h2>Australia</h2></div>
       </div>
     </div>
-
     <details open>
-      <summary>🏁 1. Visa Success Rate</summary>
+      <summary>🏁 1. Visa Success</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Approval Chance</span>
-          <span class="data-value">80% (Strict GTE Check)</span>
-        </div>
+        <div class="data-box"><span class="data-label">Approval</span><span class="data-value">80% (Strict GTE)</span></div>
       </div>
     </details>
-
     <details>
-      <summary>💰 2. Total Cost Calculator</summary>
+      <summary>💰 2. Cost</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Tuition Fee</span>
-          <span class="data-value">₹25 - 40 Lakhs / Year</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Living</span>
-          <span class="data-value">₹15 - 18 Lakhs / Year</span>
-        </div>
-      </div>
-    </details>
-
-    <details>
-      <summary>💼 3. Work Rules</summary>
-      <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Part-Time Wage</span>
-          <span class="data-value">Highest in the world (~AUD 23/hr)</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Post Study Work</span>
-          <span class="data-value">2 - 4 Years</span>
-        </div>
+        <div class="data-box"><span class="data-label">Budget</span><span class="data-value">₹40 - 58 Lakhs / Year</span></div>
       </div>
     </details>
   </div>
@@ -607,25 +593,10 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
         <div class="vc-title"><h2>France</h2></div>
       </div>
     </div>
-
     <details open>
-      <summary>🏁 1. Visa Success Rate</summary>
+      <summary>💼 1. Special Benefits</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Process</span>
-          <span class="data-value">Campus France Interview Mandatory</span>
-        </div>
-      </div>
-    </details>
-
-    <details>
-      <summary>💼 2. Special Benefits</summary>
-      <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">For Indian Masters</span>
-          <span class="data-value">5-Year Post Study Work Visa</span>
-        </div>
-        <p>This is a special diplomatic rule for Indian students completing a Masters in France.</p>
+        <div class="data-box"><span class="data-label">For Indian Masters</span><span class="data-value">5-Year Post Study Visa</span></div>
       </div>
     </details>
   </div>
@@ -638,28 +609,10 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
         <div class="vc-title"><h2>New Zealand</h2></div>
       </div>
     </div>
-
     <details open>
-      <summary>🏁 1. Visa Success Rate</summary>
+      <summary>💼 1. Work Rules</summary>
       <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Scrutiny</span>
-          <span class="data-value">High Financial Check (Funds must be 6 months old)</span>
-        </div>
-      </div>
-    </details>
-
-    <details>
-      <summary>💼 2. Work Rules</summary>
-      <div class="details-content">
-        <div class="data-box">
-          <span class="data-label">Part-Time</span>
-          <span class="data-value">30 Hours/Week (Allowed for some courses)</span>
-        </div>
-        <div class="data-box">
-          <span class="data-label">Post Study Work</span>
-          <span class="data-value">Up to 3 Years</span>
-        </div>
+        <div class="data-box"><span class="data-label">Part-Time</span><span class="data-value">30 Hours/Week (Specific Courses)</span></div>
       </div>
     </details>
   </div>
@@ -673,17 +626,16 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
       </div>
     </div>
     <details open>
-      <summary>🏁 1. Visa Success Rate</summary>
+      <summary>🏁 1. Visa Success</summary>
       <div class="details-content">
         <div class="data-box"><span class="data-label">Approval</span><span class="data-value">95%</span></div>
-        <div class="data-box"><span class="data-label">Critical Skills</span><span class="data-value">Work Permit for Tech/Pharma roles</span></div>
       </div>
     </details>
     <details>
-      <summary>💰 2. Costs & Companies</summary>
+      <summary>💰 2. Costs</summary>
       <div class="details-content">
         <div class="data-box"><span class="data-label">Tuition</span><span class="data-value">€15,000 - €20,000</span></div>
-        <div class="data-box"><span class="data-label">Top Employers</span><span class="data-value">Google, Meta, Pfizer, Apple (Euro HQs)</span></div>
+        <div class="data-box"><span class="data-label">Top Employers</span><span class="data-value">Google, Meta, Pfizer (Euro HQs)</span></div>
       </div>
     </details>
   </div>
@@ -692,29 +644,21 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     <div class="vc-header">
       <img src="https://images.unsplash.com/photo-1512453979798-5ea904ac6605?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
-        <span class="vc-tag">Tax Free & Safe</span>
+        <span class="vc-tag">Tax Free</span>
         <div class="vc-title"><h2>UAE (Dubai)</h2></div>
       </div>
     </div>
     <details open>
       <summary>🏁 1. Visa & Benefits</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">Success Rate</span><span class="data-value">99% (University Sponsored)</span></div>
-        <div class="data-box"><span class="data-label">Golden Visa</span><span class="data-value">10-Year Residency for Toppers (GPA 3.8+)</span></div>
+        <div class="data-box"><span class="data-label">Golden Visa</span><span class="data-value">10-Year Residency for Toppers</span></div>
+        <div class="data-box"><span class="data-label">Income Tax</span><span class="data-value">0% (Tax Free Salary)</span></div>
       </div>
     </details>
     <details>
-      <summary>💰 2. Cost & Lifestyle</summary>
+      <summary>⚠️ 2. Warning</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">Tuition</span><span class="data-value">40k - 70k AED / Year</span></div>
-        <div class="data-box"><span class="data-label">Income Tax</span><span class="data-value">0% (Keep 100% of your salary)</span></div>
-        <div class="data-box"><span class="data-label">Safety</span><span class="data-value">Ranked #1 Safest City Globally</span></div>
-      </div>
-    </details>
-    <details>
-      <summary>⚠️ 3. Warning</summary>
-      <div class="details-content">
-        <div class="warning-msg">No Citizenship possible. Good for earning money, not settling permanently.</div>
+        <div class="warning-msg">No Citizenship possible.</div>
       </div>
     </details>
   </div>
