@@ -1,9 +1,9 @@
 ---
 layout: default
-title: The Ultimate Career Roadmap (Class 10-12)
+title: "The Ultimate Career Roadmap: From Class 10 to Your Dream Job 🚀"
 permalink: /career-search/
 image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=630&fit=crop"
-description: "Confused after Class 10? Explore the complete interactive roadmap for Science, Commerce, Arts, and Diploma streams. Check exams, salaries, and career paths in India."
+description: "Confused after Class 10? Explore the complete interactive roadmap for Science, Commerce, Arts, and Teaching careers. Check exams, salaries, and real advice."
 ---
 
 <style>
@@ -24,7 +24,7 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
     text-align: center;
     position: relative;
     overflow: hidden;
-    height: 60px; /* Fixed height for consistency */
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -105,7 +105,7 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
     padding: 8px 15px;
     border: 2px solid #ccc;
     background: white;
-    border-radius: 4px; /* Squared off slightly for cleaner look */
+    border-radius: 4px;
     font-weight: 600;
     color: #0A2342;
     cursor: pointer;
@@ -167,7 +167,7 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
 <a href="{{ '/' | relative_url }}" class="back-btn">Back to Home</a>
 
 <div style="text-align: center; padding: 80px 20px 20px; background: #0A2342; color: white;">
-  <h1 style="margin:0;">Interactive Career Roadmap</h1>
+  <h1 style="margin:0;">The Ultimate Career Roadmap 🚀</h1>
   <p style="opacity:0.8; font-size: 1.1rem; margin-top: 10px;">Click any career box to see subjects, exams, and advice.</p>
 </div>
 
@@ -262,12 +262,22 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
                 <li><span class="node-box" id="lawyer" onclick="selectNode('lawyer', 'govt_track')">Lawyer / Judge</span></li>
               </ul>
             </li>
+            
+            <li>
+              <span class="node-box" id="teach_track" onclick="selectNode('teach_track', 'arts')">Teaching & Education</span>
+              <ul>
+                <li><span class="node-box" id="teacher" onclick="selectNode('teacher', 'teach_track')">School Teacher (B.Ed)</span></li>
+                <li><span class="node-box" id="special_ed" onclick="selectNode('special_ed', 'teach_track')">Special Educator</span></li>
+                <li><span class="node-box" id="prof" onclick="selectNode('prof', 'teach_track')">Professor / Lecturer</span></li>
+              </ul>
+            </li>
+
             <li>
               <span class="node-box" id="creative_track" onclick="selectNode('creative_track', 'arts')">Creative / Social</span>
               <ul>
                 <li><span class="node-box" id="psych" onclick="selectNode('psych', 'creative_track')">Psychologist</span></li>
                 <li><span class="node-box" id="journ" onclick="selectNode('journ', 'creative_track')">Journalist / Media</span></li>
-                <li><span class="node-box" id="design" onclick="selectNode('design', 'creative_track')">Designer / Teacher</span></li>
+                <li><span class="node-box" id="design" onclick="selectNode('design', 'creative_track')">Designer / VFX</span></li>
               </ul>
             </li>
           </ul>
@@ -320,11 +330,11 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
     slideIndex++;
     if (slideIndex > slides.length) {slideIndex = 1}
     slides[slideIndex-1].classList.add("active");
-    setTimeout(showSlides, 4000); // Change image every 4 seconds
+    setTimeout(showSlides, 4000); 
   }
   showSlides();
 
-  // --- DATABASE (NO EMOJIS) ---
+  // --- DATABASE ---
   const data = {
     // ROOT
     "root": { title: "Class 10 Pass", good: "You are ready to choose your path", desc: "10th doesn't decide your life — it only decides your next path. You have 4 major routes." },
@@ -379,11 +389,17 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
     "govt_track": { title: "Govt & Law", good: "Service & Arguments", desc: "Serving the nation or fighting for justice." },
     "ias": { title: "UPSC (IAS/IPS)", good: "Power & Responsibility", desc: "Civil Services. Arts is the best base for this." },
     "lawyer": { title: "Lawyer / Judge", good: "Logic & Speaking", desc: "Legal practice. Corporate or Criminal law." },
+    
+    // NEW: TEACHING
+    "teach_track": { title: "Teaching & Education", good: "Patience & Sharing Knowledge", desc: "You can enter this field after Arts, Science, OR Commerce." },
+    "teacher": { title: "School Teacher", good: "Mentoring Kids", desc: "Requires B.Ed after any degree. High job stability and respect." },
+    "special_ed": { title: "Special Educator", good: "Empathy & Patience", desc: "Teaching children with special needs (Autism, Dyslexia). Requires B.Ed in Special Education." },
+    "prof": { title: "Professor / Lecturer", good: "Deep Subject Knowledge", desc: "Teaching in Colleges/Universities. Requires Masters + NET Exam or PhD." },
 
     "creative_track": { title: "Creative & Social", good: "Understanding People", desc: "Helping society and expression." },
     "psych": { title: "Psychologist", good: "Empathy", desc: "Therapy and mental health." },
     "journ": { title: "Journalist / Media", good: "Storytelling", desc: "News, Reporting, Media production." },
-    "design": { title: "Designer / Teacher", good: "Artistic Skill", desc: "Fashion, Interior, or Professor." },
+    "design": { title: "Designer / VFX", good: "Artistic Skill", desc: "Fashion, Interior, Animation, or Visual Effects." },
 
     // --- 4. DIPLOMA ---
     "diploma": { 
