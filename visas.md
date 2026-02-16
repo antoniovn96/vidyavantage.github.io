@@ -2,13 +2,13 @@
 layout: default
 title: "Global Visa Intelligence Hub"
 permalink: /visas/
-image: "/assets/images/visa-preview.png"
-description: "Compare student visas for USA, UK, Canada, Germany, France, and New Zealand. Check costs, work rights, and PR rules for Indian students."
+image: "https://images.unsplash.com/photo-1544256277-c93d8b377b30?w=1200&h=630&fit=crop"
+description: "Compare student visas for USA, UK, Canada, Germany, France, New Zealand, and UAE. Check costs, work rights, and PR rules for Indian students."
 ---
 
 <meta property="og:title" content="Global Visa Intelligence Hub - VidyaVantage" />
 <meta property="og:description" content="Verified data on Visa Success, Total Costs, and PR Chances for Indian Students. Compare USA, UK, Canada, France & NZ." />
-<meta property="og:image" content="{{ '/assets/images/visa-preview.png' | absolute_url }}" />
+<meta property="og:image" content="https://images.unsplash.com/photo-1544256277-c93d8b377b30?w=1200&h=630&fit=crop" />
 <meta property="twitter:card" content="summary_large_image" />
 
 <style>
@@ -20,14 +20,14 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, and Ne
   }
   
   body { 
-    background-color: #f0f2f5; 
+    background-color: #f4f7f6; 
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
     color: #333;
   }
 
   /* 2. HERO SECTION */
   .visa-hero {
-    background: linear-gradient(rgba(10, 35, 66, 0.9), rgba(10, 35, 66, 0.8)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&auto=format&fit=crop');
+    background: linear-gradient(rgba(10, 35, 66, 0.9), rgba(10, 35, 66, 0.8)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     color: white;
@@ -125,22 +125,28 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, and Ne
 
   /* 5. CARD HEADER (FIXED VISIBILITY) */
   .vc-header {
-    height: 220px;
+    height: 250px;
     position: relative;
     color: white;
+    overflow: hidden;
   }
 
   .vc-bg-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s;
+  }
+  
+  .visa-card:hover .vc-bg-img {
+    transform: scale(1.05);
   }
 
-  /* The Gradient Overlay that fixes text readability */
+  /* Gradient Overlay for Text Readability */
   .vc-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%);
+    background: linear-gradient(to top, rgba(10, 35, 66, 0.9) 0%, rgba(10, 35, 66, 0.1) 70%);
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -292,7 +298,7 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, and Ne
 
   <div id="usa" class="visa-card active">
     <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1550951298-5c7b95a66b6a?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <img src="https://images.unsplash.com/photo-1534270804882-6b5048b1c1fc?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
         <span class="vc-tag">Highest Salaries</span>
         <div class="vc-title"><h2>United States</h2></div>
@@ -445,7 +451,7 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, and Ne
 
   <div id="uk" class="visa-card">
     <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
         <span class="vc-tag">1-Year Masters</span>
         <div class="vc-title"><h2>United Kingdom</h2></div>
@@ -504,7 +510,7 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, and Ne
 
   <div id="germany" class="visa-card">
     <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1564426544976-559d80d28222?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <img src="https://images.unsplash.com/photo-1599946347371-88a312a783a1?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
         <span class="vc-tag">Free Education</span>
         <div class="vc-title"><h2>Germany</h2></div>
@@ -547,7 +553,7 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, and Ne
 
   <div id="australia" class="visa-card">
     <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <img src="https://images.unsplash.com/photo-1523482580672-01e6f2eb6056?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
         <span class="vc-tag">High Wages</span>
         <div class="vc-title"><h2>Australia</h2></div>
@@ -670,12 +676,14 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, and Ne
       <summary>🏁 1. Visa Success Rate</summary>
       <div class="details-content">
         <div class="data-box"><span class="data-label">Approval</span><span class="data-value">95%</span></div>
+        <div class="data-box"><span class="data-label">Critical Skills</span><span class="data-value">Work Permit for Tech/Pharma roles</span></div>
       </div>
     </details>
     <details>
-      <summary>💼 2. Work Rules</summary>
+      <summary>💰 2. Costs & Companies</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">PSW</span><span class="data-value">2 Years (Masters)</span></div>
+        <div class="data-box"><span class="data-label">Tuition</span><span class="data-value">€15,000 - €20,000</span></div>
+        <div class="data-box"><span class="data-label">Top Employers</span><span class="data-value">Google, Meta, Pfizer, Apple (Euro HQs)</span></div>
       </div>
     </details>
   </div>
@@ -684,20 +692,29 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, and Ne
     <div class="vc-header">
       <img src="https://images.unsplash.com/photo-1512453979798-5ea904ac6605?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
-        <span class="vc-tag">Luxury & Tax Free</span>
+        <span class="vc-tag">Tax Free & Safe</span>
         <div class="vc-title"><h2>UAE (Dubai)</h2></div>
       </div>
     </div>
     <details open>
-      <summary>🏁 1. Visa Success Rate</summary>
+      <summary>🏁 1. Visa & Benefits</summary>
       <div class="details-content">
-        <div class="data-box"><span class="data-label">Approval</span><span class="data-value">99% (Easiest)</span></div>
+        <div class="data-box"><span class="data-label">Success Rate</span><span class="data-value">99% (University Sponsored)</span></div>
+        <div class="data-box"><span class="data-label">Golden Visa</span><span class="data-value">10-Year Residency for Toppers (GPA 3.8+)</span></div>
       </div>
     </details>
     <details>
-      <summary>⚠️ 2. Warning</summary>
+      <summary>💰 2. Cost & Lifestyle</summary>
       <div class="details-content">
-        <div class="warning-msg">No Citizenship possible. Good for earning money, not settling.</div>
+        <div class="data-box"><span class="data-label">Tuition</span><span class="data-value">40k - 70k AED / Year</span></div>
+        <div class="data-box"><span class="data-label">Income Tax</span><span class="data-value">0% (Keep 100% of your salary)</span></div>
+        <div class="data-box"><span class="data-label">Safety</span><span class="data-value">Ranked #1 Safest City Globally</span></div>
+      </div>
+    </details>
+    <details>
+      <summary>⚠️ 3. Warning</summary>
+      <div class="details-content">
+        <div class="warning-msg">No Citizenship possible. Good for earning money, not settling permanently.</div>
       </div>
     </details>
   </div>
