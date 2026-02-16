@@ -306,11 +306,11 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
 <div class="tier-nav">
   <span class="tier-label">Tier 1: Most Popular</span>
   <div class="country-tabs">
-    <button class="tab-btn active" onclick="openCountry('canada')">Canada</button>
-    <button class="tab-btn" onclick="openCountry('australia')">Australia</button>
-    <button class="tab-btn" onclick="openCountry('uk')">UK</button>
-    <button class="tab-btn" onclick="openCountry('usa')">USA</button>
+    <button class="tab-btn active" onclick="openCountry('usa')">USA</button>
     <button class="tab-btn" onclick="openCountry('germany')">Germany</button>
+    <button class="tab-btn" onclick="openCountry('canada')">Canada</button>
+    <button class="tab-btn" onclick="openCountry('uk')">UK</button>
+    <button class="tab-btn" onclick="openCountry('australia')">Australia</button>
   </div>
   
   <div style="margin-top:15px;">
@@ -326,7 +326,231 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
 
 <div class="country-content">
 
-  <div id="canada" class="visa-card active">
+  <div id="usa" class="visa-card active">
+    <div class="vc-header">
+      <img src="https://images.unsplash.com/photo-1550951298-5c7b95a66b6a?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <div class="vc-overlay">
+        <span class="vc-tag">Highest Salary</span>
+        <div class="vc-title"><h2>United States</h2></div>
+      </div>
+    </div>
+
+    <details open>
+      <summary>📊 1. Quick Facts</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>Intakes</td><td>Fall (Aug), Spring (Jan)</td></tr>
+          <tr><td>IELTS</td><td>6.5 - 7.0</td></tr>
+          <tr><td>Stay Back (STEM)</td><td>3 Years</td></tr>
+          <tr><td>Processing Time</td><td>2 - 5 Weeks</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>💰 2. Total Cost to Study</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Tuition Fees</span>
+          <ul class="content-list">
+            <li><strong>Bachelors:</strong> $18,000 - 35,000</li>
+            <li><strong>Masters:</strong> $20,000 - 45,000</li>
+          </ul>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Living Expenses</span>
+          <span class="data-value">$900 - 1,500 / Month</span>
+        </div>
+        <div class="data-box" style="background:#e8f5e9; border-color:#c8e6c9;">
+          <span class="data-label">Average Yearly Budget</span>
+          <span class="data-value">₹30 - ₹50 Lakhs</span>
+        </div>
+        <p><em>Scholarships are common and can reduce costs significantly.</em></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>💼 3. Part-Time Work</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Allowed</span>
+          <span class="data-value">20 Hrs/Week (On-Campus Only)</span>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Earning</span>
+          <span class="data-value">$600 - 900 / Month</span>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>🎓 4. Post-Study Work (OPT)</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>STEM Courses</td><td>3 Years</td></tr>
+          <tr><td>Non-STEM</td><td>1 Year</td></tr>
+        </table>
+        <p>Most students convert to H1B work visa after landing a job.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🏠 5. PR & Settlement</summary>
+      <div class="details-content">
+        <p><strong>Route:</strong> Study -> OPT -> H1B -> Green Card.</p>
+        <p><strong>Difficulty:</strong> Harder than Canada/Australia, but offers the highest salaries globally.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🧠 6. High Demand Courses</summary>
+      <div class="details-content">
+        <ul class="content-list">
+          <li>Computer Science / AI</li>
+          <li>Cybersecurity</li>
+          <li>Business Analytics (STEM)</li>
+          <li>Healthcare & Public Health</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>📅 7. Intakes & Timeline</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>Fall (Aug)</td><td>Apply by Nov - Feb</td></tr>
+          <tr><td>Spring (Jan)</td><td>Apply by July - Sept</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>⚠️ 8. Who Should / Should Not</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Good Profiles</span>
+          <p>Strong academics, career-focused, scholarship seekers.</p>
+        </div>
+        <div class="warning-msg">
+          <strong>Not Ideal For:</strong> Very low budget students or those with a weak academic profile.
+        </div>
+        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Free Eligibility for USA</a>
+      </div>
+    </details>
+  </div>
+
+  <div id="germany" class="visa-card">
+    <div class="vc-header">
+      <img src="https://images.unsplash.com/photo-1599946347371-88a312a783a1?w=1000&auto=format&fit=crop" class="vc-bg-img">
+      <div class="vc-overlay">
+        <span class="vc-tag">Low Fees</span>
+        <div class="vc-title"><h2>Germany</h2></div>
+      </div>
+    </div>
+
+    <details open>
+      <summary>📊 1. Quick Facts</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>Intakes</td><td>October (Major), April</td></tr>
+          <tr><td>IELTS Requirement</td><td>6.0 - 6.5</td></tr>
+          <tr><td>Language</td><td>German NOT mandatory for English courses</td></tr>
+          <tr><td>Stay Back</td><td>18 Months (Job Search Visa)</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>💰 2. Total Cost to Study</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Tuition (Public)</span>
+          <span class="data-value">€0 - €1,500 / Year</span>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Tuition (Private)</span>
+          <span class="data-value">€8,000 - €15,000 / Year</span>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Living (Blocked Acc)</span>
+          <span class="data-value">€11,208 / Year</span>
+        </div>
+        <div class="data-box" style="background:#e8f5e9; border-color:#c8e6c9;">
+          <span class="data-label">Average Yearly Budget</span>
+          <span class="data-value">₹11 - ₹16 Lakhs</span>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>💼 3. Part-Time Work</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Allowed</span>
+          <span class="data-value">120 Full Days / Year</span>
+        </div>
+        <div class="data-box">
+          <span class="data-label">Monthly Earning</span>
+          <span class="data-value">€800 - 1,000 Approx</span>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>🎓 4. Post-Study Work</summary>
+      <div class="details-content">
+        <p>You get an <strong>18-month Job Search Visa</strong> to find a job related to your degree.</p>
+        <p>Once employed, you switch to a Work Visa, starting your PR journey.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🏠 5. PR & Settlement</summary>
+      <div class="details-content">
+        <p><strong>Timeline:</strong> Eligible after ~2-4 years of working.</p>
+        <p><strong>Tip:</strong> Faster PR if you achieve German language level B1/B2. Germany is one of the easiest PR countries in Europe.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>🧠 6. High Demand Courses</summary>
+      <div class="details-content">
+        <ul class="content-list">
+          <li>Mechanical & Automotive Engineering</li>
+          <li>Data Science / AI</li>
+          <li>Renewable Energy</li>
+          <li>Robotics & Mechatronics</li>
+          <li>Supply Chain</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>📅 7. Intakes & Timeline</summary>
+      <div class="details-content">
+        <table class="facts-table">
+          <tr><td>October Intake</td><td>Apply by Dec - March</td></tr>
+          <tr><td>April Intake</td><td>Apply by Sept - Nov</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>⚠️ 8. Who Should / Should Not</summary>
+      <div class="details-content">
+        <div class="data-box">
+          <span class="data-label">Good Profiles</span>
+          <p>Low budget, Engineering background, Willing to learn basic German.</p>
+        </div>
+        <div class="warning-msg">
+          <strong>Not Ideal For:</strong> Students with low academic scores or those not ready for a strict documentation process (APS).
+        </div>
+        <a href="{{ '/book-expert/' | relative_url }}" class="eligibility-btn">Check Free Eligibility for Germany</a>
+      </div>
+    </details>
+  </div>
+
+  <div id="canada" class="visa-card">
     <div class="vc-header">
       <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?w=1000&auto=format&fit=crop" class="vc-bg-img">
       <div class="vc-overlay">
@@ -683,61 +907,6 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
     </details>
   </div>
 
-  <div id="usa" class="visa-card">
-    <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1550951298-5c7b95a66b6a?w=1000&auto=format&fit=crop" class="vc-bg-img">
-      <div class="vc-overlay">
-        <span class="vc-tag">Highest Salaries</span>
-        <div class="vc-title"><h2>United States</h2></div>
-      </div>
-    </div>
-    <details open>
-      <summary>🏁 1. Visa Success Rate</summary>
-      <div class="details-content">
-        <div class="data-box"><span class="data-label">Approval Chance</span><span class="data-value">80% (Interview Based)</span></div>
-        <div class="data-box"><span class="data-label">Update</span><span class="data-value">Mandatory In-Person Interview</span></div>
-      </div>
-    </details>
-    <details>
-      <summary>💰 2. Total Cost Calculator</summary>
-      <div class="details-content">
-        <div class="data-box"><span class="data-label">Tuition</span><span class="data-value">₹25 - 50 Lakhs</span></div>
-        <div class="data-box"><span class="data-label">Living</span><span class="data-value">₹12 - 18 Lakhs</span></div>
-        <p><strong>Total Realistic Budget:</strong> ₹37 - 68 Lakhs / Year</p>
-      </div>
-    </details>
-    <details>
-      <summary>💼 3. Work Rules & PSW</summary>
-      <div class="details-content">
-        <div class="data-box"><span class="data-label">Part-Time</span><span class="data-value">20 Hrs (On-Campus Only)</span></div>
-        <div class="data-box"><span class="data-label">OPT (Stay Back)</span><span class="data-value">3 Years (STEM Degrees)</span></div>
-      </div>
-    </details>
-  </div>
-
-  <div id="germany" class="visa-card">
-    <div class="vc-header">
-      <img src="https://images.unsplash.com/photo-1599946347371-88a312a783a1?w=1000&auto=format&fit=crop" class="vc-bg-img">
-      <div class="vc-overlay">
-        <span class="vc-tag">Free Education</span>
-        <div class="vc-title"><h2>Germany</h2></div>
-      </div>
-    </div>
-    <details open>
-      <summary>💰 1. Total Cost</summary>
-      <div class="details-content">
-        <div class="data-box"><span class="data-label">Tuition (Public)</span><span class="data-value">ZERO</span></div>
-        <div class="data-box"><span class="data-label">Living</span><span class="data-value">₹11 Lakhs / Year</span></div>
-      </div>
-    </details>
-    <details>
-      <summary>⚠️ 2. Warning</summary>
-      <div class="details-content">
-        <div class="warning-msg">Avoid if you won't learn German.</div>
-      </div>
-    </details>
-  </div>
-
   <div id="france" class="visa-card">
     <div class="vc-header">
       <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1000&auto=format&fit=crop" class="vc-bg-img">
@@ -806,6 +975,12 @@ description: "Compare student visas for USA, UK, Canada, Germany, France, New Ze
       <div class="details-content">
         <div class="data-box"><span class="data-label">Golden Visa</span><span class="data-value">10-Year Residency for Toppers</span></div>
         <div class="data-box"><span class="data-label">Income Tax</span><span class="data-value">0% (Tax Free Salary)</span></div>
+      </div>
+    </details>
+    <details>
+      <summary>⚠️ 2. Warning</summary>
+      <div class="details-content">
+        <div class="warning-msg">No Citizenship possible.</div>
       </div>
     </details>
   </div>
