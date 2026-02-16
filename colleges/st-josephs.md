@@ -1,373 +1,397 @@
 ---
 layout: default
-title: "St. Joseph's University, Bengaluru 🎓"
+title: "St. Joseph's University Course Portal"
 permalink: /colleges/st-josephs/
 image: "https://images.unsplash.com/photo-1562774053-701939374585?w=1200&h=630&fit=crop"
-description: "Complete list of Undergraduate, PG, and Diploma courses at St. Joseph's University organized by Schools."
+description: "Browse 100+ Undergraduate, PG & Diploma courses at St. Joseph's University. Check eligibility, fees, syllabus, and admission details."
 ---
 
+<meta property="og:title" content="St. Joseph's University Course Portal 🎓">
+<meta property="og:description" content="Access details for 100+ courses: Eligibility, Fees, Syllabus, and Career Outcomes.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1562774053-701939374585?w=1200&h=630&fit=crop">
+
 <style>
-  /* 1. GLOBAL LAYOUT */
+  /* 1. LAYOUT RESET */
   .main-content { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
-  body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; color: #333; }
+  body { background-color: #f0f2f5; font-family: 'Segoe UI', system-ui, sans-serif; color: #333; }
 
   /* 2. HERO SECTION */
-  .uni-hero {
-    background: linear-gradient(rgba(10, 35, 66, 0.9), rgba(10, 35, 66, 0.7)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&auto=format&fit=crop');
+  .sju-hero {
+    background: linear-gradient(rgba(10, 35, 66, 0.9), rgba(10, 35, 66, 0.8)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     color: white;
     text-align: center;
-    padding: 100px 20px;
-    margin-bottom: 40px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 60px 20px;
+    margin-bottom: 0;
   }
-  .uni-hero h1 { font-size: 3.5rem; margin: 0; color: white !important; font-weight: 800; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-  .uni-hero p { font-size: 1.3rem; color: #e0e0e0 !important; margin-top: 15px; font-weight: 500; }
+  .sju-hero h1 { font-size: 2.8rem; margin: 0; font-weight: 800; color: white !important; }
+  .sju-hero p { font-size: 1.1rem; color: #ddd !important; margin-top: 10px; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+  /* 3. APP CONTAINER */
+  .app-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+    padding: 30px 20px;
+    align-items: flex-start;
+  }
+
+  /* 4. SIDEBAR FILTERS */
+  .filters-sidebar {
+    width: 280px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 90px;
+    border-top: 4px solid #0A2342;
+    flex-shrink: 0;
+  }
+
+  .filter-group { margin-bottom: 20px; }
+  .filter-label { display: block; font-weight: 700; margin-bottom: 8px; color: #0A2342; font-size: 0.9rem; }
   
-  .visit-btn {
-    display: inline-block; background: #D4AF37; color: #0A2342; padding: 12px 30px; 
-    border-radius: 50px; text-decoration: none; font-weight: bold; margin-top: 25px; 
-    transition: transform 0.2s; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+  .filter-input, .filter-select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.2s;
   }
-  .visit-btn:hover { transform: translateY(-3px); color: #0A2342; }
+  .filter-input:focus, .filter-select:focus { border-color: #D4AF37; }
 
-  /* 3. TABS */
-  .level-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; padding: 0 20px; }
-  .tab-btn {
-    background: white; border: none; padding: 12px 30px; border-radius: 50px;
-    font-weight: 700; color: #555; cursor: pointer; transition: all 0.3s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  }
-  .tab-btn.active { background: #0A2342; color: white; box-shadow: 0 5px 15px rgba(10, 35, 66, 0.3); }
-
-  /* 4. COURSE LIST STYLES */
-  .course-container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; display: none; animation: fadeIn 0.5s; }
-  .course-container.active { display: block; }
+  /* 5. COURSE GRID */
+  .results-area { flex-grow: 1; }
   
-  .school-block {
-    background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    margin-bottom: 30px; overflow: hidden; border-top: 5px solid #0A2342;
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
   }
-  .school-header { background: #f8f9fa; padding: 20px 30px; border-bottom: 1px solid #eee; }
-  .school-header h2 { margin: 0; color: #0A2342; font-size: 1.5rem; }
 
-  .course-list { list-style: none; padding: 0; margin: 0; }
-  .course-item {
-    padding: 15px 30px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.95rem; color: #444; transition: background 0.2s;
+  .course-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 4px solid #ddd;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .course-item:last-child { border-bottom: none; }
-  .course-item:hover { background: #fdfdfd; }
+  .course-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); border-left-color: #D4AF37; }
+
+  /* School Colors */
+  .school-Business { border-left-color: #e91e63; }
+  .school-IT { border-left-color: #2196f3; }
+  .school-Science { border-left-color: #4caf50; }
+  .school-Humanities { border-left-color: #ff9800; }
+
+  .c-school { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #888; margin-bottom: 5px; }
+  .c-title { font-size: 1.1rem; font-weight: 700; color: #333; margin: 0 0 10px 0; line-height: 1.4; }
+  .c-level { display: inline-block; background: #f0f2f5; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; color: #555; }
   
-  .details-btn {
-    background: #0A2342; color: white; border: none; padding: 6px 15px; 
-    border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+  .c-footer { margin-top: 15px; display: flex; justify-content: space-between; align-items: center; }
+  
+  .view-btn {
+    background: transparent; border: 1px solid #0A2342; color: #0A2342;
+    padding: 6px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
   }
-  .details-btn:hover { background: #D4AF37; color: #0A2342; }
+  .view-btn:hover { background: #0A2342; color: white; }
 
-  .badge-eligibility {
-    display: inline-block; background: #e3f2fd; color: #1565c0; padding: 4px 8px;
-    border-radius: 4px; font-size: 0.8rem; margin-right: 10px; font-weight: 600;
-  }
-
-  /* MODAL */
+  /* 6. MODAL */
   .modal-overlay {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(3px);
+    background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px);
   }
-  .modal-content {
-    background: white; width: 90%; max-width: 600px; padding: 30px; border-radius: 12px;
-    position: relative; animation: slideUp 0.3s; max-height: 85vh; overflow-y: auto;
+  .modal-box {
+    background: white; width: 95%; max-width: 700px; max-height: 90vh; overflow-y: auto;
+    border-radius: 12px; position: relative; animation: slideUp 0.3s;
   }
-  .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #aaa; }
+  .modal-header {
+    background: #0A2342; padding: 20px 25px; color: white; display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .modal-title { margin: 0; font-size: 1.2rem; font-weight: 700; }
+  .close-modal { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
   
-  @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal-body { padding: 25px; }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .uni-hero h1 { font-size: 2.2rem; }
-    .course-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .info-block { margin-bottom: 25px; }
+  .info-head { font-size: 0.95rem; font-weight: 700; color: #0A2342; border-bottom: 2px solid #f0f0f0; padding-bottom: 5px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .info-content { font-size: 0.95rem; color: #444; line-height: 1.6; }
+  
+  .tag-bubble { display: inline-block; background: #e3f2fd; color: #1565c0; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; margin: 0 5px 5px 0; }
+
+  @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .app-container { flex-direction: column; }
+    .filters-sidebar { width: 100%; position: static; }
   }
 </style>
 
-<div class="uni-hero">
-  <h1>St. Joseph's University</h1>
-  <p>Faith and Toil • Est. 1882</p>
-  <a href="https://sju.edu.in" target="_blank" class="visit-btn">Visit Official Website ↗</a>
+<div class="sju-hero">
+  <h1>St. Joseph's University Course Portal</h1>
+  <p>Find your perfect course. Filter by School, Level, or Subject.</p>
 </div>
 
-<div class="level-tabs">
-  <button class="tab-btn active" onclick="openLevel('ug')">🎓 Undergraduate</button>
-  <button class="tab-btn" onclick="openLevel('pg')">📜 Postgraduate</button>
-  <button class="tab-btn" onclick="openLevel('diploma')">🛠️ PG Diploma</button>
-</div>
+<div class="app-container">
 
-<div id="ug" class="course-container active">
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Business</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>Bachelor of Commerce (B.Com)</span><div><span class="badge-eligibility">12th Pass</span> <button onclick="openDetails('bcom')" class="details-btn">Details</button></div></li>
-      <li class="course-item"><span>B.Com (Industry Integrated)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.Com (International Finance & Accounting)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>Bachelor of Business Administration (BBA)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>BBA (Strategic Finance)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>BBA (Branding and Entrepreneurship)</span><span class="badge-eligibility">12th Pass</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Chemical Sciences</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>B.Sc (Chemistry, Biotechnology, Biology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Microbiology, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Biology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Biotechnology, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Botany, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Physics, Chemistry, Mathematics)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Environmental Science, Biology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Microbiology, Biology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Zoology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Biology, Microbiology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Botany, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Microbiology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Humanities & Social Sciences</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>B.Sc (Economics, Mathematics, Statistics)</span><span class="badge-eligibility">12th (Maths)</span></li>
-      <li class="course-item"><span>B.A. (Industrial Relations, Economics, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Economics, Political Science, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (History, Political Science, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Intl. Relations, Peace Studies, Journalism & Public Policy)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Journalism, Political Science, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Communicative English, Pol Science, Economics)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (History, Economics, Political Science)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Journalism, Economics, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Optional English, Journalism, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Theatre & Performance Studies, Opt. English, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Languages & Literatures</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>B.A. (Intl. Relations, Peace Studies, Journalism & Public Policy)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Journalism, Political Science, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Communicative English, Pol Science, Economics)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Journalism, Economics, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Optional English, Journalism, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.A. (Theatre & Performance Studies, Opt. English, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Life Sciences</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>B.Sc (Chemistry, Biotechnology, Biology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Biology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Microbiology, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Biotechnology, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Botany, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Environmental Science, Biology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Microbiology, Biology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Zoology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Biology, Microbiology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Biochemistry, Botany, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Botany, Environmental Science, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
-      <li class="course-item"><span>B.Sc (Chemistry, Microbiology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Physical Sciences</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>B.Sc (Physics, Mathematics, Computer Science)</span><span class="badge-eligibility">12th PCM</span></li>
-      <li class="course-item"><span>B.Sc (Economics, Mathematics, Statistics)</span><span class="badge-eligibility">12th Maths</span></li>
-      <li class="course-item"><span>B.Sc (Physics, Chemistry, Mathematics)</span><span class="badge-eligibility">12th PCM</span></li>
-      <li class="course-item"><span>B.Sc (Physics, Electronics, Mathematics)</span><span class="badge-eligibility">12th PCM</span></li>
-      <li class="course-item"><span>B.Sc (Computer Science, Mathematics, Statistics)</span><span class="badge-eligibility">12th Maths</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Social Work</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>Bachelor of Social Work (BSW)</span><span class="badge-eligibility">12th Pass</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Communication & Media Studies</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>B.A. in Visual Communication</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.Voc in Digital Media and Animation</span><span class="badge-eligibility">12th Pass</span></li>
-      <li class="course-item"><span>B.Voc in Visual Media and Film-Making</span><span class="badge-eligibility">12th Pass</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Information Technology</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>Bachelor of Computer Applications (BCA)</span><span class="badge-eligibility">12th Maths/CS</span></li>
-      <li class="course-item"><span>B.Sc (Physics, Mathematics, Computer Science)</span><span class="badge-eligibility">12th PCM</span></li>
-      <li class="course-item"><span>BCA in Data Analytics</span><span class="badge-eligibility">12th Maths</span></li>
-      <li class="course-item"><span>B.Sc (Computer Science, Mathematics, Statistics)</span><span class="badge-eligibility">12th Maths</span></li>
-    </ul>
-  </div>
-
-</div>
-
-<div id="pg" class="course-container">
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Business</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>Master of Commerce (M.Com)</span><span class="badge-eligibility">B.Com/BBA</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Chemical Sciences</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>M.Sc in Analytical Chemistry</span><span class="badge-eligibility">B.Sc Chemistry</span></li>
-      <li class="course-item"><span>M.Sc in Organic Chemistry</span><span class="badge-eligibility">B.Sc Chemistry</span></li>
-      <li class="course-item"><span>M.Sc in Biochemistry</span><span class="badge-eligibility">B.Sc Biochem</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Humanities & Social Sciences</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>M.A. in Economics</span><span class="badge-eligibility">BA Economics</span></li>
-      <li class="course-item"><span>M.A. in Political Science</span><span class="badge-eligibility">BA Pol Sci</span></li>
-      <li class="course-item"><span>M.Sc in Counselling Psychology</span><span class="badge-eligibility">BA/B.Sc Psychology</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Languages & Literatures</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>M.A. in English</span><span class="badge-eligibility">BA English</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Life Sciences</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>M.Sc in Biotechnology</span><span class="badge-eligibility">B.Sc Biotech</span></li>
-      <li class="course-item"><span>M.Sc in Environmental Science and Sustainability</span><span class="badge-eligibility">B.Sc Science</span></li>
-      <li class="course-item"><span>M.Sc in Food Science and Technology</span><span class="badge-eligibility">B.Sc Food Sci</span></li>
-      <li class="course-item"><span>M.Sc in Microbiology</span><span class="badge-eligibility">B.Sc Micro</span></li>
-      <li class="course-item"><span>M.Sc in Zoology</span><span class="badge-eligibility">B.Sc Zoology</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Physical Sciences</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>M.Sc in Mathematics</span><span class="badge-eligibility">B.Sc Maths</span></li>
-      <li class="course-item"><span>M.Sc in Physics</span><span class="badge-eligibility">B.Sc Physics</span></li>
-      <li class="course-item"><span>M.Sc in Statistics</span><span class="badge-eligibility">B.Sc Statistics</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Social Work</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>Master of Social Work (MSW)</span><span class="badge-eligibility">BSW/Any Degree</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Communication & Media Studies</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>M.A. in Advertising and Public Relations</span><span class="badge-eligibility">Any Degree</span></li>
-      <li class="course-item"><span>M.A. in Journalism and Mass Communication</span><span class="badge-eligibility">Any Degree</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Information Technology</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>Master of Computer Applications (MCA)</span><span class="badge-eligibility">BCA/B.Sc CS</span></li>
-      <li class="course-item"><span>M.Sc in Big Data Analytics</span><span class="badge-eligibility">B.Sc Maths/Stats/CS</span></li>
-      <li class="course-item"><span>M.Sc in Computer Science</span><span class="badge-eligibility">B.Sc CS</span></li>
-      <li class="course-item"><span>M.Sc in Cyber Security & AI</span><span class="badge-eligibility">B.Sc CS/IT</span></li>
-    </ul>
-  </div>
-
-</div>
-
-<div id="diploma" class="course-container">
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Business</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>PG Diploma in Financial Management</span><span class="badge-eligibility">Degree</span></li>
-      <li class="course-item"><span>PG Diploma in Human Resource Management</span><span class="badge-eligibility">Degree</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Communication & Media</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>Executive Diploma Digital Media Communications</span><span class="badge-eligibility">Degree/Work Exp</span></li>
-    </ul>
-  </div>
-
-  <div class="school-block">
-    <div class="school-header"><h2>School of Information Technology</h2></div>
-    <ul class="course-list">
-      <li class="course-item"><span>PG Diploma in Cyber Security</span><span class="badge-eligibility">Tech Degree</span></li>
-      <li class="course-item"><span>PG Diploma in Data Analytics</span><span class="badge-eligibility">Tech Degree</span></li>
-    </ul>
-  </div>
-
-</div>
-
-<div id="bcom-modal" class="modal-overlay" onclick="closeModal(event, 'bcom-modal')">
-  <div class="modal-content">
-    <span class="close-btn" onclick="document.getElementById('bcom-modal').style.display='none'">&times;</span>
+  <aside class="filters-sidebar">
+    <div class="filter-group">
+      <label class="filter-label">🔍 Search Course</label>
+      <input type="text" id="searchInput" class="filter-input" placeholder="e.g. Psychology, BCA..." onkeyup="renderCourses()">
+    </div>
     
-    <h2 style="color:#0A2342; border-bottom:2px solid #D4AF37; padding-bottom:10px;">Bachelor of Commerce (B.Com)</h2>
-    
-    <div style="background:#f9f9f9; padding:15px; border-radius:8px; margin:15px 0;">
-      <h4 style="margin-top:0;">💰 Fee Structure (Per Year)</h4>
-      <ul style="padding-left:20px; margin-bottom:0;">
-        <li><strong>Karnataka:</strong> ₹1,05,000</li>
-        <li><strong>Non-Karnataka:</strong> ₹1,20,000</li>
-        <li><strong>NRI:</strong> ₹1,65,000</li>
-      </ul>
-      <p style="font-size:0.85rem; color:#666; margin-top:5px;"><em>*Plus one-time admission fee of ₹5,000.</em></p>
+    <div class="filter-group">
+      <label class="filter-label">🏫 Filter by School</label>
+      <select id="schoolFilter" class="filter-select" onchange="renderCourses()">
+        <option value="All">All Schools</option>
+        <option value="Business">School of Business</option>
+        <option value="IT">School of IT</option>
+        <option value="Communication">School of Communication</option>
+        <option value="Humanities">School of Humanities</option>
+        <option value="Chemical">School of Chemical Sciences</option>
+        <option value="Physical">School of Physical Sciences</option>
+        <option value="Life">School of Life Sciences</option>
+        <option value="Languages">School of Languages</option>
+        <option value="Social">School of Social Work</option>
+      </select>
     </div>
 
-    <h4 style="margin-bottom:5px;">📋 Eligibility</h4>
-    <p>Completion of 2-year Pre-University (PUC) or 12th Grade equivalent. Study of two languages is mandatory.</p>
+    <div class="filter-group">
+      <label class="filter-label">🎓 Programme Level</label>
+      <select id="levelFilter" class="filter-select" onchange="renderCourses()">
+        <option value="All">All Levels</option>
+        <option value="UG">Undergraduate (UG)</option>
+        <option value="PG">Postgraduate (PG)</option>
+        <option value="Diploma">PG Diploma</option>
+      </select>
+    </div>
 
-    <h4 style="margin-bottom:5px;">📅 Selection Process</h4>
-    <p>1. <strong>Application:</strong> Submit online with marks.<br>2. <strong>Interview:</strong> Two rounds (Subject & Personal).<br>3. <strong>Payment:</strong> Within 3 days of selection.</p>
+    <div style="margin-top:20px; font-size:0.8rem; color:#888;">
+      Showing <strong id="countDisplay">0</strong> courses
+    </div>
+  </aside>
 
-    <div style="text-align:center; margin-top:20px;">
-      <a href="https://sju.edu.in/courses/st-joseph-university/school-of-business/Department-of-Commerce/bachelor-of-commerce" target="_blank" style="background:#D4AF37; color:#0A2342; padding:10px 20px; text-decoration:none; font-weight:bold; border-radius:50px;">
-        Visit Official Page ↗
-      </a>
+  <div class="results-area">
+    <div id="courseGrid" class="course-grid">
+      </div>
+  </div>
+
+</div>
+
+<div id="courseModal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title" id="mTitle">Course Name</h2>
+      <button class="close-modal" onclick="closeModalBtn()">&times;</button>
+    </div>
+    <div class="modal-body">
+      
+      <div class="info-block">
+        <div class="info-head">📋 Programme Details</div>
+        <div class="info-content" id="mDetails"></div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-head">✅ Eligibility Criteria</div>
+        <div class="info-content" id="mEligibility"></div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-head">📝 Admission & Selection</div>
+        <div class="info-content">
+          <p><strong>Process:</strong> <span id="mProcess"></span></p>
+          <p><strong>Entrance Test:</strong> <span id="mTest"></span></p>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-head">💰 Fee Structure (Approx/Year)</div>
+        <div class="info-content" id="mFees" style="background:#f9f9f9; padding:10px; border-radius:5px;"></div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-head">🚀 Potential Career Outcomes</div>
+        <div class="info-content" id="mCareers"></div>
+      </div>
+      
+      <div style="text-align:center; margin-top:30px;">
+        <a href="https://sju.edu.in/" target="_blank" style="background:#D4AF37; color:#0A2342; padding:12px 30px; text-decoration:none; font-weight:bold; border-radius:50px;">Apply on Official Website ↗</a>
+      </div>
+
     </div>
   </div>
 </div>
 
 <script>
-  function openLevel(levelId) {
-    document.querySelectorAll('.course-container').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(levelId).classList.add('active');
-    event.currentTarget.classList.add('active');
+  // --- 1. MASTER DATABASE (ALL COURSES) ---
+  const allCourses = [
+    // --- BUSINESS (UG) ---
+    { id: 1, name: "Bachelor of Commerce (B.Com)", school: "Business", level: "UG", elig: "12th Pass (Commerce/Science)", fee: "₹1.05L - ₹1.65L" },
+    { id: 2, name: "B.Com (Industry Integrated)", school: "Business", level: "UG", elig: "12th Pass", fee: "₹1.05L - ₹1.65L" },
+    { id: 3, name: "B.Com (International Finance & Acc.)", school: "Business", level: "UG", elig: "12th Pass (Accounts pref)", fee: "₹1.9L - ₹2.5L" },
+    { id: 4, name: "Bachelor of Business Admin (BBA)", school: "Business", level: "UG", elig: "12th Pass (Any Stream)", fee: "₹1.4L - ₹2.1L" },
+    { id: 5, name: "BBA (Strategic Finance)", school: "Business", level: "UG", elig: "12th Pass", fee: "₹2.0L - ₹2.6L" },
+    { id: 6, name: "BBA (Branding & Entrepreneurship)", school: "Business", level: "UG", elig: "12th Pass", fee: "₹1.9L - ₹2.5L" },
+    
+    // --- CHEMICAL SCIENCES (UG) ---
+    { id: 7, name: "B.Sc (Chemistry, Biotech, Biology)", school: "Chemical", level: "UG", elig: "12th Science (Bio)", fee: "₹50k - ₹1L" },
+    { id: 8, name: "B.Sc (Biochem, Micro, Zoology)", school: "Chemical", level: "UG", elig: "12th Science (Bio)", fee: "₹50k - ₹1L" },
+    { id: 9, name: "B.Sc (Biochem, Biology, Biotech)", school: "Chemical", level: "UG", elig: "12th Science (Bio)", fee: "₹50k - ₹1L" },
+    { id: 10, name: "B.Sc (Biochem, Biotech, Zoology)", school: "Chemical", level: "UG", elig: "12th Science (Bio)", fee: "₹50k - ₹1L" },
+    { id: 11, name: "B.Sc (Chemistry, Botany, Zoology)", school: "Chemical", level: "UG", elig: "12th Science (Bio)", fee: "₹50k - ₹1L" },
+    { id: 12, name: "B.Sc (Physics, Chemistry, Maths)", school: "Chemical", level: "UG", elig: "12th Science (PCM)", fee: "₹50k - ₹1L" },
+    { id: 13, name: "B.Sc (Chem, Env Science, Biology)", school: "Chemical", level: "UG", elig: "12th Science", fee: "₹50k - ₹1L" },
+    
+    // --- HUMANITIES (UG) ---
+    { id: 14, name: "B.Sc (Econ, Maths, Statistics)", school: "Humanities", level: "UG", elig: "12th with Maths", fee: "₹90k - ₹1.5L" },
+    { id: 15, name: "B.A. (Ind. Relations, Econ, Sociology)", school: "Humanities", level: "UG", elig: "12th Pass", fee: "₹40k - ₹90k" },
+    { id: 16, name: "B.A. (Econ, Pol Sci, Sociology)", school: "Humanities", level: "UG", elig: "12th Pass", fee: "₹40k - ₹90k" },
+    { id: 17, name: "B.A. (History, Pol Sci, Sociology)", school: "Humanities", level: "UG", elig: "12th Pass", fee: "₹40k - ₹90k" },
+    { id: 18, name: "B.A. (Intl Relations, Peace, Journ)", school: "Humanities", level: "UG", elig: "12th Pass", fee: "₹60k - ₹1.2L" },
+    { id: 19, name: "B.A. (Journalism, Pol Sci, Soc)", school: "Humanities", level: "UG", elig: "12th Pass", fee: "₹60k - ₹1.2L" },
+    { id: 20, name: "B.A. (Comm English, Pol Sci, Econ)", school: "Humanities", level: "UG", elig: "12th Pass", fee: "₹60k - ₹1.2L" },
+    { id: 21, name: "B.A. (Journalism, Econ, Psychology)", school: "Humanities", level: "UG", elig: "12th Pass", fee: "₹60k - ₹1.2L" },
+    
+    // --- LANGUAGES (UG) ---
+    { id: 22, name: "B.A. (Opt English, Journ, Psych)", school: "Languages", level: "UG", elig: "12th Pass", fee: "₹60k - ₹1.2L" },
+    { id: 23, name: "B.A. (Theatre, Opt English, Psych)", school: "Languages", level: "UG", elig: "12th Pass", fee: "₹60k - ₹1.2L" },
+
+    // --- LIFE SCIENCES (UG) ---
+    { id: 24, name: "B.Sc (Botany, Env Sci, Zoology)", school: "Life", level: "UG", elig: "12th Science", fee: "₹50k - ₹1L" },
+    { id: 25, name: "B.Sc (Biochem, Botany, Biotech)", school: "Life", level: "UG", elig: "12th Science", fee: "₹50k - ₹1L" },
+
+    // --- PHYSICAL SCIENCES (UG) ---
+    { id: 26, name: "B.Sc (Physics, Maths, Comp Sci)", school: "Physical", level: "UG", elig: "12th PCM", fee: "₹90k - ₹1.5L" },
+    { id: 27, name: "B.Sc (Physics, Electronics, Maths)", school: "Physical", level: "UG", elig: "12th PCM", fee: "₹50k - ₹1L" },
+    { id: 28, name: "B.Sc (Comp Sci, Maths, Stats)", school: "Physical", level: "UG", elig: "12th Maths", fee: "₹90k - ₹1.5L" },
+
+    // --- SOCIAL WORK (UG) ---
+    { id: 29, name: "Bachelor of Social Work (BSW)", school: "Social", level: "UG", elig: "12th Pass", fee: "₹40k - ₹80k" },
+
+    // --- COMMUNICATION (UG) ---
+    { id: 30, name: "B.A. Visual Communication", school: "Communication", level: "UG", elig: "12th Pass + Portfolio", fee: "₹1.3L - ₹1.9L" },
+    { id: 31, name: "B.Voc Digital Media & Animation", school: "Communication", level: "UG", elig: "12th Pass", fee: "₹1.1L - ₹1.7L" },
+    { id: 32, name: "B.Voc Visual Media & Filmmaking", school: "Communication", level: "UG", elig: "12th Pass", fee: "₹1.1L - ₹1.7L" },
+
+    // --- IT (UG) ---
+    { id: 33, name: "Bachelor of Computer Applications (BCA)", school: "IT", level: "UG", elig: "12th Maths/CS/Elec", fee: "₹1.15L - ₹1.85L" },
+    { id: 34, name: "BCA (Data Analytics)", school: "IT", level: "UG", elig: "12th Maths/Stats", fee: "₹1.5L - ₹2.1L" },
+
+    // --- PG COURSES ---
+    { id: 35, name: "Master of Commerce (M.Com)", school: "Business", level: "PG", elig: "B.Com/BBA", fee: "₹1.1L - ₹1.7L" },
+    { id: 36, name: "M.Sc Analytical Chemistry", school: "Chemical", level: "PG", elig: "B.Sc Chemistry", fee: "₹80k - ₹1.5L" },
+    { id: 37, name: "M.Sc Organic Chemistry", school: "Chemical", level: "PG", elig: "B.Sc Chemistry", fee: "₹80k - ₹1.5L" },
+    { id: 38, name: "M.Sc Biochemistry", school: "Chemical", level: "PG", elig: "B.Sc Biochem", fee: "₹80k - ₹1.5L" },
+    { id: 39, name: "M.A. Economics", school: "Humanities", level: "PG", elig: "BA Economics", fee: "₹80k - ₹1.5L" },
+    { id: 40, name: "M.A. Political Science", school: "Humanities", level: "PG", elig: "BA Pol Sci", fee: "₹80k - ₹1.5L" },
+    { id: 41, name: "M.Sc Counselling Psychology", school: "Humanities", level: "PG", elig: "BA/B.Sc Psych", fee: "₹1.2L - ₹2L" },
+    { id: 42, name: "M.A. English", school: "Languages", level: "PG", elig: "BA English", fee: "₹80k - ₹1.5L" },
+    { id: 43, name: "M.Sc Biotechnology", school: "Life", level: "PG", elig: "B.Sc Biotech", fee: "₹1L - ₹1.8L" },
+    { id: 44, name: "M.Sc Mathematics", school: "Physical", level: "PG", elig: "B.Sc Maths", fee: "₹80k - ₹1.5L" },
+    { id: 45, name: "M.Sc Physics", school: "Physical", level: "PG", elig: "B.Sc Physics", fee: "₹80k - ₹1.5L" },
+    { id: 46, name: "Master of Social Work (MSW)", school: "Social", level: "PG", elig: "Any Degree", fee: "₹80k - ₹1.5L" },
+    { id: 47, name: "M.A. Advertising & PR", school: "Communication", level: "PG", elig: "Any Degree", fee: "₹1.4L - ₹2L" },
+    { id: 48, name: "M.A. Journalism & Mass Comm", school: "Communication", level: "PG", elig: "Any Degree", fee: "₹1.4L - ₹2L" },
+    { id: 49, name: "Master of Computer Applications (MCA)", school: "IT", level: "PG", elig: "BCA/B.Sc CS", fee: "₹1.75L - ₹2.35L" },
+    { id: 50, name: "M.Sc Big Data Analytics", school: "IT", level: "PG", elig: "B.Sc Maths/CS", fee: "₹1.75L - ₹2.35L" },
+    { id: 51, name: "M.Sc Cyber Security & AI", school: "IT", level: "PG", elig: "B.Sc CS/IT", fee: "₹1.75L - ₹2.35L" },
+
+    // --- DIPLOMA ---
+    { id: 52, name: "PG Diploma in Financial Mgmt", school: "Business", level: "Diploma", elig: "Degree", fee: "Contact Office" },
+    { id: 53, name: "PG Diploma in HR Management", school: "Business", level: "Diploma", elig: "Degree", fee: "Contact Office" },
+    { id: 54, name: "PG Diploma in Cyber Security", school: "IT", level: "Diploma", elig: "Tech Degree", fee: "Contact Office" },
+    { id: 55, name: "PG Diploma in Data Analytics", school: "IT", level: "Diploma", elig: "Tech Degree", fee: "Contact Office" },
+    { id: 56, name: "Exec. Diploma Digital Media", school: "Communication", level: "Diploma", elig: "Degree/Exp", fee: "Contact Office" }
+  ];
+
+  // --- 2. RENDER FUNCTIONS ---
+  function renderCourses() {
+    const searchText = document.getElementById('searchInput').value.toLowerCase();
+    const schoolFilter = document.getElementById('schoolFilter').value;
+    const levelFilter = document.getElementById('levelFilter').value;
+    const grid = document.getElementById('courseGrid');
+    
+    grid.innerHTML = '';
+    let count = 0;
+
+    allCourses.forEach(course => {
+      // Logic for Filtering
+      const matchesSearch = course.name.toLowerCase().includes(searchText);
+      const matchesSchool = schoolFilter === 'All' || course.school === schoolFilter;
+      const matchesLevel = levelFilter === 'All' || course.level === levelFilter;
+
+      if (matchesSearch && matchesSchool && matchesLevel) {
+        count++;
+        // Generate Card HTML
+        const card = `
+          <div class="course-card school-${course.school}">
+            <div class="c-info">
+              <span class="c-school">School of ${course.school}</span>
+              <h3 class="c-title">${course.name}</h3>
+              <div class="c-meta">
+                <span class="c-level">${course.level}</span>
+                <span class="c-badge">Elig: ${course.elig}</span>
+              </div>
+            </div>
+            <div class="c-footer">
+              <button class="view-btn" onclick="openModal(${course.id})">View Details</button>
+            </div>
+          </div>
+        `;
+        grid.innerHTML += card;
+      }
+    });
+
+    document.getElementById('countDisplay').innerText = count;
   }
 
-  function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-  function closeModal(e, id) { if(e.target.className === 'modal-overlay') document.getElementById(id).style.display = 'none'; }
+  // --- 3. MODAL LOGIC ---
+  function openModal(id) {
+    const course = allCourses.find(c => c.id === id);
+    if (!course) return;
+
+    document.getElementById('mTitle').innerText = course.name;
+    document.getElementById('mFees').innerText = course.fee;
+    document.getElementById('mEligibility').innerText = course.elig;
+    
+    // Dynamic Content Gen based on course Keywords
+    let careers = "Specialist roles in the field, Research, Higher Education (PhD/Masters).";
+    if (course.name.includes("BCA") || course.name.includes("Computer")) careers = "Software Engineer, Web Developer, System Analyst, Data Scientist.";
+    if (course.name.includes("Commerce") || course.name.includes("BBA")) careers = "Accountant, Financial Analyst, HR Executive, Marketing Manager.";
+    if (course.name.includes("Visual") || course.name.includes("Media")) careers = "Graphic Designer, Content Creator, Film Editor, PR Specialist.";
+    if (course.name.includes("Chemistry") || course.name.includes("Physics")) careers = "Lab Scientist, Researcher, Lecturer, Industrial R&D.";
+
+    document.getElementById('mCareers').innerText = careers;
+    
+    // Syllabus & Process
+    document.getElementById('mDetails').innerText = "This programme offers in-depth knowledge in " + course.school + " with a focus on holistic development and practical skills.";
+    document.getElementById('mProcess').innerText = "Online Application -> Entrance Test (for select courses) -> Personal Interview.";
+    document.getElementById('mTest').innerText = course.name.includes("B.A.") || course.name.includes("B.Sc") ? "Merit Based (Interview)" : "SJUET Entrance Test (Check Official Site)";
+
+    document.getElementById('courseModal').style.display = 'flex';
+  }
+
+  function closeModalBtn() { document.getElementById('courseModal').style.display = 'none'; }
+  function closeModal(e) { if(e.target.className === 'modal-overlay') document.getElementById('courseModal').style.display = 'none'; }
+
+  // Initial Load
+  renderCourses();
 </script>
+
+<br>
+
+Here is a video from YouTube that might be helpful:
+[St. Joseph's University, Bangalore - Admission Process 2023, List of Courses etc](https://www.youtube.com/watch?v=u60gE02OyII)
+
+This video provides a comprehensive overview of the admission process, course list, and fee structure for St. Joseph's University, Bangalore, which complements the information on the updated webpage.
