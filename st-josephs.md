@@ -3,7 +3,7 @@ layout: default
 title: "St. Joseph's University, Bengaluru 🎓"
 permalink: /colleges/st-josephs/
 image: "https://images.unsplash.com/photo-1562774053-701939374585?w=1200&h=630&fit=crop"
-description: "Complete list of Undergraduate, PG, and Diploma courses at St. Joseph's University with batch timings and entrance exam details."
+description: "Complete list of Undergraduate, PG, and Diploma courses at St. Joseph's University with batch timings, fees, and entrance exam details."
 ---
 
 <style>
@@ -129,10 +129,43 @@ description: "Complete list of Undergraduate, PG, and Diploma courses at St. Jos
 
   .batch-time { color: #555; font-size: 0.9rem; white-space: pre-line; line-height: 1.4; }
   
-  /* BADGES */
+  /* BADGES & BUTTONS */
   .badge { padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
   .badge-no { background: #e8f5e9; color: #2e7d32; } /* Green */
   .badge-yes { background: #ffebee; color: #c62828; } /* Red */
+
+  .details-btn {
+    background: #0A2342; 
+    color: white; 
+    border: none; 
+    padding: 6px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 0.85rem; 
+    margin-left: 10px;
+    transition: background 0.2s;
+  }
+  .details-btn:hover { background: #D4AF37; color: #0A2342; }
+
+  /* MODAL STYLES */
+  .modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center;
+    backdrop-filter: blur(3px);
+  }
+  .modal-content {
+    background: white; width: 90%; max-width: 600px; padding: 30px; border-radius: 12px;
+    position: relative; animation: slideDown 0.3s; margin: 5% auto;
+    max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #aaa; line-height: 1; }
+  .close-btn:hover { color: #000; }
+  
+  @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .fee-box { background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #D4AF37; }
+  .fee-row { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.95rem; }
+  .fee-row strong { color: #555; }
 
 </style>
 
@@ -155,7 +188,15 @@ description: "Complete list of Undergraduate, PG, and Diploma courses at St. Jos
     <table class="course-table">
       <thead><tr><th>Course Name</th><th>Batch Timing</th><th>Entrance Test</th></tr></thead>
       <tbody>
-        <tr><td><strong>B.Com (Regular)</strong></td><td class="batch-time">Batch 1: 7am-12pm<br>Batch 2: 12pm-4pm<br>Batch 3: 4:45pm-8:45pm</td><td><span class="badge badge-no">No</span></td></tr>
+        <tr>
+          <td><strong>B.Com (Regular)</strong></td>
+          <td class="batch-time">Batch 1: 7am-12pm<br>Batch 2: 12pm-4pm<br>Batch 3: 4:45pm-8:45pm</td>
+          <td>
+            <span class="badge badge-no">No</span>
+            <button onclick="openModal('bcom-modal')" class="details-btn">Details ℹ️</button>
+          </td>
+        </tr>
+        
         <tr><td><strong>B.Com (Industry Integrated)</strong></td><td class="batch-time">7:00 AM - 12:00 PM</td><td><span class="badge badge-no">No</span></td></tr>
         <tr><td><strong>B.Com (Intl. Finance & Acc.)</strong></td><td class="batch-time">Batch 1: 7am-12pm<br>Batch 2: 4:45pm-8:45pm</td><td><span class="badge badge-yes">YES</span></td></tr>
         <tr><td><strong>BBA (Regular)</strong></td><td class="batch-time">Batch 1: 7am-12pm<br>Batch 2: 4:45pm-8:45pm</td><td><span class="badge badge-no">No</span></td></tr>
@@ -286,6 +327,42 @@ description: "Complete list of Undergraduate, PG, and Diploma courses at St. Jos
 
 </div>
 
+<div id="bcom-modal" class="modal-overlay" onclick="closeModal(event, 'bcom-modal')">
+  <div class="modal-content">
+    <span class="close-btn" onclick="document.getElementById('bcom-modal').style.display='none'">&times;</span>
+    
+    <h2 style="color:#0A2342; border-bottom:2px solid #D4AF37; padding-bottom:10px; margin-top:0;">Bachelor of Commerce (B.Com)</h2>
+    
+    <p><strong>Overview:</strong> The regular B.Com. programme facilitates students to acquire specialized knowledge in Accounting, Finance, Taxation, Banking, Insurance, and HR.</p>
+
+    <div class="fee-box">
+      <h4 style="margin-top:0; color:#0A2342;">💰 Fee Structure (Per Year)</h4>
+      <div class="fee-row"><strong>Karnataka:</strong> <span>₹1,05,000</span></div>
+      <div class="fee-row"><strong>Non-Karnataka:</strong> <span>₹1,20,000</span></div>
+      <div class="fee-row"><strong>NRI / OCI:</strong> <span>₹1,65,000</span></div>
+      <div class="fee-row"><strong>Foreign Nationals:</strong> <span>₹2,05,000 ($2,278)</span></div>
+      <hr style="margin:8px 0; border:0; border-top:1px dashed #ccc;">
+      <div class="fee-row"><strong>Admission Fee (One-time):</strong> <span>₹5,000</span></div>
+    </div>
+
+    <h4 style="color:#0A2342; margin-bottom:5px;">📋 Eligibility</h4>
+    <p style="margin-top:0;">Candidates must have completed a 2-year Pre-University programme in Karnataka or equivalent (12th Grade). Study of two languages is mandatory.</p>
+
+    <h4 style="color:#0A2342; margin-bottom:5px;">📅 Selection Process</h4>
+    <ul style="margin-top:0; padding-left:20px;">
+      <li><strong>Step 1:</strong> Online Application & Document Upload</li>
+      <li><strong>Step 2:</strong> Interview (Two Rounds)</li>
+      <li><strong>Step 3:</strong> Fee Payment (within 3 days of selection)</li>
+    </ul>
+
+    <div style="text-align:center; margin-top:25px;">
+      <a href="https://sju.edu.in/courses/st-joseph-university/school-of-business/Department-of-Commerce/bachelor-of-commerce" target="_blank" style="background:#D4AF37; color:#0A2342; padding:12px 25px; text-decoration:none; font-weight:bold; border-radius:50px; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+        Visit Official Page ↗
+      </a>
+    </div>
+  </div>
+</div>
+
 <script>
   function openLevel(levelId) {
     // 1. Hide all containers
@@ -299,5 +376,15 @@ description: "Complete list of Undergraduate, PG, and Diploma courses at St. Jos
     // 3. Show selected
     document.getElementById(levelId).classList.add('active');
     event.currentTarget.classList.add('active');
+  }
+
+  function openModal(id) {
+    document.getElementById(id).style.display = 'flex'; // Changed to flex for centering
+  }
+
+  function closeModal(e, id) {
+    if(e.target.className === 'modal-overlay') {
+      document.getElementById(id).style.display = 'none';
+    }
   }
 </script>
