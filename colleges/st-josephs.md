@@ -3,7 +3,7 @@ layout: default
 title: "St. Joseph's University, Bengaluru 🎓"
 permalink: /colleges/st-josephs/
 image: "https://images.unsplash.com/photo-1562774053-701939374585?w=1200&h=630&fit=crop"
-description: "Explore Undergraduate, PG, and Diploma courses at St. Joseph's University. Check batch timings (Morning/Evening), fees, and entrance exams."
+description: "Complete list of Undergraduate, PG, and Diploma courses at St. Joseph's University organized by Schools."
 ---
 
 <style>
@@ -41,74 +41,54 @@ description: "Explore Undergraduate, PG, and Diploma courses at St. Joseph's Uni
   }
   .tab-btn.active { background: #0A2342; color: white; box-shadow: 0 5px 15px rgba(10, 35, 66, 0.3); }
 
-  /* 4. COURSE CARDS GRID */
+  /* 4. COURSE LIST STYLES */
   .course-container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; display: none; animation: fadeIn 0.5s; }
   .course-container.active { display: block; }
   
-  .course-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 30px;
+  .school-block {
+    background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    margin-bottom: 30px; overflow: hidden; border-top: 5px solid #0A2342;
   }
+  .school-header { background: #f8f9fa; padding: 20px 30px; border-bottom: 1px solid #eee; }
+  .school-header h2 { margin: 0; color: #0A2342; font-size: 1.5rem; }
 
-  .course-card {
-    background: white; border-radius: 15px; overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: transform 0.3s;
-    display: flex; flex-direction: column; border-top: 5px solid #0A2342;
+  .course-list { list-style: none; padding: 0; margin: 0; }
+  .course-item {
+    padding: 15px 30px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.95rem; color: #444; transition: background 0.2s;
   }
-  .course-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-
-  .card-body { padding: 25px; flex-grow: 1; }
-  .school-label { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 5px; display: block;}
-  .card-title { font-size: 1.3rem; font-weight: 700; color: #0A2342; margin: 0 0 15px 0; line-height: 1.3; }
-  
-  /* Batch Timing Badges */
-  .batch-badge { 
-    display: inline-flex; align-items: center; gap: 5px;
-    background: #f0f4f8; padding: 6px 12px; border-radius: 6px; 
-    font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 8px; width: 100%;
-  }
-  .batch-icon { font-size: 1rem; }
-
-  .card-footer {
-    padding: 20px; border-top: 1px solid #eee; background: #fafafa;
-    display: flex; justify-content: space-between; align-items: center;
-  }
+  .course-item:last-child { border-bottom: none; }
+  .course-item:hover { background: #fdfdfd; }
   
   .details-btn {
-    background: transparent; border: 2px solid #0A2342; color: #0A2342; 
-    padding: 8px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.2s;
+    background: #0A2342; color: white; border: none; padding: 6px 15px; 
+    border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600;
   }
-  .details-btn:hover { background: #0A2342; color: white; }
+  .details-btn:hover { background: #D4AF37; color: #0A2342; }
 
-  /* 5. MODAL STYLES */
+  .badge-eligibility {
+    display: inline-block; background: #e3f2fd; color: #1565c0; padding: 4px 8px;
+    border-radius: 4px; font-size: 0.8rem; margin-right: 10px; font-weight: 600;
+  }
+
+  /* MODAL */
   .modal-overlay {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center;
-    backdrop-filter: blur(5px);
+    background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(3px);
   }
   .modal-content {
-    background: white; width: 95%; max-width: 600px; border-radius: 16px;
-    position: relative; animation: slideUp 0.3s; overflow: hidden; display: flex; flex-direction: column;
-    max-height: 90vh;
+    background: white; width: 90%; max-width: 600px; padding: 30px; border-radius: 12px;
+    position: relative; animation: slideUp 0.3s; max-height: 85vh; overflow-y: auto;
   }
-  .modal-header { background: #0A2342; padding: 20px 30px; color: white; display: flex; justify-content: space-between; align-items: center; }
-  .modal-header h2 { margin: 0; font-size: 1.3rem; }
-  .close-btn { background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
+  .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #aaa; }
   
-  .modal-body { padding: 30px; overflow-y: auto; }
-  
-  .info-group { margin-bottom: 25px; }
-  .info-title { font-size: 1rem; font-weight: 800; color: #0A2342; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .info-text { color: #555; line-height: 1.6; font-size: 0.95rem; }
-
   @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
   /* Responsive */
   @media (max-width: 768px) {
     .uni-hero h1 { font-size: 2.2rem; }
-    .course-grid { grid-template-columns: 1fr; }
+    .course-item { flex-direction: column; align-items: flex-start; gap: 10px; }
   }
 </style>
 
@@ -125,263 +105,265 @@ description: "Explore Undergraduate, PG, and Diploma courses at St. Joseph's Uni
 </div>
 
 <div id="ug" class="course-container active">
-  <div class="course-grid">
 
-    <div class="course-card">
-      <div class="card-body">
-        <span class="school-label">School of Business</span>
-        <h3 class="card-title">Bachelor of Commerce (B.Com)</h3>
-        <div class="batch-badge">☀️ Batch 1: 7am - 12pm</div>
-        <div class="batch-badge">🌤️ Batch 2: 12pm - 4pm</div>
-        <div class="batch-badge">🌇 Batch 3: 4:45pm - 8:45pm</div>
-        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Core commerce education focusing on Accounting, Finance, and Taxation.</p>
-      </div>
-      <div class="card-footer">
-        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
-        <button onclick="openModal('bcom-modal')" class="details-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="course-card">
-      <div class="card-body">
-        <span class="school-label">School of Business</span>
-        <h3 class="card-title">Bachelor of Business Admin (BBA)</h3>
-        <div class="batch-badge">☀️ Batch 1: 7am - 12pm</div>
-        <div class="batch-badge">🌇 Batch 2: 4:45pm - 8:45pm</div>
-        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Foundational management course covering Marketing, HR, and Operations.</p>
-      </div>
-      <div class="card-footer">
-        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
-        <button onclick="openModal('bba-modal')" class="details-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="course-card">
-      <div class="card-body">
-        <span class="school-label">School of IT</span>
-        <h3 class="card-title">Bachelor of Computer Applications (BCA)</h3>
-        <div class="batch-badge">☀️ Batch 1: 9am - 4pm</div>
-        <div class="batch-badge">🌇 Batch 2: 4pm - 9pm</div>
-        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Practical software development, programming, and database management.</p>
-      </div>
-      <div class="card-footer">
-        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
-        <button onclick="openModal('bca-modal')" class="details-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="course-card">
-      <div class="card-body">
-        <span class="school-label">School of Communication</span>
-        <h3 class="card-title">B.A. Visual Communication</h3>
-        <div class="batch-badge">☀️ 7am - 1pm</div>
-        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Design, Photography, and Media studies. Requires portfolio/test.</p>
-      </div>
-      <div class="card-footer">
-        <span style="font-weight:bold; color:#e65100;">⚠️ Entrance Test</span>
-        <button onclick="openModal('viscom-modal')" class="details-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="course-card">
-      <div class="card-body">
-        <span class="school-label">School of Sciences</span>
-        <h3 class="card-title">B.Sc (PCM / CBZ / MCB)</h3>
-        <div class="batch-badge">☀️ 9am - 4pm (General)</div>
-        <div class="batch-badge">☀️ 7am - 1pm (Bio/Micro)</div>
-        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Multiple combinations available: Physics-Chem-Maths or Chem-Botany-Zoology.</p>
-      </div>
-      <div class="card-footer">
-        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
-        <button onclick="openModal('bsc-modal')" class="details-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="course-card">
-      <div class="card-body">
-        <span class="school-label">School of Business</span>
-        <h3 class="card-title">B.Com (International Finance)</h3>
-        <div class="batch-badge">☀️ Batch 1: 7am - 12pm</div>
-        <div class="batch-badge">🌇 Batch 2: 4:45pm - 8:45pm</div>
-        <p style="margin-top:15px; color:#666; font-size:0.9rem;">Specialized for ACCA/CPA aspirants with global accounting focus.</p>
-      </div>
-      <div class="card-footer">
-        <span style="font-weight:bold; color:#e65100;">⚠️ Entrance Test</span>
-        <button onclick="openModal('bcom-intl-modal')" class="details-btn">View Details</button>
-      </div>
-    </div>
-
+  <div class="school-block">
+    <div class="school-header"><h2>School of Business</h2></div>
+    <ul class="course-list">
+      <li class="course-item">
+        <span>Bachelor of Commerce (B.Com)</span>
+        <div><span class="badge-eligibility">12th Pass (Comm/Sci)</span> <button onclick="openModal('bcom-modal')" class="details-btn">Details</button></div>
+      </li>
+      <li class="course-item"><span>B.Com (Industry Integrated)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.Com (International Finance & Accounting)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>Bachelor of Business Administration (BBA)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>BBA (Strategic Finance)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>BBA (Branding and Entrepreneurship)</span><span class="badge-eligibility">12th Pass</span></li>
+    </ul>
   </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Chemical Sciences</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>B.Sc (Chemistry, Biotechnology, Biology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Microbiology, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Biology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Biotechnology, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Botany, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Physics, Chemistry, Mathematics)</span><span class="badge-eligibility">12th Science (PCM)</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Environmental Science, Biology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Microbiology, Biology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Zoology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Biology, Microbiology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Botany, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Microbiology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Humanities & Social Sciences</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>B.Sc (Economics, Mathematics, Statistics)</span><span class="badge-eligibility">12th (Maths)</span></li>
+      <li class="course-item"><span>B.A. (Industrial Relations, Economics, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Economics, Political Science, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (History, Political Science, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Intl. Relations, Peace Studies, Journalism & Public Policy)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Journalism, Political Science, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Communicative English, Pol Science, Economics)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (History, Economics, Political Science)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Journalism, Economics, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Optional English, Journalism, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Theatre & Performance Studies, Opt. English, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Languages & Literatures</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>B.A. (Intl. Relations, Peace Studies, Journalism & Public Policy)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Journalism, Political Science, Sociology)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Communicative English, Pol Science, Economics)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Journalism, Economics, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Optional English, Journalism, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.A. (Theatre & Performance Studies, Opt. English, Psychology)</span><span class="badge-eligibility">12th Pass</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Life Sciences</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>B.Sc (Chemistry, Biotechnology, Biology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Biology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Microbiology, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Biotechnology, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Botany, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Environmental Science, Biology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Microbiology, Biology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Zoology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Biology, Microbiology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Biochemistry, Botany, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Botany, Environmental Science, Zoology)</span><span class="badge-eligibility">12th Science</span></li>
+      <li class="course-item"><span>B.Sc (Chemistry, Microbiology, Biotechnology)</span><span class="badge-eligibility">12th Science</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Physical Sciences</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>B.Sc (Physics, Mathematics, Computer Science)</span><span class="badge-eligibility">12th PCM</span></li>
+      <li class="course-item"><span>B.Sc (Economics, Mathematics, Statistics)</span><span class="badge-eligibility">12th Maths</span></li>
+      <li class="course-item"><span>B.Sc (Physics, Chemistry, Mathematics)</span><span class="badge-eligibility">12th PCM</span></li>
+      <li class="course-item"><span>B.Sc (Physics, Electronics, Mathematics)</span><span class="badge-eligibility">12th PCM</span></li>
+      <li class="course-item"><span>B.Sc (Computer Science, Mathematics, Statistics)</span><span class="badge-eligibility">12th Maths</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Social Work</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>Bachelor of Social Work (BSW)</span><span class="badge-eligibility">12th Pass</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Communication & Media Studies</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>B.A. in Visual Communication</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.Voc in Digital Media and Animation</span><span class="badge-eligibility">12th Pass</span></li>
+      <li class="course-item"><span>B.Voc in Visual Media and Film-Making</span><span class="badge-eligibility">12th Pass</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Information Technology</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>Bachelor of Computer Applications (BCA)</span><span class="badge-eligibility">12th Maths/CS</span></li>
+      <li class="course-item"><span>B.Sc (Physics, Mathematics, Computer Science)</span><span class="badge-eligibility">12th PCM</span></li>
+      <li class="course-item"><span>BCA in Data Analytics</span><span class="badge-eligibility">12th Maths</span></li>
+      <li class="course-item"><span>B.Sc (Computer Science, Mathematics, Statistics)</span><span class="badge-eligibility">12th Maths</span></li>
+    </ul>
+  </div>
+
 </div>
 
 <div id="pg" class="course-container">
-  <div class="course-grid">
-    
-    <div class="course-card">
-      <div class="card-body">
-        <span class="school-label">School of Business</span>
-        <h3 class="card-title">Master of Commerce (M.Com)</h3>
-        <div class="batch-badge">☀️ Batch 1: 7am - 11am</div>
-        <div class="batch-badge">🌇 Batch 2: 4:45pm - 8:45pm</div>
-      </div>
-      <div class="card-footer">
-        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
-        <button onclick="openModal('mcom-modal')" class="details-btn">View Details</button>
-      </div>
-    </div>
 
-    <div class="course-card">
-      <div class="card-body">
-        <span class="school-label">School of IT</span>
-        <h3 class="card-title">Master of Computer Applications (MCA)</h3>
-        <div class="batch-badge">🌤️ 1pm - 7pm</div>
-      </div>
-      <div class="card-footer">
-        <span style="font-weight:bold; color:#e65100;">⚠️ Entrance Test</span>
-        <button onclick="openModal('mca-modal')" class="details-btn">View Details</button>
-      </div>
-    </div>
-
-    <div class="course-card">
-      <div class="card-body">
-        <span class="school-label">School of Languages</span>
-        <h3 class="card-title">Master of Arts (English)</h3>
-        <div class="batch-badge">☀️ Batch 1: 9am - 4pm</div>
-        <div class="batch-badge">🌇 Batch 2: 4:45pm - 8:45pm</div>
-      </div>
-      <div class="card-footer">
-        <span style="font-weight:bold; color:#2e7d32;">✅ Merit Based</span>
-        <button onclick="openModal('ma-eng-modal')" class="details-btn">View Details</button>
-      </div>
-    </div>
-
+  <div class="school-block">
+    <div class="school-header"><h2>School of Business</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>Master of Commerce (M.Com)</span><span class="badge-eligibility">B.Com/BBA</span></li>
+    </ul>
   </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Chemical Sciences</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>M.Sc in Analytical Chemistry</span><span class="badge-eligibility">B.Sc Chemistry</span></li>
+      <li class="course-item"><span>M.Sc in Organic Chemistry</span><span class="badge-eligibility">B.Sc Chemistry</span></li>
+      <li class="course-item"><span>M.Sc in Biochemistry</span><span class="badge-eligibility">B.Sc Biochem</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Humanities & Social Sciences</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>M.A. in Economics</span><span class="badge-eligibility">BA Economics</span></li>
+      <li class="course-item"><span>M.A. in Political Science</span><span class="badge-eligibility">BA Pol Sci</span></li>
+      <li class="course-item"><span>M.Sc in Counselling Psychology</span><span class="badge-eligibility">BA/B.Sc Psychology</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Languages & Literatures</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>M.A. in English</span><span class="badge-eligibility">BA English</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Life Sciences</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>M.Sc in Biotechnology</span><span class="badge-eligibility">B.Sc Biotech</span></li>
+      <li class="course-item"><span>M.Sc in Environmental Science and Sustainability</span><span class="badge-eligibility">B.Sc Science</span></li>
+      <li class="course-item"><span>M.Sc in Food Science and Technology</span><span class="badge-eligibility">B.Sc Food Sci</span></li>
+      <li class="course-item"><span>M.Sc in Microbiology</span><span class="badge-eligibility">B.Sc Micro</span></li>
+      <li class="course-item"><span>M.Sc in Zoology</span><span class="badge-eligibility">B.Sc Zoology</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Physical Sciences</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>M.Sc in Mathematics</span><span class="badge-eligibility">B.Sc Maths</span></li>
+      <li class="course-item"><span>M.Sc in Physics</span><span class="badge-eligibility">B.Sc Physics</span></li>
+      <li class="course-item"><span>M.Sc in Statistics</span><span class="badge-eligibility">B.Sc Statistics</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Social Work</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>Master of Social Work (MSW)</span><span class="badge-eligibility">BSW/Any Degree</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Communication & Media Studies</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>M.A. in Advertising and Public Relations</span><span class="badge-eligibility">Any Degree</span></li>
+      <li class="course-item"><span>M.A. in Journalism and Mass Communication</span><span class="badge-eligibility">Any Degree</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Information Technology</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>Master of Computer Applications (MCA)</span><span class="badge-eligibility">BCA/B.Sc CS</span></li>
+      <li class="course-item"><span>M.Sc in Big Data Analytics</span><span class="badge-eligibility">B.Sc Maths/Stats/CS</span></li>
+      <li class="course-item"><span>M.Sc in Computer Science</span><span class="badge-eligibility">B.Sc CS</span></li>
+      <li class="course-item"><span>M.Sc in Cyber Security & AI</span><span class="badge-eligibility">B.Sc CS/IT</span></li>
+    </ul>
+  </div>
+
+</div>
+
+<div id="diploma" class="course-container">
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Business</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>PG Diploma in Financial Management</span><span class="badge-eligibility">Degree</span></li>
+      <li class="course-item"><span>PG Diploma in Human Resource Management</span><span class="badge-eligibility">Degree</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Communication & Media</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>Executive Diploma Digital Media Communications</span><span class="badge-eligibility">Degree/Work Exp</span></li>
+    </ul>
+  </div>
+
+  <div class="school-block">
+    <div class="school-header"><h2>School of Information Technology</h2></div>
+    <ul class="course-list">
+      <li class="course-item"><span>PG Diploma in Cyber Security</span><span class="badge-eligibility">Tech Degree</span></li>
+      <li class="course-item"><span>PG Diploma in Data Analytics</span><span class="badge-eligibility">Tech Degree</span></li>
+    </ul>
+  </div>
+
 </div>
 
 <div id="bcom-modal" class="modal-overlay" onclick="closeModal(event, 'bcom-modal')">
   <div class="modal-content">
-    <div class="modal-header">
-      <h2>Bachelor of Commerce (B.Com)</h2>
-      <button class="close-btn" onclick="document.getElementById('bcom-modal').style.display='none'">&times;</button>
+    <span class="close-btn" onclick="document.getElementById('bcom-modal').style.display='none'">&times;</span>
+    
+    <h2 style="color:#0A2342; border-bottom:2px solid #D4AF37; padding-bottom:10px;">Bachelor of Commerce (B.Com)</h2>
+    
+    <div style="background:#f9f9f9; padding:15px; border-radius:8px; margin:15px 0;">
+      <h4 style="margin-top:0;">💰 Fee Structure (Per Year)</h4>
+      <ul style="padding-left:20px; margin-bottom:0;">
+        <li><strong>Karnataka:</strong> ₹1,05,000</li>
+        <li><strong>Non-Karnataka:</strong> ₹1,20,000</li>
+        <li><strong>NRI:</strong> ₹1,65,000</li>
+      </ul>
+      <p style="font-size:0.85rem; color:#666; margin-top:5px;"><em>*Plus one-time admission fee of ₹5,000.</em></p>
     </div>
-    <div class="modal-body">
-      <div class="info-group">
-        <div class="info-title">📋 Eligibility</div>
-        <div class="info-text">
-          Pass in <strong>Class 12 (PUC)</strong> from Karnataka or equivalent board. Commerce/Arts/Science students can apply, but Commerce background is preferred for easier adaptation.
-        </div>
-      </div>
-      <div class="info-group">
-        <div class="info-title">📅 Selection Process</div>
-        <div class="info-text">
-          1. <strong>Application Review:</strong> Based on 12th Marks.<br>
-          2. <strong>Interview:</strong> Two rounds of interview (Subject Knowledge + Personal).<br>
-          3. <strong>Fee Payment:</strong> Within 3 days of selection.
-        </div>
-      </div>
-      <div class="info-group">
-        <div class="info-title">💰 Fee Structure (Approx/Year)</div>
-        <div class="info-text">
-          • Karnataka: ₹1,05,000<br>
-          • Non-Karnataka: ₹1,20,000<br>
-          • NRI: ₹1,65,000
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div id="bba-modal" class="modal-overlay" onclick="closeModal(event, 'bba-modal')">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>Bachelor of Business Admin (BBA)</h2>
-      <button class="close-btn" onclick="document.getElementById('bba-modal').style.display='none'">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="info-group">
-        <div class="info-title">📋 Eligibility</div>
-        <div class="info-text">
-          Pass in <strong>Class 12 (10+2)</strong> with a minimum of 50% aggregate. Students from any stream (Arts/Science/Commerce) are eligible.
-        </div>
-      </div>
-      <div class="info-group">
-        <div class="info-title">📅 Selection Process</div>
-        <div class="info-text">
-          • <strong>Merit Based:</strong> Primarily based on 10th and 11th/12th marks.<br>
-          • <strong>Interview:</strong> Focus on communication skills and general awareness.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    <h4 style="margin-bottom:5px;">📋 Eligibility</h4>
+    <p>Completion of 2-year Pre-University (PUC) or 12th Grade equivalent. Study of two languages is mandatory.</p>
 
-<div id="bca-modal" class="modal-overlay" onclick="closeModal(event, 'bca-modal')">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>Bachelor of Computer Applications (BCA)</h2>
-      <button class="close-btn" onclick="document.getElementById('bca-modal').style.display='none'">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="info-group">
-        <div class="info-title">📋 Eligibility</div>
-        <div class="info-text">
-          Pass in Class 12. <strong>Mathematics</strong> background is highly recommended and often prioritized. Students without Maths may need to do a bridge course.
-        </div>
-      </div>
-      <div class="info-group">
-        <div class="info-title">📅 Selection Process</div>
-        <div class="info-text">
-          • <strong>Merit + Interview:</strong> High weightage on Maths scores in Class 10/12.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    <h4 style="margin-bottom:5px;">📅 Selection Process</h4>
+    <p>1. <strong>Application:</strong> Submit online with marks.<br>2. <strong>Interview:</strong> Two rounds (Subject & Personal).<br>3. <strong>Payment:</strong> Within 3 days of selection.</p>
 
-<div id="viscom-modal" class="modal-overlay" onclick="closeModal(event, 'viscom-modal')">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>B.A. Visual Communication</h2>
-      <button class="close-btn" onclick="document.getElementById('viscom-modal').style.display='none'">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="info-group">
-        <div class="info-title">📋 Eligibility</div>
-        <div class="info-text">
-          Pass in Class 12 (any stream). A creative portfolio (drawings, photos, videos) is a huge plus.
-        </div>
-      </div>
-      <div class="info-group">
-        <div class="info-title">⚠️ Entrance Test</div>
-        <div class="info-text">
-          SJU Entrance Test (SJUET) is <strong>Mandatory</strong>. It tests creative aptitude and general knowledge.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="bsc-modal" class="modal-overlay" onclick="closeModal(event, 'bsc-modal')">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>Bachelor of Science (B.Sc)</h2>
-      <button class="close-btn" onclick="document.getElementById('bsc-modal').style.display='none'">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="info-group">
-        <div class="info-title">📋 Eligibility</div>
-        <div class="info-text">
-          Pass in Class 12 (Science Stream).<br>
-          • For PCM: Maths is mandatory.<br>
-          • For CBZ/Microbiology: Biology/Chemistry is mandatory.
-        </div>
-      </div>
+    <div style="text-align:center; margin-top:20px;">
+      <a href="https://sju.edu.in/courses/st-joseph-university/school-of-business/Department-of-Commerce/bachelor-of-commerce" target="_blank" style="background:#D4AF37; color:#0A2342; padding:10px 20px; text-decoration:none; font-weight:bold; border-radius:50px;">
+        Visit Official Page ↗
+      </a>
     </div>
   </div>
 </div>
 
 <script>
-  // Tab Logic
   function openLevel(levelId) {
     document.querySelectorAll('.course-container').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -389,7 +371,6 @@ description: "Explore Undergraduate, PG, and Diploma courses at St. Joseph's Uni
     event.currentTarget.classList.add('active');
   }
 
-  // Modal Logic
   function openModal(id) { document.getElementById(id).style.display = 'flex'; }
   function closeModal(e, id) { if(e.target.className === 'modal-overlay') document.getElementById(id).style.display = 'none'; }
 </script>
