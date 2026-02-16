@@ -19,7 +19,7 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
   /* 2. QUOTES CAROUSEL */
   .quote-container {
     background: #0A2342;
-    color: #FFD700; /* Brighter Gold */
+    color: #FFD700;
     padding: 20px;
     text-align: center;
     position: relative;
@@ -115,6 +115,13 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
     z-index: 2;
   }
 
+  /* Special Style for Switch Nodes */
+  .node-box.switch {
+    border-color: #ff9800;
+    color: #e65100;
+    background: #fff3e0;
+  }
+
   .node-box:hover {
     transform: translateX(5px);
     border-color: #D4AF37;
@@ -196,7 +203,6 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
         <li>
           <span class="node-box" id="sci" onclick="selectNode('sci', 'root')">1. Science Stream</span>
           <ul>
-            
             <li>
               <span class="node-box" id="med_track" onclick="selectNode('med_track', 'sci')">Medical (PCB)</span>
               <ul>
@@ -204,7 +210,6 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
                 <li><span class="node-box" id="dentist" onclick="selectNode('dentist', 'med_track')">Dentist (BDS)</span></li>
                 <li><span class="node-box" id="allied" onclick="selectNode('allied', 'med_track')">Physio / Nursing / Pharma</span></li>
                 <li><span class="node-box" id="vet" onclick="selectNode('vet', 'med_track')">Veterinary Doctor</span></li>
-                <li><span class="node-box" id="nutrition" onclick="selectNode('nutrition', 'med_track')">Nutritionist / Psych</span></li>
               </ul>
             </li>
 
@@ -219,15 +224,14 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
             </li>
 
             <li>
-              <span class="node-box" id="research_track" onclick="selectNode('research_track', 'sci')">Research / New-Age</span>
+              <span class="node-box switch" id="sci_switch" onclick="selectNode('sci_switch', 'sci')">🔀 Switch from Science</span>
               <ul>
-                <li><span class="node-box" id="scientist" onclick="selectNode('scientist', 'research_track')">Scientist / ISRO</span></li>
-                <li><span class="node-box" id="forensic" onclick="selectNode('forensic', 'research_track')">Forensic Science</span></li>
-                <li><span class="node-box" id="genetics" onclick="selectNode('genetics', 'research_track')">Genetics / Neuro</span></li>
-                <li><span class="node-box" id="robotics" onclick="selectNode('robotics', 'research_track')">AI & Robotics</span></li>
+                <li><span class="node-box" id="sci_mba" onclick="selectNode('sci_mba', 'sci_switch')">MBA (Business)</span></li>
+                <li><span class="node-box" id="sci_law" onclick="selectNode('sci_law', 'sci_switch')">Law (5-Year Integrated)</span></li>
+                <li><span class="node-box" id="sci_design" onclick="selectNode('sci_design', 'sci_switch')">Design / Fashion</span></li>
+                <li><span class="node-box" id="sci_upsc" onclick="selectNode('sci_upsc', 'sci_switch')">UPSC (IAS/IPS)</span></li>
               </ul>
             </li>
-
           </ul>
         </li>
 
@@ -247,7 +251,14 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
               <ul>
                 <li><span class="node-box" id="mba" onclick="selectNode('mba', 'biz_track')">MBA / Entrepreneur</span></li>
                 <li><span class="node-box" id="digital" onclick="selectNode('digital', 'biz_track')">Digital Marketing</span></li>
-                <li><span class="node-box" id="logistics" onclick="selectNode('logistics', 'biz_track')">Logistics / Supply Chain</span></li>
+              </ul>
+            </li>
+            <li>
+              <span class="node-box switch" id="comm_switch" onclick="selectNode('comm_switch', 'comm')">🔀 Switch from Commerce</span>
+              <ul>
+                <li><span class="node-box" id="comm_law" onclick="selectNode('comm_law', 'comm_switch')">Law (CLAT)</span></li>
+                <li><span class="node-box" id="comm_design" onclick="selectNode('comm_design', 'comm_switch')">Design (NIFT)</span></li>
+                <li><span class="node-box" id="comm_teach" onclick="selectNode('comm_teach', 'comm_switch')">Teaching (B.Ed)</span></li>
               </ul>
             </li>
           </ul>
@@ -272,13 +283,12 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
                 <li><span class="node-box" id="prof" onclick="selectNode('prof', 'teach_track')">Professor / Lecturer</span></li>
               </ul>
             </li>
-
+            
             <li>
-              <span class="node-box" id="creative_track" onclick="selectNode('creative_track', 'arts')">Creative / Social</span>
+              <span class="node-box switch" id="arts_switch" onclick="selectNode('arts_switch', 'arts')">🔀 Switch from Arts</span>
               <ul>
-                <li><span class="node-box" id="psych" onclick="selectNode('psych', 'creative_track')">Psychologist</span></li>
-                <li><span class="node-box" id="journ" onclick="selectNode('journ', 'creative_track')">Journalist / Media</span></li>
-                <li><span class="node-box" id="design" onclick="selectNode('design', 'creative_track')">Designer / VFX</span></li>
+                <li><span class="node-box" id="arts_mba" onclick="selectNode('arts_mba', 'arts_switch')">MBA (Business)</span></li>
+                <li><span class="node-box" id="arts_hotel" onclick="selectNode('arts_hotel', 'arts_switch')">Hotel Management</span></li>
               </ul>
             </li>
           </ul>
@@ -291,7 +301,6 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
               <span class="node-box" id="tech_dip" onclick="selectNode('tech_dip', 'diploma')">Technical Diploma</span>
               <ul>
                 <li><span class="node-box" id="mech_dip" onclick="selectNode('mech_dip', 'tech_dip')">Mech / Civil / Elec</span></li>
-                <li><span class="node-box" id="auto_dip" onclick="selectNode('auto_dip', 'tech_dip')">Automobile / Comp</span></li>
               </ul>
             </li>
             <li>
@@ -299,6 +308,12 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
               <ul>
                 <li><span class="node-box" id="hotel" onclick="selectNode('hotel', 'voc_dip')">Hotel Management</span></li>
                 <li><span class="node-box" id="fashion" onclick="selectNode('fashion', 'voc_dip')">Fashion / Animation</span></li>
+              </ul>
+            </li>
+            <li>
+              <span class="node-box switch" id="dip_switch" onclick="selectNode('dip_switch', 'diploma')">🔀 Switch from Diploma</span>
+              <ul>
+                <li><span class="node-box" id="dip_btech" onclick="selectNode('dip_btech', 'dip_switch')">B.Tech (Lateral Entry)</span></li>
               </ul>
             </li>
           </ul>
@@ -310,141 +325,4 @@ description: "Confused after Class 10? Explore the complete interactive roadmap 
 </div>
 
 <div id="info-box" class="info-panel">
-  <button onclick="closeInfo()" style="float:right; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#999;">&times;</button>
-  <h3 id="panel-title" style="color:#0A2342; margin-top:0;">Title</h3>
-  <div id="panel-tags" style="margin-bottom:10px;"></div>
-  <p><strong>Best Suited For:</strong> <span id="panel-good" style="color:#D4AF37; font-weight:bold;"></span></p>
-  <hr style="border:0; border-top:1px solid #eee;">
-  <p id="panel-desc" style="font-size:0.9rem; color:#555; line-height:1.5;">Desc</p>
-  <a href="{{ '/book-expert/' | relative_url }}" class="btn" style="background:#0A2342; color:white; padding:10px; display:block; text-align:center; text-decoration:none; border-radius:5px; margin-top:15px;">Talk to Counsellor</a>
-</div>
-
-<script>
-  // --- CAROUSEL LOGIC ---
-  let slideIndex = 0;
-  const slides = document.querySelectorAll(".quote-slide");
-  
-  function showSlides() {
-    for (let i = 0; i < slides.length; i++) {
-      slides[i].classList.remove("active");
-    }
-    slideIndex++;
-    if (slideIndex > slides.length) {slideIndex = 1}
-    slides[slideIndex-1].classList.add("active");
-    setTimeout(showSlides, 4000); 
-  }
-  showSlides();
-
-  // --- DATABASE ---
-  const data = {
-    // ROOT
-    "root": { title: "Class 10 Pass", good: "You are ready to choose your path", desc: "10th doesn't decide your life — it only decides your next path. You have 4 major routes." },
-    
-    // --- 1. SCIENCE ---
-    "sci": { 
-      title: "Science Stream", 
-      good: "You are decent in Maths/Science OR want max options", 
-      desc: "Subjects: Physics, Chem, Maths/Bio. Big Advantage: You can switch to Commerce/Arts later, but they cannot switch to Science." 
-    },
-    "med_track": { title: "Medical Line (PCB)", good: "You like Biology or helping people", desc: "Focus on PCB. Leads to NEET exam." },
-    "mbbs": { title: "MBBS (Doctor)", good: "You can study hard for 5+ years", desc: "Top medical degree. Treat patients, surgery, hospitals." },
-    "dentist": { title: "Dentist (BDS)", good: "You want medical field with work-life balance", desc: "Dental surgery and care." },
-    "allied": { title: "Allied Health", good: "You want shorter courses", desc: "Nursing, Pharmacy, Physiotherapy. Very high demand." },
-    "vet": { title: "Veterinary Doctor", good: "You love animals", desc: "Treating animals. Requires NEET." },
-    "nutrition": { title: "Nutritionist / Psych", good: "You like health & mind", desc: "Diet planning or Mental health therapy." },
-
-    "eng_track": { title: "Engineering Line (PCM)", good: "You like Maths, Machines, or Logic", desc: "Focus on PCM. Leads to JEE/CET exams." },
-    "btech": { title: "B.Tech / B.E", good: "Problem Solving", desc: "Mechanical, Civil, ECE, CSE. Build things and software." },
-    "arch": { title: "Architecture", good: "Drawing + Logic", desc: "Design buildings. Requires NATA exam." },
-    "aviation": { title: "Aviation / Navy", good: "Adventure & Travel", desc: "Pilot or Merchant Navy. High pay, high discipline." },
-    "tech_new": { title: "New-Age Tech", good: "Coding & Data", desc: "Data Science, Game Dev, AI. The future of tech." },
-
-    "research_track": { title: "Research & New-Age", good: "You are curious & innovative", desc: "For scientists and inventors." },
-    "scientist": { title: "Scientist (ISRO/DRDO)", good: "Deep thinking", desc: "Space science, Physics research." },
-    "forensic": { title: "Forensic Science", good: "Investigation", desc: "Crime scene analysis and lab work." },
-    "genetics": { title: "Genetics / Neuro", good: "Biology Research", desc: "Study of genes and brain science." },
-    "robotics": { title: "AI & Robotics", good: "Building Bots", desc: "Creating intelligent machines." },
-
-    // --- 2. COMMERCE ---
-    "comm": { 
-      title: "Commerce Stream", 
-      good: "You handle numbers/logic but dislike heavy science", 
-      desc: "Subjects: Accounts, Econ, Business. High earning potential with less academic stress than Science." 
-    },
-    "fin_track": { title: "Finance & Accounts", good: "You love money management", desc: "Core finance careers." },
-    "ca": { title: "Chartered Accountant", good: "Hard work & Numbers", desc: "Audit and Tax expert. Tough exam but high respect." },
-    "cs": { title: "Company Secretary", good: "Law & Corporate Rules", desc: "Legal compliance for companies." },
-    "bank_job": { title: "Banking / Stock Mkt", good: "Fast calculations", desc: "Investment banker, Stock trader, Bank PO." },
-
-    "biz_track": { title: "Business & Mgmt", good: "Leadership & Strategy", desc: "Running companies and teams." },
-    "mba": { title: "MBA / Entrepreneur", good: "Starting businesses", desc: "Master of Business Admin. CEO roles." },
-    "digital": { title: "Digital Marketing", good: "Creativity + Data", desc: "Social media, SEO, Ads." },
-    "logistics": { title: "Logistics", good: "Organization", desc: "Supply chain management. Moving goods globally." },
-
-    // --- 3. ARTS ---
-    "arts": { 
-      title: "Arts / Humanities", 
-      good: "Creativity, Social Understanding, Debating", 
-      desc: "Subjects: Psych, History, Pol Sci. Underrated but powerful for Govt jobs and Creativity." 
-    },
-    "govt_track": { title: "Govt & Law", good: "Service & Arguments", desc: "Serving the nation or fighting for justice." },
-    "ias": { title: "UPSC (IAS/IPS)", good: "Power & Responsibility", desc: "Civil Services. Arts is the best base for this." },
-    "lawyer": { title: "Lawyer / Judge", good: "Logic & Speaking", desc: "Legal practice. Corporate or Criminal law." },
-    
-    // NEW: TEACHING
-    "teach_track": { title: "Teaching & Education", good: "Patience & Sharing Knowledge", desc: "You can enter this field after Arts, Science, OR Commerce." },
-    "teacher": { title: "School Teacher", good: "Mentoring Kids", desc: "Requires B.Ed after any degree. High job stability and respect." },
-    "special_ed": { title: "Special Educator", good: "Empathy & Patience", desc: "Teaching children with special needs (Autism, Dyslexia). Requires B.Ed in Special Education." },
-    "prof": { title: "Professor / Lecturer", good: "Deep Subject Knowledge", desc: "Teaching in Colleges/Universities. Requires Masters + NET Exam or PhD." },
-
-    "creative_track": { title: "Creative & Social", good: "Understanding People", desc: "Helping society and expression." },
-    "psych": { title: "Psychologist", good: "Empathy", desc: "Therapy and mental health." },
-    "journ": { title: "Journalist / Media", good: "Storytelling", desc: "News, Reporting, Media production." },
-    "design": { title: "Designer / VFX", good: "Artistic Skill", desc: "Fashion, Interior, Animation, or Visual Effects." },
-
-    // --- 4. DIPLOMA ---
-    "diploma": { 
-      title: "Diploma (Polytechnic)", 
-      good: "You hate theory & want hands-on work", 
-      desc: "Skip 11th/12th. 3-Year practical course. Direct entry to Engineering 2nd year later." 
-    },
-    "tech_dip": { title: "Technical Diploma", good: "Machines & Tools", desc: "Mechanical, Civil, Electrical." },
-    "mech_dip": { title: "Mech/Civil/Elec", good: "Fixing things", desc: "Core technical jobs early in career." },
-    "auto_dip": { title: "Auto / Computer", good: "Cars or Code", desc: "Automobile repair or basic coding." },
-    
-    "voc_dip": { title: "Vocational", good: "Specific Skills", desc: "Non-technical practical careers." },
-    "hotel": { title: "Hotel Management", good: "Hospitality", desc: "Chefs, Hotel operations." },
-    "fashion": { title: "Fashion / Animation", good: "Visual Art", desc: "Designing clothes or VFX/Movies." }
-  };
-
-  function selectNode(id, parentId) {
-    document.querySelectorAll('.node-box').forEach(n => n.classList.remove('active'));
-    
-    const current = document.getElementById(id);
-    if(current) current.classList.add('active');
-
-    let pid = parentId;
-    while(pid) {
-      const pNode = document.getElementById(pid);
-      if(pNode) {
-        pNode.classList.add('active');
-        const match = pNode.getAttribute('onclick').match(/'([^']*)'\)$/);
-        pid = match && match[1] !== 'null' ? match[1] : null;
-      } else {
-        pid = null;
-      }
-    }
-
-    const info = data[id];
-    if(info) {
-      document.getElementById('panel-title').innerText = info.title;
-      document.getElementById('panel-good').innerText = info.good;
-      document.getElementById('panel-desc').innerText = info.desc;
-      document.getElementById('info-box').style.display = 'block';
-    }
-  }
-
-  function closeInfo() {
-    document.getElementById('info-box').style.display = 'none';
-  }
-</script>
+  <button onclick
