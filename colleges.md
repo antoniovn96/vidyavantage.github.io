@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BMSCE, Christ University, and St. Joseph's."
+description: "Browse top universities in Bangalore & Mumbai. Get details on courses, fees, and admission processes for IISc, BMSCE, Christ, NMIMS Law, and St. Joseph's."
 ---
 
 <style>
@@ -56,7 +56,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   .college-name { 
     margin: 0 0 10px; 
     color: #0A2342; 
-    font-size: 1.4rem; 
+    font-size: 1.3rem; 
     font-weight: 800; 
   }
   
@@ -103,30 +103,11 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
         <span class="tag">🏆 NIRF Rank #1</span>
       </div>
       <p class="card-desc">
-        India's premier institute for advanced scientific and technological research. Offers B.Sc (Research), B.Tech in Mathematics & Computing, M.Tech, and PhD programs.
+        India's premier institute for advanced scientific research. Known for B.Sc (Research), M.Tech, and PhDs in Science & Engineering.
       </p>
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/iisc/' | relative_url }}" class="view-btn" style="background: #005a9c; color: white;">
-        View Programs ➔
-      </a>
-    </div>
-  </div>
-
-  <div class="college-card" style="border-top-color: #0056b3;">
-    <img src="https://bmsce.ac.in/assets/images/banner/bmsce-banner-1.jpg" class="card-img" alt="BMSCE Bangalore">
-    <div class="card-body">
-      <h2 class="college-name" style="color: #0056b3;">B.M.S. College of Engineering</h2>
-      <div class="college-meta">
-        <span class="tag">📍 Basavanagudi</span>
-        <span class="tag">🏆 Est. 1946</span>
-      </div>
-      <p class="card-desc">
-        India's first private engineering college. Famous for its vibrant campus life (Utsav) and strong placements in core & IT sectors.
-      </p>
-    </div>
-    <div class="card-footer">
-      <a href="{{ '/colleges/bmsce/' | relative_url }}" class="view-btn" style="background: #0056b3; color: white;">
         View Programs ➔
       </a>
     </div>
@@ -141,7 +122,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
         <span class="tag">🏆 Est. 1969</span>
       </div>
       <p class="card-desc">
-        A premier multi-disciplinary university famous for its high academic discipline, vibrant campus culture, and top-tier placements in Management and Law.
+        A multi-disciplinary powerhouse famous for high academic discipline and placements in Management (BBA/MBA), Law, and Humanities.
       </p>
     </div>
     <div class="card-footer">
@@ -160,12 +141,50 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
         <span class="tag">🏆 Est. 1882</span>
       </div>
       <p class="card-desc">
-        One of the oldest and most prestigious institutions in Bangalore. Known for excellence in Commerce, Humanities, and Basic Sciences with a strong focus on holistic development.
+        A heritage institution offering excellent education in Commerce, Arts, and Basic Sciences. Known for its inclusive and holistic approach.
       </p>
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/st-josephs/' | relative_url }}" class="view-btn" style="background: #0A2342; color: #D4AF37;">
         View Courses ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card" style="border-top-color: #0056b3;">
+    <img src="https://bmsce.ac.in/assets/images/banner/bmsce-banner-1.jpg" class="card-img" alt="BMSCE Bangalore">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #0056b3;">B.M.S. College of Engineering</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Basavanagudi</span>
+        <span class="tag">🏆 Est. 1946</span>
+      </div>
+      <p class="card-desc">
+        India's first private engineering college. Top choice for Engineering (BE/M.Tech) with outstanding placements and campus culture.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/bmsce/' | relative_url }}" class="view-btn" style="background: #0056b3; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card" style="border-top-color: #c0392b;">
+    <img src="https://law.nmims.edu/images/banner/law-banner.jpg" class="card-img" alt="NMIMS Law">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #c0392b;">Kirit P. Mehta School of Law (NMIMS)</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Mumbai / Bengaluru</span>
+        <span class="tag">🏆 Est. 2013</span>
+      </div>
+      <p class="card-desc">
+        A top-tier private law school known for its rigorous academic curriculum, Moot Court excellence, and integration of Management with Law.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/kpmsol/' | relative_url }}" class="view-btn" style="background: #c0392b; color: white;">
+        View Programs ➔
       </a>
     </div>
   </div>
