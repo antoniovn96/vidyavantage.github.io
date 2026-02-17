@@ -165,7 +165,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/christ-university/' | relative_url }}" class="view-btn" style="background: #8b0000; color: white;">
-        View Courses ➔
+        View Programs ➔
       </a>
     </div>
   </div>
