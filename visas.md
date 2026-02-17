@@ -120,7 +120,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 
   <a href="#" class="country-card">
     <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1554034483-04fda0d3507b?w=800&q=80" class="card-img" alt="Germany">
+      <img src="https://img.freepik.com/free-photo/cityscape-frankfurt-covered-modern-buildings-sunset-germany_181624-15984.jpg" class="card-img" alt="Germany">
       <img src="https://flagcdn.com/w80/de.png" class="flag-badge" alt="Germany Flag">
     </div>
     <div class="card-body">
