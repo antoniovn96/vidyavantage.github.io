@@ -133,7 +133,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #0A2342;">
-    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&h=300&fit=crop" class="card-img" alt="St Josephs">
+    <img src="https://www.sju.edu.in/uploads/departments/large/1320167152_2024-10-15_04-08-59.webp" class="card-img" alt="St Josephs">
     <div class="card-body">
       <h2 class="college-name" style="color: #0A2342;">St. Joseph's University</h2>
       <div class="college-meta">
@@ -152,7 +152,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #0056b3;">
-    <img src="https://www.sju.edu.in/uploads/departments/large/1320167152_2024-10-15_04-08-59.webp" class="card-img" alt="BMSCE Bangalore">
+    <img src="https://shiksha-tech.com/wp-content/uploads/2025/12/direct_admission_in_bms_college.png" class="card-img" alt="BMSCE Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #0056b3;">B.M.S. College of Engineering</h2>
       <div class="college-meta">
@@ -171,7 +171,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #f39c12;">
-    <img src="https://news.pes.edu/wp-content/uploads/2023/12/PES-University-Ring-Road-Campus-min-1024x576.jpg" class="card-img" alt="PES University">
+    <img src="https://news.pes.edu/wp-content/uploads/2023/12/PES-University-Ring-Road-Campus-min-1024x576.jpg](https://blog.rmgoe.org/wp-content/uploads/2022/06/PES-University-Bangalore.webp" class="card-img" alt="PES University">
     <div class="card-body">
       <h2 class="college-name" style="color: #d35400;">PES University</h2>
       <div class="college-meta">
