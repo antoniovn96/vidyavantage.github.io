@@ -2,7 +2,7 @@
 layout: default
 title: "Dayananda Sagar College of Engineering (DSCE) Course Portal 🎓"
 permalink: /colleges/dsce/
-image: "https://www.dsce.edu.in/images/slider/01.jpg"
+image: "[https://www.dsce.edu.in/images/slider/01.jpg](https://www.admissionbangalore.com/images/engg_col/dayananda-sagar-college-of-engg.jpg)"
 description: "Browse B.E, M.Tech, MBA, and MCA courses at DSCE. Check 2025-26 Fees (CET, COMEDK, Mgmt), Eligibility, and Placements."
 ---
 
