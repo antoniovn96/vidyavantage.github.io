@@ -2,14 +2,14 @@
 layout: default
 title: Global Visa Services 🌏
 permalink: /visa/
-image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1200&h=630&fit=crop"
+image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
 description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, and more. Student, Tourist, and Work Visas made easy."
 ---
 
 <style>
   /* HERO SECTION */
   .visa-hero {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&fit=crop');
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
     background-size: cover;
     background-position: center;
     color: white;
@@ -108,7 +108,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 
   <a href="#" class="country-card">
     <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80" class="card-img" alt="UK">
+      <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="UK">
       <img src="https://flagcdn.com/w80/gb.png" class="flag-badge" alt="UK Flag">
     </div>
     <div class="card-body">
@@ -120,7 +120,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 
   <a href="#" class="country-card">
     <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&q=80" class="card-img" alt="Germany">
+      <img src="https://img.freepik.com/free-photo/cityscape-frankfurt-covered-modern-buildings-sunset-germany_181624-15984.jpg" class="card-img" alt="Germany">
       <img src="https://flagcdn.com/w80/de.png" class="flag-badge" alt="Germany Flag">
     </div>
     <div class="card-body">
@@ -132,7 +132,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 
   <a href="#" class="country-card">
     <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1523482580672-019a2c6b95c9?w=800&q=80" class="card-img" alt="Australia">
+      <img src="https://images.unsplash.com/photo-1523482580672-019a2c6b95c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Australia">
       <img src="https://flagcdn.com/w80/au.png" class="flag-badge" alt="Australia Flag">
     </div>
     <div class="card-body">
@@ -156,7 +156,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 
   <a href="#" class="country-card">
     <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1507699622177-f888f14506b8?w=800&q=80" class="card-img" alt="New Zealand">
+      <img src="https://images.unsplash.com/photo-1507699622177-f888f14506b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="New Zealand">
       <img src="https://flagcdn.com/w80/nz.png" class="flag-badge" alt="New Zealand Flag">
     </div>
     <div class="card-body">
@@ -168,7 +168,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 
   <a href="#" class="country-card">
     <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1512453979798-5ea90bacbf56?w=800&q=80" class="card-img" alt="UAE">
+      <img src="https://images.unsplash.com/photo-1512453979798-5ea90bacbf56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="UAE">
       <img src="https://flagcdn.com/w80/ae.png" class="flag-badge" alt="UAE Flag">
     </div>
     <div class="card-body">
@@ -180,7 +180,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 
   <a href="#" class="country-card">
     <div class="card-img-container">
-      <img src="https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=800&q=80" class="card-img" alt="Canada">
+      <img src="https://images.unsplash.com/photo-1503614472-8c93d56e92ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Canada">
       <img src="https://flagcdn.com/w80/ca.png" class="flag-badge" alt="Canada Flag">
     </div>
     <div class="card-body">
