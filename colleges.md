@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BMSCE, Christ, NMIMS Law, St. Joseph's, PES, and RVCE."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Jain, Christ, BMSCE, and more."
 ---
 
 <style>
@@ -113,6 +113,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
+  <div class="college-card" style="border-top-color: #e65100;">
+    <img src="https://www.jainuniversity.ac.in/uploads/blog/e856868d40026e690069352693821033.jpg" class="card-img" alt="Jain University">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #e65100;">Jain (Deemed-to-be University)</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Jayanagar</span>
+        <span class="tag">🏆 Est. 1990</span>
+      </div>
+      <p class="card-desc">
+        A top-ranked university known for its emphasis on entrepreneurship, sports, and industry-integrated courses in Engineering & Management.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/jain-university/' | relative_url }}" class="view-btn" style="background: #e65100; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
   <div class="college-card" style="border-top-color: #8b0000;">
     <img src="https://christuniversity.in/images/sharingLogo.jpg" class="card-img" alt="Christ University">
     <div class="card-body">
@@ -133,7 +152,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #0A2342;">
-    <img src="https://www.sju.edu.in/uploads/departments/large/1320167152_2024-10-15_04-08-59.webp" class="card-img" alt="St Josephs">
+    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&h=300&fit=crop" class="card-img" alt="St Josephs">
     <div class="card-body">
       <h2 class="college-name" style="color: #0A2342;">St. Joseph's University</h2>
       <div class="college-meta">
@@ -152,7 +171,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #0056b3;">
-    <img src="https://shiksha-tech.com/wp-content/uploads/2025/12/direct_admission_in_bms_college.png" class="card-img" alt="BMSCE Bangalore">
+    <img src="https://bmsce.ac.in/assets/images/banner/bmsce-banner-1.jpg" class="card-img" alt="BMSCE Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #0056b3;">B.M.S. College of Engineering</h2>
       <div class="college-meta">
@@ -171,7 +190,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #f39c12;">
-    <img src="https://news.pes.edu/wp-content/uploads/2023/12/PES-University-Ring-Road-Campus-min-1024x576.jpg](https://blog.rmgoe.org/wp-content/uploads/2022/06/PES-University-Bangalore.webp" class="card-img" alt="PES University">
+    <img src="https://news.pes.edu/wp-content/uploads/2023/12/PES-University-Ring-Road-Campus-min-1024x576.jpg" class="card-img" alt="PES University">
     <div class="card-body">
       <h2 class="college-name" style="color: #d35400;">PES University</h2>
       <div class="college-meta">
@@ -179,7 +198,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
         <span class="tag">🏆 Est. 1972</span>
       </div>
       <p class="card-desc">
-        Known for the PESSAT exam and rigorous academic standards. excellent for Computer Science, Design (B.Des), and Architecture.
+        Known for the PESSAT exam and rigorous academic standards. Excellent for Computer Science, Design (B.Des), and Architecture.
       </p>
     </div>
     <div class="card-footer">
