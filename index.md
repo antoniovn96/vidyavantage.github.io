@@ -4,196 +4,299 @@ title: Home
 ---
 
 <style>
-  /* GLOBAL RESET & FONTS */
-  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background-color: #f8f9fa; }
+  /* --- VARIABLES & RESET --- */
+  :root {
+    --primary: #2563EB; /* Royal Blue */
+    --secondary: #1E40AF; /* Darker Blue */
+    --accent: #F59E0B; /* Amber/Gold */
+    --text-dark: #1F2937;
+    --text-light: #6B7280;
+    --bg-light: #F3F4F6;
+    --white: #ffffff;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--white);
+    color: var(--text-dark);
+    margin: 0;
+  }
 
-  /* 1. HERO SECTION */
-  .hero-section {
-    position: relative;
-    height: 85vh;
-    min-height: 500px;
-    background: linear-gradient(135deg, rgba(10, 35, 66, 0.9), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Parallax effect */
+  /* --- 1. MODERN SPLIT HERO SECTION --- */
+  .hero-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    padding: 20px;
-    margin-top: -50px; /* Pull up to cover any default spacing */
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    min-height: 80vh;
   }
 
-  .hero-content { max-width: 900px; animation: fadeInUp 1s ease-out; }
-  .hero-title { font-size: 4rem; font-weight: 800; margin-bottom: 20px; line-height: 1.1; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-  .hero-subtitle { font-size: 1.5rem; color: #e0e0e0; margin-bottom: 40px; font-weight: 300; }
-  
-  .hero-btn {
-    display: inline-block;
-    background: #F39C12; /* Accent Color */
-    color: #0A2342;
-    padding: 15px 40px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+  .hero-text {
+    flex: 1;
+    padding-right: 50px;
+    animation: slideInLeft 0.8s ease-out;
   }
-  .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(243, 156, 18, 0.6); color: #0A2342; background: white; }
 
-  /* 2. STATS / VALUE BAR */
-  .stats-bar {
-    background: white;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border-radius: 15px;
-    margin: -50px auto 60px;
+  .hero-visual {
+    flex: 1;
     position: relative;
-    max-width: 1100px;
+    animation: slideInRight 0.8s ease-out;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: #DBEAFE;
+    color: var(--secondary);
+    padding: 6px 15px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  h1.hero-headline {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 20px;
+  }
+  
+  .hero-headline span { color: var(--primary); }
+
+  .hero-subhead {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 35px;
+    max-width: 90%;
+  }
+
+  .cta-group { display: flex; gap: 15px; }
+
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 15px 35px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  }
+  .btn-primary:hover { background: var(--secondary); transform: translateY(-2px); }
+
+  .btn-secondary {
+    background: white;
+    color: var(--text-dark);
+    border: 2px solid #e5e7eb;
+    padding: 13px 35px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--text-dark); }
+
+  /* Hero Image styling */
+  .hero-img-main {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 20px 20px 0px var(--bg-light);
+    object-fit: cover;
+    height: 500px;
+  }
+
+  /* --- 2. STATS FLOATING BAR --- */
+  .stats-container {
+    background: var(--secondary);
+    color: white;
+    padding: 50px 0;
+    margin-top: -40px;
+    position: relative;
+    z-index: 2;
+  }
+  .stats-grid {
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    padding: 40px 20px;
     text-align: center;
-    z-index: 10;
+    gap: 30px;
   }
-  .stat-item h3 { font-size: 2.5rem; color: #0A2342; margin: 0; font-weight: 800; }
-  .stat-item p { color: #666; margin: 5px 0 0; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+  .stat-number { font-size: 3rem; font-weight: 700; margin-bottom: 5px; color: var(--accent); }
+  .stat-label { font-size: 1rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
 
-  /* 3. MAIN SERVICES GRID */
-  .section-container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
-  .section-header { text-align: center; margin-bottom: 50px; }
-  .section-title { font-size: 2.5rem; color: #0A2342; font-weight: 800; margin-bottom: 15px; }
-  .section-desc { font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto; }
+  /* --- 3. FEATURE CARDS SECTION --- */
+  .features-section {
+    padding: 100px 20px;
+    background: #fafafa;
+  }
+  .section-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+  .section-tag { color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; }
+  .section-title { font-size: 2.5rem; font-weight: 800; margin: 10px 0; color: #111; }
 
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-  .service-card {
+  .feature-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    transition: all 0.4s ease;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
     text-decoration: none;
     color: inherit;
-    position: relative;
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
-  .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
-  
-  .img-wrapper { height: 250px; overflow: hidden; position: relative; }
-  .service-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-  .service-card:hover .service-img { transform: scale(1.1); }
-  
-  .service-content { padding: 35px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
-  .service-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; color: #0A2342; }
-  .service-text { color: #555; line-height: 1.6; margin-bottom: 25px; font-size: 1.05rem; }
-  .service-link { color: #F39C12; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
-  .service-link::after { content: '→'; font-size: 1.2rem; transition: transform 0.3s; }
-  .service-card:hover .service-link::after { transform: translateX(5px); }
+  .feature-card:hover { transform: translateY(-10px); }
 
-  /* 4. ABOUT / MISSION SECTION */
-  .mission-section {
-    background: #0A2342;
-    color: white;
+  .card-image-wrap { height: 240px; overflow: hidden; }
+  .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .feature-card:hover .card-img { transform: scale(1.05); }
+
+  .card-content { padding: 30px; }
+  .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; color: #111; }
+  .card-desc { color: var(--text-light); line-height: 1.6; margin-bottom: 20px; }
+  .card-arrow { color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 5px; }
+
+  /* --- 4. WHY CHOOSE US (Icon Grid) --- */
+  .why-section {
     padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
-    border-radius: 20px;
-    margin: 0 20px 80px;
   }
-  .mission-content { max-width: 800px; margin: 0 auto; }
-  .mission-title { font-size: 2.2rem; margin-bottom: 20px; font-weight: 700; }
-  .mission-text { font-size: 1.1rem; line-height: 1.8; color: #ccc; margin-bottom: 30px; }
-  .mission-btn {
-    border: 2px solid #F39C12;
-    color: #F39C12;
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: 0.3s;
+  .icon-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 50px;
   }
-  .mission-btn:hover { background: #F39C12; color: #0A2342; }
+  .icon-box { max-width: 300px; }
+  .icon-circle {
+    width: 70px; height: 70px; background: #DBEAFE; color: var(--primary);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; margin: 0 auto 20px;
+  }
+  .icon-title { font-weight: 700; font-size: 1.2rem; margin-bottom: 10px; }
+  .icon-text { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; }
 
   /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .hero-title { font-size: 2.5rem; }
-    .hero-section { height: 70vh; }
-    .stats-bar { grid-template-columns: 1fr; gap: 30px; margin-top: 0; }
-    .services-grid { grid-template-columns: 1fr; }
+  @media (max-width: 900px) {
+    .hero-wrapper { flex-direction: column-reverse; text-align: center; padding-top: 40px; }
+    .hero-text { padding-right: 0; margin-top: 40px; }
+    .hero-headline { font-size: 2.5rem; }
+    .cta-group { justify-content: center; }
+    .hero-img-main { height: 300px; }
+    .stats-grid { grid-template-columns: 1fr; gap: 30px; }
+    .cards-grid { grid-template-columns: 1fr; }
   }
 
-  /* Animation */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* Animations */
+  @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 </style>
 
-<section class="hero-section">
-  <div class="hero-content">
-    <h1 class="hero-title">From Grade 9 to Global PhD.</h1>
-    <p class="hero-subtitle">Your personalized roadmap to the world's best universities and careers.</p>
-    <a href="#explore" class="hero-btn">Start Your Journey</a>
-  </div>
-</section>
-
-<div class="stats-bar">
-  <div class="stat-item">
-    <h3>150+</h3>
-    <p>Universities Analyzed</p>
-  </div>
-  <div class="stat-item">
-    <h3>50+</h3>
-    <p>Career Paths</p>
-  </div>
-  <div class="stat-item">
-    <h3>100%</h3>
-    <p>Personalized Guidance</p>
-  </div>
-</div>
-
-<div id="explore" class="section-container">
-  <div class="section-header">
-    <h2 class="section-title">Explore Opportunities</h2>
-    <p class="section-desc">We bridge the gap between ambition and reality. Choose your path below.</p>
-  </div>
-
-  <div class="services-grid">
-    
-    <a href="{{ '/colleges/' | relative_url }}" class="service-card">
-      <div class="img-wrapper">
-        <img src="https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="service-img" alt="Colleges">
-      </div>
-      <div class="service-content">
-        <h3 class="service-title">College Admissions</h3>
-        <p class="service-text">Detailed guides on IISc, Christ, St. Joseph's, and other top institutes. Access fee structures, entrance exams, and placement data.</p>
-        <span class="service-link">Find Colleges</span>
-      </div>
-    </a>
-
-    <a href="{{ '/visa/' | relative_url }}" class="service-card">
-      <div class="img-wrapper">
-        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="service-img" alt="Visa">
-      </div>
-      <div class="service-content">
-        <h3 class="service-title">Global Visa Services</h3>
-        <p class="service-text">Navigate the complexities of international travel. Expert support for Student, Work, and Tourist visas for USA, UK, Germany, and more.</p>
-        <span class="service-link">View Visa Guides</span>
-      </div>
-    </a>
-
-  </div>
-</div>
-
-<div class="mission-section">
-  <div class="mission-content">
-    <h2 class="mission-title">Expert Guidance by Antonio</h2>
-    <p class="mission-text">
-      "My mission is to democratize access to education. Whether you are in Grade 9 exploring options or a postgraduate looking for research opportunities, I am here to guide you."
+<div class="hero-wrapper">
+  <div class="hero-text">
+    <span class="hero-badge">🚀 Admissions 2025 Open</span>
+    <h1 class="hero-headline">Build Your Future <br><span>Without Limits.</span></h1>
+    <p class="hero-subhead">
+      Your personalized gateway to top-tier universities and global career opportunities. From Grade 9 counseling to PhD research guidance.
     </p>
-    <a href="https://github.com/antoniovn96" target="_blank" class="mission-btn">Connect on GitHub</a>
+    <div class="cta-group">
+      <a href="{{ '/colleges/' | relative_url }}" class="btn-primary">Browse Colleges</a>
+      <a href="{{ '/visa/' | relative_url }}" class="btn-secondary">Check Visa Info</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Students" class="hero-img-main">
+  </div>
+</div>
+
+<div class="stats-container">
+  <div class="stats-grid">
+    <div>
+      <div class="stat-number">8+</div>
+      <div class="stat-label">Top Universities</div>
+    </div>
+    <div>
+      <div class="stat-number">10+</div>
+      <div class="stat-label">Global Destinations</div>
+    </div>
+    <div>
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Verified Data</div>
+    </div>
+  </div>
+</div>
+
+<div class="features-section">
+  <div class="section-header">
+    <span class="section-tag">Our Services</span>
+    <h2 class="section-title">Everything you need to succeed</h2>
+    <p style="color:#666; font-size:1.1rem;">We simplify the complex world of admissions and immigration.</p>
+  </div>
+
+  <div class="cards-grid">
+    <a href="{{ '/colleges/' | relative_url }}" class="feature-card">
+      <div class="card-image-wrap">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Colleges">
+      </div>
+      <div class="card-content">
+        <h3 class="card-title">Top Colleges Directory</h3>
+        <p class="card-desc">Comprehensive guides on IISc, Christ, BMSCE, and more. Access 2025 fee structures, entrance exams (KCET/COMEDK), and placement records.</p>
+        <div class="card-arrow">Explore Colleges ➔</div>
+      </div>
+    </a>
+
+    <a href="{{ '/visa/' | relative_url }}" class="feature-card">
+      <div class="card-image-wrap">
+        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Visa">
+      </div>
+      <div class="card-content">
+        <h3 class="card-title">Global Visa Assistance</h3>
+        <p class="card-desc">Planning to study abroad? Get expert checklists for USA (F1), UK (Tier 4), Germany, Australia, and Canada student visas.</p>
+        <div class="card-arrow">Check Requirements ➔</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="why-section">
+  <h2 class="section-title">Why VidyaVantage?</h2>
+  <div class="icon-grid">
+    
+    <div class="icon-box">
+      <div class="icon-circle">🎓</div>
+      <h3 class="icon-title">Expert Counseling</h3>
+      <p class="icon-text">Founded by a School Counselor dedicated to bridging the information gap for students.</p>
+    </div>
+
+    <div class="icon-box">
+      <div class="icon-circle">📊</div>
+      <h3 class="icon-title">Accurate Data</h3>
+      <p class="icon-text">Up-to-date 2025 fee structures and admission cutoffs sourced directly from institutions.</p>
+    </div>
+
+    <div class="icon-box">
+      <div class="icon-circle">🌍</div>
+      <h3 class="icon-title">Global Reach</h3>
+      <p class="icon-text">From local Bangalore colleges to Ivy League universities, we cover it all.</p>
+    </div>
+
   </div>
 </div>
