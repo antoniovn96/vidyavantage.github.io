@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Global Visa Services 🌏
-permalink: /global-visa/
+permalink: /visa/
 image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1200&h=630&fit=crop"
 description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, and more. Student, Tourist, and Work Visas made easy."
 ---
