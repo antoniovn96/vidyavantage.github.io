@@ -133,7 +133,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #e65100;">
-    <img src="https://www.jainuniversity.ac.in/uploads/blog/e856868d40026e690069352693821033.jpg" class="card-img" alt="Jain University">
+    <img src="https://www.jainuniversity.ac.in/uploads/blog/01eb9e52fb4fbc94a1c18aeca7bab841.jpg" class="card-img" alt="Jain University">
     <div class="card-body">
       <h2 class="college-name" style="color: #e65100;">Jain (Deemed-to-be University)</h2>
       <div class="college-meta">
@@ -228,7 +228,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #008080;">
-    <img src="https://rvce.edu.in/sites/default/files/slider-images/rvce-admin-block.jpg" class="card-img" alt="RVCE">
+    <img src="https://www.highereducationdigest.com/wp-content/uploads/2019/04/Img-3_800x480-4-768x461.jpg" class="card-img" alt="RVCE">
     <div class="card-body">
       <h2 class="college-name" style="color: #008080;">RV College of Engineering</h2>
       <div class="college-meta">
@@ -247,7 +247,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #c0392b;">
-    <img src="https://law.nmims.edu/images/banner/law-banner.jpg" class="card-img" alt="NMIMS Law">
+    <img src="https://www.lawof.in/wp-content/uploads/2020/07/NMIMS-1-1.jpg" class="card-img" alt="NMIMS Law">
     <div class="card-body">
       <h2 class="college-name" style="color: #c0392b;">Kirit P. Mehta School of Law (NMIMS)</h2>
       <div class="college-meta">
