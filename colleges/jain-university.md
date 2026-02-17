@@ -3,11 +3,11 @@ layout: default
 title: "Jain (Deemed-to-be University) Course Portal 🎓"
 permalink: /colleges/jain-university/
 image: "https://www.jainuniversity.ac.in/uploads/blog/e856868d40026e690069352693821033.jpg"
-description: "Browse 100+ courses at Jain University (Engineering, Management, Design, Law). Check 2025 JET Exam, Fees, and Placements."
+description: "Browse 150+ courses at Jain University: Allied Health, Engineering, Management, Design, Law, Sciences, and Sports. Check 2025 JET Exam, Fees, and Placements."
 ---
 
 <meta property="og:title" content="Jain University Course Portal 🎓">
-<meta property="og:description" content="Access details for B.Tech, MBA, B.Des, BCA, and more. Check Eligibility, Fees, and Career Outcomes.">
+<meta property="og:description" content="Access details for B.Tech, MBA, B.Des, BCA, Allied Health, and more. Check Eligibility, Fees, and Career Outcomes.">
 <meta property="og:image" content="https://www.jainuniversity.ac.in/uploads/blog/e856868d40026e690069352693821033.jpg">
 
 <style>
@@ -27,11 +27,11 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
   }
   
   .jain-hero h1 { font-size: 2.8rem; margin: 0; font-weight: 800; color: white !important; }
-  .jain-hero p { font-size: 1.1rem; color: #fff !important; margin-top: 10px; max-width: 700px; margin-left: auto; margin-right: auto; }
+  .jain-hero p { font-size: 1.1rem; color: #fff !important; margin-top: 10px; max-width: 800px; margin-left: auto; margin-right: auto; }
 
   /* 3. APP CONTAINER */
   .app-container {
-    max-width: 1300px;
+    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     gap: 30px;
@@ -71,7 +71,7 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
   
   .course-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 20px;
   }
 
@@ -89,12 +89,17 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
   .course-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); border-left-color: #e65100; }
 
   /* School Colors */
-  .school-Engg { border-left-color: #2196f3; }
-  .school-Mgmt { border-left-color: #9c27b0; }
-  .school-Design { border-left-color: #e91e63; }
-  .school-Science { border-left-color: #4caf50; }
+  .school-Health { border-left-color: #f44336; }
   .school-Commerce { border-left-color: #ff9800; }
+  .school-Design { border-left-color: #e91e63; }
+  .school-Engg { border-left-color: #2196f3; }
+  .school-Humanities { border-left-color: #9c27b0; }
+  .school-Languages { border-left-color: #673ab7; }
+  .school-Mgmt { border-left-color: #3f51b5; }
   .school-Law { border-left-color: #795548; }
+  .school-Science { border-left-color: #4caf50; }
+  .school-Computing { border-left-color: #00bcd4; }
+  .school-Sports { border-left-color: #8bc34a; }
 
   .c-school { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #888; margin-bottom: 5px; }
   .c-title { font-size: 1.1rem; font-weight: 700; color: #333; margin: 0 0 10px 0; line-height: 1.4; }
@@ -147,7 +152,7 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
 
 <div class="jain-hero">
   <h1>Jain (Deemed-to-be University)</h1>
-  <p>A hub for Learning, Innovation, and Entrepreneurship. Ranked among India's top universities.</p>
+  <p>A hub for Learning, Innovation, and Entrepreneurship. Browse 150+ Programmes.</p>
 </div>
 
 <div class="app-container">
@@ -155,7 +160,7 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
   <aside class="filters-sidebar">
     <div class="filter-group">
       <label class="filter-label">🔍 Search Course</label>
-      <input type="text" id="searchInput" class="filter-input" placeholder="e.g. B.Tech, MBA, Design..." onkeyup="renderCourses()">
+      <input type="text" id="searchInput" class="filter-input" placeholder="e.g. Psychology, MBA, Design..." onkeyup="renderCourses()">
     </div>
     
     <div class="filter-group">
@@ -165,6 +170,7 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
         <option value="UG">Undergraduate (UG)</option>
         <option value="PG">Postgraduate (PG)</option>
         <option value="PhD">Doctoral (PhD)</option>
+        <option value="Diploma">Diploma/Certificate</option>
       </select>
     </div>
 
@@ -172,13 +178,16 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
       <label class="filter-label">🏫 School/Faculty</label>
       <select id="schoolFilter" class="filter-select" onchange="renderCourses()">
         <option value="All">All Schools</option>
-        <option value="Engg">Engineering & Tech</option>
-        <option value="Mgmt">Management (CMS)</option>
-        <option value="Design">Design & Arts</option>
+        <option value="Health">Allied Health Sciences</option>
         <option value="Commerce">Commerce</option>
-        <option value="Science">Sciences & Allied Health</option>
+        <option value="Design">Design & Arts</option>
+        <option value="Engg">Engineering & Tech</option>
+        <option value="Humanities">Humanities & Social Sci</option>
+        <option value="Mgmt">Management (CMS)</option>
         <option value="Law">Law</option>
-        <option value="IT">IT & Computer Applications</option>
+        <option value="Science">Sciences</option>
+        <option value="Computing">IT & Computing</option>
+        <option value="Sports">Sports Education</option>
       </select>
     </div>
 
@@ -229,49 +238,77 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
 </div>
 
 <script>
-  // --- 1. COURSE DATABASE (Jain University) ---
+  // --- 1. COURSE DATABASE (FULL LIST) ---
   const courses = [
-    // --- ENGINEERING (B.Tech) ---
-    { id: 1, name: "B.Tech Computer Science & Engg", school: "Engg", level: "UG", fee: { "Merit": "₹2.75 Lakhs", "Mgmt": "₹4.5 Lakhs" }, elig: "10+2 with Physics & Math (Min 45%).", career: "Software Engineer, Data Scientist, AI Specialist." },
-    { id: 2, name: "B.Tech Aerospace Engineering", school: "Engg", level: "UG", fee: { "Merit": "₹2.25 Lakhs", "Mgmt": "₹3.5 Lakhs" }, elig: "10+2 with PCM (Min 45%).", career: "Aerodynamics Engineer, Defense R&D, Aviation Analyst." },
-    { id: 3, name: "B.Tech Artificial Intelligence & ML", school: "Engg", level: "UG", fee: { "Merit": "₹3.0 Lakhs", "Mgmt": "₹5.0 Lakhs" }, elig: "10+2 with PCM (Min 60%).", career: "AI Engineer, ML Architect, Robotics Specialist." },
-    { id: 4, name: "B.Tech Civil Engineering", school: "Engg", level: "UG", fee: { "Merit": "₹1.75 Lakhs", "Mgmt": "₹2.5 Lakhs" }, elig: "10+2 with PCM.", career: "Structural Engineer, Construction Manager." },
+    // --- ALLIED HEALTH SCIENCES ---
+    { id: 101, name: "Bachelors of Physiotherapy (BPT)", school: "Health", level: "UG", fee: { "Annual": "₹2.25 Lakhs" }, elig: "10+2 (PCB) Min 50%.", career: "Physiotherapist, Rehab Specialist, Sports Physio." },
+    { id: 102, name: "Bachelor in Psychology (B.Psy)", school: "Health", level: "UG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "10+2 (Any stream).", career: "Counselor, HR, Clinical Psychologist (after PG)." },
+    { id: 103, name: "B.Sc Cancer Biology", school: "Health", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2 (PCB).", career: "Oncology Researcher, Lab Technologist." },
+    { id: 104, name: "B.Sc Cardiac Technology", school: "Health", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2 (PCB).", career: "Cardiac Technologist, Cath Lab Tech." },
+    { id: 105, name: "B.Sc Medical Lab Technology", school: "Health", level: "UG", fee: { "Annual": "₹1.4 Lakhs" }, elig: "10+2 (PCB).", career: "Lab Manager, Pathology Technician." },
+    { id: 106, name: "B.Sc Nuclear Medicine Tech", school: "Health", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2 (PCB).", career: "Nuclear Med Tech, Radiology Assistant." },
+    { id: 107, name: "B.Sc Nutrition & Dietetics", school: "Health", level: "UG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "10+2 (Science).", career: "Dietician, Nutritionist, Food Analyst." },
+    { id: 108, name: "Bachelor of Optometry (B.Optom)", school: "Health", level: "UG", fee: { "Annual": "₹1.6 Lakhs" }, elig: "10+2 (PCB/PCM).", career: "Optometrist, Vision Therapist." },
+    { id: 109, name: "B.Sc Anesthesia & OT Tech", school: "Health", level: "UG", fee: { "Annual": "₹1.6 Lakhs" }, elig: "10+2 (Science).", career: "OT Technician, Anesthesia Asst." },
+    { id: 110, name: "B.Sc Medical Imaging (BMRIT)", school: "Health", level: "UG", fee: { "Annual": "₹1.6 Lakhs" }, elig: "10+2 (Science).", career: "Radiographer, MRI/CT Tech." },
+    { id: 111, name: "BMS Healthcare Management", school: "Health", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2 (Any stream).", career: "Hospital Admin, Healthcare Ops." },
 
-    // --- MANAGEMENT (BBA/MBA) ---
-    { id: 5, name: "BBA (Branding & Advertising)", school: "Mgmt", level: "UG", fee: { "Annual": "₹2.2 Lakhs" }, elig: "10+2 (Any stream).", career: "Brand Manager, Advertising Executive, Media Planner." },
-    { id: 6, name: "BBA (International Finance - ACCA)", school: "Mgmt", level: "UG", fee: { "Annual": "₹2.5 Lakhs" }, elig: "10+2 (Commerce/Science).", career: "Global Accountant, Financial Analyst, Auditor." },
-    { id: 7, name: "BBA (Sports Management)", school: "Mgmt", level: "UG", fee: { "Annual": "₹2.0 Lakhs" }, elig: "10+2 (Any stream).", career: "Sports Agent, Team Manager, Event Coordinator." },
-    { id: 8, name: "MBA (Marketing & Finance)", school: "Mgmt", level: "PG", fee: { "Total (2 Years)": "₹10-12 Lakhs" }, elig: "Graduation (50%) + JET/MAT/CAT/CMAT.", career: "Marketing Manager, Investment Banker, HR Head." },
-    { id: 9, name: "MBA (Aviation Management)", school: "Mgmt", level: "PG", fee: { "Total (2 Years)": "₹10 Lakhs" }, elig: "Graduation (50%).", career: "Airport Manager, Airline Operations, Logistics Lead." },
+    // --- COMMERCE ---
+    { id: 201, name: "B.Com (Honours - Regular)", school: "Commerce", level: "UG", fee: { "Annual": "₹1.4 Lakhs" }, elig: "10+2 (Commerce/Science).", career: "Accountant, Banker, Tax Consultant." },
+    { id: 202, name: "B.Com (Professional - CA/CS)", school: "Commerce", level: "UG", fee: { "Annual": "₹1.6 Lakhs" }, elig: "10+2 (Commerce/Science).", career: "Chartered Accountant, Company Secretary." },
+    { id: 203, name: "B.Com (International Finance - ACCA)", school: "Commerce", level: "UG", fee: { "Annual": "₹2.0 Lakhs" }, elig: "10+2 (Commerce).", career: "ACCA Professional, Global Auditor." },
+    { id: 204, name: "B.Com (Strategic Finance - US CMA)", school: "Commerce", level: "UG", fee: { "Annual": "₹2.0 Lakhs" }, elig: "10+2 (Commerce).", career: "Management Accountant, Finance Strategist." },
+    { id: 205, name: "B.Com (Logistics & Supply Chain - CIPS)", school: "Commerce", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2 (Commerce).", career: "Supply Chain Manager, Logistics Analyst." },
+    { id: 206, name: "M.Com (Dual Specialisation)", school: "Commerce", level: "PG", fee: { "Annual": "₹1.0 Lakhs" }, elig: "B.Com/BBA.", career: "Lecturer, Finance Manager." },
+    { id: 207, name: "M.Com (Global Professional - ACCA)", school: "Commerce", level: "PG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "B.Com/BBA.", career: "International Finance Consultant." },
 
-    // --- COMMERCE (B.Com) ---
-    { id: 10, name: "B.Com (Honours - Regular)", school: "Commerce", level: "UG", fee: { "Annual": "₹1.4 Lakhs" }, elig: "10+2 (Commerce).", career: "Accountant, Tax Consultant, Banker." },
-    { id: 11, name: "B.Com (Risk Mgmt - CIMA UK)", school: "Commerce", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2 (Commerce/Science).", career: "Risk Analyst, Management Accountant." },
-    { id: 12, name: "B.Com (Strategic Finance - CFA)", school: "Commerce", level: "UG", fee: { "Annual": "₹2.0 Lakhs" }, elig: "10+2 (Commerce).", career: "Investment Analyst, Portfolio Manager." },
+    // --- DESIGN ---
+    { id: 301, name: "Bachelor of Design (Product/Comm/UI)", school: "Design", level: "UG", fee: { "Annual": "₹3.5 - 4.0 Lakhs" }, elig: "10+2 + JET Design Exam.", career: "Product Designer, UX Designer, Graphic Artist." },
+    { id: 302, name: "B.Sc Interior Design", school: "Design", level: "UG", fee: { "Annual": "₹2.0 Lakhs" }, elig: "10+2 (Any stream).", career: "Interior Designer, Space Planner." },
+    { id: 303, name: "Master of Design (Product/UX)", school: "Design", level: "PG", fee: { "Annual": "₹3.8 Lakhs" }, elig: "Degree in Design/Arch/Tech.", career: "Design Lead, UX Researcher." },
+    { id: 304, name: "MA (Communication/Fashion/Film)", school: "Design", level: "PG", fee: { "Annual": "₹2.5 Lakhs" }, elig: "Graduation.", career: "Creative Director, Fashion Stylist, Filmmaker." },
 
-    // --- DESIGN (B.Des/M.Des) ---
-    { id: 13, name: "B.Des (Product Design)", school: "Design", level: "UG", fee: { "Annual": "₹3.5 Lakhs" }, elig: "10+2 + JET Design Exam.", career: "Product Designer, Industrial Designer." },
-    { id: 14, name: "B.Des (Communication Design)", school: "Design", level: "UG", fee: { "Annual": "₹3.5 Lakhs" }, elig: "10+2 + JET Design Exam.", career: "Graphic Designer, Art Director, UI Designer." },
-    { id: 15, name: "M.Des (User Experience Design)", school: "Design", level: "PG", fee: { "Annual": "₹3.8 Lakhs" }, elig: "B.Des/B.Arch/B.Tech.", career: "UX Researcher, Interaction Designer." },
+    // --- ENGINEERING ---
+    { id: 401, name: "B.Tech Computer Science & Engg", school: "Engg", level: "UG", fee: { "Merit": "₹2.75L", "Mgmt": "₹4.5L" }, elig: "10+2 PCM (45%).", career: "Software Engineer, Full Stack Dev." },
+    { id: 402, name: "B.Tech Aerospace Engineering", school: "Engg", level: "UG", fee: { "Merit": "₹2.25L", "Mgmt": "₹3.5L" }, elig: "10+2 PCM (45%).", career: "Aerospace Engineer, Avionics." },
+    { id: 403, name: "B.Tech AI & Data Science", school: "Engg", level: "UG", fee: { "Merit": "₹3.0L", "Mgmt": "₹5.0L" }, elig: "10+2 PCM (60%).", career: "AI Specialist, Data Scientist." },
+    { id: 404, name: "B.Tech Mechanical Engineering", school: "Engg", level: "UG", fee: { "Merit": "₹1.75L", "Mgmt": "₹2.5L" }, elig: "10+2 PCM.", career: "Mechanical Engineer, Robotics." },
+    { id: 405, name: "M.Tech (Various Specialisations)", school: "Engg", level: "PG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "BE/B.Tech.", career: "R&D Engineer, Structural Consultant." },
 
-    // --- IT & COMPUTER APPLICATIONS ---
-    { id: 16, name: "BCA (Artificial Intelligence)", school: "IT", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2 (Science/Commerce).", career: "AI Developer, Data Analyst." },
-    { id: 17, name: "BCA (Cloud Technology)", school: "IT", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2 (Any stream).", career: "Cloud Architect, System Admin." },
-    { id: 18, name: "MCA (Information Security)", school: "IT", level: "PG", fee: { "Annual": "₹2.5 Lakhs" }, elig: "BCA/B.Sc CS.", career: "Cyber Security Analyst, Ethical Hacker." },
+    // --- HUMANITIES ---
+    { id: 501, name: "BA (Journalism & Mass Comm)", school: "Humanities", level: "UG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "10+2 (Any stream).", career: "Journalist, Content Creator, PR." },
+    { id: 502, name: "BA (Economics & Data Analytics)", school: "Humanities", level: "UG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "10+2 (Any stream).", career: "Economist, Data Analyst." },
+    { id: 503, name: "MA (Public Policy / Economics)", school: "Humanities", level: "PG", fee: { "Annual": "₹1.2 Lakhs" }, elig: "Graduation.", career: "Policy Analyst, Researcher." },
 
-    // --- SCIENCES & ALLIED HEALTH ---
-    { id: 19, name: "B.Sc (Forensic Science)", school: "Science", level: "UG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "10+2 (Science).", career: "Forensic Expert, Crime Scene Investigator." },
-    { id: 20, name: "B.Sc (Cardiac Technology)", school: "Science", level: "UG", fee: { "Annual": "₹1.6 Lakhs" }, elig: "10+2 (PCB).", career: "Cardiac Technologist, Cath Lab Tech." },
-    { id: 21, name: "B.Sc (Psychology)", school: "Science", level: "UG", fee: { "Annual": "₹1.4 Lakhs" }, elig: "10+2 (Any stream).", career: "Counselor, HR, Psychologist (after Masters)." },
-    { id: 22, name: "M.Sc (Biotechnology)", school: "Science", level: "PG", fee: { "Annual": "₹1.6 Lakhs" }, elig: "B.Sc Life Sciences.", career: "Biotech Researcher, Pharma QC." },
+    // --- MANAGEMENT ---
+    { id: 601, name: "BBA (Branding & Advertising)", school: "Mgmt", level: "UG", fee: { "Annual": "₹2.2 Lakhs" }, elig: "10+2.", career: "Brand Manager, Ad Executive." },
+    { id: 602, name: "BBA (Strategic Finance - US CMA)", school: "Mgmt", level: "UG", fee: { "Annual": "₹2.5 Lakhs" }, elig: "10+2.", career: "Corporate Finance, Strategy." },
+    { id: 603, name: "BMS (Aviation / Healthcare / IB)", school: "Mgmt", level: "UG", fee: { "Annual": "₹2.0 Lakhs" }, elig: "10+2.", career: "Airport Mgr, Hospital Admin, IB Exec." },
+    { id: 604, name: "MBA (Single / Dual Specialisation)", school: "Mgmt", level: "PG", fee: { "Total": "₹10-12 Lakhs" }, elig: "Graduation + JET/CAT/MAT.", career: "Manager, Consultant, Entrepreneur." },
+    { id: 605, name: "MBA Dual Degree (Intl Universities)", school: "Mgmt", level: "PG", fee: { "Total": "₹15+ Lakhs" }, elig: "Graduation + JET.", career: "Global Business Leader." },
 
     // --- LAW ---
-    { id: 23, name: "BA LLB (Honours)", school: "Law", level: "UG", fee: { "Annual": "₹2.0 Lakhs" }, elig: "10+2 (45%) + JET Law Exam.", career: "Litigation, Corporate Law, Judiciary." },
-    { id: 24, name: "LLM (Corporate Law)", school: "Law", level: "PG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "LLB Degree.", career: "Legal Consultant, Corporate Counsel." },
+    { id: 701, name: "BA LLB (Honours)", school: "Law", level: "UG", fee: { "Annual": "₹2.0 Lakhs" }, elig: "10+2 (45%) + JET Law.", career: "Lawyer, Judge, Legal Advisor." },
+    { id: 702, name: "BBA LLB (Honours)", school: "Law", level: "UG", fee: { "Annual": "₹2.2 Lakhs" }, elig: "10+2 (45%) + JET Law.", career: "Corporate Lawyer, Legal Consultant." },
+    { id: 703, name: "LLM (Master of Law)", school: "Law", level: "PG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "LLB.", career: "Legal Researcher, Specialist Counsel." },
+
+    // --- SCIENCES ---
+    { id: 801, name: "B.Sc (Forensic Science)", school: "Science", level: "UG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "10+2 Science.", career: "Forensic Scientist, Investigator." },
+    { id: 802, name: "B.Sc (Biotech / Biochem / Genetics)", school: "Science", level: "UG", fee: { "Annual": "₹1.2 Lakhs" }, elig: "10+2 Science.", career: "Research Assistant, Lab Tech." },
+    { id: 803, name: "M.Sc (Forensic / Psychology / Chem)", school: "Science", level: "PG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "B.Sc relevant.", career: "Scientist, Psychologist, Chemist." },
+
+    // --- APPLIED COMPUTING ---
+    { id: 901, name: "BCA (AI & Machine Learning)", school: "Computing", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2.", career: "AI Developer, ML Engineer." },
+    { id: 902, name: "BCA (Cloud Computing / CyberSec)", school: "Computing", level: "UG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "10+2.", career: "Cloud Engineer, Security Analyst." },
+    { id: 903, name: "B.Sc (Animation / Gaming)", school: "Computing", level: "UG", fee: { "Annual": "₹2.5 Lakhs" }, elig: "10+2.", career: "Game Developer, Animator." },
+    { id: 904, name: "MCA (AI / Cloud / Security)", school: "Computing", level: "PG", fee: { "Annual": "₹2.5 Lakhs" }, elig: "BCA/B.Sc CS.", career: "Senior Developer, System Architect." },
+
+    // --- SPORTS ---
+    { id: 1001, name: "B.Sc Physical Education & Sports", school: "Sports", level: "UG", fee: { "Annual": "₹1.5 Lakhs" }, elig: "10+2.", career: "Sports Coach, PE Teacher." },
+    { id: 1002, name: "M.Sc Applied Sports Science", school: "Sports", level: "PG", fee: { "Annual": "₹1.8 Lakhs" }, elig: "B.Sc Sports/PE.", career: "Sports Scientist, Performance Analyst." },
 
     // --- PHD ---
-    { id: 25, name: "PhD in Management", school: "Mgmt", level: "PhD", fee: { "Annual": "₹1.0 Lakhs" }, elig: "Master's Degree + Entrance.", career: "Professor, Researcher." },
-    { id: 26, name: "PhD in Engineering", school: "Engg", level: "PhD", fee: { "Annual": "₹1.0 Lakhs" }, elig: "M.Tech + Entrance.", career: "R&D Scientist, Academician." }
+    { id: 1101, name: "PhD (Engg / Mgmt / Science / Law)", school: "Science", level: "PhD", fee: { "Annual": "₹1.0 Lakhs" }, elig: "Masters + Entrance.", career: "Researcher, Professor." }
   ];
 
   // --- 2. RENDER ENGINE ---
@@ -292,12 +329,9 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
       if (matchSearch && matchLevel && matchSchool) {
         count++;
         // School Color Class
-        let colorClass = 'school-Engg';
-        if (course.school === 'Mgmt') colorClass = 'school-Mgmt';
-        if (course.school === 'Design') colorClass = 'school-Design';
-        if (course.school === 'Commerce') colorClass = 'school-Commerce';
-        if (course.school === 'Science') colorClass = 'school-Science';
-        if (course.school === 'Law') colorClass = 'school-Law';
+        let colorClass = 'school-' + course.school;
+        // Fallback for PhD or unmapped
+        if(course.level === 'PhD') colorClass = 'school-Science';
 
         const card = `
           <div class="course-card ${colorClass}" style="animation-delay: ${count * 0.05}s">
@@ -322,13 +356,16 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
   }
 
   function getSchoolName(code) {
-    if (code === 'Engg') return 'Engineering & Tech';
-    if (code === 'Mgmt') return 'Management (CMS)';
-    if (code === 'Design') return 'Design School';
+    if (code === 'Engg') return 'Engineering';
+    if (code === 'Mgmt') return 'Management';
+    if (code === 'Design') return 'Design';
     if (code === 'Commerce') return 'Commerce';
     if (code === 'Science') return 'Sciences';
-    if (code === 'Law') return 'Law School';
-    if (code === 'IT') return 'IT & Computer App';
+    if (code === 'Law') return 'Law';
+    if (code === 'Computing') return 'IT & Computing';
+    if (code === 'Health') return 'Allied Health';
+    if (code === 'Sports') return 'Sports';
+    if (code === 'Humanities') return 'Humanities';
     return code;
   }
 
@@ -339,7 +376,7 @@ description: "Browse 100+ courses at Jain University (Engineering, Management, D
 
     document.getElementById('mTitle').innerText = course.name;
     document.getElementById('mElig').innerText = course.elig;
-    document.getElementById('mProcess').innerText = "Jain Entrance Test (JET) + Personal Interview (for applicable courses).";
+    document.getElementById('mProcess').innerText = "Jain Entrance Test (JET) + Personal Interview (where applicable).";
     document.getElementById('mCareers').innerText = course.career;
 
     // Fees Table
