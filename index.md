@@ -1,142 +1,38 @@
----
-layout: default
-title: Home
----
+<header class="site-header">
+  <div class="header-container">
+    <a href="{{ '/' | relative_url }}" class="site-logo">
+      🎓 CareerGuidance
+    </a>
+    <nav class="site-nav">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/colleges/' | relative_url }}">Colleges</a>
+      <a href="{{ '/visa/' | relative_url }}">Visa Services</a>
+      <a href="https://github.com/antoniovn96" target="_blank" class="btn-nav">Contact Me</a>
+    </nav>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </div>
+</header>
 
 <style>
-  /* 1. Force Full Width (Overrides the default blog layout) */
-  .main-content { 
-    max-width: 100% !important; 
-    padding: 0 !important; 
-    margin: 0 !important; 
-  }
-  
-  /* 2. HERO SECTION */
-  .hero-section {
-    background-color: #0A2342; 
-    background-image: linear-gradient(rgba(10, 35, 66, 0.9), rgba(10, 35, 66, 0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-align: center;
-    padding: 120px 20px 160px 20px; /* Extra bottom padding for overlap */
-  }
-  
-  .hero-title { font-size: 3rem; font-weight: 700; margin-bottom: 15px; color: white; }
-  .hero-subtitle { font-size: 1.3rem; max-width: 800px; margin: 0 auto; color: #D4AF37; font-weight: bold; letter-spacing: 0.5px; }
+  .site-header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+  .header-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+  .site-logo { font-size: 1.5rem; font-weight: 800; color: #0A2342; text-decoration: none; }
+  .site-nav { display: flex; gap: 25px; align-items: center; }
+  .site-nav a { text-decoration: none; color: #555; font-weight: 600; font-size: 0.95rem; transition: 0.2s; }
+  .site-nav a:hover { color: #007bff; }
+  .btn-nav { background: #0A2342; color: white !important; padding: 8px 18px; border-radius: 50px; }
+  .btn-nav:hover { background: #007bff; }
+  .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
-  /* 3. THREE DOORS (CARDS) */
-  .door-container { 
-    display: flex; 
-    justify-content: center; 
-    gap: 30px; 
-    padding: 0 20px; 
-    margin-top: -80px; /* Moves cards UP into the hero */
-    flex-wrap: wrap; 
-    position: relative; 
-    z-index: 10; 
-  }
-
-  .door-card { 
-    background: white; 
-    color: #0A2342; 
-    padding: 30px; 
-    border-radius: 12px; 
-    width: 300px; 
-    text-align: center; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
-    transition: transform 0.3s ease; 
-    border-top: 5px solid #D4AF37; 
-    text-decoration: none !important; 
-    display: block; /* Ensures link covers whole card */
-  }
-
-  .door-card:hover { transform: translateY(-10px); }
-  .door-icon { font-size: 3rem; margin-bottom: 15px; display: block; }
-  .door-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; color: #0A2342; }
-  
-  .btn-gold { 
-    background-color: #D4AF37; 
-    color: #0A2342; 
-    padding: 10px 20px; 
-    border-radius: 50px; 
-    font-weight: bold; 
-    text-transform: uppercase; 
-    font-size: 0.85rem; 
-    display: inline-block; 
-    margin-top: 15px;
-  }
-
-  /* 4. SECTIONS */
-  .section-title { text-align: center; font-size: 2.2rem; color: #0A2342; margin: 80px 0 30px; font-weight: bold; }
-  
-  .visa-banner { 
-    background: #0A2342; 
-    border-radius: 15px; 
-    padding: 50px; 
-    margin: 40px auto; 
-    max-width: 1000px; 
-    color: white; 
-    text-align: center; 
-    border: 2px solid #D4AF37; 
+  @media (max-width: 768px) {
+    .site-nav { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+    .site-nav.active { display: flex; }
+    .menu-toggle { display: block; }
   }
 </style>
 
-<div class="hero-section">
-  <div class="hero-title">Map Your Future</div>
-  <p class="hero-subtitle">"From Grade 9 to Global PhD"</p>
-  <p style="color: #ccc; margin-top: 10px;">India’s First Verified Career Intelligence Platform.</p>
-</div>
-
-<div class="door-container">
-  <a href="{{ '/stream-selector/' | relative_url }}" class="door-card">
-    <span class="door-icon">🧭</span>
-    <div class="door-title">I am Confused</div>
-    <p style="color:#666;">Not sure which stream fits you? Take our reality-check quiz.</p>
-    <span class="btn-gold">Start Stream Selector</span>
-  </a>
-
-  <a href="{{ '/career-search/' | relative_url }}" class="door-card">
-    <span class="door-icon">🎯</span>
-    <div class="door-title">I have a Goal</div>
-    <p style="color:#666;">Want to be a Pilot, Doctor, or Engineer? See the verified roadmap.</p>
-    <span class="btn-gold">View Roadmaps</span>
-  </a>
-
-  <a href="{{ '/skill-search/' | relative_url }}" class="door-card">
-    <span class="door-icon">⭐</span>
-    <div class="door-title">I have a Talent</div>
-    <p style="color:#666;">Good at debating or coding? Find jobs that value your skills.</p>
-    <span class="btn-gold">Search by Skill</span>
-  </a>
-</div>
-
-<h2 class="section-title">Global Opportunities</h2>
-<div class="visa-banner">
-    <h2 style="color: #D4AF37; margin-bottom: 10px;">The International Wing</h2>
-    <p style="font-size: 1.2rem; margin-bottom: 30px;">
-      Verified visa rules, exam scores (IELTS/SAT), and cost-of-living data for 
-      <strong>USA 🇺🇸, UK 🇬🇧, Germany 🇩🇪, Canada 🇨🇦</strong>.
-    </p>
-    <a href="{{ '/visas/' | relative_url }}" class="btn-gold" style="padding: 15px 30px; font-size: 1rem;">Open Visa Database</a>
-</div>
-
-<h2 class="section-title">Verified Mentorship</h2>
-<div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 60px;">
-  <div style="text-align: center; max-width: 300px;">
-    <h3 style="font-size: 1.2rem; color: #0A2342;">🏫 School Counsellors</h3>
-    <p style="color:#555;">For Stream Selection</p>
-  </div>
-  <div style="text-align: center; max-width: 300px;">
-    <h3 style="font-size: 1.2rem; color: #0A2342;">✈️ Visa Experts</h3>
-    <p style="color:#555;">For Immigration Rules</p>
-  </div>
-  <div style="text-align: center; max-width: 300px;">
-    <h3 style="font-size: 1.2rem; color: #0A2342;">🎓 Alumni Mentors</h3>
-    <p style="color:#555;">From Ivy League / IITs</p>
-  </div>
-</div>
-
-<div style="text-align: center; margin-bottom: 80px;">
-  <a href="{{ '/book-expert/' | relative_url }}" class="btn-gold" style="padding: 15px 40px;">Book a Session</a>
-</div>
+<script>
+  function toggleMenu() {
+    document.querySelector('.site-nav').classList.toggle('active');
+  }
+</script>
