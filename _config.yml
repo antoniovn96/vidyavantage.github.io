@@ -9,8 +9,8 @@ plugins:
 # CRITICAL FIX FOR YOUR LINKS
 # ---------------------------------------------------
 url: "https://antoniovn96.github.io"
-baseurl: "/vidyavantage.github.io"
+baseurl: "/vidyavantage.github.io" 
+# IMPORTANT: The baseurl above MUST match your Repository Name exactly.
+# If your repo is just named "vidyavantage", change it to "/vidyavantage"
 
-# Link to your custom CSS (Using relative_url is handled by the theme usually, 
-# but this helps define the path)
 css: "/assets/css/style.css"
