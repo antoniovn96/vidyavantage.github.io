@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, RVCE, PESU, Christ, and St. Joseph's."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BMSCE, Christ University, and St. Joseph's."
 ---
 
 <style>
@@ -113,39 +113,20 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #FFC107;">
-    <img src="https://rvce.edu.in/sites/default/files/slider/slider1.jpg" class="card-img" alt="RVCE Bangalore">
+  <div class="college-card" style="border-top-color: #0056b3;">
+    <img src="https://bmsce.ac.in/assets/images/banner/bmsce-banner-1.jpg" class="card-img" alt="BMSCE Bangalore">
     <div class="card-body">
-      <h2 class="college-name" style="color: #003366;">RV College of Engineering</h2>
+      <h2 class="college-name" style="color: #0056b3;">B.M.S. College of Engineering</h2>
       <div class="college-meta">
-        <span class="tag">📍 Mysuru Road</span>
-        <span class="tag">🏆 Est. 1963</span>
+        <span class="tag">📍 Basavanagudi</span>
+        <span class="tag">🏆 Est. 1946</span>
       </div>
       <p class="card-desc">
-        Bangalore's most preferred engineering college. Known for high academic rigor, excellent placements in CSE/ISE, and vibrant campus life.
+        India's first private engineering college. Famous for its vibrant campus life (Utsav) and strong placements in core & IT sectors.
       </p>
     </div>
     <div class="card-footer">
-      <a href="{{ '/colleges/rvce/' | relative_url }}" class="view-btn" style="background: #003366; color: #FFC107;">
-        View Programs ➔
-      </a>
-    </div>
-  </div>
-
-  <div class="college-card" style="border-top-color: #FF6600;">
-    <img src="https://pes.edu/wp-content/uploads/2022/07/PES-University-Banner.jpg" class="card-img" alt="PES University">
-    <div class="card-body">
-      <h2 class="college-name" style="color: #003366;">PES University</h2>
-      <div class="college-meta">
-        <span class="tag">📍 Ring Road / EC</span>
-        <span class="tag">🏆 Est. 1972</span>
-      </div>
-      <p class="card-desc">
-        A leading private university known for its rigorous academic curriculum and high-tech campus. Famous for CSE placements and the PESSAT entrance exam.
-      </p>
-    </div>
-    <div class="card-footer">
-      <a href="{{ '/colleges/pes-university/' | relative_url }}" class="view-btn" style="background: #003366; color: white;">
+      <a href="{{ '/colleges/bmsce/' | relative_url }}" class="view-btn" style="background: #0056b3; color: white;">
         View Programs ➔
       </a>
     </div>
