@@ -95,7 +95,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
 <div class="college-grid">
 
   <div class="college-card" style="border-top-color: #005a9c;">
-    <img src="https://iisc.ac.in/wp-content/uploads/2020/08/main-building.jpg" class="card-img" alt="IISc Bangalore">
+    <img src="https://ioe.iisc.ac.in/wp-content/uploads/2021/04/bg-image-1-500x286.jpg" class="card-img" alt="IISc Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #005a9c;">Indian Institute of Science (IISc)</h2>
       <div class="college-meta">
@@ -152,7 +152,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #8b0000;">
-    <img src="https://christuniversity.in/images/sharingLogo.jpg" class="card-img" alt="Christ University">
+    <img src="https://christuniversity.in/images/chris-building.jpg" class="card-img" alt="Christ University">
     <div class="card-body">
       <h2 class="college-name" style="color: #8b0000;">Christ (Deemed to be University)</h2>
       <div class="college-meta">
@@ -190,7 +190,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #0056b3;">
-    <img src="https://bmsce.ac.in/assets/images/banner/bmsce-banner-1.jpg" class="card-img" alt="BMSCE Bangalore">
+    <img src="https://shiksha-tech.com/wp-content/uploads/2025/12/direct_admission_in_bms_college.png" class="card-img" alt="BMSCE Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #0056b3;">B.M.S. College of Engineering</h2>
       <div class="college-meta">
@@ -209,7 +209,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #f39c12;">
-    <img src="https://news.pes.edu/wp-content/uploads/2023/12/PES-University-Ring-Road-Campus-min-1024x576.jpg" class="card-img" alt="PES University">
+    <img src="https://pes.edu/wp-content/uploads/2025/06/PESU-EC-Campus.jpg" class="card-img" alt="PES University">
     <div class="card-body">
       <h2 class="college-name" style="color: #d35400;">PES University</h2>
       <div class="college-meta">
