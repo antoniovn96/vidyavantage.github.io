@@ -152,7 +152,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #0056b3;">
-    <img src="https://bmsce.ac.in/assets/images/banner/bmsce-banner-1.jpg" class="card-img" alt="BMSCE Bangalore">
+    <img src="https://www.sju.edu.in/uploads/departments/large/1320167152_2024-10-15_04-08-59.webp" class="card-img" alt="BMSCE Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #0056b3;">B.M.S. College of Engineering</h2>
       <div class="college-meta">
