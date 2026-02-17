@@ -184,7 +184,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/st-josephs/' | relative_url }}" class="view-btn" style="background: #0A2342; color: #D4AF37;">
-        View Courses ➔
+        View Programs ➔
       </a>
     </div>
   </div>
