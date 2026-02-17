@@ -27,7 +27,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 30px;
     padding: 0 20px 60px;
-    max-width: 1300px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
@@ -171,7 +171,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #0A2342;">
-    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&h=300&fit=crop" class="card-img" alt="St Josephs">
+    <img src="https://www.collegebatch.com/static/clg-gallery/st-josephs-university-bangalore-356425.webp" class="card-img" alt="St Josephs">
     <div class="card-body">
       <h2 class="college-name" style="color: #0A2342;">St. Joseph's University</h2>
       <div class="college-meta">
