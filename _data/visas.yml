@@ -1,26 +1,47 @@
-- country: "United States (USA)"
-  visa_type: "F-1 Student Visa"
-  cost: "$185 (Application) + $350 (SEVIS)"
-  proof_of_funds: "Yes (1 year tuition + living)"
-  work_rights: "On-campus only (20 hrs/week)"
-  post_study_work: "1 year (OPT) + 2 years (STEM Extension)"
-  exams_needed: ["TOEFL / IELTS", "SAT / GRE"]
-  flag: "🇺🇸"
+- country: "United States"
+  image: "https://cdn.pixabay.com/photo/2014/11/22/00/03/new-york-540807_1280.jpg"
+  flag: "https://flagcdn.com/w80/us.png"
+  tags: ["F1 Student", "H1B Work", "B1/B2 Tourist"]
+  description: "Navigate the complex US immigration system with expert DS-160 filing and mock interview sessions."
+
+- country: "United Kingdom"
+  image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  flag: "https://flagcdn.com/w80/gb.png"
+  tags: ["Tier 4 Student", "Skilled Worker"]
+  description: "Study at prestigious UK universities or work with top employers. We assist with CAS and NHS surcharge."
 
 - country: "Germany"
-  visa_type: "Student Visa (Visum zu Studienzwecken)"
-  cost: "€75 (approx. ₹6,700)"
-  proof_of_funds: "Blocked Account (€11,208/year)"
-  work_rights: "120 full days or 240 half days/year"
-  post_study_work: "18 months to find a job"
-  exams_needed: ["IELTS / TOEFL", "German B1/B2 (Recommended)"]
-  flag: "🇩🇪"
+  image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  flag: "https://flagcdn.com/w80/de.png"
+  tags: ["Student Visa", "Job Seeker", "Blue Card"]
+  description: "Unlock free education and engineering careers in Europe's economic powerhouse."
 
-- country: "United Kingdom (UK)"
-  visa_type: "Student Route Visa"
-  cost: "£490 (approx. ₹51,000)"
-  proof_of_funds: "Tuition + £1,334/month (London) or £1,023/month (outside)"
-  work_rights: "20 hrs/week during term time"
-  post_study_work: "2 years (Graduate Route)"
-  exams_needed: ["IELTS for UKVI"]
-  flag: "🇬🇧"
+- country: "Australia"
+  image: "https://images.unsplash.com/photo-1523482580672-019a2c6b95c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  flag: "https://flagcdn.com/w80/au.png"
+  tags: ["Subclass 500", "PR Visa"]
+  description: "Simplified processing for GTE requirements and health insurance (OSHC) for Down Under."
+
+- country: "Canada"
+  image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  flag: "https://flagcdn.com/w80/ca.png"
+  tags: ["Study Permit", "Express Entry"]
+  description: "Expert guidance on SDS/Non-SDS categories and Post-Graduation Work Permits (PGWP)."
+
+- country: "Ireland"
+  image: "https://cdn.pixabay.com/photo/2013/11/03/17/23/killarney-204401_1280.jpg"
+  flag: "https://flagcdn.com/w80/ie.png"
+  tags: ["Stamp 2 Student", "Work Permit"]
+  description: "Experience the Emerald Isle with our end-to-end support for Irish study visas."
+
+- country: "New Zealand"
+  image: "https://images.unsplash.com/photo-1507699622177-f888f14506b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  flag: "https://flagcdn.com/w80/nz.png"
+  tags: ["Fee Paying Student", "Post-Study Work"]
+  description: "Comprehensive assistance for Level 7/8/9 courses and pathway student visas."
+
+- country: "UAE"
+  image: "https://images.unsplash.com/photo-1512453979798-5ea90bacbf56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  flag: "https://flagcdn.com/w80/ae.png"
+  tags: ["Golden Visa", "Student Visa"]
+  description: "Fast-track your visa for Dubai, Abu Dhabi, and Sharjah education hubs."
