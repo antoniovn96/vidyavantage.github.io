@@ -6,11 +6,10 @@ plugins:
   - jekyll-seo-tag
 
 # ---------------------------------------------------
-# CRITICAL FIX FOR YOUR LINKS
+# CRITICAL SETTINGS FOR REPO: vidyavantage.github.io
 # ---------------------------------------------------
 url: "https://antoniovn96.github.io"
 baseurl: "/vidyavantage.github.io" 
-# IMPORTANT: The baseurl above MUST match your Repository Name exactly.
-# If your repo is just named "vidyavantage", change it to "/vidyavantage"
+# ^ This matches your repository name exactly. 
 
 css: "/assets/css/style.css"
