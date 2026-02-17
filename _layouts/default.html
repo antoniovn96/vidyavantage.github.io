@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page.title }} | {{ site.title }}</title>
 
-    <link rel="icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
+    <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
     
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     
     {% seo %}
 
     <style>
-      body { margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
+      body { margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; display: flex; flex-direction: column; min-height: 100vh; background-color: #f8f9fa; }
       
       /* NAV BAR */
       .top-nav {
@@ -64,12 +64,13 @@
       /* CONTENT WRAPPER */
       .main-content {
         flex: 1; /* Pushes footer down */
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 40px 20px;
+        max-width: 100%; /* Changed to 100% to allow Hero sections to be full width */
+        margin: 0;
+        padding: 0; 
         width: 100%;
         box-sizing: border-box;
       }
+      /* Add padding container for regular pages if needed, but keep main 100% for index */
 
       /* FOOTER */
       .site-footer {
@@ -108,12 +109,12 @@
       <a href="{{ '/' | relative_url }}" class="nav-logo">VIDYAVANTAGE</a>
       
       <div class="nav-links">
-        <a href="{{ '/career-search/' | relative_url }}">Roadmap</a>
-        <a href="{{ '/stream-selector/' | relative_url }}">Stream Selector</a>
-        <a href="{{ '/visas/' | relative_url }}">Global Visas</a>
+        <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/colleges/' | relative_url }}">Colleges</a>
-        <a href="{{ '/blog/' | relative_url }}">Blog</a>
-        <a href="{{ '/book-expert/' | relative_url }}" class="nav-btn">Book Expert</a>
+        
+        <a href="{{ '/visa/' | relative_url }}">Global Visas</a>
+        
+        <a href="https://github.com/antoniovn96" target="_blank" class="nav-btn">Contact Me</a>
       </div>
     </nav>
 
@@ -130,22 +131,22 @@
         <div class="footer-col">
           <div class="footer-heading">Quick Links</div>
           <div class="footer-links">
-            <a href="{{ '/stream-selector/' | relative_url }}">Stream Selector</a>
-            <a href="{{ '/career-search/' | relative_url }}">Career Roadmap</a>
-            <a href="{{ '/visas/' | relative_url }}">Visa Rules</a>
-            <a href="{{ '/colleges/' | relative_url }}">Top Colleges</a>
+             <a href="{{ '/' | relative_url }}">Home</a>
+             <a href="{{ '/colleges/' | relative_url }}">Top Colleges</a>
+             
+             <a href="{{ '/visa/' | relative_url }}">Visa Rules</a>
           </div>
         </div>
         <div class="footer-col">
           <div class="footer-heading">Services</div>
           <div class="footer-links">
-            <a href="{{ '/book-expert/' | relative_url }}">Book a Counsellor</a>
-            <a href="{{ '/school-partnership/' | relative_url }}">School Partnerships</a>
+            <a href="https://github.com/antoniovn96" target="_blank">Book a Counsellor</a>
+            <a href="#">School Partnerships</a>
           </div>
         </div>
       </div>
       <div class="copyright">
-        © 2026 VidyaVantage. Built for the students of India.
+        © {{ site.time | date: '%Y' }} VidyaVantage. Built for the students of India.
       </div>
     </footer>
 
