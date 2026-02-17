@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore & Mumbai. Get details on courses, fees, and admission processes for IISc, BMSCE, Christ, NMIMS Law, and St. Joseph's."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BMSCE, Christ, NMIMS Law, St. Joseph's, PES, and RVCE."
 ---
 
 <style>
@@ -27,7 +27,7 @@ description: "Browse top universities in Bangalore & Mumbai. Get details on cour
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 30px;
     padding: 0 20px 60px;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
   }
 
@@ -165,6 +165,44 @@ description: "Browse top universities in Bangalore & Mumbai. Get details on cour
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/bmsce/' | relative_url }}" class="view-btn" style="background: #0056b3; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card" style="border-top-color: #f39c12;">
+    <img src="https://news.pes.edu/wp-content/uploads/2023/12/PES-University-Ring-Road-Campus-min-1024x576.jpg" class="card-img" alt="PES University">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #d35400;">PES University</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Ring Road / EC</span>
+        <span class="tag">🏆 Est. 1972</span>
+      </div>
+      <p class="card-desc">
+        Known for the PESSAT exam and rigorous academic standards. excellent for Computer Science, Design (B.Des), and Architecture.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/pes-university/' | relative_url }}" class="view-btn" style="background: #d35400; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card" style="border-top-color: #008080;">
+    <img src="https://rvce.edu.in/sites/default/files/slider-images/rvce-admin-block.jpg" class="card-img" alt="RVCE">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #008080;">RV College of Engineering</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Mysore Road</span>
+        <span class="tag">🏆 Est. 1963</span>
+      </div>
+      <p class="card-desc">
+        One of the most preferred engineering colleges under VTU. Famous for its research centers, innovation, and high package placements.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/rvce/' | relative_url }}" class="view-btn" style="background: #008080; color: white;">
         View Programs ➔
       </a>
     </div>
