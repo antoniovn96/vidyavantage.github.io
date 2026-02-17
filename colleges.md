@@ -132,10 +132,10 @@ description: "Browse top universities in Bangalore & Mumbai. Get details on cour
     </div>
   </div>
 
-  <div class="college-card">
+  <div class="college-card" style="border-top-color: #0A2342;">
     <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&h=300&fit=crop" class="card-img" alt="St Josephs">
     <div class="card-body">
-      <h2 class="college-name">St. Joseph's University</h2>
+      <h2 class="college-name" style="color: #0A2342;">St. Joseph's University</h2>
       <div class="college-meta">
         <span class="tag">📍 Bengaluru</span>
         <span class="tag">🏆 Est. 1882</span>
