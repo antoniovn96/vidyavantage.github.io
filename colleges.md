@@ -171,7 +171,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #8b0000;">
-    <img src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Mount Carmel College">
+    <img src="https://infoadmission.com/wp-content/uploads/2025/05/mount-carmel-college-1-1-1024x570-1.jpg" class="card-img" alt="Mount Carmel College">
     <div class="card-body">
       <h2 class="college-name" style="color: #8b0000;">Mount Carmel College (MCC)</h2>
       <div class="college-meta">
