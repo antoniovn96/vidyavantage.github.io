@@ -152,7 +152,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card" style="border-top-color: #1a237e;">
-    <img src="https://images.shiksha.com/mediadata/images/1623308865phpv5f6yS.jpeg" class="card-img" alt="NHCE Bangalore">
+    <img src="https://newhorizoncollegeofengineering.in/wp-content/uploads/2024/03/NHCE-Campus-Temple.webp" class="card-img" alt="NHCE Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #1a237e;">New Horizon College of Engineering</h2>
       <div class="college-meta">
