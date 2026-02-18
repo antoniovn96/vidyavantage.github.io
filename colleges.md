@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC and more."
 ---
 
 <style>
@@ -165,6 +165,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/nhce/' | relative_url }}" class="view-btn" style="background: #1a237e; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card" style="border-top-color: #8b0000;">
+    <img src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Mount Carmel College">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #8b0000;">Mount Carmel College (MCC)</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Vasanth Nagar</span>
+        <span class="tag">🏆 Est. 1948</span>
+      </div>
+      <p class="card-desc">
+        A premier autonomous institution known for holistic education, empowering student culture, and excellence in Science, Commerce & Arts.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/mcc/' | relative_url }}" class="view-btn" style="background: #8b0000; color: white;">
         View Programs ➔
       </a>
     </div>
