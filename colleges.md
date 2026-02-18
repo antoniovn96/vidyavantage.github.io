@@ -21,7 +21,36 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   .colleges-hero h1 { margin: 0; font-size: 3rem; font-weight: 800; color: white !important; }
   .colleges-hero p { font-size: 1.2rem; color: #ddd !important; margin-top: 10px; }
 
-  /* 2. GRID LAYOUT */
+  /* 2. FILTER BAR */
+  .filter-container {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 10px 20px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 50px;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 0.95rem;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: #0A2342;
+    color: white;
+    border-color: #0A2342;
+  }
+
+  /* 3. GRID LAYOUT */
   .college-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -31,7 +60,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     margin: 0 auto;
   }
 
-  /* 3. COLLEGE CARD */
+  /* 4. COLLEGE CARD */
   .college-card {
     background: white;
     border-radius: 12px;
@@ -44,6 +73,9 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   }
   
   .college-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+  
+  /* Hide cards that don't match filter */
+  .college-card.hidden { display: none; }
 
   .card-img {
     width: 100%;
@@ -92,9 +124,17 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   <p>Explore the best institutions for your career path.</p>
 </div>
 
+<div class="filter-container">
+  <button class="filter-btn active" onclick="filterSelection('all')">All</button>
+  <button class="filter-btn" onclick="filterSelection('engineering')">Engineering</button>
+  <button class="filter-btn" onclick="filterSelection('management')">Management</button>
+  <button class="filter-btn" onclick="filterSelection('science')">Science & Arts</button>
+  <button class="filter-btn" onclick="filterSelection('law')">Law</button>
+</div>
+
 <div class="college-grid">
 
-  <div class="college-card" style="border-top-color: #005a9c;">
+  <div class="college-card category-science" style="border-top-color: #005a9c;">
     <img src="https://ioe.iisc.ac.in/wp-content/uploads/2021/04/bg-image-1-500x286.jpg" class="card-img" alt="IISc Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #005a9c;">Indian Institute of Science (IISc)</h2>
@@ -113,7 +153,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #800000;">
+  <div class="college-card category-engineering" style="border-top-color: #800000;">
     <img src="https://msrit-bucket.s3.us-west-2.amazonaws.com/Gallery/rit-1.jpeg" class="card-img" alt="MSRIT Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #800000;">Ramaiah Institute of Technology</h2>
@@ -132,7 +172,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #003366;">
+  <div class="college-card category-engineering" style="border-top-color: #003366;">
     <img src="https://www.admissionbangalore.com/images/engg_col/dayananda-sagar-college-of-engg.jpg" class="card-img" alt="DSCE Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #003366;">Dayananda Sagar College of Engineering</h2>
@@ -151,7 +191,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #1a237e;">
+  <div class="college-card category-engineering" style="border-top-color: #1a237e;">
     <img src="https://newhorizoncollegeofengineering.in/wp-content/uploads/2024/03/NHCE-Campus-Temple.webp" class="card-img" alt="NHCE Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #1a237e;">New Horizon College of Engineering</h2>
@@ -170,7 +210,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #8b0000;">
+  <div class="college-card category-science category-management" style="border-top-color: #8b0000;">
     <img src="https://infoadmission.com/wp-content/uploads/2025/05/mount-carmel-college-1-1-1024x570-1.jpg" class="card-img" alt="Mount Carmel College">
     <div class="card-body">
       <h2 class="college-name" style="color: #8b0000;">Mount Carmel College (MCC)</h2>
@@ -189,7 +229,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #e65100;">
+  <div class="college-card category-engineering category-management" style="border-top-color: #e65100;">
     <img src="https://www.jainuniversity.ac.in/uploads/blog/01eb9e52fb4fbc94a1c18aeca7bab841.jpg" class="card-img" alt="Jain University">
     <div class="card-body">
       <h2 class="college-name" style="color: #e65100;">Jain (Deemed-to-be University)</h2>
@@ -208,7 +248,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #8b0000;">
+  <div class="college-card category-management category-science category-law" style="border-top-color: #8b0000;">
     <img src="https://christuniversity.in/images/chris-building.jpg" class="card-img" alt="Christ University">
     <div class="card-body">
       <h2 class="college-name" style="color: #8b0000;">Christ (Deemed to be University)</h2>
@@ -227,7 +267,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #0A2342;">
+  <div class="college-card category-science category-management" style="border-top-color: #0A2342;">
     <img src="https://www.collegebatch.com/static/clg-gallery/st-josephs-university-bangalore-356425.webp" class="card-img" alt="St Josephs">
     <div class="card-body">
       <h2 class="college-name" style="color: #0A2342;">St. Joseph's University</h2>
@@ -246,7 +286,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #0056b3;">
+  <div class="college-card category-engineering" style="border-top-color: #0056b3;">
     <img src="https://shiksha-tech.com/wp-content/uploads/2025/12/direct_admission_in_bms_college.png" class="card-img" alt="BMSCE Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #0056b3;">B.M.S. College of Engineering</h2>
@@ -265,7 +305,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #f39c12;">
+  <div class="college-card category-engineering category-management" style="border-top-color: #f39c12;">
     <img src="https://pes.edu/wp-content/uploads/2025/06/PESU-EC-Campus.jpg" class="card-img" alt="PES University">
     <div class="card-body">
       <h2 class="college-name" style="color: #d35400;">PES University</h2>
@@ -284,7 +324,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #008080;">
+  <div class="college-card category-engineering" style="border-top-color: #008080;">
     <img src="https://www.highereducationdigest.com/wp-content/uploads/2019/04/Img-3_800x480-4-768x461.jpg" class="card-img" alt="RVCE">
     <div class="card-body">
       <h2 class="college-name" style="color: #008080;">RV College of Engineering</h2>
@@ -303,7 +343,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
   </div>
 
-  <div class="college-card" style="border-top-color: #c0392b;">
+  <div class="college-card category-law" style="border-top-color: #c0392b;">
     <img src="https://www.lawof.in/wp-content/uploads/2020/07/NMIMS-1-1.jpg" class="card-img" alt="NMIMS Law">
     <div class="card-body">
       <h2 class="college-name" style="color: #c0392b;">Kirit P. Mehta School of Law (NMIMS)</h2>
@@ -323,3 +363,49 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
 </div>
+
+<script>
+  function filterSelection(c) {
+    var x, i;
+    x = document.getElementsByClassName("college-card");
+    
+    // Buttons Active State
+    var btns = document.getElementsByClassName("filter-btn");
+    for (i = 0; i < btns.length; i++) {
+      btns[i].classList.remove("active");
+      if(btns[i].innerText.toLowerCase().includes(c) || (c === 'all' && btns[i].innerText === 'All')) {
+         btns[i].classList.add("active");
+      }
+    }
+
+    if (c == "all") c = "";
+    
+    for (i = 0; i < x.length; i++) {
+      removeClass(x[i], "hidden");
+      if (x[i].className.indexOf(c) == -1 && c !== "") {
+        addClass(x[i], "hidden");
+      }
+    }
+  }
+
+  function addClass(element, name) {
+    var arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (var i = 0; i < arr2.length; i++) {
+      if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+    }
+  }
+
+  function removeClass(element, name) {
+    var arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (var i = 0; i < arr2.length; i++) {
+      while (arr1.indexOf(arr2[i]) > -1) {
+        arr1.splice(arr1.indexOf(arr2[i]), 1);     
+      }
+    }
+    element.className = arr1.join(" ");
+  }
+</script>
