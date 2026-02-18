@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC, IHM Bangalore and more."
 ---
 
 <style>
@@ -129,6 +129,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   <button class="filter-btn" onclick="filterSelection('engineering')">Engineering</button>
   <button class="filter-btn" onclick="filterSelection('management')">Management</button>
   <button class="filter-btn" onclick="filterSelection('science')">Science & Arts</button>
+  <button class="filter-btn" onclick="filterSelection('hospitality')">Hospitality</button>
   <button class="filter-btn" onclick="filterSelection('law')">Law</button>
 </div>
 
@@ -205,6 +206,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/nhce/' | relative_url }}" class="view-btn" style="background: #1a237e; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card category-management category-hospitality" style="border-top-color: #d35400;">
+    <img src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="IHM Bangalore">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #d35400;">Institute of Hotel Management (IHM)</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Seshadri Road</span>
+        <span class="tag">🏆 Govt. of India</span>
+      </div>
+      <p class="card-desc">
+        A premier public institute offering India's top B.Sc and M.Sc programs in Hospitality Administration, Food Production, and Culinary Arts.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/ihmb/' | relative_url }}" class="view-btn" style="background: #d35400; color: white;">
         View Programs ➔
       </a>
     </div>
