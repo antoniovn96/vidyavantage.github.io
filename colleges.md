@@ -212,7 +212,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card category-management category-hospitality" style="border-top-color: #d35400;">
-    <img src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="IHM Bangalore">
+    <img src="https://ihmbangalore.ac.in/wp-content/uploads/2024/06/EDC-3-1536x691.jpg" class="card-img" alt="IHM Bangalore">
     <div class="card-body">
       <h2 class="college-name" style="color: #d35400;">Institute of Hotel Management (IHM)</h2>
       <div class="college-meta">
