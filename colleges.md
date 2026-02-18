@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Jain, Christ, BMSCE, MSRIT, DSCE, and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, and more."
 ---
 
 <style>
@@ -146,6 +146,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/dsce/' | relative_url }}" class="view-btn" style="background: #003366; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card" style="border-top-color: #1a237e;">
+    <img src="https://images.shiksha.com/mediadata/images/1623308865phpv5f6yS.jpeg" class="card-img" alt="NHCE Bangalore">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #1a237e;">New Horizon College of Engineering</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Marathahalli</span>
+        <span class="tag">🏆 Est. 2001</span>
+      </div>
+      <p class="card-desc">
+        A 'A' Grade NAAC accredited autonomous college in the heart of Bangalore's IT corridor. Famous for high placement records and Minor Degree options.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/nhce/' | relative_url }}" class="view-btn" style="background: #1a237e; color: white;">
         View Programs ➔
       </a>
     </div>
