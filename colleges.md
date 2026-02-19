@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC, IHM Bangalore and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC, IHM Bangalore and more."
 ---
 
 <style>
@@ -149,6 +149,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/iisc/' | relative_url }}" class="view-btn" style="background: #005a9c; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card category-engineering category-management category-science" style="border-top-color: #0033a0;">
+    <img src="https://bit-bangalore.edu.in/assets/images/explore/about-bit-1.jpg" class="card-img" alt="BIT Bangalore">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #0033a0;">Bangalore Institute of Technology (BIT)</h2>
+      <div class="college-meta">
+        <span class="tag">📍 V.V. Puram</span>
+        <span class="tag">🏆 Est. 1979</span>
+      </div>
+      <p class="card-desc">
+        A reputed VTU-affiliated college located in the heart of the city. Known for strong placements in core tech and high-end research centers.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/bit/' | relative_url }}" class="view-btn" style="background: #0033a0; color: white;">
         View Programs ➔
       </a>
     </div>
