@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC, IHM Bangalore and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC, IHM Bangalore, Brindavan College and more."
 ---
 
 <style>
@@ -225,6 +225,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/nhce/' | relative_url }}" class="view-btn" style="background: #1a237e; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card category-engineering category-management" style="border-top-color: #2980b9;">
+    <img src="https://thecollegesphere.com/wp-content/uploads/2025/08/Brindavan-college.png" class="card-img" alt="Brindavan College of Engineering">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #2980b9;">Brindavan College of Engineering</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Yelahanka</span>
+        <span class="tag">🏆 Est. 2008</span>
+      </div>
+      <p class="card-desc">
+        A recognized VTU-affiliated college offering specialized programs in AI, Cyber Security, Core Engineering, MBA, MCA, and Polytechnic diplomas.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/brindavan/' | relative_url }}" class="view-btn" style="background: #2980b9; color: white;">
         View Programs ➔
       </a>
     </div>
