@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC, IHM Bangalore, Brindavan College, Cambridge Institute and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, EWSA, MCC, IHM Bangalore, Brindavan College, Cambridge Institute and more."
 ---
 
 <style>
@@ -127,6 +127,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
 <div class="filter-container">
   <button class="filter-btn active" onclick="filterSelection('all')">All</button>
   <button class="filter-btn" onclick="filterSelection('engineering')">Engineering</button>
+  <button class="filter-btn" onclick="filterSelection('architecture')">Architecture</button>
   <button class="filter-btn" onclick="filterSelection('management')">Management</button>
   <button class="filter-btn" onclick="filterSelection('science')">Science & Arts</button>
   <button class="filter-btn" onclick="filterSelection('hospitality')">Hospitality</button>
@@ -263,6 +264,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/brindavan/' | relative_url }}" class="view-btn" style="background: #2980b9; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card category-architecture" style="border-top-color: #2c3e50;">
+    <img src="https://www.collegebatch.com/static/clg-gallery/east-west-school-of-architecture-167519.webp" class="card-img" alt="East West School of Architecture">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #2c3e50;">East West School of Architecture (EWSA)</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Vishwaneedam Post</span>
+        <span class="tag">🏆 COA Approved</span>
+      </div>
+      <p class="card-desc">
+        A dedicated VTU-affiliated architecture institution offering a comprehensive, highly-rated 5-year Bachelor of Architecture (B.Arch) program.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/ewsa/' | relative_url }}" class="view-btn" style="background: #2c3e50; color: white;">
         View Programs ➔
       </a>
     </div>
