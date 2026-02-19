@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC, IHM Bangalore, Brindavan College and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, MCC, IHM Bangalore, Brindavan College, Cambridge Institute and more."
 ---
 
 <style>
@@ -225,6 +225,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/nhce/' | relative_url }}" class="view-btn" style="background: #1a237e; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card category-engineering category-management category-science" style="border-top-color: #1A5276;">
+    <img src="https://engg.cambridge.edu.in/wp-content/uploads/2025/05/College-Photo-2-1024x576.jpg.webp" class="card-img" alt="Cambridge Institute of Technology">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #1A5276;">Cambridge Institute of Technology (CITech)</h2>
+      <div class="college-meta">
+        <span class="tag">📍 K.R. Puram</span>
+        <span class="tag">🏆 Est. 2007</span>
+      </div>
+      <p class="card-desc">
+        A NAAC A+ accredited institution known for excellent engineering programs, named research centers, and a strong focus on industry-aligned placements.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/cambridge/' | relative_url }}" class="view-btn" style="background: #1A5276; color: white;">
         View Programs ➔
       </a>
     </div>
