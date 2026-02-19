@@ -243,7 +243,7 @@ title: Home
 <div class="stats-container">
   <div class="stats-grid">
     <div>
-      <div class="stat-number">8+</div>
+      <div class="stat-number">100+</div>
       <div class="stat-label">Top Universities</div>
     </div>
     <div>
