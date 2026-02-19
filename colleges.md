@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, EWSA, GSAP, MCC, IHM Bangalore, Brindavan College, Cambridge Institute, Aditya Academy and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, EWSA, GSAP, MCC, IHM Bangalore, Brindavan College, Cambridge Institute, Aditya Academy, AIT and more."
 ---
 
 <style>
@@ -321,6 +321,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/gopalan/' | relative_url }}" class="view-btn" style="background: #c0392b; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card category-engineering category-management" style="border-top-color: #16a085;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Adichunchanagiri_Institute_of_Technology_administrative_block.jpg/800px-Adichunchanagiri_Institute_of_Technology_administrative_block.jpg" class="card-img" alt="Adichunchanagiri Institute of Technology">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #16a085;">Adichunchanagiri Institute of Technology (AIT)</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Chikkamagaluru</span>
+        <span class="tag">🏆 Est. 1980</span>
+      </div>
+      <p class="card-desc">
+        A premier institute located in the scenic hills of Chikkamagaluru. Known for strong discipline, extensive campus facilities, and specialized Robotics/AI programs.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/ait/' | relative_url }}" class="view-btn" style="background: #16a085; color: white;">
         View Programs ➔
       </a>
     </div>
