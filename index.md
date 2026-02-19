@@ -76,7 +76,19 @@ title: Home
     max-width: 90%;
   }
 
-  .cta-group { display: flex; gap: 15px; }
+  .cta-group { display: flex; gap: 15px; flex-wrap: wrap; }
+
+  .btn-accent {
+    background: var(--accent);
+    color: #111;
+    padding: 15px 35px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+  }
+  .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); }
 
   .btn-primary {
     background: var(--primary);
@@ -142,8 +154,8 @@ title: Home
 
   .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -162,14 +174,14 @@ title: Home
   }
   .feature-card:hover { transform: translateY(-10px); }
 
-  .card-image-wrap { height: 240px; overflow: hidden; }
+  .card-image-wrap { height: 200px; overflow: hidden; }
   .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
   .feature-card:hover .card-img { transform: scale(1.05); }
 
-  .card-content { padding: 30px; }
-  .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; color: #111; }
-  .card-desc { color: var(--text-light); line-height: 1.6; margin-bottom: 20px; }
-  .card-arrow { color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 5px; }
+  .card-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
+  .card-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; color: #111; }
+  .card-desc { color: var(--text-light); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+  .card-arrow { color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 5px; margin-top: auto; }
 
   /* --- 4. WHY CHOOSE US (Icon Grid) --- */
   .why-section {
@@ -218,6 +230,7 @@ title: Home
       Your personalized gateway to top-tier universities and global career opportunities. From Grade 9 counseling to PhD research guidance.
     </p>
     <div class="cta-group">
+      <a href="{{ '/assessment/' | relative_url }}" class="btn-accent">Take AI Assessment</a>
       <a href="{{ '/colleges/' | relative_url }}" class="btn-primary">Browse Colleges</a>
       <a href="{{ '/visa/' | relative_url }}" class="btn-secondary">Check Visa Info</a>
     </div>
@@ -248,17 +261,29 @@ title: Home
   <div class="section-header">
     <span class="section-tag">Our Services</span>
     <h2 class="section-title">Everything you need to succeed</h2>
-    <p style="color:#666; font-size:1.1rem;">We simplify the complex world of admissions and immigration.</p>
+    <p style="color:#666; font-size:1.1rem;">We simplify the complex world of admissions, career mapping, and immigration.</p>
   </div>
 
   <div class="cards-grid">
+    
+    <a href="{{ '/assessment/' | relative_url }}" class="feature-card">
+      <div class="card-image-wrap">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="AI Career Assessment">
+      </div>
+      <div class="card-content">
+        <h3 class="card-title">AI Career Assessment</h3>
+        <p class="card-desc">Not sure which path to take? Take our AI-driven capability analysis to discover your ideal courses and get personalized college matches instantly.</p>
+        <div class="card-arrow">Start Assessment ➔</div>
+      </div>
+    </a>
+
     <a href="{{ '/colleges/' | relative_url }}" class="feature-card">
       <div class="card-image-wrap">
         <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Colleges">
       </div>
       <div class="card-content">
         <h3 class="card-title">Top Colleges Directory</h3>
-        <p class="card-desc">Comprehensive guides on IISc, Christ, BMSCE, and more. Access 2025 fee structures, entrance exams (KCET/COMEDK), and placement records.</p>
+        <p class="card-desc">Comprehensive guides on IISc, IIT Roorkee, BMSCE, and more. Access 2025 fee structures, entrance exams, and placement records.</p>
         <div class="card-arrow">Explore Colleges ➔</div>
       </div>
     </a>
@@ -273,6 +298,7 @@ title: Home
         <div class="card-arrow">Check Requirements ➔</div>
       </div>
     </a>
+    
   </div>
 </div>
 
