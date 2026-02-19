@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore & Chikkamagaluru. Filter by courses, location, and fees for IISc, AIT, BMSCE, Christ, and more."
+description: "Browse top universities in Bangalore, Chikkamagaluru & Roorkee. Filter by courses, location, and fees for IISc, IIT Roorkee, AIT, BMSCE, Christ, and more."
 ---
 
 <style>
@@ -170,7 +170,8 @@ description: "Browse top universities in Bangalore & Chikkamagaluru. Filter by c
   <select id="locationFilter" class="filter-select" onchange="filterColleges()">
     <option value="all">📍 All Locations</option>
     <option value="Bengaluru">Bengaluru (General)</option>
-    <option value="Chikkamagaluru">Chikkamagaluru</option>
+    <option value="Roorkee">Roorkee (IITR)</option>
+    <option value="Chikkamagaluru">Chikkamagaluru (AIT)</option>
     <option value="Yelahanka">Yelahanka</option>
     <option value="Whitefield">Whitefield</option>
     <option value="K.R. Puram">K.R. Puram</option>
@@ -200,6 +201,23 @@ description: "Browse top universities in Bangalore & Chikkamagaluru. Filter by c
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/iisc/' | relative_url }}" class="view-btn" style="background: #005a9c; color: white;">View Programs ➔</a>
+    </div>
+  </div>
+
+  <div class="college-card" data-category="engineering architecture management science" data-location="Roorkee" style="border-top-color: #003366;">
+    <img src="https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="IIT Roorkee">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #003366;">IIT Roorkee</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Roorkee</span>
+        <span class="tag">🏆 NIRF Rank #5</span>
+      </div>
+      <p class="card-desc">
+        Asia's oldest technical institution (formerly Thomason College). Renowned for its Civil Engineering, Architecture, and strong research output.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/iitr/' | relative_url }}" class="view-btn" style="background: #003366; color: white;">View Programs ➔</a>
     </div>
   </div>
 
