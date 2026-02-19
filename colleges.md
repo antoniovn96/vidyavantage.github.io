@@ -205,7 +205,7 @@ description: "Browse top universities in Bangalore, Chikkamagaluru & Roorkee. Fi
   </div>
 
   <div class="college-card" data-category="engineering architecture management science" data-location="Roorkee" style="border-top-color: #003366;">
-    <img src="https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="IIT Roorkee">
+    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/34/36/84/the-beautiful-main-building.jpg?w=1000&h=600&s=1" class="card-img" alt="IIT Roorkee">
     <div class="card-body">
       <h2 class="college-name" style="color: #003366;">IIT Roorkee</h2>
       <div class="college-meta">
