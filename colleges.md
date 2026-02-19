@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, EWSA, MCC, IHM Bangalore, Brindavan College, Cambridge Institute, Aditya Academy and more."
+description: "Browse top universities in Bangalore. Get details on courses, fees, and admission processes for IISc, BIT, Jain, Christ, BMSCE, MSRIT, DSCE, NHCE, EWSA, GSAP, MCC, IHM Bangalore, Brindavan College, Cambridge Institute, Aditya Academy and more."
 ---
 
 <style>
@@ -302,6 +302,25 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
     </div>
     <div class="card-footer">
       <a href="{{ '/colleges/aditya-architecture/' | relative_url }}" class="view-btn" style="background: #455A64; color: white;">
+        View Programs ➔
+      </a>
+    </div>
+  </div>
+
+  <div class="college-card category-architecture" style="border-top-color: #c0392b;">
+    <img src="https://www.gopalancolleges.com/gsap/images/college-building.jpg" class="card-img" alt="Gopalan School of Architecture and Planning">
+    <div class="card-body">
+      <h2 class="college-name" style="color: #c0392b;">Gopalan School of Architecture & Planning</h2>
+      <div class="college-meta">
+        <span class="tag">📍 Whitefield</span>
+        <span class="tag">🏆 COA Approved</span>
+      </div>
+      <p class="card-desc">
+        A premium VTU-affiliated architecture institution focused on sustainable design, offering specialized B.Arch and M.Arch (Construction Project Management) degrees.
+      </p>
+    </div>
+    <div class="card-footer">
+      <a href="{{ '/colleges/gopalan/' | relative_url }}" class="view-btn" style="background: #c0392b; color: white;">
         View Programs ➔
       </a>
     </div>
