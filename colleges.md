@@ -327,7 +327,7 @@ description: "Browse top universities in Bangalore. Get details on courses, fees
   </div>
 
   <div class="college-card category-engineering category-management" style="border-top-color: #16a085;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Adichunchanagiri_Institute_of_Technology_administrative_block.jpg/800px-Adichunchanagiri_Institute_of_Technology_administrative_block.jpg" class="card-img" alt="Adichunchanagiri Institute of Technology">
+    <img src="https://images.jdmagicbox.com/comp/chikmagalur/06/9999pmulblrstd1008006/catalogue/adichunchanagiri-institute-of-technology-jyothinagar-chikmagalur-chikmagalur-colleges-bp76m2q.jpg" class="card-img" alt="Adichunchanagiri Institute of Technology">
     <div class="card-body">
       <h2 class="college-name" style="color: #16a085;">Adichunchanagiri Institute of Technology (AIT)</h2>
       <div class="college-meta">
