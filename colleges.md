@@ -2,7 +2,7 @@
 layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
-image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
+image: "[https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop](https://pixabay.com/photos/college-buildings-university-school-5757815/)"
 description: "Browse top universities in Bangalore, Chikkamagaluru & Roorkee. Filter by courses, location, and fees for IISc, IIT Roorkee, AIT, BMSCE, Christ, and more."
 ---
 
