@@ -31,7 +31,7 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
 
   /* PROGRESS BAR */
   .progress-container { width: 100%; background: #0f172a; border-radius: 50px; height: 12px; margin-bottom: 30px; border: 2px solid var(--border); }
-  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); width: 10%; transition: width 0.4s ease; border-radius: 50px; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); width: 14%; transition: width 0.4s ease; border-radius: 50px; }
 
   /* WIZARD CARDS */
   .step-card {
@@ -43,8 +43,17 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
   .step-sub { text-align: center; color: var(--secondary); margin-bottom: 25px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;}
 
   /* UI COMPONENTS */
-  .form-input { width: 100%; padding: 15px; border: 2px solid var(--border); border-radius: 12px; font-size: 1.1rem; color: white; background: #0f172a; margin-bottom: 20px; box-sizing: border-box;}
-  .form-input:focus { border-color: var(--primary); outline: none; }
+  .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 768px) { .grid-2col { grid-template-columns: 1fr; } }
+  
+  .form-group { margin-bottom: 20px; }
+  .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase;}
+  
+  .form-input, .form-select { 
+    width: 100%; padding: 15px; border: 2px solid var(--border); border-radius: 12px; 
+    font-size: 1.1rem; color: white; background: #0f172a; box-sizing: border-box; transition: 0.3s;
+  }
+  .form-input:focus, .form-select:focus { border-color: var(--primary); outline: none; }
 
   /* RATING SCALES */
   .scale-legend { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
@@ -131,7 +140,8 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
       <div class="r-header">
         <h2>Psychometric Career Dossier</h2>
         <div style="color:#64748b; font-size: 1.1rem; font-weight:600;">
-          Candidate: <strong id="outName" style="color:#0f172a;"></strong> | Date: <span id="outDate"></span>
+          Candidate: <strong id="outName" style="color:#0f172a;"></strong> | Grade: <span id="outGrade"></span> | Stream: <span id="outStreamContext"></span><br>
+          Generated: <span id="outDate"></span>
         </div>
         <div class="reliability-badge" id="outReliability"></div>
       </div>
@@ -175,46 +185,33 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
 <script>
   // --- 75-QUESTION CLINICAL DATABASE ---
   const qBank = {
-    // SECTION 1: INTEREST (36 Qs)
     riasec: [
-      // Realistic (1-6)
       { id:'r1', text:'I enjoy building or repairing things.', cat:'R' }, { id:'r2', text:'I prefer hands-on tasks over theoretical study.', cat:'R' }, { id:'r3', text:'I like working outdoors.', cat:'R' }, { id:'r4', text:'I enjoy using tools or equipment.', cat:'R' }, { id:'r5', text:'I feel satisfied when I create something tangible.', cat:'R' }, { id:'r6', text:'I prefer practical activities over discussions.', cat:'R' },
-      // Investigative (7-12)
       { id:'i1', text:'I enjoy solving complex problems.', cat:'I' }, { id:'i2', text:'I ask "why" and "how" frequently.', cat:'I' }, { id:'i3', text:'I enjoy science-based subjects.', cat:'I' }, { id:'i4', text:'I like analysing data or patterns.', cat:'I' }, { id:'i5', text:'I enjoy researching topics in depth.', cat:'I' }, { id:'i6', text:'I prefer logical reasoning over emotional decisions.', cat:'I' },
-      // Artistic (13-18)
       { id:'a1', text:'I enjoy creative writing or storytelling.', cat:'A' }, { id:'a2', text:'I like drawing, designing, or visual expression.', cat:'A' }, { id:'a3', text:'I prefer flexible tasks over structured ones.', cat:'A' }, { id:'a4', text:'I enjoy music, performance, or media creation.', cat:'A' }, { id:'a5', text:'I think creatively when solving problems.', cat:'A' }, { id:'a6', text:'I dislike rigid rules.', cat:'A' },
-      // Social (19-24)
       { id:'s1', text:'I enjoy helping others solve problems.', cat:'S' }, { id:'s2', text:'I feel fulfilled when supporting someone emotionally.', cat:'S' }, { id:'s3', text:'I like teaching or explaining concepts.', cat:'S' }, { id:'s4', text:'I am patient when listening to others.', cat:'S' }, { id:'s5', text:'I prefer people-oriented activities.', cat:'S' }, { id:'s6', text:'I feel motivated when my work benefits others.', cat:'S' },
-      // Enterprising (25-30)
       { id:'e1', text:'I enjoy leading group projects.', cat:'E' }, { id:'e2', text:'I like persuading or influencing others.', cat:'E' }, { id:'e3', text:'I am comfortable taking initiative.', cat:'E' }, { id:'e4', text:'I enjoy competitive environments.', cat:'E' }, { id:'e5', text:'I am interested in business or entrepreneurship.', cat:'E' }, { id:'e6', text:'I like taking calculated risks.', cat:'E' },
-      // Conventional (31-36)
       { id:'c1', text:'I enjoy organising information.', cat:'C' }, { id:'c2', text:'I prefer structured instructions.', cat:'C' }, { id:'c3', text:'I like working with numbers and records.', cat:'C' }, { id:'c4', text:'I prefer predictable work environments.', cat:'C' }, { id:'c5', text:'I enjoy planning and scheduling.', cat:'C' }, { id:'c6', text:'I pay attention to small details.', cat:'C' }
     ],
-    // SECTION 2: APTITUDE (37-48)
     aptitude: [
       { id:'ap1', text:'I am confident in my mathematical ability.', cat:'APT' }, { id:'ap2', text:'I can understand logical problems quickly.', cat:'APT' }, { id:'ap3', text:'I communicate my thoughts clearly.', cat:'APT' }, { id:'ap4', text:'I remember information easily.', cat:'APT' }, { id:'ap5', text:'I can think in 3D or visualise objects well.', cat:'APT' }, { id:'ap6', text:'I manage time effectively.', cat:'APT' },
       { id:'ap7', text:'I stay focused for long periods.', cat:'APT' }, { id:'ap8', text:'I understand others’ emotions easily.', cat:'APT' }, { id:'ap9', text:'I am confident speaking in front of groups.', cat:'APT' }, { id:'ap10', text:'I solve problems systematically.', cat:'APT' }, { id:'ap11', text:'I learn new technical skills quickly.', cat:'APT' }, { id:'ap12', text:'I analyse mistakes and improve.', cat:'APT' }
     ],
-    // SECTION 4: RESILIENCE (57-68) [Note: 2, 4, 5, 8, 12 are Reverse Scored]
     resilience: [
       { id:'rs1', text:'I handle academic pressure well.', cat:'RES', rev:false }, { id:'rs2', text:'I panic before important exams.', cat:'RES', rev:true }, { id:'rs3', text:'I continue working even after failure.', cat:'RES', rev:false }, { id:'rs4', text:'I give up easily when things are difficult.', cat:'RES', rev:true }, { id:'rs5', text:'I compare myself with others frequently.', cat:'RES', rev:true }, { id:'rs6', text:'I can manage long study hours.', cat:'RES', rev:false },
       { id:'rs7', text:'I recover quickly from disappointment.', cat:'RES', rev:false }, { id:'rs8', text:'I feel anxious about my future.', cat:'RES', rev:true }, { id:'rs9', text:'I stay calm during deadlines.', cat:'RES', rev:false }, { id:'rs10', text:'I seek help when overwhelmed.', cat:'RES', rev:false }, { id:'rs11', text:'I feel confident making decisions.', cat:'RES', rev:false }, { id:'rs12', text:'I overthink small mistakes.', cat:'RES', rev:true }
     ],
-    // SECTION 5: MATURITY (69-75) [Note: 2, 3, 6, 7 are Reverse Scored]
     maturity: [
-      { id:'m1', text:'I clearly understand my strengths.', cat:'MAT', rev:false }, { id:'m2', text:'I am choosing a career mainly based on marks.', cat:'MAT', rev:true }, { id:'m3', text:'My parents strongly influence my career decisions.', cat:'PAR', rev:false }, // Tracked separately for flag
-      { id:'m4', text:'I have researched career pathways thoroughly.', cat:'MAT', rev:false }, { id:'m5', text:'I am open to exploring alternative options.', cat:'MAT', rev:false }, { id:'m6', text:'I feel confused about my career direction.', cat:'MAT', rev:true }, { id:'m7', text:'If marks were not important, I would choose a different career.', cat:'PAR', rev:false } // Tracked separately for flag
+      { id:'m1', text:'I clearly understand my strengths.', cat:'MAT', rev:false }, { id:'m2', text:'I am choosing a career mainly based on marks.', cat:'MAT', rev:true }, { id:'m3', text:'My parents strongly influence my career decisions.', cat:'PAR', rev:false },
+      { id:'m4', text:'I have researched career pathways thoroughly.', cat:'MAT', rev:false }, { id:'m5', text:'I am open to exploring alternative options.', cat:'MAT', rev:false }, { id:'m6', text:'I feel confused about my career direction.', cat:'MAT', rev:true }, { id:'m7', text:'If marks were not important, I would choose a different career.', cat:'PAR', rev:false }
     ],
-    // SECTION 3: VALUES (49-56)
     values: ['High income', 'Job security', 'Work-life balance', 'Prestige/status', 'Creativity', 'Helping society', 'Independence', 'Fast growth opportunities']
   };
 
   // --- STATE & ENGINE ---
   let state = { answers: {}, startTime: Date.now(), topValues: [], steps: [] };
   const emojis = ['😖', '😕', '😐', '🙂', '🤩'];
-  let currentStep = 0;
 
-  // --- UI GENERATOR ---
   function buildLikertGrid(qs) {
     return `<div class="scale-legend"><span>1 = Strongly Disagree</span><span>5 = Strongly Agree</span></div>
             <div class="rating-grid">` + 
@@ -230,10 +227,36 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
   function renderWizard() {
     const wiz = document.getElementById('wizardContainer');
     
-    // Step 0: Info
+    // Step 0: Profile & Background
     state.steps.push(`<div class="step-card active" id="step_0">
       <h2 class="step-title">Candidate Profile</h2><p class="step-sub">LEVEL 1 / 7</p>
-      <input type="text" id="candName" class="form-input" placeholder="Your Full Name">
+      
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" id="candName" class="form-input" placeholder="Enter your full name">
+      </div>
+      
+      <div class="grid-2col">
+        <div class="form-group">
+          <label class="form-label">Current Grade / Level</label>
+          <select id="qGrade" class="form-select">
+            <option value="8-10">Grade 8 - 10</option>
+            <option value="11-12">Grade 11 - 12 (PUC)</option>
+            <option value="UG">Undergraduate</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Target / Current Stream</label>
+          <select id="qStream" class="form-select">
+            <option value="PCM">Science (PCM/Tech)</option>
+            <option value="PCB">Science (PCB/Med)</option>
+            <option value="Commerce">Commerce</option>
+            <option value="Arts">Arts / Humanities</option>
+            <option value="Undecided">Undecided</option>
+          </select>
+        </div>
+      </div>
+      
       <div class="btn-wrapper"><button class="btn-main" style="width:100%" onclick="goNext(0)">Start Assessment ➔</button></div>
     </div>`);
 
@@ -266,13 +289,35 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
       ${buildLikertGrid(qBank.resilience)}
       <div class="btn-wrapper"><button class="btn-main btn-back" onclick="goPrev(5)">Back</button><button class="btn-main" onclick="goNext(5)">Next ➔</button></div></div>`);
 
-    // Step 6: Maturity & Real Check
-    state.steps.push(`<div class="step-card" id="step_6"><h2 class="step-title">Decision Maturity</h2><p class="step-sub">LEVEL 7 / 7 • Final Step</p>
+    // Step 6: Maturity & Reality Check (FIXED)
+    state.steps.push(`<div class="step-card" id="step_6">
+      <h2 class="step-title">Decision Maturity & Reality Check</h2>
+      <p class="step-sub">LEVEL 7 / 7 • Final Step</p>
+      
       ${buildLikertGrid(qBank.maturity)}
-      <div class="btn-wrapper"><button class="btn-main btn-back" onclick="goPrev(6)">Back</button><button class="btn-main" style="background:var(--success);" onclick="processClinicalData()">Compile Dossier ✨</button></div></div>`);
+      
+      <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 25px;">
+        <h3 style="color: white; margin-bottom: 20px; font-size: 1.3rem;">Final Context Questions</h3>
+        <div class="form-group">
+            <label class="form-label">What career do your parents prefer for you?</label>
+            <input type="text" id="qParent" class="form-input" placeholder="e.g. Doctor, Engineer, CA...">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">If marks/society didn't matter, what career would you secretly choose?</label>
+            <input type="text" id="qSecret" class="form-input" placeholder="e.g. Pilot, Musician, Artist...">
+        </div>
+      </div>
+
+      <div class="btn-wrapper">
+        <button class="btn-main btn-back" onclick="goPrev(6)">Back</button>
+        <button class="btn-main" style="background:var(--success);" onclick="processClinicalData()">Compile Dossier ✨</button>
+      </div>
+    </div>`);
 
     wiz.innerHTML = state.steps.join('');
   }
+  
+  // Render immediately
   renderWizard();
 
   // --- INTERACTION LOGIC ---
@@ -280,16 +325,12 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
     let p = btn.parentElement;
     Array.from(p.children).forEach(c => c.classList.remove('selected'));
     btn.classList.add('selected');
-    
-    // Process Reverse Scoring Immediately
     let finalVal = isRev ? (6 - val) : val;
     state.answers[id] = { raw: val, calc: finalVal, cat: cat };
   }
 
   function moveValue(el, val) {
     const ranked = document.getElementById('vRanked');
-    const pool = document.getElementById('vPool');
-    
     if (el.parentElement.id === 'vPool') {
       if(state.topValues.length >= 5) return alert("You can only select 5 values.");
       state.topValues.push(val);
@@ -302,7 +343,6 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
     state.topValues = state.topValues.filter(v => v !== val);
     el.parentElement.remove();
     pool.innerHTML += `<div class="val-pill" onclick="moveValue(this, '${val}')">${val}</div>`;
-    // Re-number remaining
     let slots = document.getElementById('vRanked').querySelectorAll('.ranked-slot');
     slots.forEach((s, i) => s.querySelector('.rank-num').innerText = i + 1);
   }
@@ -315,13 +355,13 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
   function goNext(s) {
     document.getElementById(`step_${s}`).classList.remove('active');
     document.getElementById(`step_${s+1}`).classList.add('active');
-    document.getElementById('progressBar').style.width = (((s+1) / 6) * 100) + '%';
+    document.getElementById('progressBar').style.width = (((s+1) / 7) * 100) + '%';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   function goPrev(s) {
     document.getElementById(`step_${s}`).classList.remove('active');
     document.getElementById(`step_${s-1}`).classList.add('active');
-    document.getElementById('progressBar').style.width = (((s-1) / 6) * 100) + '%';
+    document.getElementById('progressBar').style.width = (((s-1) / 7) * 100) + '%';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -329,9 +369,8 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
   function processClinicalData() {
     confetti({ particleCount: 200, spread: 90, origin: { y: 0.5 } });
 
-    // 1. RIASEC Calculation (Normalize to 0-100)
     let riasecRaw = { R:0, I:0, A:0, S:0, E:0, C:0 };
-    let metricsRaw = { APT:0, RES:0, MAT:0, PAR:0 }; // Parental influence tracked separately
+    let metricsRaw = { APT:0, RES:0, MAT:0, PAR:0 }; 
 
     for(let key in state.answers) {
       let ans = state.answers[key];
@@ -339,52 +378,61 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
       else if(ans.cat) metricsRaw[ans.cat] += ans.calc;
     }
 
-    // Formula: (Raw - 6) / 24 * 100
-    let R = Math.round(((riasecRaw.R || 6) - 6) / 24 * 100);
-    let I = Math.round(((riasecRaw.I || 6) - 6) / 24 * 100);
-    let A = Math.round(((riasecRaw.A || 6) - 6) / 24 * 100);
-    let S = Math.round(((riasecRaw.S || 6) - 6) / 24 * 100);
-    let E = Math.round(((riasecRaw.E || 6) - 6) / 24 * 100);
-    let C = Math.round(((riasecRaw.C || 6) - 6) / 24 * 100);
-    let scores = { R:R, I:I, A:A, S:S, E:E, C:C };
+    // Normalization to 100%
+    let scores = { 
+      R: Math.round(((riasecRaw.R || 6) - 6) / 24 * 100),
+      I: Math.round(((riasecRaw.I || 6) - 6) / 24 * 100),
+      A: Math.round(((riasecRaw.A || 6) - 6) / 24 * 100),
+      S: Math.round(((riasecRaw.S || 6) - 6) / 24 * 100),
+      E: Math.round(((riasecRaw.E || 6) - 6) / 24 * 100),
+      C: Math.round(((riasecRaw.C || 6) - 6) / 24 * 100)
+    };
 
-    // 2. Metrics Calculation
     let aptPct = Math.round(((metricsRaw.APT || 12) - 12) / 48 * 100);
     let resPct = Math.round(((metricsRaw.RES || 12) - 12) / 48 * 100);
-    // Maturity has 5 questions mapped to MAT. Min=5, Max=25. Formula: (Raw-5)/20 * 100
     let matPct = Math.round(((metricsRaw.MAT || 5) - 5) / 20 * 100);
     
-    // 3. Reliability & Flags
-    let timeTaken = (Date.now() - state.startTime) / 60000; // in minutes
+    // Reliability & Flags
+    let timeTaken = (Date.now() - state.startTime) / 60000; 
     let relScore = 100;
-    if(timeTaken < 3) relScore -= 20; // Answered too fast
+    if(timeTaken < 3) relScore -= 20; 
 
     let flags = [];
-    // Parental Pressure Check (Q m3 and m7 mapped to PAR in raw data. High raw = high pressure)
-    // Actually m3 is direct, m7 is "If marks not important... choose different". 
-    let parScore = metricsRaw.PAR || 0; // Max 10. If > 7, high pressure.
+    
+    // Safe DOM checks for newly added inputs
+    const pEl = document.getElementById('qParent');
+    const sEl = document.getElementById('qSecret');
+    const parent = pEl ? pEl.value.toLowerCase() : "";
+    const secret = sEl ? sEl.value.toLowerCase() : "";
+    
+    let parScore = metricsRaw.PAR || 0; 
     let isHighPressure = parScore >= 8;
-    if(isHighPressure) {
+    
+    if(isHighPressure || (secret && parent && secret !== parent)) {
       flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Parental Alignment Conflict:</strong> High probability that current career ideas are externally driven rather than internally motivated.</span></div>`);
-      // Correction factor: Boost top RIASEC score to cut through pressure
+      let topCode = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+      scores[topCode] = Math.round(scores[topCode] * 1.5); // Boost true interest
     }
 
     if(resPct < 50 && state.topValues.includes('High income')) {
       flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Burnout Risk:</strong> High ambition/income value combined with lower stress resilience. Needs coping strategy development.</span></div>`);
     }
-    
     if(matPct < 50) {
       flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Decision Confusion:</strong> Profile indicates significant uncertainty. Recommending exploratory internships before finalizing streams.</span></div>`);
     }
-
     if(flags.length === 0) flags.push(`<div style="color:var(--success); font-weight:bold;">✅ All clinical indicators are stable. No critical risks detected.</div>`);
 
-    // 4. Determine Profile
+    // Ensure chart bounds
+    for(let k in scores) { 
+        if(scores[k] < 0) scores[k] = 0; 
+        if(scores[k] > 100) scores[k] = 100; 
+    }
+
     const sorted = Object.keys(scores).sort((a,b) => scores[b] - scores[a]);
     const finalCode = sorted.slice(0,3).join('');
     const dom = sorted[0];
 
-    // 5. Interpret Output
+    // Profile Descriptions
     let profileDesc = "";
     if(scores[sorted[0]] >= 75 && scores[sorted[1]] < 65) profileDesc = `You show a <strong>Single Dominant</strong> orientation toward ${dom} tasks. You have intense, focused interests.`;
     else if(scores[sorted[0]] >= 70 && scores[sorted[1]] >= 70) profileDesc = `You have a <strong>Dual Dominant</strong> profile (${sorted[0]} & ${sorted[1]}). You combine these strengths uniquely.`;
@@ -392,16 +440,23 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
     else profileDesc = `You demonstrate a <strong>Balanced Exploratory Profile</strong>. You are versatile and can thrive in multi-disciplinary fields.`;
 
     const matrix = {
-      'I': { c: 'Engineering, Medicine, Research, Data Science, AI', a: 'Highly repetitive sales or clerical roles' },
-      'A': { c: 'Architecture, UX/UI, Animation, Media, Filmmaking', a: 'Rigid data-entry or heavy administrative jobs' },
-      'E': { c: 'Business Management, Law, Entrepreneurship, Marketing', a: 'Isolated lab research or solitary backend coding' },
-      'S': { c: 'Psychology, Teaching, HR, Social Work, Medicine', a: 'Strictly mechanical environments without human contact' },
-      'R': { c: 'Defence, Aviation, Mechanical Engg, Applied Tech', a: 'Static office-only desk jobs' },
-      'C': { c: 'Chartered Accountancy, Banking, Actuary, Govt Admin', a: 'Highly abstract or unpredictable creative roles' }
+      'I': { title: "Investigative", c: 'Engineering, Medicine, Research, Data Science, AI', a: 'Highly repetitive sales or clerical roles' },
+      'A': { title: "Artistic", c: 'Architecture, UX/UI, Animation, Media, Filmmaking', a: 'Rigid data-entry or heavy administrative jobs' },
+      'E': { title: "Enterprising", c: 'Business Management, Law, Entrepreneurship, Marketing', a: 'Isolated lab research or solitary backend coding' },
+      'S': { title: "Social", c: 'Psychology, Teaching, HR, Social Work, Medicine', a: 'Strictly mechanical environments without human contact' },
+      'R': { title: "Realistic", c: 'Defence, Aviation, Mechanical Engg, Applied Tech', a: 'Static office-only desk jobs' },
+      'C': { title: "Conventional", c: 'Chartered Accountancy, Banking, Actuary, Govt Admin', a: 'Highly abstract or unpredictable creative roles' }
     };
 
-    // 6. Inject UI
-    document.getElementById('outName').innerText = document.getElementById('candName').value || "Candidate";
+    // UI Injection
+    const cName = document.getElementById('candName');
+    document.getElementById('outName').innerText = (cName && cName.value) ? cName.value : "Candidate";
+    
+    const gEl = document.getElementById('qGrade');
+    const sCxt = document.getElementById('qStream');
+    document.getElementById('outGrade').innerText = gEl ? gEl.value : "N/A";
+    document.getElementById('outStreamContext').innerText = sCxt ? sCxt.value : "N/A";
+    
     document.getElementById('outDate').innerText = new Date().toLocaleDateString();
     
     let relBadge = document.getElementById('outReliability');
@@ -410,27 +465,20 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
     relBadge.style.color = relScore > 80 ? 'var(--success)' : 'var(--warning)';
 
     document.getElementById('outCode').innerText = finalCode;
+    document.getElementById('outType').innerText = `Primary Trait: ${matrix[dom].title}`;
     document.getElementById('outPersonalityText').innerHTML = profileDesc;
     
-    document.getElementById('outStream').innerText = `${matrix[dom].c.split(',')[0]} & Adjacent`;
+    document.getElementById('outStream').innerText = `${matrix[dom].c.split(',')[0]} & Adjacent Fields`;
     document.getElementById('outCareers').innerText = matrix[dom].c;
     document.getElementById('outAvoid').innerText = matrix[dom].a;
     
     document.getElementById('outFlags').innerHTML = flags.join('');
 
-    // Progress Bars
+    // Update Progress Bars
     document.getElementById('bar-apt').style.width = aptPct + '%'; document.getElementById('txt-apt').innerText = aptPct + '%';
     document.getElementById('bar-res').style.width = resPct + '%'; document.getElementById('txt-res').innerText = resPct + '%';
     document.getElementById('bar-mat').style.width = matPct + '%'; document.getElementById('txt-mat').innerText = matPct + '%';
     document.getElementById('bar-par').style.width = (parScore * 10) + '%'; document.getElementById('txt-par').innerText = isHighPressure ? 'HIGH' : 'LOW';
-
-    // Colleges
-    const colDiv = document.getElementById('outColleges');
-    colDiv.innerHTML = '';
-    const sampleCols = [{n:"IISc Bangalore", r:['I']}, {n:"IIT Roorkee", r:['I','R']}, {n:"AAAD", r:['A']}, {n:"Christ University", r:['E','S','C']}, {n:"BMSCE", r:['R','I']}, {n:"Mount Carmel", r:['S','C']}];
-    let matches = sampleCols.filter(c => c.r.includes(dom)).slice(0,2);
-    if(matches.length===0) matches = [sampleCols[0], sampleCols[3]];
-    matches.forEach(c => { colDiv.innerHTML += `<div class="rec-card"><h4>${c.n}</h4><p>Strong match for ${dom} profiles.</p></div>`; });
 
     // Radar Chart
     const ctx = document.getElementById('riasecChart').getContext('2d');
