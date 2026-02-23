@@ -2,7 +2,7 @@
 layout: default
 title: "Premium Career Assessment 🚀"
 permalink: /assessment/
-description: "A clinical-grade psychometric evaluation mapping your RIASEC interests, resilience, and aptitude."
+description: "A clinical-grade psychometric evaluation mapping your RIASEC interests, resilience, and academic eligibility."
 ---
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -15,6 +15,7 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
     --bg: #0f172a; --card-bg: #1e293b;
     --primary: #8b5cf6; --secondary: #06b6d4; --accent: #f43f5e;
     --text-main: #f8fafc; --text-muted: #94a3b8; --border: #334155;
+    --text-dark: #0f172a;
     --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
   }
 
@@ -91,9 +92,9 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
 
   /* --- CLINICAL REPORT STYLES (Light for PDF) --- */
   #reportContainer { display: none; }
-  .report-card { background: white; padding: 40px; border-radius: 16px; color: #0f172a; }
+  .report-card { background: white; padding: 40px; border-radius: 16px; color: var(--text-dark); }
   .r-header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
-  .r-header h2 { font-size: 2.2rem; font-weight: 900; margin: 0; color: #0f172a; }
+  .r-header h2 { font-size: 2.2rem; font-weight: 900; margin: 0; color: var(--text-dark); }
   .reliability-badge { display: inline-block; padding: 5px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; margin-top: 10px; }
   .badge-code { display: inline-block; background: var(--primary); color: white; padding: 8px 30px; border-radius: 50px; font-weight: 900; font-size: 1.8rem; margin-top: 15px; letter-spacing: 2px; }
   
@@ -109,26 +110,36 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
   .m-fill { height: 100%; border-radius: 10px; }
 
   .r-section { background: #f8fafc; border-radius: 12px; padding: 25px; margin-bottom: 25px; border-left: 5px solid var(--secondary); }
-  .r-section h3 { margin-top: 0; font-size: 1.3rem; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+  .r-section h3 { margin-top: 0; font-size: 1.3rem; color: var(--text-dark); border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
   .r-section p { line-height: 1.7; font-size: 1.05rem; color: #334155; }
   
   .flag-box { background: #fff1f2; border-left-color: var(--accent); }
   .flag-box h3 { color: #e11d48; }
   .flag-item { display: flex; gap: 10px; margin-bottom: 10px; font-weight: bold; color: #9f1239; }
+  
+  .career-bar { display: flex; justify-content: space-between; align-items: center; background: white; padding: 12px 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 10px; }
+  .career-score { font-weight: 900; color: var(--primary); background: #f1f5f9; padding: 5px 10px; border-radius: 8px; }
+
+  .college-recs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+  .rec-card { border: 2px solid #e2e8f0; padding: 15px; border-radius: 10px; background: white; }
+  .rec-card h4 { margin: 0 0 5px 0; color: var(--primary); font-size: 1.1rem; }
+  .rec-card p { margin: 0; font-size: 0.9rem; color: #64748b; }
 
   @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
   @media print {
     body { background: white; }
     .assessment-header, .progress-container, .btn-wrapper { display: none !important; }
-    .report-card { padding: 0; box-shadow: none; }
+    .report-card { padding: 0; box-shadow: none; border: none; }
     .r-section { page-break-inside: avoid; border: 1px solid #e2e8f0; }
+    .college-recs { display: block; }
+    .rec-card { margin-bottom: 10px; }
   }
 </style>
 
 <div class="assessment-header">
   <h1>Premium Clinical Assessment</h1>
-  <p>75-Point Psychometric Evaluation • RIASEC • Aptitude • Resilience</p>
+  <p>75-Point Psychometric Evaluation • RIASEC • Aptitude • Resilience • Stream Match</p>
 </div>
 
 <div class="container">
@@ -142,7 +153,7 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
       <div class="r-header">
         <h2>Psychometric Career Dossier</h2>
         <div style="color:#64748b; font-size: 1.1rem; font-weight:600;">
-          Candidate: <strong id="outName" style="color:#0f172a;"></strong> | Grade: <span id="outGrade"></span> | Stream: <span id="outStreamContext"></span><br>
+          Candidate: <strong id="outName" style="color:var(--text-dark);"></strong> | Grade: <span id="outGrade"></span> | Stream: <span id="outStreamContext"></span><br>
           Generated: <span id="outDate"></span>
         </div>
         <div class="reliability-badge" id="outReliability"></div><br>
@@ -152,11 +163,11 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
       <div class="grid-2">
         <div class="chart-box"><canvas id="riasecChart"></canvas></div>
         <div class="metrics-box">
-          <h3 style="margin-top:0; color:#0f172a; font-size:1.2rem;">Clinical Indices</h3>
+          <h3 style="margin-top:0; color:var(--text-dark); font-size:1.2rem;">Clinical Indices</h3>
           <div class="metric"><div class="m-head"><span>Aptitude Confidence</span><span id="txt-apt"></span></div><div class="m-track"><div class="m-fill" id="bar-apt" style="background:var(--primary);"></div></div></div>
           <div class="metric"><div class="m-head"><span>Stress Resilience</span><span id="txt-res"></span></div><div class="m-track"><div class="m-fill" id="bar-res" style="background:var(--success);"></div></div></div>
           <div class="metric"><div class="m-head"><span>Decision Maturity</span><span id="txt-mat"></span></div><div class="m-track"><div class="m-fill" id="bar-mat" style="background:var(--secondary);"></div></div></div>
-          <div class="metric" style="margin-bottom:0;"><div class="m-head"><span>Parental Influence</span><span id="txt-par"></span></div><div class="m-track"><div class="m-fill" id="bar-par" style="background:var(--warning);"></div></div></div>
+          <div class="metric" style="margin-bottom:0;"><div class="m-head"><span>External Pressure</span><span id="txt-par"></span></div><div class="m-track"><div class="m-fill" id="bar-par" style="background:var(--warning);"></div></div></div>
         </div>
       </div>
 
@@ -167,21 +178,22 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
       </div>
 
       <div class="r-section" style="border-left-color: var(--primary);">
-        <h3>🎯 Actionable Career Matches</h3>
-        <p style="font-weight:bold; color:var(--primary); font-size:1.1rem;">Strongly Aligned Pathways:</p>
-        <p id="outStream" style="font-weight:800; font-size:1.2rem; margin-bottom:5px;"></p>
-        <p id="outCareers"></p>
+        <h3>🎯 Weighted Career Matching Engine</h3>
+        <p style="font-size:0.95rem; color:#64748b; margin-bottom: 15px;">Calculated using your unique RIASEC signature, aptitude, resilience, core values, and <strong>academic stream eligibility</strong>.</p>
+        <p id="outStream" style="font-weight:900; color:var(--primary); font-size:1.3rem; margin-bottom:15px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 10px;"></p>
+        <p style="font-weight:bold; color:var(--text-dark); font-size:1.1rem; margin-bottom:10px;">Top 5 Aligned Pathways:</p>
+        <div id="outCareers"></div>
       </div>
 
       <div class="r-section avoid-section">
         <h3>🚫 Vulnerability Zones (Avoid)</h3>
-        <p>Careers mapped to your lowest RIASEC scores where burnout is highly probable:</p>
-        <p><strong id="outAvoid"></strong></p>
+        <p>Careers mapped to your lowest traits where burnout or lack of motivation is highly probable:</p>
+        <p id="outAvoid"></p>
       </div>
 
       <div class="r-section" style="border-left-color: var(--secondary);">
-        <h3>🏛️ Optimal College Basecamps</h3>
-        <div class="college-recs" id="outColleges" style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-top:15px;"></div>
+        <h3>🏛️ Optimal College Matches</h3>
+        <div class="college-recs" id="outColleges"></div>
       </div>
 
       <div class="r-section flag-box" id="flagsContainer">
@@ -198,6 +210,18 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
 </div>
 
 <script>
+  // --- MULTI CAREER TEMPLATE DATABASE (Data-Driven Eligibility) ---
+  const careerDB = [
+    { id: "engineering", name: "Engineering & Technology", riasec: { R:0.25, I:0.35, A:0.05, S:0.05, E:0.10, C:0.20 }, resilienceNeed: 70, valueMatch: ["Fast growth opportunities","High income"], reqStream: ["PCM"] },
+    { id: "medicine", name: "Medicine & Healthcare", riasec: { R:0.10, I:0.35, A:0.05, S:0.30, E:0.05, C:0.15 }, resilienceNeed: 85, valueMatch: ["Helping society","Prestige/status"], reqStream: ["PCB"] },
+    { id: "design", name: "Creative Design & Media", riasec: { R:0.05, I:0.10, A:0.45, S:0.10, E:0.15, C:0.15 }, resilienceNeed: 60, valueMatch: ["Creativity","Independence"] },
+    { id: "business", name: "Business & Entrepreneurship", riasec: { R:0.05, I:0.10, A:0.10, S:0.15, E:0.45, C:0.15 }, resilienceNeed: 75, valueMatch: ["High income","Fast growth opportunities"] },
+    { id: "psychology", name: "Psychology & Human Services", riasec: { R:0.05, I:0.25, A:0.10, S:0.40, E:0.10, C:0.10 }, resilienceNeed: 70, valueMatch: ["Helping society","Work-life balance"] },
+    { id: "finance", name: "Finance & Accounting", riasec: { R:0.05, I:0.20, A:0.05, S:0.05, E:0.25, C:0.40 }, resilienceNeed: 80, valueMatch: ["Job security","High income"], reqStream: ["Commerce", "PCM"] },
+    { id: "appliedtech", name: "Applied Tech & Defence", riasec: { R:0.45, I:0.15, A:0.05, S:0.05, E:0.10, C:0.20 }, resilienceNeed: 80, valueMatch: ["Job security","Prestige/status"], reqStream: ["PCM", "PCB"] },
+    { id: "law", name: "Law & Public Policy", riasec: { R:0.05, I:0.20, A:0.05, S:0.25, E:0.35, C:0.10 }, resilienceNeed: 85, valueMatch: ["Prestige/status","Helping society"] }
+  ];
+
   // --- 75-QUESTION CLINICAL DATABASE ---
   const qBank = {
     riasec: [
@@ -242,36 +266,23 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
   function renderWizard() {
     const wiz = document.getElementById('wizardContainer');
     
-    // Step 0: Profile & Background
+    // Step 0: Profile
     state.steps.push(`<div class="step-card active" id="step_0">
       <h2 class="step-title">Candidate Profile</h2><p class="step-sub">LEVEL 1 / 7</p>
-      
-      <div class="form-group">
-        <label class="form-label">Full Name</label>
-        <input type="text" id="candName" class="form-input" placeholder="Enter your full name">
-      </div>
-      
+      <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="candName" class="form-input" placeholder="Enter your full name"></div>
       <div class="grid-2col">
-        <div class="form-group">
-          <label class="form-label">Current Grade / Level</label>
+        <div class="form-group"><label class="form-label">Current Grade / Level</label>
           <select id="qGrade" class="form-select">
-            <option value="8-10">Grade 8 - 10</option>
-            <option value="11-12">Grade 11 - 12 (PUC)</option>
-            <option value="UG">Undergraduate</option>
+            <option value="8-10">Grade 8 - 10</option><option value="11-12">Grade 11 - 12 (PUC)</option><option value="UG">Undergraduate</option>
           </select>
         </div>
-        <div class="form-group">
-          <label class="form-label">Target / Current Stream</label>
+        <div class="form-group"><label class="form-label">Target / Current Stream</label>
           <select id="qStream" class="form-select">
-            <option value="PCM">Science (PCM/Tech)</option>
-            <option value="PCB">Science (PCB/Med)</option>
-            <option value="Commerce">Commerce</option>
-            <option value="Arts">Arts / Humanities</option>
-            <option value="Undecided">Undecided</option>
+            <option value="PCM">Science (PCM/Tech)</option><option value="PCB">Science (PCB/Med)</option>
+            <option value="Commerce">Commerce</option><option value="Arts">Arts / Humanities</option><option value="Undecided">Undecided</option>
           </select>
         </div>
       </div>
-      
       <div class="btn-wrapper"><button class="btn-main" style="width:100%" onclick="goNext(0)">Start Assessment ➔</button></div>
     </div>`);
 
@@ -325,14 +336,13 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
 
       <div class="btn-wrapper">
         <button class="btn-main btn-back" onclick="goPrev(6)">Back</button>
-        <button class="btn-main" style="background:var(--success);" id="analyzeBtn" onclick="processClinicalData()">Compile Dossier ✨</button>
+        <button class="btn-main" style="background:var(--success);" id="analyzeBtn" onclick="executeUIUpdate()">Compile Dossier ✨</button>
       </div>
     </div>`);
 
     wiz.innerHTML = state.steps.join('');
   }
   
-  // Render immediately
   renderWizard();
 
   // --- INTERACTION LOGIC ---
@@ -389,182 +399,268 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
     }
   }
 
-  // --- CLINICAL ALGORITHM ---
-  function processClinicalData() {
+  // --- 1. PURE SCORING ENGINE ---
+  function computeAssessment(data) {
+    const { answers, topValues, startTime, grade, currentStream, parentCareer, secretCareer } = data;
+
+    let riasecRaw = { R:0, I:0, A:0, S:0, E:0, C:0 };
+    let metricsRaw = { APT:0, RES:0, MAT:0, PAR:0, HIDDEN:0 }; 
+
+    for(let key in answers) {
+      let ans = answers[key];
+      if(['R','I','A','S','E','C'].includes(ans.cat)) riasecRaw[ans.cat] += ans.calc;
+      else if(ans.cat) metricsRaw[ans.cat] += ans.calc;
+    }
+
+    // Normalization
+    let scores = { 
+      R: Math.max(0, Math.min(100, Math.round(((riasecRaw.R - 6) / 24) * 100))),
+      I: Math.max(0, Math.min(100, Math.round(((riasecRaw.I - 6) / 24) * 100))),
+      A: Math.max(0, Math.min(100, Math.round(((riasecRaw.A - 6) / 24) * 100))),
+      S: Math.max(0, Math.min(100, Math.round(((riasecRaw.S - 6) / 24) * 100))),
+      E: Math.max(0, Math.min(100, Math.round(((riasecRaw.E - 6) / 24) * 100))),
+      C: Math.max(0, Math.min(100, Math.round(((riasecRaw.C - 6) / 24) * 100)))
+    };
+
+    let aptPct = Math.max(0, Math.min(100, Math.round(((metricsRaw.APT - 12) / 48) * 100)));
+    let resPct = Math.max(0, Math.min(100, Math.round(((metricsRaw.RES - 12) / 48) * 100)));
+    let matRaw = metricsRaw.MAT || 5;
+    let matPct = Math.max(0, Math.min(100, Math.round(((matRaw - 5) / 20) * 100)));
+    let parRaw = metricsRaw.PAR || 1; 
+    let parPct = Math.max(0, Math.min(100, Math.round(((parRaw - 1) / 4) * 100)));
     
-    // VALIDATION 
-    if(Object.keys(state.answers).length < 55) {
-      alert("Incomplete Data! Please answer all rating questions before compiling the dossier.");
+    let isHighPressure = parPct >= 70;
+
+    // Reliability & Flags
+    let timeTaken = (Date.now() - startTime) / 60000; 
+    let relScore = 100;
+    if(timeTaken < 7) relScore -= 20; 
+
+    let allVals = Object.values(answers).map(a => a.raw);
+    let variance = new Set(allVals).size;
+    if (variance <= 2) relScore -= 15; 
+
+    let flags = [];
+    let hiddenScore = metricsRaw.HIDDEN || 1; 
+    let hasParentConflict = (secretCareer && parentCareer && secretCareer !== parentCareer);
+    let hasInternalConflict = (hiddenScore >= 4);
+    
+    if(isHighPressure) {
+      flags.push(`<div class="flag-item"><span>🚩</span><span><strong>High External Pressure:</strong> Career choices appear heavily influenced by parental or societal expectations.</span></div>`);
+    }
+    
+    // Decoupled Conflicts
+    if(hasParentConflict) {
+      flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Parental Alignment Conflict:</strong> A significant mismatch exists between stated parental goals and true internal desires.</span></div>`);
+      relScore -= 10; 
+    } else if (hasInternalConflict) {
+      flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Internal Career Conflict:</strong> Student indicates they would choose a different path if marks/society were not factors.</span></div>`);
+      relScore -= 5;
+    }
+
+    if(resPct < 50 && topValues.includes('High income')) {
+      flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Burnout Risk:</strong> High ambition combined with lower stress resilience. Requires coping strategy development.</span></div>`);
+    }
+    if(matPct < 50) {
+      flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Decision Confusion:</strong> Profile indicates significant uncertainty. Recommend exploratory internships before finalizing.</span></div>`);
+    }
+    if(flags.length === 0) flags.push(`<div style="color:var(--success); font-weight:bold;">✅ All clinical indicators are stable. No critical risks detected.</div>`);
+
+    relScore = Math.max(0, Math.min(100, relScore));
+
+    // Sort Traits
+    const sorted = Object.keys(scores).sort((a,b) => scores[b] - scores[a]);
+    const finalCode = sorted.slice(0,3).join('');
+    const dom = sorted[0];
+    const sec = sorted[1];
+    const weakest = sorted[5];
+
+    // Age Weightage Model
+    let weightInterest = grade === "8-10" ? 0.50 : (grade === "11-12" ? 0.35 : 0.30);
+    let weightAptitude = grade === "8-10" ? 0.30 : (grade === "11-12" ? 0.40 : 0.50);
+    let weightResilience = grade === "11-12" ? 0.25 : 0.20;
+
+    // Multi-Career Matching
+    let careerScores = careerDB.map(career => {
+      let interestScore = 0;
+      for(let key in career.riasec){
+        interestScore += scores[key] * career.riasec[key]; 
+      }
+
+      let finalScore = (interestScore * weightInterest) + (aptPct * weightAptitude) + (resPct * weightResilience);
+      
+      let resiliencePenalty = resPct < career.resilienceNeed ? -10 : 0;
+      finalScore += resiliencePenalty;
+
+      // Rank-Weighted Value Bonus
+      let valueBonus = 0;
+      topValues.forEach((v, index) => {
+        if(career.valueMatch.includes(v)) {
+          valueBonus += (5 - index) * 2; 
+        }
+      });
+      finalScore += valueBonus;
+
+      // Stream Penalty
+      let streamPenalty = 0;
+      if (currentStream !== "Undecided") {
+           if (career.reqStream && !career.reqStream.includes(currentStream)) {
+               streamPenalty = -30;
+           }
+      }
+      finalScore += streamPenalty;
+
+      return {
+        name: career.name,
+        score: Math.max(0, Math.min(100, Math.round(finalScore)))
+      };
+    });
+
+    careerScores.sort((a,b) => b.score - a.score);
+    let topCareers = careerScores.slice(0,5);
+    let lowestCareers = careerScores.slice(-2);
+
+    let topCareerScore = topCareers[0].score;
+    let fitClassification = "";
+    if(topCareerScore >= 85) fitClassification = "Strong Fit";
+    else if(topCareerScore >= 70) fitClassification = "High Potential";
+    else if(topCareerScore >= 55) fitClassification = "Moderate Fit";
+    else fitClassification = "Conditional Fit";
+
+    let profileDesc = "";
+    if(scores[sorted[0]] >= 75 && scores[sorted[1]] < 65) profileDesc = `You show a <strong>Single Dominant</strong> orientation toward ${dom} tasks. You have intense, focused interests.`;
+    else if(scores[sorted[0]] >= 70 && scores[sorted[1]] >= 70) profileDesc = `You have a <strong>Dual Dominant</strong> profile (${dom} & ${sec}). You combine these strengths uniquely.`;
+    else if(scores[sorted[0]] < 60) profileDesc = `You have a <strong>Diffuse Interest Pattern</strong>. You are adaptable but may need more real-world exploration to find a specialized niche.`;
+    else profileDesc = `You demonstrate a <strong>Balanced Exploratory Profile</strong>. You are versatile and can thrive in multi-disciplinary fields.`;
+
+    if(aptPct < 50) profileDesc += ` <br><br><em>Note: As your aptitude confidence is currently moderate, your recommended fields will require dedicated skill-building.</em>`;
+
+    return {
+      scores, aptPct, resPct, matPct, parPct,
+      relScore, flags,
+      finalCode, dom, sec, weakest,
+      topCareers, lowestCareers,
+      fitClassification, profileDesc,
+      overallFitScore: topCareerScore
+    };
+  }
+
+  // --- 2. UI CONTROLLER ---
+  function executeUIUpdate() {
+    
+    // STRICT VALIDATION
+    const totalAnswered = Object.keys(state.answers).length;
+    if(totalAnswered !== 67) {
+      alert(`Incomplete Data! You have answered ${totalAnswered} out of 67 rating questions. Please complete all items before compiling the dossier.`);
+      return;
+    }
+    
+    const matCount = Object.values(state.answers).filter(a => a.cat === 'MAT').length;
+    if(matCount < 5) {
+      alert("Please complete the Decision Maturity rating section entirely.");
       return;
     }
 
     let btn = document.getElementById('analyzeBtn');
-    if(btn) {
-        btn.innerText = "Analyzing Psychometrics... ⏳";
-        btn.disabled = true;
-    }
+    if(btn) { btn.innerText = "Analyzing Psychometrics... ⏳"; btn.disabled = true; }
+
+    const pBar = document.getElementById('progressBar');
+    if(pBar) pBar.style.width = "100%";
 
     setTimeout(() => {
       confetti({ particleCount: 200, spread: 90, origin: { y: 0.5 } });
 
-      let riasecRaw = { R:0, I:0, A:0, S:0, E:0, C:0 };
-      let metricsRaw = { APT:0, RES:0, MAT:0, PAR:0, HIDDEN:0 }; 
-
-      for(let key in state.answers) {
-        let ans = state.answers[key];
-        if(['R','I','A','S','E','C'].includes(ans.cat)) riasecRaw[ans.cat] += ans.calc;
-        else if(ans.cat) metricsRaw[ans.cat] += ans.calc;
-      }
-
-      // 1. RIASEC Normalization
-      let scores = { 
-        R: Math.max(0, Math.min(100, Math.round(((riasecRaw.R || 6) - 6) / 24 * 100))),
-        I: Math.max(0, Math.min(100, Math.round(((riasecRaw.I || 6) - 6) / 24 * 100))),
-        A: Math.max(0, Math.min(100, Math.round(((riasecRaw.A || 6) - 6) / 24 * 100))),
-        S: Math.max(0, Math.min(100, Math.round(((riasecRaw.S || 6) - 6) / 24 * 100))),
-        E: Math.max(0, Math.min(100, Math.round(((riasecRaw.E || 6) - 6) / 24 * 100))),
-        C: Math.max(0, Math.min(100, Math.round(((riasecRaw.C || 6) - 6) / 24 * 100)))
-      };
-
-      // 2. Metrics Calculation 
-      let aptPct = Math.max(0, Math.min(100, Math.round(((metricsRaw.APT || 12) - 12) / 48 * 100)));
-      let resPct = Math.max(0, Math.min(100, Math.round(((metricsRaw.RES || 12) - 12) / 48 * 100)));
-      
-      let matRaw = metricsRaw.MAT || 0;
-      let matPct = matRaw ? Math.round(((matRaw - 5) / 20) * 100) : 0;
-      matPct = Math.max(0, Math.min(100, matPct));
-      
-      let parRaw = metricsRaw.PAR || 1; 
-      let parPct = Math.max(0, Math.min(100, Math.round(((parRaw - 1) / 4) * 100)));
-      let isHighPressure = parPct >= 70;
-
-      // Reliability Check
-      let timeTaken = (Date.now() - state.startTime) / 60000; 
-      let relScore = 100;
-      if(timeTaken < 7) relScore -= 20; 
-
-      let allVals = Object.values(state.answers).map(a => a.raw);
-      let variance = new Set(allVals).size;
-      if (variance <= 2) relScore -= 15; 
-
-      // Safety Flags
-      let flags = [];
+      // Gather DOM inputs safely
       const pEl = document.getElementById('qParent');
       const sEl = document.getElementById('qSecret');
-      const parent = pEl ? pEl.value.toLowerCase() : "";
-      const secret = sEl ? sEl.value.toLowerCase() : "";
-      
-      let hiddenScore = metricsRaw.HIDDEN || 1; 
-      let hasConflict = (secret && parent && secret !== parent) || hiddenScore >= 4;
-      
-      if(isHighPressure || hasConflict) {
-        flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Parental Alignment Conflict:</strong> High probability that current career ideas are externally driven. True interests may be suppressed.</span></div>`);
-        relScore -= 10; 
-      }
-
-      if(resPct < 50 && state.topValues.includes('High income')) {
-        flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Burnout Risk:</strong> High ambition combined with lower stress resilience. Requires coping strategy development.</span></div>`);
-      }
-      if(matPct < 50) {
-        flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Decision Confusion:</strong> Profile indicates significant uncertainty. Recommend exploratory internships before finalizing.</span></div>`);
-      }
-      if(flags.length === 0) flags.push(`<div style="color:var(--success); font-weight:bold;">✅ All clinical indicators are stable. No critical risks detected.</div>`);
-
-      // 3. Find Dominant Traits
-      const sorted = Object.keys(scores).sort((a,b) => scores[b] - scores[a]);
-      const finalCode = sorted.slice(0,3).join('');
-      const dom = sorted[0];
-      const sec = sorted[1];
-      const weakest = sorted[5];
-
-      // Age Weightage Model 
       const gEl = document.getElementById('qGrade');
-      const grade = gEl ? gEl.value : "8-10";
-      let weightInterest = grade === "8-10" ? 0.50 : 0.30;
-      let weightAptitude = grade === "8-10" ? 0.30 : 0.50;
-      let weightResilience = 0.20;
+      const sCxt = document.getElementById('qStream');
+      const cNameEl = document.getElementById('candName');
 
-      let domInterestScore = scores[dom];
-      let overallFitScore = Math.round((domInterestScore * weightInterest) + (aptPct * weightAptitude) + (resPct * weightResilience));
-      
-      let fitClassification = "";
-      if(overallFitScore >= 80) fitClassification = "Strong Fit";
-      else if(overallFitScore >= 65) fitClassification = "High Potential";
-      else if(overallFitScore >= 50) fitClassification = "Moderate Fit";
-      else fitClassification = "Conditional Fit";
-
-      let profileDesc = "";
-      if(scores[sorted[0]] >= 75 && scores[sorted[1]] < 65) profileDesc = `You show a <strong>Single Dominant</strong> orientation toward ${dom} tasks. You have intense, focused interests.`;
-      else if(scores[sorted[0]] >= 70 && scores[sorted[1]] >= 70) profileDesc = `You have a <strong>Dual Dominant</strong> profile (${dom} & ${sec}). You combine these strengths uniquely.`;
-      else if(scores[sorted[0]] < 60) profileDesc = `You have a <strong>Diffuse Interest Pattern</strong>. You are adaptable but may need more real-world exploration to find a specialized niche.`;
-      else profileDesc = `You demonstrate a <strong>Balanced Exploratory Profile</strong>. You are versatile and can thrive in multi-disciplinary fields.`;
-
-      if(aptPct < 50) profileDesc += ` <br><br><em>Note: As your aptitude confidence is currently moderate, your recommended fields will require dedicated skill-building.</em>`;
-
-      const matrix = {
-        'I': { title: "Investigative", c: 'Engineering, Medicine, Research, Data Science, AI', a: 'Highly repetitive sales or clerical roles' },
-        'A': { title: "Artistic", c: 'Architecture, UX/UI, Animation, Media, Filmmaking', a: 'Rigid data-entry or heavy administrative jobs' },
-        'E': { title: "Enterprising", c: 'Business Management, Law, Entrepreneurship, Marketing', a: 'Isolated lab research or solitary backend coding' },
-        'S': { title: "Social", c: 'Psychology, Teaching, HR, Social Work, Medicine', a: 'Strictly mechanical environments without human contact' },
-        'R': { title: "Realistic", c: 'Defence, Aviation, Mechanical Engg, Applied Tech', a: 'Static office-only desk jobs' },
-        'C': { title: "Conventional", c: 'Chartered Accountancy, Banking, Actuary, Govt Admin', a: 'Highly abstract or unpredictable creative roles' }
+      const payload = {
+          answers: state.answers,
+          topValues: state.topValues,
+          startTime: state.startTime,
+          grade: gEl ? gEl.value : "8-10",
+          currentStream: sCxt ? sCxt.value : "Undecided",
+          parentCareer: pEl ? pEl.value.trim().toLowerCase() : "",
+          secretCareer: sEl ? sEl.value.trim().toLowerCase() : ""
       };
 
-      // Safely Inject UI
-      const cName = document.getElementById('candName');
-      const sCxt = document.getElementById('qStream');
+      // RUN PURE ENGINE
+      const report = computeAssessment(payload);
 
-      updateElement('outName', (cName && cName.value) ? cName.value : "Candidate");
-      updateElement('outGrade', grade);
-      updateElement('outStreamContext', sCxt ? sCxt.value : "N/A");
+      // Mapping objects for UI text
+      const matrixTitles = { 'I': "Investigative", 'A': "Artistic", 'E': "Enterprising", 'S': "Social", 'R': "Realistic", 'C': "Conventional" };
+      const matrixAvoidMsg = {
+        'I': 'Highly repetitive sales or clerical roles',
+        'A': 'Rigid data-entry or heavy administrative jobs',
+        'E': 'Isolated lab research or solitary backend coding',
+        'S': 'Strictly mechanical environments without human contact',
+        'R': 'Static office-only desk jobs',
+        'C': 'Highly abstract or unpredictable creative roles'
+      };
+
+      // Inject UI
+      updateElement('outName', (cNameEl && cNameEl.value) ? cNameEl.value : "Candidate");
+      updateElement('outGrade', payload.grade);
+      updateElement('outStreamContext', payload.currentStream);
       updateElement('outDate', new Date().toLocaleDateString());
       
       let relBadge = document.getElementById('outReliability');
       if(relBadge) {
-          relBadge.innerText = `Reliability Index: ${Math.max(0, relScore)}%`;
-          relBadge.style.background = relScore > 75 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)';
-          relBadge.style.color = relScore > 75 ? 'var(--success)' : 'var(--warning)';
+          relBadge.innerText = `Reliability Index: ${report.relScore}%`;
+          relBadge.style.background = report.relScore > 75 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)';
+          relBadge.style.color = report.relScore > 75 ? 'var(--success)' : 'var(--warning)';
       }
 
-      updateElement('outCode', finalCode);
-      updateElement('outType', `Primary Trait: ${matrix[dom].title}`);
-      updateElement('outPersonalityText', profileDesc, true);
+      updateElement('outCode', report.finalCode);
+      updateElement('outType', `Primary Trait: ${matrixTitles[report.dom]}`);
+      updateElement('outPersonalityText', report.profileDesc, true);
       
-      updateElement('outStream', `${matrix[dom].c.split(',')[0]} & Adjacent Fields`);
+      let careerHTML = report.topCareers.map(c => 
+        `<div class="career-bar">
+           <span style="font-weight:700; color:var(--text-dark);">${c.name}</span>
+           <span class="career-score">${c.score}% Match</span>
+         </div>`
+      ).join('');
+
+      let careerOutput = `${careerHTML} <span style="display:block; margin-top:15px; color:var(--secondary); font-size:0.95rem;"><strong>Top Compatibility Class: ${report.fitClassification}</strong></span>`;
       
-      let careerOutput = `${matrix[dom].c} <br><br><span style="color:var(--secondary); font-size:0.95rem;"><strong>Overall Compatibility Match: ${fitClassification} (${overallFitScore}%)</strong><br><em>(Weighted by Age Group, Aptitude, & Resilience)</em></span>`;
+      updateElement('outStream', `Primary Recommended Cluster: ${report.topCareers[0].name}`, true);
       updateElement('outCareers', careerOutput, true);
       
-      updateElement('outAvoid', matrix[weakest].c + " (" + matrix[dom].a + ")");
-      updateElement('outFlags', flags.join(''), true);
+      let avoidHTML = `<strong>${report.lowestCareers.map(c => c.name).join(" & ")}</strong> <br><span style="font-size:0.95rem; font-weight:normal; color:#64748b; display:block; margin-top:5px;"><em>Primary Risk Factor: ${matrixAvoidMsg[report.weakest]}</em></span>`;
+      updateElement('outAvoid', avoidHTML, true);
+      
+      updateElement('outFlags', report.flags.join(''), true);
 
       // Update Progress Bars safely
-      const barApt = document.getElementById('bar-apt'); if(barApt) barApt.style.width = aptPct + '%'; 
-      updateElement('txt-apt', aptPct + '%');
+      const barApt = document.getElementById('bar-apt'); if(barApt) barApt.style.width = report.aptPct + '%'; 
+      updateElement('txt-apt', report.aptPct + '%');
       
-      const barRes = document.getElementById('bar-res'); if(barRes) barRes.style.width = resPct + '%'; 
-      updateElement('txt-res', resPct + '%');
+      const barRes = document.getElementById('bar-res'); if(barRes) barRes.style.width = report.resPct + '%'; 
+      updateElement('txt-res', report.resPct + '%');
       
-      const barMat = document.getElementById('bar-mat'); if(barMat) barMat.style.width = matPct + '%'; 
-      updateElement('txt-mat', matPct + '%');
+      const barMat = document.getElementById('bar-mat'); if(barMat) barMat.style.width = report.matPct + '%'; 
+      updateElement('txt-mat', report.matPct + '%');
       
-      const barPar = document.getElementById('bar-par'); if(barPar) barPar.style.width = parPct + '%'; 
-      updateElement('txt-par', parPct > 70 ? 'HIGH' : 'Normal');
+      const barPar = document.getElementById('bar-par'); if(barPar) barPar.style.width = report.parPct + '%'; 
+      updateElement('txt-par', report.parPct + '% (' + (report.parPct > 70 ? 'HIGH' : 'Normal') + ')');
 
-      // Colleges
+      // Dynamic Colleges
       const colDiv = document.getElementById('outColleges');
       if(colDiv) {
           colDiv.innerHTML = '';
           const sampleCols = [{n:"IISc Bangalore", r:['I']}, {n:"IIT Roorkee", r:['I','R']}, {n:"AAAD", r:['A']}, {n:"Christ University", r:['E','S','C']}, {n:"BMSCE", r:['R','I']}, {n:"Mount Carmel", r:['S','C']}];
-          let matches = sampleCols.filter(c => c.r.includes(dom)).slice(0,2);
+          let matches = sampleCols.filter(c => c.r.includes(report.dom)).slice(0,2);
           if(matches.length===0) matches = [sampleCols[0], sampleCols[3]];
-          matches.forEach(c => { colDiv.innerHTML += `<div class="rec-card" style="border: 2px solid #e2e8f0; padding: 15px; border-radius: 10px;"><h4>${c.n}</h4><p style="margin:0; font-size:0.9rem; color:#64748b;">Strong match for ${dom} profiles.</p></div>`; });
+          matches.forEach(c => { colDiv.innerHTML += `<div class="rec-card"><h4>${c.n}</h4><p style="margin:0; font-size:0.9rem; color:#64748b;">Strong match for ${matrixTitles[report.dom]} profiles.</p></div>`; });
       }
 
       // UI Switch
       document.getElementById('wizardContainer').style.display = 'none';
-      const prog = document.querySelector('.progress-container');
-      if (prog) prog.style.display = 'none';
+      if (pBar) pBar.parentElement.style.display = 'none';
       document.getElementById('reportContainer').style.display = 'block';
       window.scrollTo(0,0);
 
@@ -580,7 +676,7 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
               labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'],
               datasets: [{
                 label: 'RIASEC Score',
-                data: [scores.R, scores.I, scores.A, scores.S, scores.E, scores.C],
+                data: [report.scores.R, report.scores.I, report.scores.A, report.scores.S, report.scores.E, report.scores.C],
                 backgroundColor: 'rgba(139, 92, 246, 0.4)',
                 borderColor: '#8b5cf6',
                 borderWidth: 2
@@ -596,7 +692,7 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
         console.error("Chart failed:", e);
       }
 
-    }, 1000); 
+    }, 400); 
   }
 
   function downloadPDF() {
