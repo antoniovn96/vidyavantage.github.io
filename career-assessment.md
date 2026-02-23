@@ -95,6 +95,7 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
   .r-header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
   .r-header h2 { font-size: 2.2rem; font-weight: 900; margin: 0; color: #0f172a; }
   .reliability-badge { display: inline-block; padding: 5px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; margin-top: 10px; }
+  .badge-code { display: inline-block; background: var(--primary); color: white; padding: 8px 30px; border-radius: 50px; font-weight: 900; font-size: 1.8rem; margin-top: 15px; letter-spacing: 2px; }
   
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
   @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
@@ -144,7 +145,8 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
           Candidate: <strong id="outName" style="color:#0f172a;"></strong> | Grade: <span id="outGrade"></span> | Stream: <span id="outStreamContext"></span><br>
           Generated: <span id="outDate"></span>
         </div>
-        <div class="reliability-badge" id="outReliability"></div>
+        <div class="reliability-badge" id="outReliability"></div><br>
+        <div class="badge-code" id="outCode"></div>
       </div>
 
       <div class="grid-2">
@@ -378,18 +380,29 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // --- SAFELY UPDATE DOM ---
+  function updateElement(id, content, isHTML = false) {
+    const el = document.getElementById(id);
+    if(el) {
+        if(isHTML) el.innerHTML = content;
+        else el.innerText = content;
+    }
+  }
+
   // --- CLINICAL ALGORITHM ---
   function processClinicalData() {
     
-    // VALIDATION (Ensure missing data doesn't skew results)
+    // VALIDATION 
     if(Object.keys(state.answers).length < 55) {
       alert("Incomplete Data! Please answer all rating questions before compiling the dossier.");
       return;
     }
 
     let btn = document.getElementById('analyzeBtn');
-    btn.innerText = "Analyzing Psychometrics... ⏳";
-    btn.disabled = true;
+    if(btn) {
+        btn.innerText = "Analyzing Psychometrics... ⏳";
+        btn.disabled = true;
+    }
 
     setTimeout(() => {
       confetti({ particleCount: 200, spread: 90, origin: { y: 0.5 } });
@@ -417,14 +430,12 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
       let aptPct = Math.max(0, Math.min(100, Math.round(((metricsRaw.APT || 12) - 12) / 48 * 100)));
       let resPct = Math.max(0, Math.min(100, Math.round(((metricsRaw.RES || 12) - 12) / 48 * 100)));
       
-      // Maturity Normalization (5 items -> min 5, max 25, range 20)
       let matRaw = metricsRaw.MAT || 0;
       let matPct = matRaw ? Math.round(((matRaw - 5) / 20) * 100) : 0;
       matPct = Math.max(0, Math.min(100, matPct));
       
-      // Parental Influence Logic (1 item -> min 1, max 5, range 4)
       let parRaw = metricsRaw.PAR || 1; 
-      let parPct = Math.round(((parRaw - 1) / 4) * 100);
+      let parPct = Math.max(0, Math.min(100, Math.round(((parRaw - 1) / 4) * 100)));
       let isHighPressure = parPct >= 70;
 
       // Reliability Check
@@ -434,18 +445,21 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
 
       let allVals = Object.values(state.answers).map(a => a.raw);
       let variance = new Set(allVals).size;
-      if (variance <= 2) relScore -= 15; // Detection of uniform clicking
+      if (variance <= 2) relScore -= 15; 
 
       // Safety Flags
       let flags = [];
-      const parent = document.getElementById('qParent').value.toLowerCase();
-      const secret = document.getElementById('qSecret').value.toLowerCase();
+      const pEl = document.getElementById('qParent');
+      const sEl = document.getElementById('qSecret');
+      const parent = pEl ? pEl.value.toLowerCase() : "";
+      const secret = sEl ? sEl.value.toLowerCase() : "";
+      
       let hiddenScore = metricsRaw.HIDDEN || 1; 
       let hasConflict = (secret && parent && secret !== parent) || hiddenScore >= 4;
       
       if(isHighPressure || hasConflict) {
         flags.push(`<div class="flag-item"><span>🚩</span><span><strong>Parental Alignment Conflict:</strong> High probability that current career ideas are externally driven. True interests may be suppressed.</span></div>`);
-        relScore -= 10; // Penalize reliability instead of artificial manipulation
+        relScore -= 10; 
       }
 
       if(resPct < 50 && state.topValues.includes('High income')) {
@@ -458,12 +472,14 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
 
       // 3. Find Dominant Traits
       const sorted = Object.keys(scores).sort((a,b) => scores[b] - scores[a]);
+      const finalCode = sorted.slice(0,3).join('');
       const dom = sorted[0];
       const sec = sorted[1];
       const weakest = sorted[5];
 
-      // Age Weightage Model & Multi-Dimensional Fit
-      const grade = document.getElementById('qGrade').value;
+      // Age Weightage Model 
+      const gEl = document.getElementById('qGrade');
+      const grade = gEl ? gEl.value : "8-10";
       let weightInterest = grade === "8-10" ? 0.50 : 0.30;
       let weightAptitude = grade === "8-10" ? 0.30 : 0.50;
       let weightResilience = 0.20;
@@ -494,42 +510,56 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
         'C': { title: "Conventional", c: 'Chartered Accountancy, Banking, Actuary, Govt Admin', a: 'Highly abstract or unpredictable creative roles' }
       };
 
-      // UI Injection
+      // Safely Inject UI
       const cName = document.getElementById('candName');
-      document.getElementById('outName').innerText = (cName && cName.value) ? cName.value : "Candidate";
-      document.getElementById('outGrade').innerText = document.getElementById('qGrade').value;
-      document.getElementById('outStreamContext').innerText = document.getElementById('qStream').value;
-      document.getElementById('outDate').innerText = new Date().toLocaleDateString();
+      const sCxt = document.getElementById('qStream');
+
+      updateElement('outName', (cName && cName.value) ? cName.value : "Candidate");
+      updateElement('outGrade', grade);
+      updateElement('outStreamContext', sCxt ? sCxt.value : "N/A");
+      updateElement('outDate', new Date().toLocaleDateString());
       
       let relBadge = document.getElementById('outReliability');
-      relBadge.innerText = `Reliability Index: ${Math.max(0, relScore)}%`;
-      relBadge.style.background = relScore > 75 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)';
-      relBadge.style.color = relScore > 75 ? 'var(--success)' : 'var(--warning)';
+      if(relBadge) {
+          relBadge.innerText = `Reliability Index: ${Math.max(0, relScore)}%`;
+          relBadge.style.background = relScore > 75 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)';
+          relBadge.style.color = relScore > 75 ? 'var(--success)' : 'var(--warning)';
+      }
 
-      document.getElementById('outCode').innerText = sorted.slice(0,3).join('');
-      document.getElementById('outType').innerText = `Primary Trait: ${matrix[dom].title}`;
-      document.getElementById('outPersonalityText').innerHTML = profileDesc;
+      updateElement('outCode', finalCode);
+      updateElement('outType', `Primary Trait: ${matrix[dom].title}`);
+      updateElement('outPersonalityText', profileDesc, true);
       
-      document.getElementById('outStream').innerText = `${matrix[dom].c.split(',')[0]} & Adjacent Fields`;
-      // Integrate the Multi-Dimensional Fit Score into UI
-      document.getElementById('outCareers').innerHTML = `${matrix[dom].c} <br><br><span style="color:var(--secondary); font-size:0.95rem;"><strong>Overall Compatibility Match: ${fitClassification} (${overallFitScore}%)</strong><br><em>(Weighted by Age Group, Aptitude, & Resilience)</em></span>`;
+      updateElement('outStream', `${matrix[dom].c.split(',')[0]} & Adjacent Fields`);
       
-      document.getElementById('outAvoid').innerText = matrix[weakest].c + " (" + matrix[dom].a + ")";
-      document.getElementById('outFlags').innerHTML = flags.join('');
+      let careerOutput = `${matrix[dom].c} <br><br><span style="color:var(--secondary); font-size:0.95rem;"><strong>Overall Compatibility Match: ${fitClassification} (${overallFitScore}%)</strong><br><em>(Weighted by Age Group, Aptitude, & Resilience)</em></span>`;
+      updateElement('outCareers', careerOutput, true);
+      
+      updateElement('outAvoid', matrix[weakest].c + " (" + matrix[dom].a + ")");
+      updateElement('outFlags', flags.join(''), true);
 
-      // Update Progress Bars
-      document.getElementById('bar-apt').style.width = aptPct + '%'; document.getElementById('txt-apt').innerText = aptPct + '%';
-      document.getElementById('bar-res').style.width = resPct + '%'; document.getElementById('txt-res').innerText = resPct + '%';
-      document.getElementById('bar-mat').style.width = matPct + '%'; document.getElementById('txt-mat').innerText = matPct + '%';
-      document.getElementById('bar-par').style.width = parPct + '%'; document.getElementById('txt-par').innerText = parPct > 70 ? 'HIGH' : 'Normal';
+      // Update Progress Bars safely
+      const barApt = document.getElementById('bar-apt'); if(barApt) barApt.style.width = aptPct + '%'; 
+      updateElement('txt-apt', aptPct + '%');
+      
+      const barRes = document.getElementById('bar-res'); if(barRes) barRes.style.width = resPct + '%'; 
+      updateElement('txt-res', resPct + '%');
+      
+      const barMat = document.getElementById('bar-mat'); if(barMat) barMat.style.width = matPct + '%'; 
+      updateElement('txt-mat', matPct + '%');
+      
+      const barPar = document.getElementById('bar-par'); if(barPar) barPar.style.width = parPct + '%'; 
+      updateElement('txt-par', parPct > 70 ? 'HIGH' : 'Normal');
 
       // Colleges
       const colDiv = document.getElementById('outColleges');
-      colDiv.innerHTML = '';
-      const sampleCols = [{n:"IISc Bangalore", r:['I']}, {n:"IIT Roorkee", r:['I','R']}, {n:"AAAD", r:['A']}, {n:"Christ University", r:['E','S','C']}, {n:"BMSCE", r:['R','I']}, {n:"Mount Carmel", r:['S','C']}];
-      let matches = sampleCols.filter(c => c.r.includes(dom)).slice(0,2);
-      if(matches.length===0) matches = [sampleCols[0], sampleCols[3]];
-      matches.forEach(c => { colDiv.innerHTML += `<div class="rec-card" style="border: 2px solid #e2e8f0; padding: 15px; border-radius: 10px;"><h4>${c.n}</h4><p style="margin:0; font-size:0.9rem; color:#64748b;">Strong match for ${dom} profiles.</p></div>`; });
+      if(colDiv) {
+          colDiv.innerHTML = '';
+          const sampleCols = [{n:"IISc Bangalore", r:['I']}, {n:"IIT Roorkee", r:['I','R']}, {n:"AAAD", r:['A']}, {n:"Christ University", r:['E','S','C']}, {n:"BMSCE", r:['R','I']}, {n:"Mount Carmel", r:['S','C']}];
+          let matches = sampleCols.filter(c => c.r.includes(dom)).slice(0,2);
+          if(matches.length===0) matches = [sampleCols[0], sampleCols[3]];
+          matches.forEach(c => { colDiv.innerHTML += `<div class="rec-card" style="border: 2px solid #e2e8f0; padding: 15px; border-radius: 10px;"><h4>${c.n}</h4><p style="margin:0; font-size:0.9rem; color:#64748b;">Strong match for ${dom} profiles.</p></div>`; });
+      }
 
       // UI Switch
       document.getElementById('wizardContainer').style.display = 'none';
@@ -571,8 +601,9 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
 
   function downloadPDF() {
     let btn = document.getElementById('pdfBtn');
-    let orig = btn.innerText;
-    btn.innerText = "Exporting Clinical PDF... ⏳";
+    let orig = btn ? btn.innerText : "Exporting...";
+    if(btn) btn.innerText = "Exporting Clinical PDF... ⏳";
+    
     window.scrollTo(0,0);
     setTimeout(() => {
       const el = document.getElementById('reportContent');
@@ -582,7 +613,9 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
         image: { type: 'jpeg', quality: 1 }, 
         html2canvas: { scale: 2, useCORS: true, scrollY: 0 }, 
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
-      }).from(el).save().then(() => btn.innerText = orig);
+      }).from(el).save().then(() => {
+          if(btn) btn.innerText = orig;
+      });
     }, 500);
   }
 </script>
