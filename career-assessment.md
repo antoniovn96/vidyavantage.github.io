@@ -481,7 +481,43 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
     document.getElementById('bar-par').style.width = (parScore * 10) + '%'; document.getElementById('txt-par').innerText = isHighPressure ? 'HIGH' : 'LOW';
 
     // Radar Chart
-    const ctx = document.getElementById('riasecChart').getContext('2d');
+    // --- SWITCH UI FIRST ---
+document.getElementById('wizardContainer').style.display = 'none';
+
+const prog = document.querySelector('.progress-container');
+if (prog) prog.style.display = 'none';
+
+document.getElementById('reportContainer').style.display = 'block';
+window.scrollTo(0,0);
+
+// --- THEN CREATE CHART SAFELY ---
+try {
+  const canvas = document.getElementById('riasecChart');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    if (window.rChart) window.rChart.destroy();
+
+    window.rChart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'],
+        datasets: [{
+          label: 'RIASEC Score',
+          data: [scores.R, scores.I, scores.A, scores.S, scores.E, scores.C],
+          backgroundColor: 'rgba(139, 92, 246, 0.4)',
+          borderColor: '#8b5cf6',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        scales: { r: { max: 100, min: 0, ticks: { display: false } } },
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+} catch(e) {
+  console.error("Chart failed:", e);
+}
     if(window.rChart) window.rChart.destroy();
     window.rChart = new Chart(ctx, {
       type: 'radar',
@@ -493,7 +529,8 @@ description: "A clinical-grade psychometric evaluation mapping your RIASEC inter
     });
 
     document.getElementById('wizardContainer').style.display = 'none';
-    document.querySelector('.progress-container').style.display = 'none';
+    const prog = document.querySelector('.progress-container');
+if (prog) prog.style.display = 'none';
     document.getElementById('reportContainer').style.display = 'block';
     window.scrollTo(0,0);
   }
