@@ -5,64 +5,216 @@ permalink: /blog/
 ---
 
 <style>
-  /* --- PAGE HEADER --- */
-  .blog-header { text-align: center; padding: 80px 20px; background: #0A2342; color: white; margin-bottom: 40px; }
-  .blog-header h1 { font-size: 2.8rem; margin: 0 0 10px 0; }
-  .blog-header p { font-size: 1.2rem; color: #e3f2fd; max-width: 600px; margin: 0 auto; }
+  /* --- GLOBAL RESETS & BACKGROUND --- */
+  body {
+    background-color: #f8fafc; /* Very light cool gray for depth */
+    font-family: 'Nunito', 'Inter', sans-serif;
+  }
+
+  /* --- PREMIUM PAGE HEADER --- */
+  .blog-header { 
+    text-align: center; 
+    padding: 100px 20px; 
+    background: radial-gradient(circle at top right, #1e1b4b, #0f172a); 
+    color: #ffffff; 
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 4px solid #3b82f6;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  /* Adding a subtle background pattern to make it less boring */
+  .blog-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* FORCED BRIGHT TEXT to fix visibility issue */
+  .blog-header h1 { 
+    font-size: 3.5rem; 
+    font-weight: 900; 
+    margin: 0 0 15px 0; 
+    position: relative;
+    z-index: 1;
+    background: -webkit-linear-gradient(45deg, #60a5fa, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: white; /* Fallback */
+  }
+  
+  .blog-header p { 
+    font-size: 1.25rem; 
+    color: #cbd5e1; 
+    max-width: 650px; 
+    margin: 0 auto; 
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+  }
 
   /* --- MAIN LAYOUT (Two Column) --- */
-  .blog-layout { display: grid; grid-template-columns: 280px 1fr; gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+  .blog-layout { 
+    display: grid; 
+    grid-template-columns: 300px 1fr; 
+    gap: 40px; 
+    max-width: 1250px; 
+    margin: 0 auto; 
+    padding: 0 20px 80px; 
+  }
 
-  /* --- SIDEBAR (Left Side) --- */
-  .blog-sidebar { position: sticky; top: 100px; height: max-content; }
+  /* --- FLOATING SIDEBAR (Left Side) --- */
+  .blog-sidebar { 
+    position: sticky; 
+    top: 100px; 
+    height: max-content; 
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    border: 1px solid #f1f5f9;
+  }
   
-  .sidebar-section-title { font-size: 1.1rem; color: #0A2342; font-weight: 800; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;}
+  .sidebar-section-title { 
+    font-size: 0.9rem; 
+    color: #64748b; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+  }
 
-  /* Search Bar */
+  /* Modern Pill Search Bar */
   .search-container { margin-bottom: 40px; position: relative;}
-  .search-input { width: 100%; padding: 14px 15px 14px 40px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; font-family: inherit; transition: 0.3s; background: white;}
-  .search-input:focus { border-color: #0A2342; outline: none; box-shadow: 0 0 0 3px rgba(10, 35, 66, 0.1); }
-  .search-icon { position: absolute; left: 12px; top: 15px; color: #999; font-size: 1.2rem; }
+  .search-input { 
+    width: 100%; 
+    padding: 15px 20px 15px 45px; 
+    border: 2px solid #e2e8f0; 
+    border-radius: 50px; /* Pill shape */
+    font-size: 1rem; 
+    box-sizing: border-box; 
+    transition: all 0.3s ease; 
+    background: #f8fafc;
+  }
+  .search-input:focus { 
+    background: white;
+    border-color: #3b82f6; 
+    outline: none; 
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); 
+  }
+  .search-icon { position: absolute; left: 18px; top: 16px; color: #94a3b8; font-size: 1.2rem; }
 
-  /* Filter Buttons (Stacked) */
-  .filter-list { display: flex; flex-direction: column; gap: 10px; }
-  .filter-btn { background: #f8fafc; border: 1px solid #e2e8f0; color: #334155; padding: 12px 20px; cursor: pointer; border-radius: 8px; font-weight: bold; transition: all 0.2s; text-align: left; display: flex; justify-content: space-between; align-items: center;}
-  .filter-btn:hover { background: #e2e8f0; }
-  .filter-btn.active { background: #0A2342; border-color: #0A2342; color: white; }
-  .filter-btn.active::after { content: '✓'; color: #D4AF37; }
+  /* Premium Filter Buttons */
+  .filter-list { display: flex; flex-direction: column; gap: 8px; }
+  .filter-btn { 
+    background: transparent; 
+    border: none; 
+    color: #475569; 
+    padding: 12px 20px; 
+    cursor: pointer; 
+    border-radius: 12px; 
+    font-weight: 700; 
+    transition: all 0.2s; 
+    text-align: left; 
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .filter-btn:hover { background: #f1f5f9; color: #0f172a; transform: translateX(5px); }
+  
+  .filter-btn.active { 
+    background: #eff6ff; 
+    color: #2563eb; 
+  }
+  .filter-btn.active::after { 
+    content: '●'; 
+    color: #3b82f6; 
+    font-size: 0.8rem;
+  }
 
   /* --- BLOG GRID (Right Side) --- */
-  .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; align-items: start; }
+  .blog-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+    gap: 30px; 
+    align-items: start; 
+  }
   
   .blog-card { 
     display: flex; flex-direction: column;
-    border: 1px solid #e2e8f0; 
-    border-radius: 12px; 
+    border: 1px solid #f1f5f9; 
+    border-radius: 20px; 
     overflow: hidden; 
-    transition: transform 0.3s, box-shadow 0.3s; 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
     background: white; 
     text-decoration: none !important; 
     color: inherit; 
     height: 100%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
   }
-  .blog-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: #cbd5e1;}
   
-  .blog-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #e2e8f0; }
-  .blog-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1;}
-  .blog-tag { align-self: flex-start; background: #e3f2fd; color: #0A2342; padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; }
-  .blog-title { margin: 0 0 10px 0; color: #0A2342; font-size: 1.25rem; font-weight: 800; line-height: 1.4;}
-  .blog-excerpt { color: #64748b; font-size: 0.95rem; line-height: 1.6; flex-grow: 1; margin: 0 0 20px 0;}
-  .read-more { color: #D4AF37; font-weight: 800; display: inline-flex; align-items: center; gap: 5px; font-size: 0.9rem;}
+  .blog-card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 25px 50px rgba(0,0,0,0.1); 
+    border-color: #cbd5e1;
+  }
+  
+  .card-img-wrapper { overflow: hidden; height: 220px; }
+  .blog-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .blog-card:hover .blog-img { transform: scale(1.08); } /* Image zoom on hover */
+
+  .blog-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1;}
+  
+  .blog-tag { 
+    align-self: flex-start; 
+    background: rgba(59, 130, 246, 0.1); 
+    color: #2563eb; 
+    padding: 6px 14px; 
+    border-radius: 50px; 
+    font-size: 0.75rem; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    margin-bottom: 15px; 
+  }
+  
+  .blog-title { margin: 0 0 15px 0; color: #0f172a; font-size: 1.3rem; font-weight: 900; line-height: 1.4;}
+  .blog-excerpt { color: #64748b; font-size: 1rem; line-height: 1.6; flex-grow: 1; margin: 0 0 25px 0;}
+  
+  .read-more { 
+    color: #f59e0b; /* Amber accent */
+    font-weight: 800; 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 5px; 
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .blog-card:hover .read-more { gap: 10px; color: #d97706;}
 
   /* Empty State */
-  .no-results { grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: #64748b; font-size: 1.2rem; display: none; background: #f8fafc; border-radius: 12px; border: 2px dashed #cbd5e1;}
+  .no-results { 
+    grid-column: 1 / -1; 
+    text-align: center; 
+    padding: 60px 20px; 
+    color: #64748b; 
+    font-size: 1.2rem; 
+    display: none; 
+    background: white; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .blog-layout { grid-template-columns: 1fr; }
     .blog-sidebar { position: static; margin-bottom: 20px; }
     .filter-list { flex-direction: row; flex-wrap: wrap; }
-    .filter-btn { flex: 1 1 calc(50% - 10px); }
+    .filter-btn { flex: 1 1 calc(50% - 10px); justify-content: center;}
   }
   @media (max-width: 500px) {
     .filter-btn { flex: 1 1 100%; }
@@ -78,9 +230,9 @@ permalink: /blog/
   
   <aside class="blog-sidebar">
     <div class="search-container">
-      <h3 class="sidebar-section-title">Search</h3>
+      <h3 class="sidebar-section-title">Search Library</h3>
       <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" class="search-input" placeholder="Search keywords, topics...">
+      <input type="text" id="searchInput" class="search-input" placeholder="Keywords, topics...">
     </div>
 
     <div class="filter-container">
@@ -99,23 +251,27 @@ permalink: /blog/
       
       {% for post in site.posts %}
       <a href="{{ post.url | relative_url }}" class="blog-card" data-category="{{ post.category }}">
-        {% if post.image %}
-        <img src="{{ post.image }}" class="blog-img" alt="{{ post.title }}">
-        {% else %}
-        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" class="blog-img" alt="Blog Image">
-        {% endif %}
+        
+        <div class="card-img-wrapper">
+            {% if post.image %}
+            <img src="{{ post.image }}" class="blog-img" alt="{{ post.title }}">
+            {% else %}
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" class="blog-img" alt="Blog Image">
+            {% endif %}
+        </div>
         
         <div class="blog-content">
           <span class="blog-tag">{{ post.category_label | default: post.category }}</span>
           <h3 class="blog-title">{{ post.title }}</h3>
           <p class="blog-excerpt">{{ post.excerpt | strip_html | truncatewords: 18 }}</p>
-          <span class="read-more">Read Full Article →</span>
+          <span class="read-more">Read Full Article <span style="font-size:1.2em;">→</span></span>
         </div>
       </a>
       {% endfor %}
 
       <div class="no-results" id="noResultsMsg">
-        No articles found matching your criteria. Try adjusting your search!
+        <div style="font-size: 3rem; margin-bottom: 15px;">🕵️‍♂️</div>
+        <strong>No articles found.</strong><br>Try adjusting your search terms or selecting a different category.
       </div>
 
     </div>
