@@ -76,31 +76,30 @@ title: Home
     max-width: 90%;
   }
 
-  .cta-group { display: flex; gap: 15px; flex-wrap: wrap; }
+  .cta-group { display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
 
-  .btn-accent {
-    background: var(--accent);
-    color: #111;
-    padding: 15px 35px;
+  /* Google Login Button Styling */
+  .btn-google {
+    background: white;
+    color: var(--text-dark);
+    padding: 14px 25px;
+    border: 1px solid #e5e7eb;
     border-radius: 8px;
+    font-size: 1rem;
     font-weight: 700;
-    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     transition: all 0.3s;
-    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   }
-  .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); }
-
-  .btn-primary {
-    background: var(--primary);
-    color: white;
-    padding: 15px 35px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  .btn-google:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); 
+    border-color: var(--primary);
   }
-  .btn-primary:hover { background: var(--secondary); transform: translateY(-2px); }
+  .btn-google img { width: 22px; height: 22px; }
 
   .btn-secondary {
     background: white;
@@ -144,34 +143,14 @@ title: Home
   .stat-label { font-size: 1rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
 
   /* --- 3. FEATURE CARDS SECTION --- */
-  .features-section {
-    padding: 100px 20px;
-    background: #fafafa;
-  }
+  .features-section { padding: 100px 20px; background: #fafafa; }
   .section-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
   .section-tag { color: var(--primary); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; }
   .section-title { font-size: 2.5rem; font-weight: 800; margin: 10px 0; color: #111; }
 
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
 
-  .feature-card {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
+  .feature-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.05); transition: transform 0.3s ease; text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%; }
   .feature-card:hover { transform: translateY(-10px); }
 
   .card-image-wrap { height: 200px; overflow: hidden; }
@@ -184,25 +163,10 @@ title: Home
   .card-arrow { color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 5px; margin-top: auto; }
 
   /* --- 4. WHY CHOOSE US (Icon Grid) --- */
-  .why-section {
-    padding: 80px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .icon-grid {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin-top: 50px;
-  }
+  .why-section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; text-align: center; }
+  .icon-grid { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 40px; margin-top: 50px; }
   .icon-box { max-width: 300px; }
-  .icon-circle {
-    width: 70px; height: 70px; background: #DBEAFE; color: var(--primary);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 1.8rem; margin: 0 auto 20px;
-  }
+  .icon-circle { width: 70px; height: 70px; background: #DBEAFE; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 20px; }
   .icon-title { font-weight: 700; font-size: 1.2rem; margin-bottom: 10px; }
   .icon-text { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; }
 
@@ -224,16 +188,22 @@ title: Home
 
 <div class="hero-wrapper">
   <div class="hero-text">
-    <span class="hero-badge">🚀 Admissions 2025 Open</span>
+    <span class="hero-badge">🚀 Platform Access Open</span>
     <h1 class="hero-headline">Build Your Future <br><span>Without Limits.</span></h1>
     <p class="hero-subhead">
-      Your personalized gateway to top-tier universities and global career opportunities. From Grade 9 counseling to PhD research guidance.
+      Your personalized gateway to top-tier universities and global career opportunities. Powered by clinical psychometrics and expert counseling.
     </p>
+    
     <div class="cta-group">
-      <a href="{{ '/assessment/' | relative_url }}" class="btn-accent">Take AI Assessment</a>
-      <a href="{{ '/colleges/' | relative_url }}" class="btn-primary">Browse Colleges</a>
-      <a href="{{ '/visa/' | relative_url }}" class="btn-secondary">Check Visa Info</a>
+      <button class="btn-google" id="googleLoginBtn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo">
+        Access Platform
+      </button>
+      <a href="{{ '/colleges/' | relative_url }}" class="btn-secondary">Browse Colleges</a>
     </div>
+    
+    <p id="statusMsg" style="margin-top: 15px; color: var(--primary); font-weight: bold; font-size: 0.95rem; height: 20px;"></p>
+
   </div>
   <div class="hero-visual">
     <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Students" class="hero-img-main">
@@ -265,15 +235,14 @@ title: Home
   </div>
 
   <div class="cards-grid">
-    
-    <a href="{{ '/assessment/' | relative_url }}" class="feature-card">
+    <a href="#" onclick="document.getElementById('googleLoginBtn').click(); return false;" class="feature-card">
       <div class="card-image-wrap">
         <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="AI Career Assessment">
       </div>
       <div class="card-content">
         <h3 class="card-title">AI Career Assessment</h3>
         <p class="card-desc">Not sure which path to take? Take our AI-driven capability analysis to discover your ideal courses and get personalized college matches instantly.</p>
-        <div class="card-arrow">Start Assessment ➔</div>
+        <div class="card-arrow">Sign In to Start ➔</div>
       </div>
     </a>
 
@@ -298,31 +267,108 @@ title: Home
         <div class="card-arrow">Check Requirements ➔</div>
       </div>
     </a>
-    
   </div>
 </div>
 
 <div class="why-section">
   <h2 class="section-title">Why VidyaVantage?</h2>
   <div class="icon-grid">
-    
     <div class="icon-box">
       <div class="icon-circle">🎓</div>
       <h3 class="icon-title">Expert Counseling</h3>
       <p class="icon-text">Founded by a School Counselor dedicated to bridging the information gap for students.</p>
     </div>
-
     <div class="icon-box">
       <div class="icon-circle">📊</div>
       <h3 class="icon-title">Accurate Data</h3>
       <p class="icon-text">Up-to-date 2025 fee structures and admission cutoffs sourced directly from institutions.</p>
     </div>
-
     <div class="icon-box">
       <div class="icon-circle">🌍</div>
       <h3 class="icon-title">Global Reach</h3>
       <p class="icon-text">From local Bangalore colleges to Ivy League universities, we cover it all.</p>
     </div>
-
   </div>
 </div>
+
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+    // ⚠️ YOUR EXACT FIREBASE CONFIG
+    const firebaseConfig = {
+      apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
+      authDomain: "career-intelligence-system.firebaseapp.com",
+      projectId: "career-intelligence-system",
+      storageBucket: "career-intelligence-system.firebasestorage.app",
+      messagingSenderId: "223785446772",
+      appId: "1:223785446772:web:0f9ded4e89a978fc551021",
+      measurementId: "G-HGKJJN9KDF"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    // ⚠️ REPLACE THIS WITH YOUR ACTUAL GMAIL ADDRESS FOR MASTER ADMIN ACCESS
+    const SUPER_ADMIN_EMAIL = "your.email@gmail.com"; 
+
+    document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+        const status = document.getElementById('statusMsg');
+        const btn = document.getElementById('googleLoginBtn');
+        
+        status.innerText = "Authenticating securely... ⏳";
+        btn.style.opacity = "0.7";
+        btn.style.pointerEvents = "none";
+        
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            const email = user.email.toLowerCase();
+            
+            // ROUTE 1: SUPER ADMIN
+            if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
+                status.innerText = "Welcome back! Routing to Master Control Center...";
+                setTimeout(() => window.location.href = "admin.html", 1000);
+                return;
+            }
+
+            // ROUTE 2: CHECK VIP PERMISSIONS LIST (School Admins & Counsellors)
+            const permsRef = doc(db, "permissions", email);
+            const permsSnap = await getDoc(permsRef);
+
+            if (permsSnap.exists()) {
+                const role = permsSnap.data().role;
+                status.innerText = `Authorized as ${role.replace('_', ' ')}. Connecting...`;
+                
+                setTimeout(() => {
+                    if (role === "school_admin") window.location.href = "school_dashboard.html";
+                    else if (role === "counsellor") window.location.href = "counsellor_dashboard.html";
+                }, 1000);
+                return;
+            }
+
+            // ROUTE 3: CHECK IF EXISTING STUDENT
+            const studentRef = doc(db, "students", user.uid);
+            const studentSnap = await getDoc(studentRef);
+
+            if (studentSnap.exists()) {
+                status.innerText = "Welcome back! Opening Student Portal...";
+                setTimeout(() => window.location.href = "student_portal.html", 1000);
+            } else {
+                // ROUTE 4: BRAND NEW STUDENT - SEND TO ONBOARDING
+                status.innerText = "New profile detected! Let's get you registered...";
+                setTimeout(() => window.location.href = "register.html", 1500);
+            }
+
+        } catch (error) {
+            console.error("Login Error:", error);
+            status.innerText = "Authentication failed. Please try again.";
+            btn.style.opacity = "1";
+            btn.style.pointerEvents = "auto";
+        }
+    });
+</script>
