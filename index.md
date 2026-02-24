@@ -400,7 +400,7 @@ title: Home
     const provider = new GoogleAuthProvider();
 
     // ⚠️ REPLACE THIS WITH YOUR ACTUAL GMAIL ADDRESS FOR MASTER ADMIN ACCESS
-    const SUPER_ADMIN_EMAIL = "your.email@gmail.com"; 
+    const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
 
     // Target ALL elements with the class 'googleLoginTrigger'
     const loginButtons = document.querySelectorAll('.googleLoginTrigger');
