@@ -120,18 +120,6 @@ title: Home
   @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 </style>
 
-<header class="site-header">
-  <a href="/" class="site-logo">
-    Vidya<span>Vantage</span>
-  </a>
-  <nav class="site-nav">
-    <a href="/">Home</a>
-    <a href="{{ '/colleges/' | relative_url }}">Colleges</a>
-    <a href="{{ '/visa/' | relative_url }}">Visa Guide</a>
-    <a href="{{ '/blog/' | relative_url }}">Blogs & Research</a>
-  </nav>
-</header>
-
 <div class="hero-wrapper">
   <div class="hero-text">
     <span class="hero-badge">🚀 Platform Access Open</span>
