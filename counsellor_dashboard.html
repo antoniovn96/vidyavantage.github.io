@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Counsellor Dashboard | Case Management</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
       :root {
         --bg: #0f172a; --sidebar: #1e1b4b; --card-bg: #1e293b; 
@@ -84,10 +85,46 @@
       .case-info { flex: 1; }
       .case-time { font-size: 0.8rem; color: var(--secondary); font-weight: bold; }
 
+      /* MODAL UI & UPLOADS */
+      .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+      .modal-content { background: var(--card-bg); width: 700px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: fadeIn 0.3s ease;}
+      
+      .avatar-wrapper { position: relative; width: 100px; height: 100px; margin-bottom: 15px; cursor: pointer; }
+      .prof-avatar { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--primary); object-fit: cover; background: #0f172a; transition: 0.3s;}
+      .avatar-wrapper:hover .prof-avatar { opacity: 0.7; }
+      .avatar-wrapper::after { content: '📷'; position: absolute; bottom: 0; right: 0; background: var(--primary); border-radius: 50%; padding: 6px; font-size: 14px; border: 2px solid var(--sidebar); pointer-events: none;}
+
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
+
+<div class="modal-overlay" id="studentModal">
+    <div class="modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+            <div>
+                <h2 id="modalStuName" style="margin: 0 0 5px 0; color: white;">Student Name</h2>
+                <span id="modalStuEmail" style="color: var(--text-muted); font-size: 0.9rem;">student@email.com</span>
+            </div>
+            <button onclick="closeStudentModal()" style="background:transparent; border:none; color:var(--text-muted); font-size:1.8rem; cursor:pointer;">&times;</button>
+        </div>
+        
+        <div class="grid-2col">
+            <div class="card" style="margin-bottom:0; background:rgba(0,0,0,0.2);">
+                <h3 style="font-size:1rem;">Academic Details</h3>
+                <p style="margin: 5px 0; color:var(--text-muted);">Grade: <strong id="modalStuGrade" style="color:white;">--</strong></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">Assessment: <strong id="modalStuStatus" style="color:white;">--</strong></p>
+            </div>
+            <div class="card" style="margin-bottom:0; border-top: 4px solid var(--accent); background:rgba(0,0,0,0.2);">
+                <h3 style="font-size:1rem;">Psychometric Snapshot</h3>
+                <p style="margin: 5px 0; color:var(--text-muted);">Clarity Score: <strong style="color:var(--warning);">4 / 10</strong></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">Top Traits: <strong style="color:white;">Investigative, Social</strong></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">System Flag: <span class="badge badge-warning">Stream Ambiguity</span></p>
+            </div>
+        </div>
+        <button class="btn" style="width:100%; margin-top:20px;" onclick="closeStudentModal()">Close File</button>
+    </div>
+</div>
 
 <div class="sidebar">
     <div class="brand">
@@ -100,7 +137,7 @@
     <button class="nav-btn" onclick="switchTab('tab-interventions', this)">🚨 Interventions</button>
     <button class="nav-btn" onclick="switchTab('tab-resources', this)">📚 Resources</button>
     <div style="border-top: 1px solid var(--border); margin: 15px 20px;"></div>
-    <button class="nav-btn" onclick="switchTab('tab-profile', this)">⚙️ My Settings</button>
+    <button class="nav-btn" onclick="switchTab('tab-profile', this)">⚙️ My Profile</button>
 </div>
 
 <div class="main-wrapper">
@@ -117,7 +154,7 @@
                         <strong id="dropName" style="color:white; display:block;">Counselor Name</strong>
                         <span id="dropEmail" style="font-size:0.8rem; color:var(--text-muted);">email@gmail.com</span>
                     </div>
-                    <a href="#" onclick="switchTab('tab-profile', document.querySelectorAll('.nav-btn')[5]); toggleDropdown();">⚙️ My Settings</a>
+                    <a href="#" onclick="switchTab('tab-profile', document.querySelectorAll('.nav-btn')[5]); toggleDropdown();">⚙️ My Profile</a>
                     <a href="#" style="color:var(--danger);" onclick="logoutUser()">🚪 Secure Logout</a>
                 </div>
             </div>
@@ -212,18 +249,44 @@
         </div>
 
         <div id="tab-sessions" class="tab-content">
-            <div class="header-bar"><h1>Session Management</h1><p>Control your calendar and log session notes.</p></div>
+            <div class="header-bar"><h1>Session & Calendar Manager</h1><p>Set your availability for student bookings and log clinical notes.</p></div>
             <div class="grid-2col">
-                <div class="card">
-                    <h3>Upcoming Calendar</h3>
-                    <p style="color:var(--text-muted); text-align:center; padding:40px;">Calendar integration coming soon. Use Overview tab for today's queue.</p>
+                
+                <div class="card" style="border-top: 4px solid var(--secondary);">
+                    <h3>Set Booking Availability</h3>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:-5px;">This will be displayed to students on their portal.</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Available Days</label>
+                        <input type="text" class="form-input" placeholder="e.g. Mon, Wed, Fri" value="Mon, Wed, Fri">
+                    </div>
+                    <div class="grid-2col" style="gap:15px;">
+                        <div class="form-group">
+                            <label class="form-label">Start Time</label>
+                            <input type="time" class="form-input" value="14:00">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Time</label>
+                            <input type="time" class="form-input" value="18:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Meeting Mode</label>
+                        <select class="form-select">
+                            <option>Online (Google Meet/Zoom)</option>
+                            <option>In-Person (School Campus)</option>
+                            <option>Hybrid (Both options available)</option>
+                        </select>
+                    </div>
+                    <button class="btn" style="width: 100%;">Update Calendar</button>
                 </div>
+
                 <div class="card" style="border-top: 4px solid var(--primary);">
                     <h3>Log Session Notes</h3>
                     <div class="form-group"><label class="form-label">Select Student</label><select class="form-select"><option>Aryan Sharma</option><option>Priya Kaur</option></select></div>
                     <div class="form-group"><label class="form-label">Session Summary & Observations</label><textarea class="form-textarea" rows="4" placeholder="Confidential clinical notes..."></textarea></div>
                     <div class="form-group"><label class="form-label">Next Action Plan</label><input type="text" class="form-input" placeholder="e.g. Needs to research Design colleges."></div>
-                    <button class="btn" style="width: 100%;">Save to Case File</button>
+                    <button class="btn btn-outline" style="width: 100%;">Save to Case File</button>
                 </div>
             </div>
         </div>
@@ -243,30 +306,70 @@
         </div>
 
         <div id="tab-resources" class="tab-content">
-            <div class="header-bar"><h1>Resource Library</h1><p>Shareable guides and career materials for students.</p></div>
-            <div class="card">
-                <h3>Send Resource to Student</h3>
-                <div style="display:flex; gap:15px; margin-bottom: 20px;">
-                    <select class="form-select" style="flex:1;"><option>Guide: Understanding RIASEC</option><option>Worksheet: Stream Selection</option><option>Template: Building a Resume</option></select>
-                    <select class="form-select" style="flex:1;"><option>Select Student...</option><option>All Grade 10 Students</option></select>
+            <div class="header-bar"><h1>Resource Library</h1><p>Upload and dispatch career materials for students.</p></div>
+            
+            <div class="grid-2col">
+                <div class="card" style="border-top: 4px solid var(--primary);">
+                    <h3>📤 Upload New Resource</h3>
+                    <div class="form-group">
+                        <label class="form-label">Resource Title / Course Name</label>
+                        <input type="text" class="form-input" placeholder="e.g. 2026 Design Portfolio Guide">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">File or PDF</label>
+                        <input type="file" class="form-input" style="padding: 9px; background: rgba(0,0,0,0.2); border: 1px dashed var(--border);">
+                    </div>
+                    <button class="btn" style="width: 100%;">Upload to Library</button>
                 </div>
-                <button class="btn">Dispatch to Portal</button>
+
+                <div class="card">
+                    <h3>Dispatch Resource to Student</h3>
+                    <div class="form-group">
+                        <label class="form-label">Select Resource</label>
+                        <select class="form-select"><option>Guide: Understanding RIASEC</option><option>Worksheet: Stream Selection</option><option>Template: Building a Resume</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Select Target</label>
+                        <select class="form-select"><option>Select Student...</option><option>All Grade 10 Students</option></select>
+                    </div>
+                    <button class="btn btn-outline" style="width:100%;">Send to Student Portal</button>
+                </div>
             </div>
         </div>
 
         <div id="tab-profile" class="tab-content">
-            <div class="header-bar"><h1>My Counsellor Profile</h1><p>Update your public details and availability.</p></div>
+            <div class="header-bar"><h1>My Counsellor Profile</h1><p>Customize your public-facing clinical profile.</p></div>
+            
             <div class="card">
-                <div class="grid-2col">
-                    <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="profName" class="form-input" readonly style="background:rgba(0,0,0,0.2);"></div>
-                    <div class="form-group"><label class="form-label">Registered Email</label><input type="text" id="profEmail" class="form-input" readonly style="background:rgba(0,0,0,0.2);"></div>
+                <div class="grid-3-1">
+                    <div>
+                        <div class="grid-2col" style="gap:15px;">
+                            <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="profName" class="form-input"></div>
+                            <div class="form-group"><label class="form-label">Registered Email</label><input type="text" id="profEmail" class="form-input" readonly style="background:rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <div class="grid-2col" style="gap:15px;">
+                            <div class="form-group"><label class="form-label">Designation / Credentials</label><input type="text" id="profTitle" class="form-input" placeholder="e.g. MSW, Certified Career Analyst"></div>
+                            <div class="form-group"><label class="form-label">LinkedIn Profile URL</label><input type="url" id="profLinkedIn" class="form-input" placeholder="https://linkedin.com/in/..."></div>
+                        </div>
+                        <div class="form-group"><label class="form-label">Professional Bio</label><textarea id="profBio" class="form-textarea" rows="4" placeholder="Share your experience and clinical approach..."></textarea></div>
+                    </div>
+                    
+                    <div style="text-align:center; border-left: 1px solid var(--border); padding-left: 20px;">
+                        <h4 style="margin-top:0; color:var(--text-muted); font-size:0.85rem; text-transform:uppercase;">Profile Picture</h4>
+                        <div class="avatar-wrapper" onclick="document.getElementById('photoUpload').click()" title="Click to change photo">
+                            <img src="https://via.placeholder.com/150" id="profAvatar" class="prof-avatar">
+                        </div>
+                        <input type="file" id="photoUpload" style="display: none;" accept="image/png, image/jpeg">
+                        <p style="font-size:0.75rem; color:var(--text-muted);">Click image to upload. Recommended 500x500px.</p>
+                        
+                        <div class="form-group" style="margin-top:20px; text-align:left;">
+                            <label class="form-label">Instagram URL</label>
+                            <input type="url" id="profInsta" class="form-input" placeholder="Optional">
+                        </div>
+                    </div>
                 </div>
-                <div class="grid-2col">
-                    <div class="form-group"><label class="form-label">Specialization / Designation</label><input type="text" class="form-input" placeholder="e.g. Clinical Career Psychologist"></div>
-                    <div class="form-group"><label class="form-label">Session Booking Link (Calendly/Meet)</label><input type="url" class="form-input" placeholder="https://calendly.com/..."></div>
-                </div>
-                <div class="form-group"><label class="form-label">Professional Bio</label><textarea class="form-textarea" rows="3"></textarea></div>
-                <button class="btn">Save Profile Updates</button>
+
+                <button class="btn" style="margin-top:20px;" onclick="saveCounsellorProfile()">💾 Save & Publish Profile</button>
             </div>
         </div>
 
@@ -275,10 +378,10 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-    // ⚠️ REPLACE WITH YOUR ACTUAL CONFIG
+    // ⚠️ USE YOUR REAL FIREBASE KEYS HERE
     const firebaseConfig = {
       apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
       authDomain: "career-intelligence-system.firebaseapp.com",
@@ -292,12 +395,15 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
+    
+    let activeUserEmail = "";
+    window.globalStudentData = {}; // Stores student data for the Modal
 
     // Set Date
     const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
     document.getElementById('currentDateDisplay').innerText = new Date().toLocaleDateString('en-US', options);
 
-    // --- TAB NAVIGATION LOGIC ---
+    // --- TAB NAVIGATION ---
     window.switchTab = function(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -310,6 +416,70 @@
     window.onclick = function(event) { if (!event.target.matches('.avatar-btn')) { document.getElementById("profileDropdownBtn").classList.remove("active"); } }
     window.logoutUser = function() { signOut(auth).then(() => { window.location.href = "index.html"; }); }
 
+    // --- MODAL LOGIC ---
+    window.openStudentModal = function(uid) {
+        const student = window.globalStudentData[uid];
+        if(!student) return;
+        
+        document.getElementById('modalStuName').innerText = student.name;
+        document.getElementById('modalStuEmail').innerText = student.email;
+        document.getElementById('modalStuGrade').innerText = student.grade || "N/A";
+        document.getElementById('modalStuStatus').innerHTML = student.assessmentCompleted ? '<span style="color:var(--success);">Completed</span>' : '<span style="color:var(--warning);">Pending</span>';
+        
+        document.getElementById('studentModal').style.display = 'flex';
+    }
+    window.closeStudentModal = function() { document.getElementById('studentModal').style.display = 'none'; }
+
+    // --- PROFILE IMAGE UPLOAD LOGIC ---
+    let profileImageBase64 = "";
+    document.getElementById('photoUpload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader(); reader.readAsDataURL(file);
+        reader.onload = function(event) {
+            const img = new Image(); img.src = event.target.result;
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const scaleSize = 250 / img.width; canvas.width = 250; canvas.height = img.height * scaleSize;
+                const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                profileImageBase64 = canvas.toDataURL("image/jpeg", 0.8);
+                document.getElementById('profAvatar').src = profileImageBase64;
+                document.getElementById('topAvatarImg').src = profileImageBase64;
+            }
+        };
+    });
+
+    window.saveCounsellorProfile = async function() {
+        if(!activeUserEmail) return;
+        try {
+            await setDoc(doc(db, "counsellor_profiles", activeUserEmail), {
+                name: document.getElementById('profName').value,
+                title: document.getElementById('profTitle').value,
+                bio: document.getElementById('profBio').value,
+                linkedin: document.getElementById('profLinkedIn').value,
+                instagram: document.getElementById('profInsta').value,
+                photo: profileImageBase64,
+                lastUpdated: new Date().toISOString()
+            }, { merge: true });
+            alert("Profile Saved Successfully!");
+        } catch(e) { console.error(e); alert("Failed to save profile."); }
+    }
+
+    async function loadCounsellorProfile(email) {
+        try {
+            const snap = await getDoc(doc(db, "counsellor_profiles", email));
+            if(snap.exists()) {
+                const data = snap.data();
+                if(data.photo) { document.getElementById('profAvatar').src = data.photo; document.getElementById('topAvatarImg').src = data.photo; profileImageBase64 = data.photo; }
+                if(data.name) document.getElementById('profName').value = data.name;
+                if(data.title) document.getElementById('profTitle').value = data.title;
+                if(data.bio) document.getElementById('profBio').value = data.bio;
+                if(data.linkedin) document.getElementById('profLinkedIn').value = data.linkedin;
+                if(data.instagram) document.getElementById('profInsta').value = data.instagram;
+            }
+        } catch(e) { console.error(e); }
+    }
+
     // --- FIREBASE SECURITY & DATA LOADING ---
     onAuthStateChanged(auth, async (user) => {
         if (!user) {
@@ -317,23 +487,22 @@
             return;
         }
 
-        const email = user.email.toLowerCase();
+        activeUserEmail = user.email.toLowerCase();
 
         try {
-            // Verify Counsellor Status
-            const permsRef = doc(db, "permissions", email);
+            const permsRef = doc(db, "permissions", activeUserEmail);
             const permsSnap = await getDoc(permsRef);
 
             if (permsSnap.exists() && (permsSnap.data().role === "counsellor" || permsSnap.data().role === "school_admin")) {
                 
-                // Populate Profile
+                // Populate Profile Headers
                 document.getElementById('dropEmail').innerText = user.email;
                 document.getElementById('profEmail').value = user.email;
                 const name = user.displayName || user.email.split('@')[0];
                 document.getElementById('dropName').innerText = name;
                 document.getElementById('profName').value = name;
                 
-                // Load Students Database
+                loadCounsellorProfile(activeUserEmail);
                 loadAssignedStudents();
 
             } else {
@@ -352,6 +521,7 @@
             const snap = await getDocs(collection(db, "students"));
             let studentCount = 0;
             tbody.innerHTML = "";
+            window.globalStudentData = {}; 
 
             if (snap.empty) {
                 tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No students registered yet.</td></tr>";
@@ -361,8 +531,8 @@
             snap.forEach(docSnap => {
                 const data = docSnap.data();
                 studentCount++;
+                window.globalStudentData[docSnap.id] = data; // Save to global object for Modal
 
-                // Mock Risk Logic based on Assessment Status
                 let riskBadge = '<span class="badge badge-success">Stable</span>';
                 if(!data.assessmentCompleted) riskBadge = '<span class="badge badge-warning">Needs Assmnt</span>';
                 
@@ -372,7 +542,7 @@
                     <td>Grade ${data.grade || 'N/A'}</td>
                     <td>${data.assessmentCompleted ? '<span style="color:var(--success);">Complete</span>' : '<span style="color:var(--text-muted);">Pending</span>'}</td>
                     <td>${riskBadge}</td>
-                    <td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;">View File</button></td>
+                    <td><button class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="openStudentModal('${docSnap.id}')">View File</button></td>
                 </tr>`;
             });
 
