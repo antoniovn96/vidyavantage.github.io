@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Counsellor Dashboard | Case Management</title>
+    <style>
+      :root {
+        --bg: #0f172a; --sidebar: #1e1b4b; --card-bg: #1e293b; 
+        --primary: #8b5cf6; --secondary: #06b6d4; --accent: #f43f5e;
+        --text-main: #f8fafc; --text-muted: #94a3b8; --border: #334155;
+        --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
+      }
+      body { background-color: var(--bg); font-family: 'Nunito', sans-serif; color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+      
+      /* SIDEBAR */
+      .sidebar { width: 280px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px 0; }
+      .brand { padding: 0 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
+      .brand h2 { margin: 0; font-size: 1.4rem; background: -webkit-linear-gradient(45deg, var(--secondary), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+      
+      /* NAV */
+      .nav-btn { background: transparent; color: var(--text-muted); border: none; text-align: left; padding: 15px 25px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s; border-left: 4px solid transparent; width: 100%; display: flex; align-items: center; gap: 10px; }
+      .nav-btn.active { background: rgba(139, 92, 246, 0.1); color: var(--primary); border-left-color: var(--primary); }
+
+      /* MAIN CONTENT */
+      .main-content { flex: 1; padding: 30px 40px; overflow-y: auto; }
+      .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+      
+      .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+      .card { background: var(--card-bg); padding: 20px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 25px; }
+      .card h3 { margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; display: flex; justify-content: space-between; }
+
+      /* CASE LIST STYLING */
+      .case-item { display: flex; align-items: center; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 12px; margin-bottom: 12px; border: 1px solid transparent; transition: 0.2s; }
+      .case-item:hover { border-color: var(--primary); transform: translateX(5px); }
+      .case-status { width: 12px; height: 12px; border-radius: 50%; margin-right: 15px; }
+      .case-info { flex: 1; }
+      .case-time { font-size: 0.8rem; color: var(--secondary); font-weight: bold; }
+      
+      /* PRIORITY TAGS */
+      .tag { font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
+      .tag-high { background: rgba(244, 63, 94, 0.2); color: var(--danger); }
+      .tag-mod { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+
+      .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; cursor: pointer; border: none; background: var(--primary); color: white; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="brand">
+        <h2>Career Intel</h2>
+        <span style="color:var(--text-muted); padding-left:20px; font-size:0.75rem;">COUNSELLOR PORTAL</span>
+    </div>
+    <button class="nav-btn active">📅 Today's Queue</button>
+    <button class="nav-btn">📂 Case Files</button>
+    <button class="nav-btn">🚩 High-Risk Watchlist</button>
+    <button class="nav-btn">📝 Session Templates</button>
+</div>
+
+<div class="main-content">
+    <div class="header-bar">
+        <div>
+            <h1>Counselor Overview</h1>
+            <p style="color:var(--text-muted);">Tuesday, Feb 24, 2026</p>
+        </div>
+        <div style="text-align:right;">
+            <strong style="color:var(--success);">4 Sessions Remaining</strong><br>
+            <span style="font-size:0.8rem; color:var(--text-muted);">2 High-Priority Cases</span>
+        </div>
+    </div>
+
+    <div class="grid-3-1">
+        <div>
+            <div class="card">
+                <h3>Today's Appointment Queue <span>6 Total</span></h3>
+                
+                <div class="case-item">
+                    <div class="case-status" style="background:var(--danger);"></div>
+                    <div class="case-info">
+                        <span class="case-time">10:30 AM</span>
+                        <div style="font-weight:bold;">Aryan Sharma <span class="tag tag-high">Parental Pressure</span></div>
+                        <div style="font-size:0.8rem; color:var(--text-muted);">The Knowledge Habitat • Grade 10</div>
+                    </div>
+                    <button class="btn-sm" onclick="location.href='student_portal.html'">Open File</button>
+                </div>
+
+                <div class="case-item">
+                    <div class="case-status" style="background:var(--warning);"></div>
+                    <div class="case-info">
+                        <span class="case-time">11:45 AM</span>
+                        <div style="font-weight:bold;">Priya Kaur <span class="tag tag-mod">Stream Ambiguity</span></div>
+                        <div style="font-size:0.8rem; color:var(--text-muted);">Sri Sharada Public School • Grade 12</div>
+                    </div>
+                    <button class="btn-sm">Open File</button>
+                </div>
+
+                <div class="case-item">
+                    <div class="case-status" style="background:var(--success);"></div>
+                    <div class="case-info">
+                        <span class="case-time">02:15 PM</span>
+                        <div style="font-weight:bold;">Rahul Das <span class="tag" style="background:rgba(16,185,129,0.1); color:var(--success);">Routine Follow-up</span></div>
+                        <div style="font-size:0.8rem; color:var(--text-muted);">The Knowledge Habitat • Grade 9</div>
+                    </div>
+                    <button class="btn-sm">Open File</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Recent Observations & AI Alerts</h3>
+                <div style="padding:15px; border-radius:10px; background:rgba(139, 92, 246, 0.1); border:1px solid var(--primary); font-size:0.9rem;">
+                    <strong style="color:var(--primary);">AI Insight:</strong> 3 students from <strong>Grade 10-B</strong> have shown a sudden drop in Career Confidence scores this week. Might indicate an upcoming school exam stress or recent parent-teacher meet impact.
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card" style="text-align:center;">
+                <h4>Monthly Impact</h4>
+                <div style="font-size:2.5rem; font-weight:900; color:var(--secondary);">112</div>
+                <p style="font-size:0.8rem; color:var(--text-muted);">Students Counselled</p>
+                <hr style="border:0; border-top:1px solid var(--border); margin:15px 0;">
+                <div style="font-size:1.5rem; font-weight:bold; color:var(--success);">94%</div>
+                <p style="font-size:0.8rem; color:var(--text-muted);">Action Plan Adoption</p>
+            </div>
+
+            <div class="card">
+                <h3>Priority Tasks</h3>
+                <ul style="padding-left:18px; font-size:0.85rem; color:var(--text-muted); line-height:2;">
+                    <li>Finalize Dossier for Aryan S.</li>
+                    <li>Email Parent Invite - Priya K.</li>
+                    <li>Update 12th Grade Science Cohort notes</li>
+                    <li>Review new AI Career Match logic</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+    // ⚠️ USE YOUR REAL FIREBASE KEYS HERE
+    const firebaseConfig = {
+      apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
+      authDomain: "career-intelligence-system.firebaseapp.com",
+      projectId: "career-intelligence-system",
+      storageBucket: "career-intelligence-system.firebasestorage.app",
+      messagingSenderId: "223785446772",
+      appId: "1:223785446772:web:0f9ded4e89a978fc551021",
+      measurementId: "G-HGKJJN9KDF"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // --- THE SECURITY BOUNCER ---
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            // No user logged in? Send back to login page
+            window.location.href = "login.html";
+            return;
+        }
+
+        const email = user.email.toLowerCase();
+        
+        // Check if this email has 'counsellor' permission in Firestore
+        try {
+            const permsRef = doc(db, "permissions", email);
+            const permsSnap = await getDoc(permsRef);
+
+            if (permsSnap.exists()) {
+                const role = permsSnap.data().role;
+                
+                // If they are not a counsellor, kick them out
+                if (role !== "counsellor") {
+                    alert("Unauthorized: You do not have Counsellor clearance.");
+                    window.location.href = "login.html";
+                }
+                // If they ARE a counsellor, the page stays open and works!
+                console.log("Counsellor Authenticated:", email);
+            } else {
+                // Not in the permissions list at all
+                window.location.href = "student_portal.html";
+            }
+        } catch (error) {
+            console.error("Security check failed:", error);
+            window.location.href = "login.html";
+        }
+    });
+
+    // FUTURE: Add function here to load real student data from your 'students' collection
+</script>
+</body>
+</html>
