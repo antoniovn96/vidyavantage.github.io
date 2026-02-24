@@ -8,12 +8,10 @@
       <a href="/vidyavantage.github.io/">Home</a>
       <a href="/vidyavantage.github.io/colleges/">Colleges</a>
       <a href="/vidyavantage.github.io/visa">Visa Services</a>
-      
-      <a href="/vidyavantage.github.io/blog/">Blog & Research</a>
-      
+      <a href="/vidyavantage.github.io/blog/">Blogs & Research</a>
       <a href="https://github.com/antoniovn96" target="_blank" class="contact-link">Contact Me</a>
       
-      <a href="/vidyavantage.github.io/" class="btn-login">Portal Login</a>
+      <button id="globalLoginBtn" class="btn-login" style="border:none; cursor:pointer; font-family:inherit;">Portal Login</button>
     </nav>
     
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
@@ -66,9 +64,9 @@
       text-align: center;
     }
     .site-nav.active { display: flex; }
-    .site-nav a { padding: 10px 0; width: 100%; }
+    .site-nav a, .btn-login { padding: 10px 0; width: 100%; }
     .contact-link { border-right: none; padding-right: 0; border-bottom: 2px solid #e2e8f0; margin-bottom: 10px; padding-bottom: 15px; }
-    .btn-login { width: 80%; margin: 10px auto 0; }
+    .btn-login { width: 80%; margin: 10px auto 0; padding: 12px; }
     .menu-toggle { display: block; }
   }
 </style>
@@ -77,4 +75,73 @@
   function toggleMenu() {
     document.querySelector('.site-nav').classList.toggle('active');
   }
+</script>
+
+<script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    // ⚠️ YOUR EXACT FIREBASE CONFIG
+    const firebaseConfig = {
+      apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
+      authDomain: "career-intelligence-system.firebaseapp.com",
+      projectId: "career-intelligence-system",
+      storageBucket: "career-intelligence-system.firebasestorage.app",
+      messagingSenderId: "223785446772",
+      appId: "1:223785446772:web:0f9ded4e89a978fc551021",
+      measurementId: "G-HGKJJN9KDF"
+    };
+
+    // Initialize Firebase safely (prevents errors if initialized multiple times across Jekyll includes)
+    const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // 🚨 YOUR MASTER ADMIN EMAIL
+    const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
+
+    const loginBtn = document.getElementById('globalLoginBtn');
+    
+    if(loginBtn) {
+        loginBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            
+            // 1. If NOT logged in, send them to the homepage to see the Auth Box
+            if (!user) {
+                window.location.href = "/vidyavantage.github.io/";
+                return;
+            }
+
+            // 2. If LOGGED IN, check their identity and teleport them
+            loginBtn.innerText = "Routing... ⏳";
+            const email = user.email.toLowerCase();
+            
+            try {
+                // Route Super Admin
+                if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
+                    window.location.href = "/vidyavantage.github.io/admin.html";
+                    return;
+                }
+
+                // Route VIPs (School Admin / Counsellor)
+                const permsSnap = await getDoc(doc(db, "permissions", email));
+                if (permsSnap.exists()) {
+                    const role = permsSnap.data().role;
+                    if (role === "school_admin") window.location.href = "/vidyavantage.github.io/school_dashboard.html";
+                    else if (role === "counsellor") window.location.href = "/vidyavantage.github.io/counsellor_dashboard.html";
+                    return;
+                }
+
+                // Route Students
+                window.location.href = "/vidyavantage.github.io/student_portal.html";
+
+            } catch (error) {
+                console.error("Global Routing Error:", error);
+                loginBtn.innerText = "Portal Login";
+                alert("Error connecting to server. Please try again.");
+            }
+        });
+    }
 </script>
