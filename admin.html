@@ -89,6 +89,9 @@
       .list-item { padding: 12px 0; border-bottom: 1px dashed var(--border); display: flex; justify-content: space-between; align-items: center;}
       .list-item:last-child { border: none; }
 
+      .school-link { color: white; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.3); text-underline-offset: 4px; cursor: pointer; transition: 0.2s;}
+      .school-link:hover { color: var(--secondary); text-decoration-color: var(--secondary); }
+
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -98,7 +101,7 @@
     <div class="brand"><h2>Career Intel</h2></div>
     <button class="nav-btn active" onclick="switchTab('tab-overview', this)">🏠 Overview Dashboard</button>
     <button class="nav-btn" onclick="switchTab('tab-institutions', this)">🏫 Institution Control</button>
-    <button class="nav-btn" onclick="switchTab('tab-students', this)">🎓 Student Master</button>
+    <button class="nav-btn" id="nav-btn-students" onclick="switchTab('tab-students', this)">🎓 Student Master</button>
     <button class="nav-btn" onclick="switchTab('tab-analytics', this)">📊 Analytics & Intel</button>
     <button class="nav-btn" onclick="switchTab('tab-revenue', this)">💰 Revenue & Subs</button>
     <button class="nav-btn" onclick="switchTab('tab-counselling', this)">🧠 Counselling Control</button>
@@ -508,7 +511,7 @@
             await setDoc(doc(db, "system_settings", "superadmin_profile"), {
                 photo: uploadedImageBase64, name: document.getElementById('editName').value, title: document.getElementById('editTitle').value, bio: document.getElementById('editBio').value, lastUpdated: new Date().toISOString()
             }, { merge: true });
-            if (!isJustPhoto) { loadProfile(); alert("Profile Updated Successfully!"); }
+            if (!isJustPhoto) { alert("Profile updated!"); loadProfile(); }
         } catch (e) { console.error(e); } 
         finally { if (!isJustPhoto) btn.innerText = "💾 Save Public Profile"; }
     }
@@ -549,8 +552,10 @@
             const body = encodeURIComponent(`Hello,\n\nYour institution (${name}) has been onboarded to the Career Intel platform.\n\nHere are your secure dashboard login credentials:\nLogin Portal: https://antoniovn96.github.io/vidyavantage.github.io/\nEmail: ${adminEmail}\nPassword: ${generatedPassword}\n\nIMPORTANT: Your Student Registration Code is: ${generatedAccessCode}\n(Please share this exact code with your students so they can join your cohort).\n\nBest regards,\nCareer Intel Team`);
             window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
 
-            document.getElementById('instName').value = ""; document.getElementById('instType').value = "CBSE";
-            document.getElementById('instLocation').value = ""; document.getElementById('instEmail').value = "";
+            document.getElementById('instName').value = ""; 
+            document.getElementById('instType').value = "CBSE";
+            document.getElementById('instLocation').value = ""; 
+            document.getElementById('instEmail').value = "";
             loadInstitutions(); 
         } 
         catch(e) { console.error(e); alert("Failed to add institution. " + e.message); } 
@@ -579,7 +584,7 @@
                 tbody.innerHTML += `<tr>
                     <td style="font-family:monospace; color:var(--text-muted);">${docSnap.id.substring(0,6)}...</td>
                     <td>
-                        <strong style="color:white;">${data.name}</strong><br>
+                        <strong class="school-link" onclick="filterStudentsBySchool('${docSnap.id}')" title="Click to view students">${data.name}</strong><br>
                         <span style="font-size:0.7rem; color:var(--text-muted); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; background: rgba(255,255,255,0.05);">${data.type || 'School'}</span>
                     </td>
                     <td><span class="badge badge-gen">Basic</span><br><span style="font-size:0.75rem; color:var(--text-muted);">Dec 2026</span></td>
@@ -603,6 +608,12 @@
     }
 
     // --- STUDENT CONTROL LOGIC ---
+    window.filterStudentsBySchool = function(schoolId) {
+        switchTab('tab-students', document.getElementById('nav-btn-students'));
+        document.getElementById('studentFilter').value = schoolId;
+        loadAllStudents();
+    };
+
     window.loadAllStudents = async function() {
         const tbody = document.getElementById('globalStudentTableBody');
         const filterVal = document.getElementById('studentFilter').value;
