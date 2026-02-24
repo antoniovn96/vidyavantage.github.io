@@ -13,7 +13,6 @@
       }
       body { background-color: var(--bg); font-family: 'Nunito', sans-serif; color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
       
-      /* --- SIDEBAR (Clean Navigation) --- */
       .sidebar { width: 260px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding-top: 20px;}
       .brand { padding: 0 20px 30px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px;}
       .brand h2 { margin: 0; font-size: 1.5rem; background: -webkit-linear-gradient(45deg, var(--secondary), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
@@ -22,16 +21,13 @@
       .nav-btn:hover { background: rgba(255,255,255,0.05); color: white; }
       .nav-btn.active { background: rgba(139, 92, 246, 0.1); color: var(--primary); border-left-color: var(--primary); }
 
-      /* --- MAIN LAYOUT & TOP HEADER --- */
       .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
       
       .top-header { background: var(--card-bg); height: 70px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
-      
       .header-actions { display: flex; align-items: center; gap: 20px; }
       .site-link { color: var(--secondary); text-decoration: none; font-weight: bold; padding: 8px 15px; border-radius: 8px; background: rgba(6, 182, 212, 0.1); transition: 0.2s;}
       .site-link:hover { background: rgba(6, 182, 212, 0.2); }
       
-      /* User Profile Dropdown */
       .profile-menu { position: relative; display: inline-block; }
       .avatar-btn { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--primary); cursor: pointer; object-fit: cover; background: #000;}
       .dropdown-content { display: none; position: absolute; right: 0; background-color: var(--card-bg); min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5); z-index: 1; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-top: 10px;}
@@ -39,21 +35,12 @@
       .dropdown-content a:hover { background-color: rgba(255,255,255,0.05); color: var(--primary); }
       .profile-menu.active .dropdown-content { display: block; }
 
-      /* --- WELCOME BANNER (NEW) --- */
-      .welcome-banner {
-          background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.05));
-          border-bottom: 1px solid var(--border);
-          padding: 15px 40px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-      }
+      .welcome-banner { background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.05)); border-bottom: 1px solid var(--border); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
       .quote-container { flex: 1; }
       .quote-text { font-size: 0.95rem; font-style: italic; color: var(--text-main); margin: 0; }
       .quote-text strong { color: var(--primary); font-style: normal;}
       .clock-container { font-family: monospace; font-size: 1.1rem; color: var(--secondary); font-weight: bold; background: rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border);}
 
-      /* --- CONTENT AREA --- */
       .main-content { flex: 1; padding: 30px 40px; overflow-y: auto; position: relative;}
       .header-bar { margin-bottom: 30px; }
       .header-bar h1 { margin: 0 0 5px 0; font-size: 1.8rem; }
@@ -62,7 +49,6 @@
       .tab-content { display: none; animation: fadeIn 0.3s ease; }
       .tab-content.active { display: block; }
       
-      /* UI COMPONENTS */
       .card { background: var(--card-bg); padding: 25px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
       .card h3 { margin-top: 0; color: white; border-bottom: 1px solid var(--border); padding-bottom: 10px; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
       
@@ -84,6 +70,7 @@
       .data-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
       .data-table th, .data-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
       .data-table th { color: var(--text-muted); text-transform: uppercase; font-size: 0.8rem; }
+      .data-table tr:hover { background: rgba(255,255,255,0.02); }
 
       .blog-widget-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
       .blog-widget-item:last-child { border: none; }
@@ -92,6 +79,10 @@
       .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
       .modal-content { background: var(--card-bg); width: 600px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 16px; border: 1px solid var(--border); }
       .modal-content h2 { margin-top: 0; color: white; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 20px; }
+
+      .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+      .badge-gen { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid var(--success);}
+      .badge-school { background: rgba(139, 92, 246, 0.2); color: var(--primary); border: 1px solid var(--primary);}
 
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -102,7 +93,6 @@
     <div class="brand"><h2>Career Intel</h2></div>
     <button class="nav-btn active" onclick="switchTab('tab-dashboard', this)">🏠 Overview</button>
     <button class="nav-btn" onclick="switchTab('tab-institutions', this)">🏢 Master Data (Schools)</button>
-    <button class="nav-btn" onclick="switchTab('tab-analytics', this)">📊 Analytics</button>
     <button class="nav-btn" onclick="switchTab('tab-students', this)">🎓 Student Control</button>
     <button class="nav-btn" onclick="switchTab('tab-access', this)">🔑 Access Control</button>
 </div>
@@ -136,9 +126,7 @@
                 <span id="dailyQuote">"The future depends on what you do today."</span>
             </p>
         </div>
-        <div class="clock-container" id="liveClock">
-            00/00/00, 00:00:00
-        </div>
+        <div class="clock-container" id="liveClock">00/00/00, 00:00:00</div>
     </div>
 
     <div class="main-content">
@@ -151,9 +139,9 @@
             
             <div class="kpi-grid">
                 <div class="kpi-box" style="border-top: 3px solid var(--primary);"><h4>Total Schools</h4><div class="val" id="kpiSchools">0</div></div>
-                <div class="kpi-box" style="border-top: 3px solid var(--success);"><h4>Active Students</h4><div class="val">2,450</div></div>
-                <div class="kpi-box" style="border-top: 3px solid var(--secondary);"><h4>Assessments</h4><div class="val">1,142</div></div>
-                <div class="kpi-box" style="border-top: 3px solid var(--warning);"><h4>High Risk Flags</h4><div class="val">18</div></div>
+                <div class="kpi-box" style="border-top: 3px solid var(--success);"><h4>Active Students</h4><div class="val" id="kpiStudents">0</div></div>
+                <div class="kpi-box" style="border-top: 3px solid var(--secondary);"><h4>Assessments</h4><div class="val">0</div></div>
+                <div class="kpi-box" style="border-top: 3px solid var(--warning);"><h4>High Risk Flags</h4><div class="val">0</div></div>
             </div>
 
             <div class="grid-3col">
@@ -161,7 +149,6 @@
                     <h3>Platform Growth (Assessments)</h3>
                     <canvas id="growthChart" height="100"></canvas>
                 </div>
-
                 <div class="card">
                     <h3>Latest Live Posts <a href="blog.html" style="font-size:0.8rem; color:var(--primary); text-decoration:none;">View All</a></h3>
                     <div id="adminBlogWidget">
@@ -185,36 +172,59 @@
                 <h1>Institution Manager</h1>
                 <p>Register new schools. We will automatically generate their secure codes and email them their login credentials.</p>
             </div>
-
             <div class="grid-2col">
                 <div class="card" style="border-top: 4px solid var(--secondary);">
                     <h3>Onboard New Institution</h3>
-                    <div class="form-group">
-                        <label class="form-label">School / College Name</label>
-                        <input type="text" id="instName" class="form-input" placeholder="e.g., The Knowledge Habitat">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Location (City)</label>
-                        <input type="text" id="instLocation" class="form-input" placeholder="e.g., Jakkur, Bangalore">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">School Admin Email</label>
-                        <input type="email" id="instEmail" class="form-input" placeholder="principal@school.edu">
-                        <small style="color:var(--secondary); display:block; margin-top:5px;">System will auto-create their account, password, and student codes.</small>
-                    </div>
+                    <div class="form-group"><label class="form-label">School / College Name</label><input type="text" id="instName" class="form-input" placeholder="e.g., The Knowledge Habitat"></div>
+                    <div class="form-group"><label class="form-label">Location (City)</label><input type="text" id="instLocation" class="form-input" placeholder="e.g., Jakkur, Bangalore"></div>
+                    <div class="form-group"><label class="form-label">School Admin Email</label><input type="email" id="instEmail" class="form-input" placeholder="principal@school.edu"><small style="color:var(--secondary); display:block; margin-top:5px;">System will auto-create their account, password, and student codes.</small></div>
                     <button class="btn" style="width:100%; margin-top:10px;" id="addInstBtn" onclick="addInstitution()">Add School & Send Details ➔</button>
                 </div>
-
                 <div class="card" style="border-top: 4px solid var(--primary);">
                     <h3>Registered Network</h3>
                     <div style="overflow-y: auto; max-height: 400px;">
                         <table class="data-table">
                             <thead><tr><th>Institution</th><th>Admin Email</th><th>Student Code</th><th>Action</th></tr></thead>
-                            <tbody id="instTableBody">
-                                <tr><td colspan="4" style="text-align:center;">Loading database...</td></tr>
-                            </tbody>
+                            <tbody id="instTableBody"><tr><td colspan="4" style="text-align:center;">Loading database...</td></tr></tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-students" class="tab-content">
+            <div class="header-bar">
+                <h1>Student Control Center</h1>
+                <p>Manage, filter, and delete all user profiles registered on the platform.</p>
+            </div>
+            
+            <div class="card" style="border-top: 4px solid var(--success);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid var(--border);">
+                    <h3 style="border:none; padding:0; margin:0;">Global User Database</h3>
+                    <div style="display:flex; gap:15px; align-items:center;">
+                        <span style="color:var(--text-muted); font-size:0.9rem; font-weight:bold;">Filter View:</span>
+                        <select id="studentFilter" class="form-select" style="width:250px; padding:8px;" onchange="loadAllStudents()">
+                            <option value="ALL">Show All Students</option>
+                            <option value="GENERAL">General Public (No School)</option>
+                            </select>
+                    </div>
+                </div>
+                
+                <div style="overflow-y: auto; max-height: 600px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Email</th>
+                                <th>Institution / Group</th>
+                                <th>Registration Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="globalStudentTableBody">
+                            <tr><td colspan="5" style="text-align:center;">Loading global student records...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -226,10 +236,7 @@
                     <h3>Grant Additional Access</h3>
                     <div class="form-group"><label class="form-label">User Email Address</label><input type="email" id="accEmail" class="form-input" placeholder="counsellor.name@gmail.com"></div>
                     <div class="form-group"><label class="form-label">Assign Role</label>
-                        <select id="accRole" class="form-select">
-                            <option value="school_admin">Institutional Admin</option>
-                            <option value="counsellor">Counsellor (Clinical)</option>
-                        </select>
+                        <select id="accRole" class="form-select"><option value="school_admin">Institutional Admin</option><option value="counsellor">Counsellor (Clinical)</option></select>
                     </div>
                     <div class="form-group"><label class="form-label">Link to Institution</label><select id="accSchool" class="form-select"><option value="ALL">All Institutions</option></select></div>
                     <button class="btn" style="width:100%; margin-top:10px;" id="grantBtn" onclick="grantAccess()">Authorize User</button>
@@ -240,9 +247,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="tab-analytics" class="tab-content"><div class="header-bar"><h1>Advanced Analytics</h1><p>Feature coming in Phase 2.</p></div></div>
-        <div id="tab-students" class="tab-content"><div class="header-bar"><h1>Student Control</h1><p>Search and reset student profiles here.</p></div></div>
 
     </div>
 </div>
@@ -305,25 +309,20 @@
         const hh = String(now.getHours()).padStart(2, '0');
         const min = String(now.getMinutes()).padStart(2, '0');
         const ss = String(now.getSeconds()).padStart(2, '0');
-        
         document.getElementById('liveClock').innerText = `${dd}/${mm}/${yy}, ${hh}:${min}:${ss}`;
     }
-    setInterval(updateClock, 1000);
-    updateClock();
+    setInterval(updateClock, 1000); updateClock();
 
     const quotes = [
         "The future depends on what you do today.",
         "Quality is not an act, it is a habit.",
         "Innovation distinguishes between a leader and a follower.",
         "Don't watch the clock; do what it does. Keep going.",
-        "Your work is going to fill a large part of your life.",
         "Simplicity is the ultimate sophistication.",
         "It always seems impossible until it is done."
     ];
-    // Pick quote based on day of year to ensure it changes daily
     const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
     document.getElementById('dailyQuote').innerText = `"${quotes[dayOfYear % quotes.length]}"`;
-
 
     // --- UI INTERACTIONS ---
     window.switchTab = function(tabId, btn) {
@@ -348,7 +347,6 @@
                 if(data.name) { 
                     document.getElementById('dropName').innerText = data.name; 
                     document.getElementById('editName').value = data.name; 
-                    // Update Welcome Banner
                     document.getElementById('welcomeName').innerText = `Welcome back, ${data.name.split(' ')[0]}. `;
                 }
                 if(data.title) document.getElementById('editTitle').value = data.title;
@@ -390,6 +388,8 @@
     window.closeProfileModal = function() { document.getElementById('profileModal').style.display = 'none'; }
 
     // --- INSTITUTION MANAGER LOGIC ---
+    let schoolDictionary = {}; // Map School IDs to Names for the Student Table
+
     window.addInstitution = async function() {
         const name = document.getElementById('instName').value.trim();
         const location = document.getElementById('instLocation').value.trim();
@@ -423,8 +423,7 @@
             window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
 
             document.getElementById('instName').value = ""; document.getElementById('instLocation').value = ""; document.getElementById('instEmail').value = "";
-            loadInstitutions(); populateAccessSchools(); loadAccessList();
-            
+            loadInstitutions(); 
             alert(`Success! School added. Code: ${generatedAccessCode}. Your email client should now open with their credentials.`);
         } 
         catch(e) { console.error(e); alert("Failed to add institution. " + e.message); } 
@@ -433,30 +432,114 @@
 
     async function loadInstitutions() {
         const tbody = document.getElementById('instTableBody');
+        const filterSelect = document.getElementById('studentFilter');
+        const accSelect = document.getElementById('accSchool');
+        
         try {
             const snap = await getDocs(collection(db, "schools"));
             tbody.innerHTML = snap.empty ? "<tr><td colspan='4' style='text-align:center;'>No institutions found.</td></tr>" : "";
+            
+            // Reset dropdowns
+            filterSelect.innerHTML = '<option value="ALL">Show All Students</option><option value="GENERAL">General Public (No School)</option>';
+            accSelect.innerHTML = '<option value="ALL">All Institutions</option>';
+            schoolDictionary = {};
+
             let count = 0;
             snap.forEach(docSnap => {
                 count++;
                 const data = docSnap.data();
+                schoolDictionary[docSnap.id] = data.name; // Save for student table mapping
+                
                 tbody.innerHTML += `<tr>
                     <td><strong style="color:white;">${data.name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${data.location || ''}</span></td>
                     <td style="color:var(--text-muted);">${data.adminEmail || 'N/A'}</td>
                     <td><span style="background:rgba(245,158,11,0.2); color:var(--warning); padding:4px 8px; border-radius:4px; font-family:monospace; font-weight:bold; letter-spacing:1px;">${data.accessCode}</span></td>
                     <td><button onclick="deleteInstitution('${docSnap.id}')" style="color:var(--danger); background:none; border:none; cursor:pointer;">Delete</button></td>
                 </tr>`;
+
+                // Add to dropdowns
+                filterSelect.innerHTML += `<option value="${docSnap.id}">${data.name}</option>`;
+                accSelect.innerHTML += `<option value="${docSnap.id}">${data.name}</option>`;
             });
             document.getElementById('kpiSchools').innerText = count;
+            loadAllStudents(); // Load students after schools are mapped
         } catch(e) { console.error(e); }
     }
 
     window.deleteInstitution = async function(id) {
         if(!confirm("Are you sure you want to delete this school?")) return;
-        try { await deleteDoc(doc(db, "schools", id)); loadInstitutions(); populateAccessSchools(); } 
+        try { await deleteDoc(doc(db, "schools", id)); loadInstitutions(); } 
         catch(e) { console.error(e); }
     }
 
+    // --- STUDENT CONTROL LOGIC ---
+    window.loadAllStudents = async function() {
+        const tbody = document.getElementById('globalStudentTableBody');
+        const filterVal = document.getElementById('studentFilter').value;
+        
+        try {
+            const snap = await getDocs(collection(db, "students"));
+            let studentCount = 0;
+            tbody.innerHTML = "";
+
+            if (snap.empty) {
+                tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No students registered yet.</td></tr>";
+                document.getElementById('kpiStudents').innerText = 0;
+                return;
+            }
+
+            snap.forEach(docSnap => {
+                const data = docSnap.data();
+                const schoolId = data.schoolId || 'GENERAL';
+                
+                // Filtering Logic
+                if (filterVal !== "ALL" && filterVal !== schoolId) return; // Skip if it doesn't match filter
+                
+                studentCount++;
+                
+                // Formatting data for display
+                const schoolName = schoolId === 'GENERAL' ? 'General Public' : (schoolDictionary[schoolId] || 'Unknown School');
+                const badgeClass = schoolId === 'GENERAL' ? 'badge-gen' : 'badge-school';
+                
+                // Format date safely
+                let dateJoined = "Unknown Date";
+                if(data.joinedAt) {
+                    const d = new Date(data.joinedAt);
+                    dateJoined = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
+                }
+
+                tbody.innerHTML += `<tr>
+                    <td><strong style="color:white;">${data.name}</strong></td>
+                    <td style="color:var(--text-muted); font-size:0.9rem;">${data.email}</td>
+                    <td><span class="badge ${badgeClass}">${schoolName}</span></td>
+                    <td style="color:var(--text-muted); font-size:0.9rem;">${dateJoined}</td>
+                    <td>
+                        <button onclick="deleteStudent('${docSnap.id}', '${data.name}')" style="color:white; background:var(--danger); border:none; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Delete</button>
+                    </td>
+                </tr>`;
+            });
+
+            if(studentCount === 0) tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No students found for this filter.</td></tr>";
+            
+            // Only update total KPI if showing ALL
+            if(filterVal === "ALL") document.getElementById('kpiStudents').innerText = studentCount;
+
+        } catch(e) { console.error("Error loading students:", e); }
+    }
+
+    window.deleteStudent = async function(uid, name) {
+        if(!confirm(`WARNING: Are you sure you want to permanently delete the profile for ${name}? This action cannot be undone.`)) return;
+        try {
+            await deleteDoc(doc(db, "students", uid));
+            alert(`Student ${name} deleted successfully.`);
+            loadAllStudents(); // Refresh table
+        } catch(e) {
+            console.error("Error deleting student:", e);
+            alert("Failed to delete student.");
+        }
+    }
+
+    // --- ACCESS CONTROL LOGIC ---
     window.grantAccess = async function() {
         const email = document.getElementById('accEmail').value.trim().toLowerCase();
         const role = document.getElementById('accRole').value;
@@ -494,15 +577,7 @@
         try { await deleteDoc(doc(db, "permissions", email)); loadAccessList(); } catch(e) {}
     }
 
-    async function populateAccessSchools() {
-        const select = document.getElementById('accSchool');
-        try {
-            const snap = await getDocs(collection(db, "schools"));
-            select.innerHTML = '<option value="ALL">All Institutions</option>';
-            snap.forEach(d => { select.innerHTML += `<option value="${d.id}">${d.data().formattedName}</option>`; });
-        } catch(e) {}
-    }
-
+    // --- CHART.JS GRAPH ---
     function renderChart() {
         const ctx = document.getElementById('growthChart').getContext('2d');
         new Chart(ctx, {
@@ -512,7 +587,11 @@
         });
     }
 
-    loadProfile(); loadInstitutions(); loadAccessList(); populateAccessSchools(); setTimeout(renderChart, 500);
+    // Init
+    loadProfile(); 
+    loadInstitutions(); // this automatically calls loadAllStudents() once the dictionary is built
+    loadAccessList(); 
+    setTimeout(renderChart, 500);
 </script>
 </body>
 </html>
