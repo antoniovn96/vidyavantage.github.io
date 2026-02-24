@@ -142,7 +142,7 @@ title: Home
 
     <div class="auth-box" id="welcomeBoxUI" style="display: none; text-align: center;">
         <div style="font-size: 3rem; margin-bottom: 10px;">👋</div>
-        <h3 style="margin-top:0; color:var(--text-dark);">Welcome Back!</h3>
+        <h3 style="margin-top:0; color:var(--text-dark);">Welcome Back, <span id="welcomeNameDisplay"></span>!</h3>
         <p style="color:var(--text-light); margin-bottom: 25px; line-height: 1.5;">
             You are currently logged in securely as:<br>
             <strong id="loggedInEmailDisplay" style="color:var(--primary); font-size:1.05rem;">...</strong>
@@ -267,6 +267,7 @@ title: Home
     const loginBoxUI = document.getElementById('loginBoxUI');
     const welcomeBoxUI = document.getElementById('welcomeBoxUI');
     const loggedInEmailDisplay = document.getElementById('loggedInEmailDisplay');
+    const welcomeNameDisplay = document.getElementById('welcomeNameDisplay');
     const fastTravelBtn = document.getElementById('fastTravelBtn');
     
     let activeUser = null;
@@ -278,7 +279,12 @@ title: Home
             activeUser = user;
             loginBoxUI.style.display = "none";
             welcomeBoxUI.style.display = "block";
+            
+            // Set user details
             loggedInEmailDisplay.innerText = user.email;
+            const displayName = user.displayName || user.email.split('@')[0];
+            welcomeNameDisplay.innerText = displayName;
+            
         } else {
             // User IS NOT logged in -> Show Login Box
             activeUser = null;
