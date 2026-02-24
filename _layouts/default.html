@@ -6,7 +6,6 @@
     <title>{{ page.title }} | {{ site.title }}</title>
 
     <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
-    
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     
     {% seo %}
@@ -48,7 +47,7 @@
       }
       .nav-links a:hover { color: #D4AF37; }
 
-      /* Special Style for Book Expert Button */
+      /* Contact Expert Button (Outlined) */
       .nav-btn {
         border: 1px solid #D4AF37;
         padding: 8px 15px;
@@ -61,16 +60,33 @@
         color: #0A2342 !important;
       }
 
+      /* Portal Login Button (Solid Gold) */
+      .nav-btn-login {
+        background: #D4AF37;
+        color: #0A2342 !important;
+        border: none;
+        padding: 9px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: all 0.3s;
+        font-family: inherit;
+      }
+      .nav-btn-login:hover {
+        background: white;
+        transform: translateY(-2px);
+      }
+
       /* CONTENT WRAPPER */
       .main-content {
-        flex: 1; /* Pushes footer down */
-        max-width: 100%; /* Changed to 100% to allow Hero sections to be full width */
+        flex: 1; 
+        max-width: 100%; 
         margin: 0;
         padding: 0; 
         width: 100%;
         box-sizing: border-box;
       }
-      /* Add padding container for regular pages if needed, but keep main 100% for index */
 
       /* FOOTER */
       .site-footer {
@@ -111,10 +127,13 @@
       <div class="nav-links">
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/colleges/' | relative_url }}">Colleges</a>
-        
         <a href="{{ '/visa/' | relative_url }}">Global Visas</a>
         
-        <a href="https://github.com/antoniovn96" target="_blank" class="nav-btn">Contact Me</a>
+        <a href="{{ '/blog/' | relative_url }}">Blogs & Research</a>
+        
+        <a href="https://github.com/antoniovn96" target="_blank" class="nav-btn" style="margin-left: 10px;">Contact Me</a>
+        
+        <button id="globalLoginBtn" class="nav-btn-login">Portal Login</button>
       </div>
     </nav>
 
@@ -133,8 +152,8 @@
           <div class="footer-links">
              <a href="{{ '/' | relative_url }}">Home</a>
              <a href="{{ '/colleges/' | relative_url }}">Top Colleges</a>
-             
              <a href="{{ '/visa/' | relative_url }}">Visa Rules</a>
+             <a href="{{ '/blog/' | relative_url }}">Research Blog</a>
           </div>
         </div>
         <div class="footer-col">
@@ -150,5 +169,69 @@
       </div>
     </footer>
 
+    <script type="module">
+        import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // ⚠️ YOUR EXACT FIREBASE CONFIG
+        const firebaseConfig = {
+          apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
+          authDomain: "career-intelligence-system.firebaseapp.com",
+          projectId: "career-intelligence-system",
+          storageBucket: "career-intelligence-system.firebasestorage.app",
+          messagingSenderId: "223785446772",
+          appId: "1:223785446772:web:0f9ded4e89a978fc551021",
+          measurementId: "G-HGKJJN9KDF"
+        };
+
+        // Initialize Firebase safely (prevents errors if it was already initialized on the page)
+        const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // 🚨 YOUR MASTER ADMIN EMAIL
+        const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
+
+        document.getElementById('globalLoginBtn').addEventListener('click', async () => {
+            const user = auth.currentUser;
+            const btn = document.getElementById('globalLoginBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "Routing... ⏳";
+            
+            // 1. If not logged in, send them to the homepage Auth box
+            if (!user) {
+                window.location.href = "index.html";
+                return;
+            }
+
+            const email = user.email.toLowerCase();
+            
+            try {
+                // 2. Route Super Admin
+                if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
+                    window.location.href = "admin.html";
+                    return;
+                }
+
+                // 3. Route VIPs (School Admin / Counsellor)
+                const permsSnap = await getDoc(doc(db, "permissions", email));
+                if (permsSnap.exists()) {
+                    const role = permsSnap.data().role;
+                    if (role === "school_admin") window.location.href = "school_dashboard.html";
+                    else if (role === "counsellor") window.location.href = "counsellor_dashboard.html";
+                    return;
+                }
+
+                // 4. Route Students
+                window.location.href = "student_portal.html";
+
+            } catch (error) {
+                console.error("Global Routing Error:", error);
+                btn.innerText = originalText;
+                alert("Error connecting to server. Please try again.");
+            }
+        });
+    </script>
   </body>
 </html>
