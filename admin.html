@@ -92,10 +92,55 @@
       .school-link { color: white; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.3); text-underline-offset: 4px; cursor: pointer; transition: 0.2s;}
       .school-link:hover { color: var(--secondary); text-decoration-color: var(--secondary); }
 
+      .student-link { color: var(--secondary); cursor: pointer; font-weight: bold; transition: 0.2s; }
+      .student-link:hover { color: var(--primary); text-decoration: underline; }
+
+      /* MODAL UI */
+      .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+      .modal-content { background: var(--card-bg); width: 700px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: fadeIn 0.3s ease;}
+      
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
+
+<div class="modal-overlay" id="studentDossierModal">
+    <div class="modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+            <div>
+                <h2 id="modalStuName" style="margin: 0 0 5px 0; color: white;">Student Name</h2>
+                <span id="modalStuEmail" style="color: var(--text-muted); font-size: 0.9rem;">student@email.com</span>
+            </div>
+            <button onclick="closeStudentModal()" style="background:transparent; border:none; color:var(--text-muted); font-size:1.8rem; cursor:pointer;">&times;</button>
+        </div>
+        
+        <div class="grid-2col">
+            <div class="card" style="margin-bottom:0; background:rgba(0,0,0,0.2);">
+                <h3 style="font-size:1rem;">Academic Details</h3>
+                <p style="margin: 5px 0; color:var(--text-muted);">Institution: <strong id="modalStuInst" style="color:white;">--</strong></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">Grade: <strong id="modalStuGrade" style="color:white;">--</strong></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">Registered: <strong id="modalStuDate" style="color:white;">--</strong></p>
+            </div>
+            <div class="card" style="margin-bottom:0; border-top: 4px solid var(--accent); background:rgba(0,0,0,0.2);">
+                <h3 style="font-size:1rem;">Psychometric Snapshot</h3>
+                <p style="margin: 5px 0; color:var(--text-muted);">Assessment: <strong id="modalStuStatus" style="color:white;">--</strong></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">Clarity Score: <strong style="color:var(--warning);">Pending</strong></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">Risk Level: <span class="badge badge-success" id="modalStuRisk">Stable</span></p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 25px; border-top: 4px solid var(--primary); background:rgba(0,0,0,0.2);">
+            <h3 style="font-size:1rem;">Confidential Counsellor Notes</h3>
+            <div id="modalCounsellorNotes" style="font-size: 0.9rem; color: var(--text-main); line-height: 1.6; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px dashed var(--border);">
+                No clinical notes have been logged for this student yet.
+            </div>
+        </div>
+
+        <div style="display:flex; justify-content: flex-end; gap:10px; margin-top:20px;">
+            <button class="btn btn-outline" onclick="closeStudentModal()">Close Dossier</button>
+        </div>
+    </div>
+</div>
 
 <div class="sidebar">
     <div class="brand"><h2>Career Intel</h2></div>
@@ -224,10 +269,10 @@
                 <div style="overflow-x: auto; max-height: 500px;">
                     <table class="data-table">
                         <thead>
-                            <tr><th>Unique ID</th><th>Student Name</th><th>Inst. / Grade</th><th>Assessment</th><th>Risk Level</th><th>Counselling</th><th>Action</th></tr>
+                            <tr><th>Unique ID</th><th>Student Name</th><th>Inst. / Grade</th><th>Assessment</th><th>Risk Level</th><th>Action</th></tr>
                         </thead>
                         <tbody id="globalStudentTableBody">
-                            <tr><td colspan="7" style="text-align:center;">Loading student records...</td></tr>
+                            <tr><td colspan="6" style="text-align:center;">Loading student records...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -426,6 +471,7 @@
     });
 
     let uploadedImageBase64 = "";
+    window.globalStudentData = {}; // Stores fetched student info for the modal
 
     // --- CLOCK & DAILY QUOTE LOGIC ---
     function updateClock() {
@@ -463,6 +509,40 @@
     window.toggleDropdown = function() { document.getElementById("profileDropdownBtn").classList.toggle("active"); }
     window.onclick = function(event) { if (!event.target.matches('.avatar-btn')) { document.getElementById("profileDropdownBtn").classList.remove("active"); } }
     window.logoutUser = function() { signOut(auth).then(() => { window.location.href = "index.html"; }); }
+
+    // --- MODAL LOGIC (THE DOSSIER) ---
+    window.openStudentModal = function(uid) {
+        const student = window.globalStudentData[uid];
+        if(!student) return;
+        
+        document.getElementById('modalStuName').innerText = student.name;
+        document.getElementById('modalStuEmail').innerText = student.email;
+        document.getElementById('modalStuInst').innerText = student.schoolId === 'GENERAL' ? 'Independent Public' : (schoolDictionary[student.schoolId] || 'Unknown');
+        document.getElementById('modalStuGrade').innerText = student.grade || "N/A";
+        
+        let dateJoined = "Unknown";
+        if(student.joinedAt) {
+            const d = new Date(student.joinedAt);
+            dateJoined = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
+        }
+        document.getElementById('modalStuDate').innerText = dateJoined;
+        
+        document.getElementById('modalStuStatus').innerHTML = student.assessmentCompleted ? '<span style="color:var(--success);">Completed</span>' : '<span style="color:var(--warning);">Pending</span>';
+        document.getElementById('modalStuRisk').innerHTML = student.assessmentCompleted ? 'Stable' : 'Needs Assessment';
+
+        // Display Counsellor Notes if they exist (Feature connected to Counsellor Dashboard)
+        const notesDiv = document.getElementById('modalCounsellorNotes');
+        if (student.counsellorNotes && student.counsellorNotes.length > 0) {
+            notesDiv.innerHTML = student.counsellorNotes.map(n => `<div style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;"><span style="color:var(--primary); font-size:0.8rem;">[${new Date(n.date).toLocaleDateString()}]</span> ${n.note}</div>`).join('');
+        } else {
+            notesDiv.innerHTML = "No clinical notes have been logged for this student yet.";
+        }
+
+        document.getElementById('studentDossierModal').style.display = 'flex';
+    }
+    
+    window.closeStudentModal = function() { document.getElementById('studentDossierModal').style.display = 'none'; }
+
 
     // --- PROFILE LOGIC ---
     async function loadProfile() {
@@ -622,6 +702,7 @@
             const snap = await getDocs(collection(db, "students"));
             let studentCount = 0;
             tbody.innerHTML = "";
+            window.globalStudentData = {}; // Clear global cache
 
             if (snap.empty) {
                 tbody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No students registered yet.</td></tr>";
@@ -632,20 +713,25 @@
             snap.forEach(docSnap => {
                 const data = docSnap.data();
                 const schoolId = data.schoolId || 'GENERAL';
+                
                 if (filterVal !== "ALL" && filterVal !== schoolId) return; 
+                
                 studentCount++;
+                window.globalStudentData[docSnap.id] = data; // Cache data for modal
                 
                 const schoolName = schoolId === 'GENERAL' ? 'General Public' : (schoolDictionary[schoolId] || 'Unknown School');
                 const badgeClass = schoolId === 'GENERAL' ? 'badge-gen' : 'badge-school';
 
                 tbody.innerHTML += `<tr>
                     <td style="font-family:monospace; color:var(--text-muted); font-size:0.8rem;">${docSnap.id.substring(0,6)}...</td>
-                    <td><strong style="color:white;">${data.name}</strong><br><span style="font-size:0.8rem; color:var(--text-muted);">${data.email}</span></td>
+                    <td>
+                        <strong class="student-link" onclick="openStudentModal('${docSnap.id}')">${data.name}</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">${data.email}</span>
+                    </td>
                     <td><span class="badge ${badgeClass}">${schoolName}</span><br><span style="font-size:0.8rem; color:var(--text-muted);">Grade ${data.grade || 'N/A'}</span></td>
                     <td>${data.assessmentCompleted ? '<span style="color:var(--success);">Complete</span>' : '<span style="color:var(--warning);">Pending</span>'}</td>
                     <td><span class="badge" style="background:rgba(255,255,255,0.1); color:var(--text-muted);">Unknown</span></td>
-                    <td><span style="color:var(--text-muted); font-size:0.8rem;">Not Scheduled</span></td>
-                    <td><button onclick="deleteStudent('${docSnap.id}', '${data.name}')" style="color:white; background:var(--danger); border:none; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Del</button></td>
+                    <td><button onclick="deleteStudent('${docSnap.id}', '${data.name}')" style="color:white; background:var(--danger); border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer;">Del</button></td>
                 </tr>`;
             });
 
