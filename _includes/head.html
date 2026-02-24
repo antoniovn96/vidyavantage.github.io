@@ -1,147 +1,280 @@
-<header class="site-header">
-  <div class="header-container">
-    <a href="/vidyavantage.github.io/" class="site-logo">
-      🎓 VidyaVantage
-    </a>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page.title }} | {{ site.title }}</title>
+
+    <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     
-    <nav class="site-nav">
-      <a href="/vidyavantage.github.io/">Home</a>
-      <a href="/vidyavantage.github.io/colleges/">Colleges</a>
-      <a href="/vidyavantage.github.io/visa">Visa Services</a>
-      <a href="/vidyavantage.github.io/blog/">Blogs & Research</a>
-      <a href="https://github.com/antoniovn96" target="_blank" class="contact-link">Contact Me</a>
+    {% seo %}
+
+    <style>
+      body { margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; display: flex; flex-direction: column; min-height: 100vh; background-color: #f8f9fa; }
       
-      <button id="globalLoginBtn" class="btn-login" style="border:none; cursor:pointer; font-family:inherit;">Portal Login</button>
+      /* NAV BAR */
+      .top-nav {
+        background-color: #0A2342; /* Navy Blue */
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      }
+      .nav-logo {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #D4AF37; /* Gold */
+        text-decoration: none;
+        letter-spacing: 1px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover { color: #D4AF37; }
+
+      /* Contact Expert Button */
+      .nav-btn {
+        border: 1px solid #D4AF37;
+        padding: 8px 15px;
+        border-radius: 20px;
+        color: #D4AF37 !important;
+        font-weight: bold;
+      }
+      .nav-btn:hover { background: #D4AF37; color: #0A2342 !important; }
+
+      /* Portal Login Button */
+      .nav-btn-login {
+        background: #D4AF37;
+        color: #0A2342 !important;
+        border: none;
+        padding: 9px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: all 0.3s;
+        font-family: inherit;
+      }
+      .nav-btn-login:hover { background: white; transform: translateY(-2px); }
+
+      /* --- NEW: PROFILE DROPDOWN MENU --- */
+      .profile-dropdown {
+        position: relative;
+        display: none; /* Hidden by default until Firebase confirms login */
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        color: white;
+        font-weight: 600;
+        margin-left: 10px;
+      }
+      .profile-dropdown img {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 2px solid #D4AF37;
+        object-fit: cover;
+      }
+      .profile-dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        min-width: 180px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 15px;
+        z-index: 1001;
+      }
+      .profile-dropdown:hover .profile-dropdown-content {
+        display: block;
+      }
+      .profile-dropdown-content a {
+        color: #0A2342;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #eee;
+        transition: 0.2s;
+      }
+      .profile-dropdown-content a:hover {
+        background-color: #f1f5f9;
+        color: #2563EB;
+      }
+
+      /* CONTENT WRAPPER */
+      .main-content { flex: 1; max-width: 100%; margin: 0; padding: 0; width: 100%; box-sizing: border-box; }
+
+      /* FOOTER */
+      .site-footer { background-color: #0A2342; color: white; padding: 60px 20px 20px; border-top: 5px solid #D4AF37; font-size: 0.9rem; margin-top: auto; }
+      .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 40px; }
+      .footer-col { flex: 1; min-width: 200px; }
+      .footer-heading { color: #D4AF37; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
+      .footer-links a { display: block; color: #f4f6f8; text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
+      .footer-links a:hover { color: #D4AF37; padding-left: 5px; }
+      .copyright { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #888; }
+      
+      @media (max-width: 900px) {
+        .top-nav { flex-direction: column; gap: 15px; padding: 15px; }
+        .nav-links { flex-wrap: wrap; justify-content: center; font-size: 0.85rem; }
+      }
+    </style>
+  </head>
+  
+  <body>
+    
+    <nav class="top-nav">
+      <a href="{{ '/' | relative_url }}" class="nav-logo">VIDYAVANTAGE</a>
+      
+      <div class="nav-links">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/colleges/' | relative_url }}">Colleges</a>
+        <a href="{{ '/visa/' | relative_url }}">Global Visas</a>
+        <a href="{{ '/blog/' | relative_url }}">Blogs & Research</a>
+        <a href="https://github.com/antoniovn96" target="_blank" class="nav-btn" style="margin-left: 10px;">Contact Me</a>
+        
+        <button id="globalLoginBtn" class="nav-btn-login">Portal Login</button>
+
+        <div id="userProfileNav" class="profile-dropdown">
+            <img id="navProfilePic" src="https://via.placeholder.com/40" alt="Profile">
+            <span id="navProfileName">User</span>
+            <div class="profile-dropdown-content">
+                <a href="#" id="navDashboardLink">📊 My Dashboard</a>
+                <a href="#" id="navLogoutBtn" style="color: #ef4444; border-top: 2px solid #eee;">🚪 Logout</a>
+            </div>
+        </div>
+      </div>
     </nav>
-    
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-  </div>
-</header>
 
-<style>
-  .site-header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; font-family: 'Nunito', 'Inter', sans-serif;}
-  .header-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-  .site-logo { font-size: 1.5rem; font-weight: 900; color: #0A2342; text-decoration: none; }
-  
-  .site-nav { display: flex; gap: 25px; align-items: center; }
-  .site-nav a { text-decoration: none; color: #475569; font-weight: 700; font-size: 0.95rem; transition: 0.2s; }
-  .site-nav a:hover { color: #2563EB; }
-  
-  /* Contact Link Styling */
-  .contact-link { color: #64748b !important; border-right: 2px solid #e2e8f0; padding-right: 25px; }
-  .contact-link:hover { color: #0A2342 !important; }
+    <main class="main-content">
+      {{ content }}
+    </main>
 
-  /* Login Button Styling */
-  .btn-login { 
-    background: #2563EB; 
-    color: white !important; 
-    padding: 10px 22px; 
-    border-radius: 50px; 
-    font-weight: 800 !important;
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
-    transition: all 0.3s ease;
-  }
-  .btn-login:hover { 
-    background: #1E40AF; 
-    transform: translateY(-2px); 
-    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
-  }
-  
-  .menu-toggle { display: none; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #0A2342; }
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-heading">VidyaVantage</div>
+          <p>The verified career map for Indian students. From Grade 9 stream selection to Global PhD admissions.</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-heading">Quick Links</div>
+          <div class="footer-links">
+             <a href="{{ '/' | relative_url }}">Home</a>
+             <a href="{{ '/colleges/' | relative_url }}">Top Colleges</a>
+             <a href="{{ '/visa/' | relative_url }}">Visa Rules</a>
+             <a href="{{ '/blog/' | relative_url }}">Research Blog</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-heading">Services</div>
+          <div class="footer-links">
+            <a href="https://github.com/antoniovn96" target="_blank">Book a Counsellor</a>
+            <a href="#">School Partnerships</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        © {{ site.time | date: '%Y' }} VidyaVantage. Built for the students of India.
+      </div>
+    </footer>
 
-  /* Mobile Responsiveness */
-  @media (max-width: 900px) {
-    .site-nav { 
-      display: none; 
-      flex-direction: column; 
-      position: absolute; 
-      top: 100%; 
-      left: 0; 
-      width: 100%; 
-      background: white; 
-      padding: 20px 0; 
-      box-shadow: 0 10px 15px rgba(0,0,0,0.1); 
-      text-align: center;
-    }
-    .site-nav.active { display: flex; }
-    .site-nav a, .btn-login { padding: 10px 0; width: 100%; }
-    .contact-link { border-right: none; padding-right: 0; border-bottom: 2px solid #e2e8f0; margin-bottom: 10px; padding-bottom: 15px; }
-    .btn-login { width: 80%; margin: 10px auto 0; padding: 12px; }
-    .menu-toggle { display: block; }
-  }
-</style>
+    <script type="module">
+        import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-<script>
-  function toggleMenu() {
-    document.querySelector('.site-nav').classList.toggle('active');
-  }
-</script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
+          authDomain: "career-intelligence-system.firebaseapp.com",
+          projectId: "career-intelligence-system",
+          storageBucket: "career-intelligence-system.firebasestorage.app",
+          messagingSenderId: "223785446772",
+          appId: "1:223785446772:web:0f9ded4e89a978fc551021",
+          measurementId: "G-HGKJJN9KDF"
+        };
 
-<script type="module">
-    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
 
-    // ⚠️ YOUR EXACT FIREBASE CONFIG
-    const firebaseConfig = {
-      apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
-      authDomain: "career-intelligence-system.firebaseapp.com",
-      projectId: "career-intelligence-system",
-      storageBucket: "career-intelligence-system.firebasestorage.app",
-      messagingSenderId: "223785446772",
-      appId: "1:223785446772:web:0f9ded4e89a978fc551021",
-      measurementId: "G-HGKJJN9KDF"
-    };
+        // UI Elements
+        const loginBtn = document.getElementById('globalLoginBtn');
+        const profileNav = document.getElementById('userProfileNav');
+        const profilePic = document.getElementById('navProfilePic');
+        const profileName = document.getElementById('navProfileName');
 
-    // Initialize Firebase safely (prevents errors if initialized multiple times across Jekyll includes)
-    const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+        // 1. LISTEN FOR LOGIN STATE CHANGES
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // USER IS LOGGED IN: Show Profile, Hide Login Button
+                loginBtn.style.display = 'none';
+                profileNav.style.display = 'flex';
 
-    // 🚨 YOUR MASTER ADMIN EMAIL
-    const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
+                // Set Name & Avatar
+                const displayName = user.displayName || user.email.split('@')[0];
+                profileName.innerText = displayName;
+                
+                // If they logged in via email and don't have a picture, create an initial avatar
+                profilePic.src = user.photoURL || `https://ui-avatars.com/api/?name=${displayName}&background=D4AF37&color=0A2342`;
 
-    const loginBtn = document.getElementById('globalLoginBtn');
-    
-    if(loginBtn) {
-        loginBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-            const user = auth.currentUser;
-            
-            // 1. If NOT logged in, send them to the homepage to see the Auth Box
-            if (!user) {
-                window.location.href = "/vidyavantage.github.io/";
-                return;
-            }
+                // Handle clicking "My Dashboard"
+                document.getElementById('navDashboardLink').onclick = async (e) => {
+                    e.preventDefault();
+                    const email = user.email.toLowerCase();
+                    
+                    if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
+                        window.location.href = "{{ '/admin.html' | relative_url }}";
+                        return;
+                    }
 
-            // 2. If LOGGED IN, check their identity and teleport them
-            loginBtn.innerText = "Routing... ⏳";
-            const email = user.email.toLowerCase();
-            
-            try {
-                // Route Super Admin
-                if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
-                    window.location.href = "/vidyavantage.github.io/admin.html";
-                    return;
-                }
+                    const permsSnap = await getDoc(doc(db, "permissions", email));
+                    if (permsSnap.exists()) {
+                        const role = permsSnap.data().role;
+                        if (role === "school_admin") window.location.href = "{{ '/school_dashboard.html' | relative_url }}";
+                        else if (role === "counsellor") window.location.href = "{{ '/counsellor_dashboard.html' | relative_url }}";
+                    } else {
+                        window.location.href = "{{ '/student_portal.html' | relative_url }}";
+                    }
+                };
 
-                // Route VIPs (School Admin / Counsellor)
-                const permsSnap = await getDoc(doc(db, "permissions", email));
-                if (permsSnap.exists()) {
-                    const role = permsSnap.data().role;
-                    if (role === "school_admin") window.location.href = "/vidyavantage.github.io/school_dashboard.html";
-                    else if (role === "counsellor") window.location.href = "/vidyavantage.github.io/counsellor_dashboard.html";
-                    return;
-                }
+                // Handle clicking "Logout"
+                document.getElementById('navLogoutBtn').onclick = (e) => {
+                    e.preventDefault();
+                    signOut(auth).then(() => {
+                        window.location.href = "{{ '/' | relative_url }}"; // Redirect to home
+                    });
+                };
 
-                // Route Students
-                window.location.href = "/vidyavantage.github.io/student_portal.html";
-
-            } catch (error) {
-                console.error("Global Routing Error:", error);
-                loginBtn.innerText = "Portal Login";
-                alert("Error connecting to server. Please try again.");
+            } else {
+                // USER IS LOGGED OUT: Show Login Button, Hide Profile
+                loginBtn.style.display = 'block';
+                profileNav.style.display = 'none';
+                
+                // If they click Login while logged out, send them to homepage Auth Box
+                loginBtn.onclick = () => {
+                    window.location.href = "{{ '/' | relative_url }}";
+                };
             }
         });
-    }
-</script>
+    </script>
+  </body>
+</html>
