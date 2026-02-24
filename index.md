@@ -46,7 +46,7 @@ title: Home
   .hero-headline span { color: var(--primary); }
   .hero-subhead { font-size: 1.2rem; color: var(--text-light); line-height: 1.6; margin-bottom: 35px; max-width: 90%; }
 
-  /* --- AUTH BOX (NEW) --- */
+  /* --- AUTH BOX --- */
   .auth-box { background: white; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.08); max-width: 400px; margin-top: 20px;}
   .auth-input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 2px solid var(--border); border-radius: 8px; font-size: 1rem; box-sizing: border-box; font-family: inherit; transition: 0.3s; }
   .auth-input:focus { border-color: var(--primary); outline: none; }
@@ -93,6 +93,20 @@ title: Home
   .card-desc { color: var(--text-light); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
   .card-arrow { color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 5px; margin-top: auto; }
 
+  /* ==========================================
+     3. BLOG & RESEARCH SECTION (NEW)
+     ========================================== */
+  .blog-section { padding: 80px 20px; background: white; }
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+  
+  .blog-card { border: 1px solid var(--border); border-radius: 12px; padding: 25px; transition: 0.3s; text-decoration: none; color: inherit; display: block; border-left: 4px solid transparent;}
+  .blog-card:hover { border-color: var(--primary); border-left-color: var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.05); transform: translateY(-5px);}
+  
+  .blog-tag { background: #DBEAFE; color: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: inline-block;}
+  .blog-title { font-size: 1.25rem; font-weight: 700; margin: 10px 0; color: #111; }
+  .blog-excerpt { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px;}
+  .read-more { color: var(--primary); font-weight: 700; font-size: 0.9rem; }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .hero-wrapper { flex-direction: column; text-align: center; padding-top: 40px; }
@@ -100,7 +114,7 @@ title: Home
     .hero-headline { font-size: 2.5rem; }
     .auth-box { margin: 20px auto; text-align: left; }
     .stats-grid { grid-template-columns: 1fr; gap: 30px; }
-    .cards-grid { grid-template-columns: 1fr; }
+    .cards-grid, .blog-grid { grid-template-columns: 1fr; }
   }
   @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
   @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
@@ -199,10 +213,43 @@ title: Home
   </div>
 </div>
 
+<div class="blog-section" id="research">
+    <div class="section-header">
+        <span class="section-tag">Insights</span>
+        <h2 class="section-title">Latest Research & Articles</h2>
+    </div>
+
+    <div class="blog-grid">
+        <a href="blog.html" class="blog-card">
+            <span class="blog-tag">Psychology</span>
+            <h3 class="blog-title">Understanding RIASEC in 2026</h3>
+            <p class="blog-excerpt">How clinical patterns are shifting in the age of AI and what it means for student counseling and stream selection.</p>
+            <span class="read-more">Read Full Article →</span>
+        </a>
+
+        <a href="blog.html" class="blog-card" style="border-left-color: var(--accent);">
+            <span class="blog-tag" style="background: #FEF3C7; color: #D97706;">Case Study</span>
+            <h3 class="blog-title">The Impact of Parental Pressure</h3>
+            <p class="blog-excerpt">Analyzing the correlation between parent-driven stream selection, student burnout, and the need for early clinical intervention.</p>
+            <span class="read-more" style="color: #D97706;">Read Full Article →</span>
+        </a>
+
+        <a href="blog.html" class="blog-card" style="border-left-color: #10B981;">
+            <span class="blog-tag" style="background: #D1FAE5; color: #059669;">Admissions</span>
+            <h3 class="blog-title">Navigating USA F1 Visas</h3>
+            <p class="blog-excerpt">A comprehensive, step-by-step guide to preparing for your consular interview and organizing financial documentation.</p>
+            <span class="read-more" style="color: #059669;">Read Full Article →</span>
+        </a>
+    </div>
+    
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="{{ '/blog/' | relative_url }}" style="color: var(--text-dark); font-weight: bold; text-decoration: none; border-bottom: 2px solid var(--primary); padding-bottom: 2px;">View All Research Library</a>
+    </div>
+</div>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-    // ⚠️ Note the added Email/Password imports here!
     import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     // ⚠️ YOUR EXACT FIREBASE CONFIG
@@ -221,25 +268,21 @@ title: Home
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    // 🚨 REPLACE THIS WITH YOUR ACTUAL GMAIL ADDRESS FOR MASTER ADMIN ACCESS
+    // 🚨 MASTER ADMIN EMAIL
     const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
 
     const status = document.getElementById('statusMsg');
     
-    // --- THE MASTER ROUTING ENGINE ---
-    // This function runs regardless of HOW the user logged in
     async function processUserRouting(user) {
         const email = user.email.toLowerCase();
         
         try {
-            // ROUTE 1: SUPER ADMIN
             if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
                 status.innerText = "Welcome back! Routing to Master Control Center...";
                 setTimeout(() => window.location.href = "admin.html", 1000);
                 return;
             }
 
-            // ROUTE 2: CHECK VIP PERMISSIONS LIST
             const permsRef = doc(db, "permissions", email);
             const permsSnap = await getDoc(permsRef);
 
@@ -253,7 +296,6 @@ title: Home
                 return;
             }
 
-            // ROUTE 3: CHECK IF EXISTING STUDENT
             const studentRef = doc(db, "students", user.uid);
             const studentSnap = await getDoc(studentRef);
 
@@ -261,7 +303,6 @@ title: Home
                 status.innerText = "Welcome back! Opening Student Portal...";
                 setTimeout(() => window.location.href = "student_portal.html", 1000);
             } else {
-                // ROUTE 4: BRAND NEW STUDENT - SEND TO ONBOARDING
                 status.innerText = "New profile detected! Let's get you registered...";
                 setTimeout(() => window.location.href = "register.html", 1500);
             }
@@ -272,7 +313,6 @@ title: Home
         }
     }
 
-    // --- 1. GOOGLE LOGIN ---
     document.getElementById('googleLoginBtn').addEventListener('click', async () => {
         status.innerText = "Authenticating securely... ⏳";
         try {
@@ -285,7 +325,6 @@ title: Home
         }
     });
 
-    // --- 2. EMAIL / PASSWORD LOGIN ---
     document.getElementById('emailLoginBtn').addEventListener('click', async () => {
         const email = document.getElementById('emailInput').value.trim();
         const password = document.getElementById('passwordInput').value;
@@ -302,7 +341,6 @@ title: Home
         }
     });
 
-    // --- 3. EMAIL / PASSWORD SIGN UP ---
     document.getElementById('emailSignUpBtn').addEventListener('click', async () => {
         const email = document.getElementById('emailInput').value.trim();
         const password = document.getElementById('passwordInput').value;
@@ -312,7 +350,6 @@ title: Home
         status.innerText = "Creating secure account... ⏳";
         try {
             const result = await createUserWithEmailAndPassword(auth, email, password);
-            // After creating the account, route them (they will naturally go to register.html)
             await processUserRouting(result.user);
         } catch (error) {
             console.error(error);
