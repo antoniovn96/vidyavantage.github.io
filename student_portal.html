@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard | Career Intelligence</title>
+    <style>
+      :root {
+        --bg: #0f172a; --sidebar: #1e293b; --card-bg: #1e293b; 
+        --primary: #6366f1; --secondary: #06b6d4; --accent: #f43f5e;
+        --text-main: #f8fafc; --text-muted: #94a3b8; --border: #334155;
+        --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
+      }
+      body { background-color: var(--bg); font-family: 'Nunito', sans-serif; color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+      
+      /* SIDEBAR */
+      .sidebar { width: 280px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 20px; }
+      .profile-info { text-align: center; padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+      .stu-avatar { width: 80px; height: 80px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 10px; font-weight: bold; }
+      
+      /* MAIN CONTENT */
+      .main-content { flex: 1; padding: 30px 40px; overflow-y: auto; }
+      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+      .card { background: var(--card-bg); padding: 25px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 25px; }
+      
+      /* INDEX STYLING */
+      .index-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px; }
+      .score-pill { padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
+      
+      /* ADMIN ONLY SECTION */
+      .admin-only-tag { background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; text-transform: uppercase; font-weight: bold; vertical-align: middle; margin-left: 10px; }
+      .counselor-notes { background: #161e2e; border: 1px solid var(--primary); color: #d1d5db; padding: 15px; border-radius: 8px; font-size: 0.9rem; width: 100%; box-sizing: border-box; min-height: 100px; }
+
+      .nav-btn { background: transparent; color: var(--text-muted); border: none; text-align: left; padding: 12px; width: 100%; cursor: pointer; border-radius: 8px; margin-bottom: 5px; font-weight: bold; }
+      .nav-btn.active { background: var(--primary); color: white; }
+      .status-dot { height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="profile-info">
+        <div class="stu-avatar" id="stuInitials">JS</div>
+        <h3 id="stuName" style="margin-bottom:5px;">Loading...</h3>
+        <p id="stuInst" style="font-size:0.8rem; color:var(--text-muted); margin:0;">Institution Name</p>
+        <p id="stuId" style="font-size:0.7rem; color:var(--primary); font-family:monospace; margin-top:5px;">ID: STU-XXXX</p>
+    </div>
+    
+    <nav>
+        <button class="nav-btn active">🏠 Student Home</button>
+        <button class="nav-btn">📝 Take Assessment</button>
+        <button class="nav-btn">📄 My Career Dossier</button>
+        <button class="nav-btn">📅 Book Counselling</button>
+    </nav>
+</div>
+
+<div class="main-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+        <h1>Student Master Control <span class="admin-only-tag">Counselor View</span></h1>
+        <div>
+            <span class="status-dot" style="background:var(--success);"></span> Account Active
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div>
+            <div class="card">
+                <h3>Core Identification</h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; font-size:0.9rem;">
+                    <p><strong style="color:var(--text-muted);">Grade/Section:</strong><br><span id="dispGrade">Grade 10 - B</span></p>
+                    <p><strong style="color:var(--text-muted);">Gender/DOB:</strong><br><span id="dispGenderDob">Male | 12/05/2010</span></p>
+                    <p><strong style="color:var(--text-muted);">Last Login:</strong><br><span id="dispLastLogin">24 Feb 2026</span></p>
+                    <p><strong style="color:var(--text-muted);">Profile Completion:</strong><br><span id="dispComp" style="color:var(--success);">85%</span></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Assessment & Counselling Tracking</h3>
+                <div class="index-row">
+                    <span>Assessment Completed?</span>
+                    <span class="score-pill" style="background:rgba(16, 185, 129, 0.2); color:var(--success);">YES</span>
+                </div>
+                <div class="index-row">
+                    <span>Report Generated & Downloaded?</span>
+                    <span class="score-pill" style="background:rgba(16, 185, 129, 0.2); color:var(--success);">YES</span>
+                </div>
+                <div class="index-row" style="border: 1px dashed var(--primary);">
+                    <span>Counselling Session?</span>
+                    <select class="score-pill" style="background:var(--bg); color:white; border:none;">
+                        <option>Not Booked</option>
+                        <option selected>Booked</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card" style="border-top: 4px solid var(--accent);">
+                <h3>Risk & Psychological Index <span class="admin-only-tag">Confidential</span></h3>
+                
+                <div class="index-row">
+                    <span>Career Clarity Score</span>
+                    <strong style="color:var(--secondary);">7 / 10</strong>
+                </div>
+                <div class="index-row">
+                    <span>Confidence Score</span>
+                    <strong style="color:var(--primary);">8 / 10</strong>
+                </div>
+                <div class="index-row">
+                    <span>Parental Pressure Score</span>
+                    <strong style="color:var(--danger);">9 / 10</strong>
+                </div>
+                <div class="index-row">
+                    <span>Stress Indicator</span>
+                    <span class="badge" style="color:var(--warning);">Moderate</span>
+                </div>
+                
+                <div style="margin-top:20px; padding:15px; border-radius:10px; background:rgba(244, 63, 94, 0.1); border:1px solid var(--accent);">
+                    <p style="margin:0 0 10px 0; font-weight:bold;">Risk Category: <span style="color:var(--accent);">HIGH RISK</span></p>
+                    <p style="font-size:0.8rem; margin:0; color:var(--text-muted);">AI Suggestion: <strong>Immediate Intervention Recommended</strong> due to high Parental Pressure vs moderate Career Clarity mismatch.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Counsellor Notes & Action Plan <span class="admin-only-tag">Admin Only</span></h3>
+                <textarea class="counselor-notes" placeholder="Enter private session notes here..."></textarea>
+                <div style="margin-top:15px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div>
+                        <label style="font-size:0.7rem; color:var(--text-muted); display:block; margin-bottom:5px;">FOLLOW-UP DATE</label>
+                        <input type="date" style="background:var(--bg); border:1px solid var(--border); color:white; padding:5px; border-radius:5px; width:100%;">
+                    </div>
+                    <div style="display:flex; align-items:flex-end;">
+                        <button style="background:var(--primary); color:white; border:none; padding:8px; border-radius:5px; width:100%; cursor:pointer; font-weight:bold;">Save Action Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    // ⚠️ REPLACE WITH YOUR REAL KEYS
+    const firebaseConfig = {
+      apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
+      authDomain: "career-intelligence-system.firebaseapp.com",
+      projectId: "career-intelligence-system",
+      storageBucket: "career-intelligence-system.firebasestorage.app",
+      messagingSenderId: "223785446772",
+      appId: "1:223785446772:web:0f9ded4e89a978fc551021",
+      measurementId: "G-HGKJJN9KDF"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Mock Loading for UI Demo
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('stuName').innerText = "Aryan Sharma";
+        document.getElementById('stuInitials').innerText = "AS";
+        document.getElementById('stuInst').innerText = "The Knowledge Habitat (CBSE)";
+        document.getElementById('stuId').innerText = "ID: STU-8821";
+    });
+</script>
+
+</body>
+</html>
