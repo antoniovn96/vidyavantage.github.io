@@ -6,9 +6,9 @@ title: Home
 <style>
   /* --- VARIABLES & RESET --- */
   :root {
-    --primary: #2563EB; /* Royal Blue */
-    --secondary: #1E40AF; /* Darker Blue */
-    --accent: #F59E0B; /* Amber/Gold */
+    --primary: #2563EB; 
+    --secondary: #1E40AF; 
+    --accent: #F59E0B; 
     --text-dark: #1F2937;
     --text-light: #6B7280;
     --bg-light: #F3F4F6;
@@ -24,17 +24,6 @@ title: Home
   }
 
   /* ==========================================
-     HEADER & NAVIGATION
-     ========================================== */
-  .site-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-  .site-logo { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); text-decoration: none; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
-  .site-logo span { color: var(--primary); }
-  .site-nav { display: flex; gap: 30px; align-items: center; }
-  .site-nav a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 0.95rem; transition: color 0.2s; }
-  .site-nav a:hover { color: var(--primary); }
-  @media (max-width: 768px) { .site-nav { display: none; } }
-
-  /* ==========================================
      1. MODERN SPLIT HERO SECTION 
      ========================================== */
   .hero-wrapper { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 80px 20px; min-height: 80vh; }
@@ -46,7 +35,7 @@ title: Home
   .hero-headline span { color: var(--primary); }
   .hero-subhead { font-size: 1.2rem; color: var(--text-light); line-height: 1.6; margin-bottom: 35px; max-width: 90%; }
 
-  /* --- AUTH BOX --- */
+  /* --- AUTH & WELCOME BOXES --- */
   .auth-box { background: white; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.08); max-width: 400px; margin-top: 20px;}
   .auth-input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 2px solid var(--border); border-radius: 8px; font-size: 1rem; box-sizing: border-box; font-family: inherit; transition: 0.3s; }
   .auth-input:focus { border-color: var(--primary); outline: none; }
@@ -94,7 +83,7 @@ title: Home
   .card-arrow { color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 5px; margin-top: auto; }
 
   /* ==========================================
-     3. BLOG & RESEARCH SECTION (NEW)
+     3. BLOG & RESEARCH SECTION 
      ========================================== */
   .blog-section { padding: 80px 20px; background: white; }
   .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
@@ -130,7 +119,8 @@ title: Home
   </div>
   
   <div class="hero-visual">
-    <div class="auth-box">
+    
+    <div class="auth-box" id="loginBoxUI">
         <h3 style="margin-top:0; color:var(--text-dark);">Secure Portal Access</h3>
         <input type="email" id="emailInput" class="auth-input" placeholder="Email Address">
         <input type="password" id="passwordInput" class="auth-input" placeholder="Password">
@@ -149,6 +139,19 @@ title: Home
 
         <p id="statusMsg"></p>
     </div>
+
+    <div class="auth-box" id="welcomeBoxUI" style="display: none; text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 10px;">👋</div>
+        <h3 style="margin-top:0; color:var(--text-dark);">Welcome Back!</h3>
+        <p style="color:var(--text-light); margin-bottom: 25px; line-height: 1.5;">
+            You are currently logged in securely as:<br>
+            <strong id="loggedInEmailDisplay" style="color:var(--primary); font-size:1.05rem;">...</strong>
+        </p>
+        <button class="btn-auth btn-signin" id="fastTravelBtn" style="width: 100%; padding: 15px; font-size: 1.1rem;">
+            Go to My Dashboard ➔
+        </button>
+    </div>
+
   </div>
 </div>
 
@@ -168,7 +171,7 @@ title: Home
   </div>
 
   <div class="cards-grid">
-    <a href="#emailInput" class="feature-card">
+    <a href="#loginBoxUI" class="feature-card" onclick="window.scrollTo({top:0, behavior:'smooth'})">
       <div class="card-image-wrap">
         <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="AI Career Assessment">
       </div>
@@ -208,21 +211,21 @@ title: Home
     </div>
 
     <div class="blog-grid">
-        <a href="blog.html" class="blog-card">
+        <a href="{{ '/blog/' | relative_url }}" class="blog-card">
             <span class="blog-tag">Psychology</span>
             <h3 class="blog-title">Understanding RIASEC in 2026</h3>
             <p class="blog-excerpt">How clinical patterns are shifting in the age of AI and what it means for student counseling and stream selection.</p>
             <span class="read-more">Read Full Article →</span>
         </a>
 
-        <a href="blog.html" class="blog-card" style="border-left-color: var(--accent);">
+        <a href="{{ '/blog/' | relative_url }}" class="blog-card" style="border-left-color: var(--accent);">
             <span class="blog-tag" style="background: #FEF3C7; color: #D97706;">Case Study</span>
             <h3 class="blog-title">The Impact of Parental Pressure</h3>
             <p class="blog-excerpt">Analyzing the correlation between parent-driven stream selection, student burnout, and the need for early clinical intervention.</p>
             <span class="read-more" style="color: #D97706;">Read Full Article →</span>
         </a>
 
-        <a href="blog.html" class="blog-card" style="border-left-color: #10B981;">
+        <a href="{{ '/blog/' | relative_url }}" class="blog-card" style="border-left-color: #10B981;">
             <span class="blog-tag" style="background: #D1FAE5; color: #059669;">Admissions</span>
             <h3 class="blog-title">Navigating USA F1 Visas</h3>
             <p class="blog-excerpt">A comprehensive, step-by-step guide to preparing for your consular interview and organizing financial documentation.</p>
@@ -238,7 +241,7 @@ title: Home
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     // ⚠️ YOUR EXACT FIREBASE CONFIG
     const firebaseConfig = {
@@ -259,14 +262,38 @@ title: Home
     // 🚨 MASTER ADMIN EMAIL
     const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
 
+    // UI Elements
     const status = document.getElementById('statusMsg');
+    const loginBoxUI = document.getElementById('loginBoxUI');
+    const welcomeBoxUI = document.getElementById('welcomeBoxUI');
+    const loggedInEmailDisplay = document.getElementById('loggedInEmailDisplay');
+    const fastTravelBtn = document.getElementById('fastTravelBtn');
     
+    let activeUser = null;
+
+    // --- CHECK LOGIN STATE ON LOAD ---
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User IS logged in -> Show Welcome Box
+            activeUser = user;
+            loginBoxUI.style.display = "none";
+            welcomeBoxUI.style.display = "block";
+            loggedInEmailDisplay.innerText = user.email;
+        } else {
+            // User IS NOT logged in -> Show Login Box
+            activeUser = null;
+            loginBoxUI.style.display = "block";
+            welcomeBoxUI.style.display = "none";
+        }
+    });
+    
+    // --- THE ROUTING ENGINE ---
     async function processUserRouting(user) {
         const email = user.email.toLowerCase();
         
         try {
             if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
-                status.innerText = "Welcome back! Routing to Master Control Center...";
+                if(status) status.innerText = "Welcome back! Routing to Master Control Center...";
                 setTimeout(() => window.location.href = "admin.html", 1000);
                 return;
             }
@@ -276,7 +303,7 @@ title: Home
 
             if (permsSnap.exists()) {
                 const role = permsSnap.data().role;
-                status.innerText = `Authorized as ${role.replace('_', ' ')}. Connecting...`;
+                if(status) status.innerText = `Authorized as ${role.replace('_', ' ')}. Connecting...`;
                 setTimeout(() => {
                     if (role === "school_admin") window.location.href = "school_dashboard.html";
                     else if (role === "counsellor") window.location.href = "counsellor_dashboard.html";
@@ -288,19 +315,31 @@ title: Home
             const studentSnap = await getDoc(studentRef);
 
             if (studentSnap.exists()) {
-                status.innerText = "Welcome back! Opening Student Portal...";
+                if(status) status.innerText = "Welcome back! Opening Student Portal...";
                 setTimeout(() => window.location.href = "student_portal.html", 1000);
             } else {
-                status.innerText = "New profile detected! Let's get you registered...";
+                if(status) status.innerText = "New profile detected! Let's get you registered...";
                 setTimeout(() => window.location.href = "register.html", 1500);
             }
         } catch (error) {
             console.error("Routing Error:", error);
-            status.innerText = "Error analyzing profile permissions.";
-            status.style.color = "red";
+            if(status) {
+                status.innerText = "Error analyzing profile permissions.";
+                status.style.color = "red";
+            }
+            if(fastTravelBtn) fastTravelBtn.innerText = "Connection Error";
         }
     }
 
+    // --- BUTTON EVENT LISTENERS ---
+    
+    // "Go to My Dashboard" button in Welcome Box
+    fastTravelBtn.addEventListener('click', () => {
+        fastTravelBtn.innerText = "Routing... ⏳";
+        if(activeUser) processUserRouting(activeUser);
+    });
+
+    // Google Login
     document.getElementById('googleLoginBtn').addEventListener('click', async () => {
         status.innerText = "Authenticating securely... ⏳";
         try {
@@ -313,6 +352,7 @@ title: Home
         }
     });
 
+    // Email/Password Login
     document.getElementById('emailLoginBtn').addEventListener('click', async () => {
         const email = document.getElementById('emailInput').value.trim();
         const password = document.getElementById('passwordInput').value;
@@ -329,6 +369,7 @@ title: Home
         }
     });
 
+    // Email/Password Sign Up
     document.getElementById('emailSignUpBtn').addEventListener('click', async () => {
         const email = document.getElementById('emailInput').value.trim();
         const password = document.getElementById('passwordInput').value;
