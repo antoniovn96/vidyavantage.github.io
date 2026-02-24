@@ -39,6 +39,20 @@
       .dropdown-content a:hover { background-color: rgba(255,255,255,0.05); color: var(--primary); }
       .profile-menu.active .dropdown-content { display: block; }
 
+      /* --- WELCOME BANNER (NEW) --- */
+      .welcome-banner {
+          background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.05));
+          border-bottom: 1px solid var(--border);
+          padding: 15px 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+      .quote-container { flex: 1; }
+      .quote-text { font-size: 0.95rem; font-style: italic; color: var(--text-main); margin: 0; }
+      .quote-text strong { color: var(--primary); font-style: normal;}
+      .clock-container { font-family: monospace; font-size: 1.1rem; color: var(--secondary); font-weight: bold; background: rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border);}
+
       /* --- CONTENT AREA --- */
       .main-content { flex: 1; padding: 30px 40px; overflow-y: auto; position: relative;}
       .header-bar { margin-bottom: 30px; }
@@ -112,6 +126,18 @@
                     <a href="#" style="color:var(--danger);" onclick="logoutUser()">🚪 Secure Logout</a>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="welcome-banner">
+        <div class="quote-container">
+            <p class="quote-text">
+                <strong id="welcomeName">Welcome back, Admin.</strong> 
+                <span id="dailyQuote">"The future depends on what you do today."</span>
+            </p>
+        </div>
+        <div class="clock-container" id="liveClock">
+            00/00/00, 00:00:00
         </div>
     </div>
 
@@ -270,6 +296,36 @@
 
     let uploadedImageBase64 = "";
 
+    // --- CLOCK & DAILY QUOTE LOGIC ---
+    function updateClock() {
+        const now = new Date();
+        const dd = String(now.getDate()).padStart(2, '0');
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const yy = String(now.getFullYear()).slice(-2);
+        const hh = String(now.getHours()).padStart(2, '0');
+        const min = String(now.getMinutes()).padStart(2, '0');
+        const ss = String(now.getSeconds()).padStart(2, '0');
+        
+        document.getElementById('liveClock').innerText = `${dd}/${mm}/${yy}, ${hh}:${min}:${ss}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    const quotes = [
+        "The future depends on what you do today.",
+        "Quality is not an act, it is a habit.",
+        "Innovation distinguishes between a leader and a follower.",
+        "Don't watch the clock; do what it does. Keep going.",
+        "Your work is going to fill a large part of your life.",
+        "Simplicity is the ultimate sophistication.",
+        "It always seems impossible until it is done."
+    ];
+    // Pick quote based on day of year to ensure it changes daily
+    const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+    document.getElementById('dailyQuote').innerText = `"${quotes[dayOfYear % quotes.length]}"`;
+
+
+    // --- UI INTERACTIONS ---
     window.switchTab = function(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -282,13 +338,19 @@
     window.onclick = function(event) { if (!event.target.matches('.avatar-btn')) { document.getElementById("profileDropdownBtn").classList.remove("active"); } }
     window.logoutUser = function() { signOut(auth).then(() => { window.location.href = "index.html"; }); }
 
+    // --- PROFILE LOGIC ---
     async function loadProfile() {
         try {
             const docSnap = await getDoc(doc(db, "system_settings", "superadmin_profile"));
             if (docSnap.exists()) {
                 const data = docSnap.data();
                 if(data.photo) { document.getElementById('topAvatarImg').src = data.photo; uploadedImageBase64 = data.photo; }
-                if(data.name) { document.getElementById('dropName').innerText = data.name; document.getElementById('editName').value = data.name; }
+                if(data.name) { 
+                    document.getElementById('dropName').innerText = data.name; 
+                    document.getElementById('editName').value = data.name; 
+                    // Update Welcome Banner
+                    document.getElementById('welcomeName').innerText = `Welcome back, ${data.name.split(' ')[0]}. `;
+                }
                 if(data.title) document.getElementById('editTitle').value = data.title;
                 if(data.bio) document.getElementById('editBio').value = data.bio;
             }
@@ -327,7 +389,7 @@
     window.openProfileModal = function() { document.getElementById('profileModal').style.display = 'flex'; }
     window.closeProfileModal = function() { document.getElementById('profileModal').style.display = 'none'; }
 
-    // --- NEW AUTOMATED INSTITUTION MANAGER LOGIC ---
+    // --- INSTITUTION MANAGER LOGIC ---
     window.addInstitution = async function() {
         const name = document.getElementById('instName').value.trim();
         const location = document.getElementById('instLocation').value.trim();
@@ -337,39 +399,29 @@
         if(!name || !adminEmail) return alert("School Name and Admin Email are required.");
         btn.innerText = "Generating Credentials... ⏳"; btn.disabled = true;
 
-        // Auto-Generate Student Code (e.g. KH-X7Y9)
         const codePrefix = name.substring(0, 2).toUpperCase();
         const randomString = Math.random().toString(36).substring(2, 6).toUpperCase();
         const generatedAccessCode = `${codePrefix}-${randomString}`;
-
-        // Auto-Generate secure random password for the School Admin
         const generatedPassword = Math.random().toString(36).slice(-8) + "Vv1!";
 
         try {
-            // 1. Create Secondary Firebase Instance (Prevents logging YOU out!)
             const secondaryApp = initializeApp(firebaseConfig, "Secondary");
             const secondaryAuth = getAuth(secondaryApp);
-            
-            // 2. Create the school admin's login account
             await createUserWithEmailAndPassword(secondaryAuth, adminEmail, generatedPassword);
-            await signOut(secondaryAuth); // Sign out of the secondary connection immediately
+            await signOut(secondaryAuth); 
 
-            // 3. Save the institution data in Firestore
             const newInstRef = await addDoc(collection(db, "schools"), {
                 name: name, formattedName: `${name} (${location})`, location: location, accessCode: generatedAccessCode, adminEmail: adminEmail, addedAt: new Date().toISOString()
             });
 
-            // 4. Automatically grant them "school_admin" permissions
             await setDoc(doc(db, "permissions", adminEmail), {
                 email: adminEmail, role: "school_admin", schoolId: newInstRef.id, status: "active", grantedAt: new Date().toISOString()
             });
 
-            // 5. Open Draft Email for you to send to them
             const subject = encodeURIComponent(`Welcome to Career Intel - Dashboard Access`);
             const body = encodeURIComponent(`Hello,\n\nYour institution (${name}) has been onboarded to the Career Intel platform.\n\nHere are your secure dashboard login credentials:\nLogin Portal: https://antoniovn96.github.io/vidyavantage.github.io/\nEmail: ${adminEmail}\nPassword: ${generatedPassword}\n\nIMPORTANT: Your Student Registration Code is: ${generatedAccessCode}\n(Please share this exact code with your students so they can join your cohort).\n\nBest regards,\nCareer Intel Team`);
             window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
 
-            // Clean up UI
             document.getElementById('instName').value = ""; document.getElementById('instLocation').value = ""; document.getElementById('instEmail').value = "";
             loadInstitutions(); populateAccessSchools(); loadAccessList();
             
