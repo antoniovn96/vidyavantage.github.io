@@ -174,7 +174,6 @@
         import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        // ⚠️ YOUR EXACT FIREBASE CONFIG
         const firebaseConfig = {
           apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
           authDomain: "career-intelligence-system.firebaseapp.com",
@@ -185,12 +184,10 @@
           measurementId: "G-HGKJJN9KDF"
         };
 
-        // Initialize Firebase safely (prevents errors if it was already initialized on the page)
         const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // 🚨 YOUR MASTER ADMIN EMAIL
         const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
 
         document.getElementById('globalLoginBtn').addEventListener('click', async () => {
@@ -199,18 +196,18 @@
             const originalText = btn.innerText;
             btn.innerText = "Routing... ⏳";
             
-            // 1. If not logged in, send them to the homepage Auth box
+            // 1. If not logged in, send them to the homepage Auth box securely
             if (!user) {
-                window.location.href = "index.html";
+                window.location.href = "{{ '/' | relative_url }}";
                 return;
             }
 
             const email = user.email.toLowerCase();
             
             try {
-                // 2. Route Super Admin
+                // 2. Route Super Admin securely using Jekyll relative_url
                 if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
-                    window.location.href = "admin.html";
+                    window.location.href = "{{ '/admin.html' | relative_url }}";
                     return;
                 }
 
@@ -218,13 +215,13 @@
                 const permsSnap = await getDoc(doc(db, "permissions", email));
                 if (permsSnap.exists()) {
                     const role = permsSnap.data().role;
-                    if (role === "school_admin") window.location.href = "school_dashboard.html";
-                    else if (role === "counsellor") window.location.href = "counsellor_dashboard.html";
+                    if (role === "school_admin") window.location.href = "{{ '/school_dashboard.html' | relative_url }}";
+                    else if (role === "counsellor") window.location.href = "{{ '/counsellor_dashboard.html' | relative_url }}";
                     return;
                 }
 
                 // 4. Route Students
-                window.location.href = "student_portal.html";
+                window.location.href = "{{ '/student_portal.html' | relative_url }}";
 
             } catch (error) {
                 console.error("Global Routing Error:", error);
