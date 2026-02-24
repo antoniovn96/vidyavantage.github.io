@@ -47,7 +47,7 @@
       }
       .nav-links a:hover { color: #D4AF37; }
 
-      /* Contact Expert Button (Outlined) */
+      /* Contact Expert Button */
       .nav-btn {
         border: 1px solid #D4AF37;
         padding: 8px 15px;
@@ -55,12 +55,9 @@
         color: #D4AF37 !important;
         font-weight: bold;
       }
-      .nav-btn:hover {
-        background: #D4AF37;
-        color: #0A2342 !important;
-      }
+      .nav-btn:hover { background: #D4AF37; color: #0A2342 !important; }
 
-      /* Portal Login Button (Solid Gold) */
+      /* Portal Login Button */
       .nav-btn-login {
         background: #D4AF37;
         color: #0A2342 !important;
@@ -73,47 +70,70 @@
         transition: all 0.3s;
         font-family: inherit;
       }
-      .nav-btn-login:hover {
-        background: white;
-        transform: translateY(-2px);
+      .nav-btn-login:hover { background: white; transform: translateY(-2px); }
+
+      /* --- NEW: PROFILE DROPDOWN MENU --- */
+      .profile-dropdown {
+        position: relative;
+        display: none; /* Hidden by default until Firebase confirms login */
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        color: white;
+        font-weight: 600;
+        margin-left: 10px;
+      }
+      .profile-dropdown img {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 2px solid #D4AF37;
+        object-fit: cover;
+      }
+      .profile-dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        min-width: 180px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 15px;
+        z-index: 1001;
+      }
+      .profile-dropdown:hover .profile-dropdown-content {
+        display: block;
+      }
+      .profile-dropdown-content a {
+        color: #0A2342;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #eee;
+        transition: 0.2s;
+      }
+      .profile-dropdown-content a:hover {
+        background-color: #f1f5f9;
+        color: #2563EB;
       }
 
       /* CONTENT WRAPPER */
-      .main-content {
-        flex: 1; 
-        max-width: 100%; 
-        margin: 0;
-        padding: 0; 
-        width: 100%;
-        box-sizing: border-box;
-      }
+      .main-content { flex: 1; max-width: 100%; margin: 0; padding: 0; width: 100%; box-sizing: border-box; }
 
       /* FOOTER */
-      .site-footer {
-        background-color: #0A2342;
-        color: white;
-        padding: 60px 20px 20px;
-        border-top: 5px solid #D4AF37;
-        font-size: 0.9rem;
-        margin-top: auto;
-      }
-      .footer-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        max-width: 1200px;
-        margin: 0 auto;
-        gap: 40px;
-      }
+      .site-footer { background-color: #0A2342; color: white; padding: 60px 20px 20px; border-top: 5px solid #D4AF37; font-size: 0.9rem; margin-top: auto; }
+      .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 40px; }
       .footer-col { flex: 1; min-width: 200px; }
       .footer-heading { color: #D4AF37; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
       .footer-links a { display: block; color: #f4f6f8; text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
       .footer-links a:hover { color: #D4AF37; padding-left: 5px; }
       .copyright { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #888; }
       
-      /* Mobile Fixes */
       @media (max-width: 900px) {
-        .top-nav { flex-direction: column; gap: 15px; }
+        .top-nav { flex-direction: column; gap: 15px; padding: 15px; }
         .nav-links { flex-wrap: wrap; justify-content: center; font-size: 0.85rem; }
       }
     </style>
@@ -128,12 +148,19 @@
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/colleges/' | relative_url }}">Colleges</a>
         <a href="{{ '/visa/' | relative_url }}">Global Visas</a>
-        
         <a href="{{ '/blog/' | relative_url }}">Blogs & Research</a>
-        
         <a href="https://github.com/antoniovn96" target="_blank" class="nav-btn" style="margin-left: 10px;">Contact Me</a>
         
         <button id="globalLoginBtn" class="nav-btn-login">Portal Login</button>
+
+        <div id="userProfileNav" class="profile-dropdown">
+            <img id="navProfilePic" src="https://via.placeholder.com/40" alt="Profile">
+            <span id="navProfileName">User</span>
+            <div class="profile-dropdown-content">
+                <a href="#" id="navDashboardLink">📊 My Dashboard</a>
+                <a href="#" id="navLogoutBtn" style="color: #ef4444; border-top: 2px solid #eee;">🚪 Logout</a>
+            </div>
+        </div>
       </div>
     </nav>
 
@@ -171,7 +198,7 @@
 
     <script type="module">
         import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -187,46 +214,65 @@
         const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
         const auth = getAuth(app);
         const db = getFirestore(app);
-
         const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
 
-        document.getElementById('globalLoginBtn').addEventListener('click', async () => {
-            const user = auth.currentUser;
-            const btn = document.getElementById('globalLoginBtn');
-            const originalText = btn.innerText;
-            btn.innerText = "Routing... ⏳";
-            
-            // 1. If not logged in, send them to the homepage Auth box securely
-            if (!user) {
-                window.location.href = "{{ '/' | relative_url }}";
-                return;
-            }
+        // UI Elements
+        const loginBtn = document.getElementById('globalLoginBtn');
+        const profileNav = document.getElementById('userProfileNav');
+        const profilePic = document.getElementById('navProfilePic');
+        const profileName = document.getElementById('navProfileName');
 
-            const email = user.email.toLowerCase();
-            
-            try {
-                // 2. Route Super Admin securely using Jekyll relative_url
-                if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
-                    window.location.href = "{{ '/admin.html' | relative_url }}";
-                    return;
-                }
+        // 1. LISTEN FOR LOGIN STATE CHANGES
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // USER IS LOGGED IN: Show Profile, Hide Login Button
+                loginBtn.style.display = 'none';
+                profileNav.style.display = 'flex';
 
-                // 3. Route VIPs (School Admin / Counsellor)
-                const permsSnap = await getDoc(doc(db, "permissions", email));
-                if (permsSnap.exists()) {
-                    const role = permsSnap.data().role;
-                    if (role === "school_admin") window.location.href = "{{ '/school_dashboard.html' | relative_url }}";
-                    else if (role === "counsellor") window.location.href = "{{ '/counsellor_dashboard.html' | relative_url }}";
-                    return;
-                }
+                // Set Name & Avatar
+                const displayName = user.displayName || user.email.split('@')[0];
+                profileName.innerText = displayName;
+                
+                // If they logged in via email and don't have a picture, create an initial avatar
+                profilePic.src = user.photoURL || `https://ui-avatars.com/api/?name=${displayName}&background=D4AF37&color=0A2342`;
 
-                // 4. Route Students
-                window.location.href = "{{ '/student_portal.html' | relative_url }}";
+                // Handle clicking "My Dashboard"
+                document.getElementById('navDashboardLink').onclick = async (e) => {
+                    e.preventDefault();
+                    const email = user.email.toLowerCase();
+                    
+                    if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
+                        window.location.href = "{{ '/admin.html' | relative_url }}";
+                        return;
+                    }
 
-            } catch (error) {
-                console.error("Global Routing Error:", error);
-                btn.innerText = originalText;
-                alert("Error connecting to server. Please try again.");
+                    const permsSnap = await getDoc(doc(db, "permissions", email));
+                    if (permsSnap.exists()) {
+                        const role = permsSnap.data().role;
+                        if (role === "school_admin") window.location.href = "{{ '/school_dashboard.html' | relative_url }}";
+                        else if (role === "counsellor") window.location.href = "{{ '/counsellor_dashboard.html' | relative_url }}";
+                    } else {
+                        window.location.href = "{{ '/student_portal.html' | relative_url }}";
+                    }
+                };
+
+                // Handle clicking "Logout"
+                document.getElementById('navLogoutBtn').onclick = (e) => {
+                    e.preventDefault();
+                    signOut(auth).then(() => {
+                        window.location.href = "{{ '/' | relative_url }}"; // Redirect to home
+                    });
+                };
+
+            } else {
+                // USER IS LOGGED OUT: Show Login Button, Hide Profile
+                loginBtn.style.display = 'block';
+                profileNav.style.display = 'none';
+                
+                // If they click Login while logged out, send them to homepage Auth Box
+                loginBtn.onclick = () => {
+                    window.location.href = "{{ '/' | relative_url }}";
+                };
             }
         });
     </script>
