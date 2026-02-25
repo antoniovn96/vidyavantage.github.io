@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Admin Control Center</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -14,22 +15,27 @@
       body { background-color: var(--bg); font-family: 'Nunito', sans-serif; color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
       
       /* --- SIDEBAR --- */
-      .sidebar { width: 260px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto;}
+      .sidebar { width: 260px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; transition: transform 0.3s ease; z-index: 1000;}
       .sidebar::-webkit-scrollbar { width: 4px; }
       .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
       
-      .brand { padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; position: sticky; top:0; background: var(--sidebar); z-index: 10;}
+      .brand { padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; position: sticky; top:0; background: var(--sidebar); z-index: 10; display:flex; justify-content: space-between; align-items:center;}
       .brand h2 { margin: 0; font-size: 1.5rem; background: -webkit-linear-gradient(45deg, var(--secondary), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
       
+      .mobile-close-btn { display: none; background: transparent; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
       .nav-btn { background: transparent; color: var(--text-muted); border: none; text-align: left; padding: 12px 25px; font-size: 0.95rem; font-weight: bold; cursor: pointer; transition: 0.2s; border-left: 4px solid transparent; width: 100%; display: flex; align-items: center; gap: 10px; }
       .nav-btn:hover { background: rgba(255,255,255,0.05); color: white; }
       .nav-btn.active { background: rgba(139, 92, 246, 0.1); color: var(--primary); border-left-color: var(--primary); }
 
       /* --- MAIN LAYOUT & TOP HEADER --- */
-      .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-      .top-header { background: var(--card-bg); height: 70px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
-      .header-actions { display: flex; align-items: center; gap: 20px; }
-      .site-link { color: var(--secondary); text-decoration: none; font-weight: bold; padding: 8px 15px; border-radius: 8px; background: rgba(6, 182, 212, 0.1); transition: 0.2s;}
+      .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative;}
+      .top-header { background: var(--card-bg); height: 70px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+      
+      .mobile-menu-btn { display: none; background: var(--primary); color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;}
+      
+      .header-actions { display: flex; align-items: center; gap: 15px; }
+      .site-link { color: var(--secondary); text-decoration: none; font-weight: bold; padding: 8px 12px; border-radius: 8px; background: rgba(6, 182, 212, 0.1); transition: 0.2s; font-size: 0.9rem;}
       .site-link:hover { background: rgba(6, 182, 212, 0.2); }
       
       /* User Profile Dropdown */
@@ -40,43 +46,43 @@
       .dropdown-content a:hover { background-color: rgba(255,255,255,0.05); color: var(--primary); }
       .profile-menu.active .dropdown-content { display: block; }
 
-      .welcome-banner { background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.05)); border-bottom: 1px solid var(--border); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
+      .welcome-banner { background: linear-gradient(to right, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.05)); border-bottom: 1px solid var(--border); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
       .quote-text { font-size: 0.95rem; font-style: italic; color: var(--text-main); margin: 0; }
       .quote-text strong { color: var(--primary); font-style: normal;}
-      .clock-container { font-family: monospace; font-size: 1.1rem; color: var(--secondary); font-weight: bold; background: rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border);}
+      .clock-container { font-family: monospace; font-size: 1rem; color: var(--secondary); font-weight: bold; background: rgba(0,0,0,0.2); padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border);}
 
       /* --- CONTENT AREA --- */
-      .main-content { flex: 1; padding: 30px 40px; overflow-y: auto; position: relative;}
+      .main-content { flex: 1; padding: 20px; overflow-y: auto; position: relative;}
       .header-bar { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;}
-      .header-bar h1 { margin: 0 0 5px 0; font-size: 1.6rem; color: white;}
+      .header-bar h1 { margin: 0 0 5px 0; font-size: 1.5rem; color: white;}
       .header-bar p { margin: 0; color: var(--text-muted); font-size: 0.9rem;}
       
       .tab-content { display: none; animation: fadeIn 0.3s ease; }
       .tab-content.active { display: block; }
       
       /* UI COMPONENTS */
-      .card { background: var(--card-bg); padding: 25px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+      .card { background: var(--card-bg); padding: 20px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); overflow-x: auto;}
       .card h3 { margin-top: 0; color: white; border-bottom: 1px solid var(--border); padding-bottom: 10px; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
       
-      .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-      .kpi-box { background: linear-gradient(135deg, rgba(30,41,59,1) 0%, rgba(15,23,42,1) 100%); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+      .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px; }
+      .kpi-box { background: linear-gradient(135deg, rgba(30,41,59,1) 0%, rgba(15,23,42,1) 100%); padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
       .kpi-box h4 { margin:0 0 5px 0; color:var(--text-muted); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px;}
-      .kpi-box .val { font-size:1.8rem; font-weight:900; color:white; }
+      .kpi-box .val { font-size:1.5rem; font-weight:900; color:white; }
       
-      .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-      .grid-3col { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+      .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+      .grid-3col { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
 
       .form-group { margin-bottom: 15px; }
       .form-label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;}
-      .form-input, .form-select, .form-textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; color: white; background: #0f172a; box-sizing: border-box; font-family: inherit;}
+      .form-input, .form-select, .form-textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; color: white; background: #0f172a; box-sizing: border-box; font-family: inherit;}
       .form-input:focus, .form-select:focus { border-color: var(--primary); outline: none; }
       .btn { background: linear-gradient(45deg, var(--primary), #a855f7); color: white; border: none; padding: 10px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s; }
       .btn:hover { opacity: 0.9; transform: translateY(-2px); }
       .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
       .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
-      .data-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem;}
-      .data-table th, .data-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
+      .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; min-width: 600px;}
+      .data-table th, .data-table td { padding: 10px; text-align: left; border-bottom: 1px solid var(--border); }
       .data-table th { color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; background: rgba(0,0,0,0.2);}
       .data-table tr:hover { background: rgba(255,255,255,0.02); }
 
@@ -96,10 +102,26 @@
       .student-link:hover { color: var(--primary); text-decoration: underline; }
 
       /* MODAL UI */
-      .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-      .modal-content { background: var(--card-bg); width: 700px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: fadeIn 0.3s ease;}
+      .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 10px; box-sizing: border-box;}
+      .modal-content { background: var(--card-bg); width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; padding: 25px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: fadeIn 0.3s ease; box-sizing: border-box;}
       
+      /* Chat Display specific */
+      .chat-message { padding: 10px 15px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; max-width: 80%;}
+      .chat-counsellor { background: var(--primary); color: white; margin-left: auto; border-bottom-right-radius: 0;}
+      .chat-student { background: rgba(255,255,255,0.1); color: white; margin-right: auto; border-bottom-left-radius: 0;}
+      .chat-time { font-size: 0.7rem; opacity: 0.7; margin-top: 5px; text-align: right;}
+
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+      /* --- MOBILE RESPONSIVENESS --- */
+      @media (max-width: 900px) {
+        .grid-2col, .grid-3col { grid-template-columns: 1fr; }
+        .sidebar { position: fixed; left: -260px; height: 100%; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+        .sidebar.open { left: 0; }
+        .mobile-menu-btn { display: block; }
+        .mobile-close-btn { display: block; }
+        .kpi-grid { grid-template-columns: 1fr 1fr; }
+      }
     </style>
 </head>
 <body>
@@ -131,19 +153,39 @@
 
         <div class="card" style="margin-top: 25px; border-top: 4px solid var(--primary); background:rgba(0,0,0,0.2);">
             <h3 style="font-size:1rem;">Confidential Counsellor Notes</h3>
-            <div id="modalCounsellorNotes" style="font-size: 0.9rem; color: var(--text-main); line-height: 1.6; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px dashed var(--border);">
+            <div id="modalCounsellorNotes" style="font-size: 0.9rem; color: var(--text-main); line-height: 1.6; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px dashed var(--border); max-height: 200px; overflow-y:auto;">
                 No clinical notes have been logged for this student yet.
             </div>
         </div>
 
-        <div style="display:flex; justify-content: flex-end; gap:10px; margin-top:20px;">
+        <div style="display:flex; justify-content: flex-end; margin-top:20px;">
             <button class="btn btn-outline" onclick="closeStudentModal()">Close Dossier</button>
         </div>
     </div>
 </div>
 
-<div class="sidebar">
-    <div class="brand"><h2>Career Intel</h2></div>
+<div class="modal-overlay" id="chatReviewModal">
+    <div class="modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+            <h3 style="margin: 0; color: white;">Chat Logs: <span id="chatModalStuName" style="color:var(--secondary);">Student Name</span></h3>
+            <button onclick="closeChatModal()" style="background:transparent; border:none; color:var(--text-muted); font-size:1.8rem; cursor:pointer;">&times;</button>
+        </div>
+        
+        <div id="chatLogContainer" style="background: #0f172a; border: 1px solid var(--border); border-radius: 12px; padding: 15px; height: 300px; overflow-y: auto; display: flex; flex-direction: column;">
+            <div style="text-align:center; color:var(--text-muted); margin-top:50px;">No chat history found for this student.</div>
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 0.8rem; color: var(--warning); text-align: center;">
+            * Super Admin View Only (Read-Only Access) *
+        </div>
+    </div>
+</div>
+
+<div class="sidebar" id="sidebar">
+    <div class="brand">
+        <h2>Career Intel</h2>
+        <button class="mobile-close-btn" onclick="toggleMobileMenu()">&times;</button>
+    </div>
     <button class="nav-btn active" onclick="switchTab('tab-overview', this)">🏠 Overview Dashboard</button>
     <button class="nav-btn" onclick="switchTab('tab-institutions', this)">🏫 Institution Control</button>
     <button class="nav-btn" id="nav-btn-students" onclick="switchTab('tab-students', this)">🎓 Student Master</button>
@@ -152,16 +194,18 @@
     <button class="nav-btn" onclick="switchTab('tab-counselling', this)">🧠 Counselling Control</button>
     <button class="nav-btn" onclick="switchTab('tab-settings', this)">⚙️ System Settings</button>
     <button class="nav-btn" onclick="switchTab('tab-profile', this)">👤 My Profile</button>
-    <button class="nav-btn" onclick="switchTab('tab-notifications', this)">🔔 Notifications</button>
     <button class="nav-btn" onclick="switchTab('tab-access', this)" style="border-top:1px solid #334155; margin-top:10px;">🔑 Access Control</button>
 </div>
 
 <div class="main-wrapper">
     <div class="top-header">
-        <h2 style="margin:0; font-size:1.1rem; color:var(--text-muted);" id="headerTitle">Overview Dashboard</h2>
+        <div style="display:flex; align-items:center; gap:15px;">
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            <h2 style="margin:0; font-size:1.1rem; color:var(--text-muted);" id="headerTitle">Overview Dashboard</h2>
+        </div>
         
         <div class="header-actions">
-            <a href="index.html" class="site-link">🌐 Live Website</a>
+            <a href="index.html" class="site-link">🌐 Live Site</a>
             <div class="profile-menu" id="profileDropdownBtn">
                 <img src="https://via.placeholder.com/150" class="avatar-btn" id="topAvatarImg" onclick="toggleDropdown()">
                 <div class="dropdown-content">
@@ -191,7 +235,7 @@
         <div id="tab-overview" class="tab-content active">
             <div class="header-bar"><h1>Overview Dashboard</h1><p>Real-time snapshot of platform activity and metrics.</p></div>
             
-            <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="kpi-grid">
                 <div class="kpi-box" style="border-top: 3px solid var(--primary);"><h4>Total Institutions</h4><div class="val" id="kpiSchools">0</div></div>
                 <div class="kpi-box" style="border-top: 3px solid var(--success);"><h4>Active Students</h4><div class="val" id="kpiStudents">0</div></div>
                 <div class="kpi-box" style="border-top: 3px solid var(--secondary);"><h4>Assessments (Mo)</h4><div class="val">1,142</div></div>
@@ -201,21 +245,15 @@
             <div class="grid-3col">
                 <div class="card">
                     <h3>Platform Growth (Assessments)</h3>
-                    <canvas id="growthChart" height="120"></canvas>
+                    <canvas id="growthChart" height="150"></canvas>
                 </div>
                 
-                <div style="display:flex; flex-direction:column; gap:25px;">
+                <div style="display:flex; flex-direction:column; gap:20px;">
                     <div class="card" style="margin-bottom:0; border-top: 4px solid var(--warning);">
                         <h3>Immediate Action Required</h3>
                         <div class="list-item"><span style="color:white;">High Risk Flags</span> <span class="badge badge-danger">18 Students</span></div>
                         <div class="list-item"><span style="color:white;">Expiring Institutions</span> <span class="badge badge-warn">2 Schools</span></div>
                         <div class="list-item"><span style="color:white;">Parent Meeting Req.</span> <span class="badge badge-school">5 Pending</span></div>
-                    </div>
-                    <div class="card" style="margin-bottom:0; border-top: 4px solid var(--secondary);">
-                        <h3>System Snapshot</h3>
-                        <div class="list-item"><span>Licenses Sold</span> <strong style="color:white;">15,000</strong></div>
-                        <div class="list-item"><span>Licenses Used</span> <strong style="color:white;">12,450</strong></div>
-                        <div class="list-item"><span>Reports Generated</span> <strong style="color:white;">11,980</strong></div>
                     </div>
                 </div>
             </div>
@@ -227,26 +265,24 @@
                 <p>Manage subscriptions, licenses, and school profiles.</p>
             </div>
             
-            <div class="card" style="border-top: 4px solid var(--secondary); padding: 15px 25px;">
-                <h3 style="margin-bottom:10px; font-size:1rem;">⚡ Quick Onboard School</h3>
-                <div style="display:flex; gap:15px; align-items:flex-end;">
-                    <div class="form-group" style="flex:1; margin:0;"><input type="text" id="instName" class="form-input" placeholder="School Name"></div>
-                    <div class="form-group" style="flex:1; margin:0;">
+            <div class="card" style="border-top: 4px solid var(--secondary);">
+                <h3 style="margin-bottom:15px;">⚡ Quick Onboard School</h3>
+                <div class="grid-3col">
+                    <div class="form-group" style="margin:0;"><input type="text" id="instName" class="form-input" placeholder="School Name"></div>
+                    <div class="form-group" style="margin:0;">
                         <select id="instType" class="form-select"><option value="CBSE">CBSE</option><option value="ICSE">ICSE</option><option value="PU College">PU College</option></select>
                     </div>
-                    <div class="form-group" style="flex:1; margin:0;"><input type="email" id="instEmail" class="form-input" placeholder="Admin Email"></div>
-                    <button class="btn" id="addInstBtn" onclick="addInstitution()">Create & Send Details</button>
+                    <div class="form-group" style="margin:0;"><input type="email" id="instEmail" class="form-input" placeholder="Admin Email"></div>
                 </div>
+                <button class="btn" id="addInstBtn" onclick="addInstitution()" style="margin-top: 15px;">Create & Send Details</button>
             </div>
 
             <div class="card" style="border-top: 4px solid var(--primary);">
                 <h3>Institution List View</h3>
-                <div style="overflow-x: auto;">
-                    <table class="data-table">
-                        <thead><tr><th>Institution ID</th><th>Name & Board</th><th>Plan / Expiry</th><th>Licenses (Used/Total)</th><th>Completion %</th><th>Status</th><th>Action</th></tr></thead>
-                        <tbody id="instTableBody"><tr><td colspan="7" style="text-align:center;">Loading database...</td></tr></tbody>
-                    </table>
-                </div>
+                <table class="data-table">
+                    <thead><tr><th>Institution ID</th><th>Name & Board</th><th>Plan / Expiry</th><th>Licenses</th><th>Status</th><th>Action</th></tr></thead>
+                    <tbody id="instTableBody"><tr><td colspan="6" style="text-align:center;">Loading database...</td></tr></tbody>
+                </table>
             </div>
         </div>
 
@@ -254,28 +290,25 @@
             <div class="header-bar"><h1>Student Master Control</h1><p>Global database of all registered students and their clinical status.</p></div>
             
             <div class="card" style="border-top: 4px solid var(--success);">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid var(--border);">
-                    <div style="display:flex; gap:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid var(--border); flex-wrap:wrap; gap:10px;">
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
                         <select id="studentFilter" class="form-select" style="width:200px;" onchange="loadAllStudents()">
                             <option value="ALL">All Institutions</option>
                             <option value="GENERAL">General Public</option>
                         </select>
-                        <select class="form-select" style="width:150px;"><option>All Grades</option><option>Grade 10</option><option>Grade 12</option></select>
-                        <select class="form-select" style="width:150px;"><option>Any Risk</option><option>High Risk</option></select>
+                        <select class="form-select" style="width:150px;"><option>All Grades</option></select>
                     </div>
-                    <input type="text" class="form-input" placeholder="Search by Name/ID..." style="width: 250px;">
+                    <input type="text" class="form-input" placeholder="Search by Name..." style="width: 200px;">
                 </div>
                 
-                <div style="overflow-x: auto; max-height: 500px;">
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Unique ID</th><th>Student Name</th><th>Inst. / Grade</th><th>Assessment</th><th>Risk Level</th><th>Action</th></tr>
-                        </thead>
-                        <tbody id="globalStudentTableBody">
-                            <tr><td colspan="6" style="text-align:center;">Loading student records...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Unique ID</th><th>Student Name</th><th>Inst. / Grade</th><th>Assessment</th><th>Risk Level</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="globalStudentTableBody">
+                        <tr><td colspan="6" style="text-align:center;">Loading student records...</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -292,11 +325,10 @@
                 <div class="card">
                     <h3>Clinical & Stress Indicators</h3>
                     <div class="list-item"><span>Avg. Career Clarity (Pre-Test)</span> <span class="badge badge-danger">32%</span></div>
-                    <div class="list-item"><span>Avg. Career Clarity (Post-Report)</span> <span class="badge badge-success" style="background:rgba(16,185,129,0.2); color:var(--success);">88%</span></div>
+                    <div class="list-item"><span>Avg. Career Clarity (Post-Report)</span> <span class="badge badge-success">88%</span></div>
                     <div class="list-item"><span>High Parent Pressure Indicated</span> <span style="color:var(--warning); font-weight:bold;">24% of Users</span></div>
                 </div>
             </div>
-            <div class="card"><h3>Institution Engagement Ranking</h3><p style="color:var(--text-muted); text-align:center; padding:30px;">Connect Firebase to load Institution Completion Heatmaps.</p></div>
         </div>
 
         <div id="tab-revenue" class="tab-content">
@@ -304,18 +336,7 @@
             <div class="kpi-grid">
                 <div class="kpi-box"><h4>Monthly Recurring (MRR)</h4><div class="val">₹2,40,000</div></div>
                 <div class="kpi-box"><h4>Annual Projected</h4><div class="val">₹28,80,000</div></div>
-                <div class="kpi-box"><h4>Avg Rev Per Inst.</h4><div class="val">₹45,000</div></div>
                 <div class="kpi-box"><h4>Renewal Rate</h4><div class="val" style="color:var(--success);">94%</div></div>
-            </div>
-            <div class="card">
-                <h3>Recent Invoices & Payments</h3>
-                <table class="data-table">
-                    <thead><tr><th>Invoice ID</th><th>Institution</th><th>Plan Type</th><th>Amount</th><th>Status</th></tr></thead>
-                    <tbody>
-                        <tr><td>INV-001</td><td>The Knowledge Habitat</td><td>Premium (500 Lic)</td><td>₹75,000</td><td><span class="badge badge-gen">Paid</span></td></tr>
-                        <tr><td>INV-002</td><td>St Joseph's School</td><td>Basic (200 Lic)</td><td>₹30,000</td><td><span class="badge badge-warn">Pending</span></td></tr>
-                    </tbody>
-                </table>
             </div>
         </div>
 
@@ -327,91 +348,33 @@
                     <table class="data-table">
                         <thead><tr><th>Student</th><th>Flag Reason</th><th>Action</th></tr></thead>
                         <tbody>
-                            <tr><td>Rahul S.</td><td>High Stress / Low Clarity</td><td><button class="btn" style="padding:4px 10px; font-size:0.8rem;">Review</button></td></tr>
-                            <tr><td>Priya M.</td><td>Parent Conflict Identified</td><td><button class="btn" style="padding:4px 10px; font-size:0.8rem;">Review</button></td></tr>
+                            <tr><td>Rahul S.</td><td>High Stress / Low Clarity</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;">Review</button></td></tr>
+                            <tr><td>Priya M.</td><td>Parent Conflict Identified</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;">Review</button></td></tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="card" style="border-top: 4px solid var(--primary);">
-                    <h3>Upcoming Sessions</h3>
-                    <div class="list-item">
-                        <div><strong style="color:white; display:block;">Aditi Sharma (Grade 10)</strong><span style="font-size:0.8rem; color:var(--text-muted);">Today, 4:00 PM - Stream Selection</span></div>
-                        <span class="badge badge-school">Online</span>
-                    </div>
-                    <div class="list-item">
-                        <div><strong style="color:white; display:block;">Parent Meeting: Kumar Family</strong><span style="font-size:0.8rem; color:var(--text-muted);">Tomorrow, 11:00 AM - Report Discussion</span></div>
-                        <span class="badge badge-school">In-Person</span>
-                    </div>
                 </div>
             </div>
         </div>
 
         <div id="tab-settings" class="tab-content">
             <div class="header-bar"><h1>System & Security Settings</h1><p>Global platform configurations.</p></div>
-            <div class="grid-2col">
-                <div class="card">
-                    <h3>Platform Rules</h3>
-                    <div class="list-item"><span>Allow Student Re-assessment?</span> <input type="checkbox" checked></div>
-                    <div class="list-item"><span>Auto-Email Reports to Parents?</span> <input type="checkbox"></div>
-                    <div class="list-item"><span>Enable Public Registration?</span> <input type="checkbox" checked></div>
-                    <button class="btn btn-outline" style="width:100%; margin-top:15px;">Save Settings</button>
-                </div>
-                <div class="card">
-                    <h3>Integrations & Data</h3>
-                    <button class="btn btn-outline" style="width:100%; margin-bottom:10px; text-align:left;">📥 Export All Student Data (CSV)</button>
-                    <button class="btn btn-outline" style="width:100%; margin-bottom:10px; text-align:left;">💬 Configure WhatsApp API</button>
-                    <button class="btn btn-outline" style="width:100%; margin-bottom:10px; text-align:left;">📧 Edit Email Templates</button>
-                </div>
+            <div class="card">
+                <h3>Platform Rules</h3>
+                <div class="list-item"><span>Allow Student Re-assessment?</span> <input type="checkbox" checked></div>
+                <div class="list-item"><span>Auto-Email Reports to Parents?</span> <input type="checkbox"></div>
+                <button class="btn btn-outline" style="margin-top:15px;">Save Settings</button>
             </div>
         </div>
 
         <div id="tab-profile" class="tab-content">
-            <div class="header-bar"><h1>Your Counsellor Profile</h1><p>Update your public-facing details and credentials.</p></div>
+            <div class="header-bar"><h1>Super Admin Profile</h1><p>Update your credentials.</p></div>
             <div class="card">
-                <div class="grid-3col">
-                    <div style="text-align:center;">
-                        <img src="https://via.placeholder.com/150" id="profAvatar" style="width:150px; height:150px; border-radius:50%; border:3px solid var(--primary); margin-bottom:15px; object-fit:cover;">
-                        <br>
-                        <button class="btn btn-outline" onclick="document.getElementById('photoUpload').click()" style="font-size:0.8rem;">Change Photo</button>
-                    </div>
-                    <div style="grid-column: span 2;">
-                        <div class="grid-2col" style="gap:15px;">
-                            <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="editName" class="form-input"></div>
-                            <div class="form-group"><label class="form-label">Designation</label><input type="text" id="editTitle" class="form-input" placeholder="e.g., Lead Clinical Counsellor"></div>
-                        </div>
-                        <div class="grid-2col" style="gap:15px;">
-                            <div class="form-group"><label class="form-label">Years of Experience</label><input type="number" class="form-input" placeholder="e.g., 5"></div>
-                            <div class="form-group"><label class="form-label">Session Fee (₹)</label><input type="number" class="form-input" placeholder="e.g., 1500"></div>
-                        </div>
-                        <div class="form-group"><label class="form-label">Education & Certifications</label><input type="text" class="form-input" placeholder="e.g., MSW (Psychiatric Social Work)"></div>
-                        <div class="form-group"><label class="form-label">Professional Bio</label><textarea id="editBio" class="form-textarea" rows="4"></textarea></div>
-                        <div class="list-item" style="border:none; padding-bottom:0;">
-                            <span style="color:white; font-weight:bold;">Show on Public Landing Page?</span>
-                            <label style="position:relative; display:inline-block; width:40px; height:20px;">
-                                <input type="checkbox" checked style="width:100%; height:100%; cursor:pointer;">
-                            </label>
-                        </div>
-                        <button class="btn" id="saveProfileBtn" onclick="saveProfileData()" style="margin-top:20px;">💾 Save Public Profile</button>
-                    </div>
+                <div class="grid-2col">
+                    <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="editName" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Professional Title</label><input type="text" id="editTitle" class="form-input"></div>
                 </div>
-            </div>
-        </div>
-
-        <div id="tab-notifications" class="tab-content">
-            <div class="header-bar"><h1>Notifications & Automation</h1><p>Trigger communications and alerts across the network.</p></div>
-            <div class="grid-2col">
-                <div class="card">
-                    <h3>Manual Triggers</h3>
-                    <button class="btn btn-outline" style="width:100%; margin-bottom:10px; text-align:left; border-color:var(--secondary); color:var(--secondary);">✉️ Bulk Email: Incomplete Assessments</button>
-                    <button class="btn btn-outline" style="width:100%; margin-bottom:10px; text-align:left; border-color:var(--warning); color:var(--warning);">🔔 Send Renewal Reminders to Schools</button>
-                    <button class="btn btn-outline" style="width:100%; margin-bottom:10px; text-align:left; border-color:var(--primary); color:var(--primary);">📅 Send Follow-up Reminders to Students</button>
-                </div>
-                <div class="card">
-                    <h3>Active Automations</h3>
-                    <div class="list-item"><span>Auto Risk Alert (Email to Counsellor)</span> <span style="color:var(--success); font-weight:bold;">ON</span></div>
-                    <div class="list-item"><span>Parent Report Dispatch (Post-Counselling)</span> <span style="color:var(--success); font-weight:bold;">ON</span></div>
-                    <div class="list-item"><span>Invoice Auto-Generation</span> <span style="color:var(--danger); font-weight:bold;">OFF</span></div>
-                </div>
+                <div class="form-group"><label class="form-label">Short Bio</label><textarea id="editBio" class="form-textarea" rows="3"></textarea></div>
+                <button class="btn" id="saveProfileBtn" onclick="saveProfileData()">💾 Save Profile</button>
             </div>
         </div>
 
@@ -471,7 +434,12 @@
     });
 
     let uploadedImageBase64 = "";
-    window.globalStudentData = {}; // Stores fetched student info for the modal
+    window.globalStudentData = {}; 
+
+    // --- MOBILE MENU LOGIC ---
+    window.toggleMobileMenu = function() {
+        document.getElementById('sidebar').classList.toggle('open');
+    }
 
     // --- CLOCK & DAILY QUOTE LOGIC ---
     function updateClock() {
@@ -481,19 +449,11 @@
         const yy = String(now.getFullYear()).slice(-2);
         const hh = String(now.getHours()).padStart(2, '0');
         const min = String(now.getMinutes()).padStart(2, '0');
-        const ss = String(now.getSeconds()).padStart(2, '0');
-        document.getElementById('liveClock').innerText = `${dd}/${mm}/${yy}, ${hh}:${min}:${ss}`;
+        document.getElementById('liveClock').innerText = `${dd}/${mm}/${yy}, ${hh}:${min}`;
     }
     setInterval(updateClock, 1000); updateClock();
 
-    const quotes = [
-        "The future depends on what you do today.",
-        "Quality is not an act, it is a habit.",
-        "Innovation distinguishes between a leader and a follower.",
-        "Don't watch the clock; do what it does. Keep going.",
-        "Simplicity is the ultimate sophistication.",
-        "It always seems impossible until it is done."
-    ];
+    const quotes = ["The future depends on what you do today.", "Quality is not an act, it is a habit."];
     const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
     document.getElementById('dailyQuote').innerText = `"${quotes[dayOfYear % quotes.length]}"`;
 
@@ -504,13 +464,14 @@
         document.getElementById(tabId).classList.add('active');
         btn.classList.add('active');
         document.getElementById('headerTitle').innerText = btn.innerText.replace(/[^\w\s]/gi, '').trim();
+        document.getElementById('sidebar').classList.remove('open'); // close mobile menu on click
     };
 
     window.toggleDropdown = function() { document.getElementById("profileDropdownBtn").classList.toggle("active"); }
-    window.onclick = function(event) { if (!event.target.matches('.avatar-btn')) { document.getElementById("profileDropdownBtn").classList.remove("active"); } }
+    window.onclick = function(event) { if (!event.target.matches('.avatar-btn') && !event.target.matches('.mobile-menu-btn')) { document.getElementById("profileDropdownBtn").classList.remove("active"); } }
     window.logoutUser = function() { signOut(auth).then(() => { window.location.href = "index.html"; }); }
 
-    // --- MODAL LOGIC (THE DOSSIER) ---
+    // --- MODAL LOGIC (THE DOSSIER & CHAT) ---
     window.openStudentModal = function(uid) {
         const student = window.globalStudentData[uid];
         if(!student) return;
@@ -530,18 +491,51 @@
         document.getElementById('modalStuStatus').innerHTML = student.assessmentCompleted ? '<span style="color:var(--success);">Completed</span>' : '<span style="color:var(--warning);">Pending</span>';
         document.getElementById('modalStuRisk').innerHTML = student.assessmentCompleted ? 'Stable' : 'Needs Assessment';
 
-        // Display Counsellor Notes if they exist (Feature connected to Counsellor Dashboard)
+        // Admin & Counsellor Notes Logic
         const notesDiv = document.getElementById('modalCounsellorNotes');
         if (student.counsellorNotes && student.counsellorNotes.length > 0) {
-            notesDiv.innerHTML = student.counsellorNotes.map(n => `<div style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;"><span style="color:var(--primary); font-size:0.8rem;">[${new Date(n.date).toLocaleDateString()}]</span> ${n.note}</div>`).join('');
+            notesDiv.innerHTML = student.counsellorNotes.map(n => {
+                let html = `<div style="margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                                <span style="color:var(--primary); font-size:0.8rem;">[${new Date(n.date).toLocaleDateString()}]</span> 
+                                <strong style="font-size:0.85rem; color:var(--secondary);">By: ${n.counsellorEmail}</strong><br>
+                                ${n.note}
+                            </div>`;
+                if(n.adminEscalation) {
+                    html += `<div style="background: rgba(244, 63, 94, 0.1); padding: 8px; border-radius: 6px; border: 1px dashed var(--accent); margin-bottom: 10px; font-size: 0.85rem; color: #fda4af;">
+                                <strong>🚨 Escalate to Admin:</strong> ${n.adminEscalation}
+                             </div>`;
+                }
+                return html;
+            }).join('');
         } else {
             notesDiv.innerHTML = "No clinical notes have been logged for this student yet.";
         }
 
         document.getElementById('studentDossierModal').style.display = 'flex';
     }
-    
     window.closeStudentModal = function() { document.getElementById('studentDossierModal').style.display = 'none'; }
+
+    // Chat Viewer Logic
+    window.openChatReview = function(uid, name) {
+        document.getElementById('chatModalStuName').innerText = name;
+        
+        // FUTURE: Fetch actual messages subcollection from Firestore here
+        // For now, rendering a static mock view to demonstrate UI
+        const chatBox = document.getElementById('chatLogContainer');
+        chatBox.innerHTML = `
+            <div class="chat-message chat-counsellor">
+                Hello ${name}, please make sure to complete your assessment before tomorrow.
+                <div class="chat-time">10:30 AM - Counsellor</div>
+            </div>
+            <div class="chat-message chat-student">
+                Yes ma'am, I am doing it right now!
+                <div class="chat-time">10:35 AM - ${name}</div>
+            </div>
+        `;
+        
+        document.getElementById('chatReviewModal').style.display = 'flex';
+    }
+    window.closeChatModal = function() { document.getElementById('chatReviewModal').style.display = 'none'; }
 
 
     // --- PROFILE LOGIC ---
@@ -550,16 +544,8 @@
             const docSnap = await getDoc(doc(db, "system_settings", "superadmin_profile"));
             if (docSnap.exists()) {
                 const data = docSnap.data();
-                if(data.photo) { 
-                    document.getElementById('topAvatarImg').src = data.photo; 
-                    document.getElementById('profAvatar').src = data.photo; 
-                    uploadedImageBase64 = data.photo; 
-                }
-                if(data.name) { 
-                    document.getElementById('dropName').innerText = data.name; 
-                    document.getElementById('editName').value = data.name; 
-                    document.getElementById('welcomeName').innerText = `Welcome back, ${data.name.split(' ')[0]}. `;
-                }
+                if(data.photo) { document.getElementById('topAvatarImg').src = data.photo; uploadedImageBase64 = data.photo; }
+                if(data.name) { document.getElementById('dropName').innerText = data.name; document.getElementById('editName').value = data.name; document.getElementById('welcomeName').innerText = `Welcome back, ${data.name.split(' ')[0]}. `; }
                 if(data.title) document.getElementById('editTitle').value = data.title;
                 if(data.bio) document.getElementById('editBio').value = data.bio;
             }
@@ -578,7 +564,6 @@
                 const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 uploadedImageBase64 = canvas.toDataURL("image/jpeg", 0.8);
                 document.getElementById('topAvatarImg').src = uploadedImageBase64;
-                document.getElementById('profAvatar').src = uploadedImageBase64;
                 saveProfileData(true);
             }
         };
@@ -588,12 +573,9 @@
         const btn = document.getElementById('saveProfileBtn');
         if (!isJustPhoto) btn.innerText = "Saving... ⏳";
         try {
-            await setDoc(doc(db, "system_settings", "superadmin_profile"), {
-                photo: uploadedImageBase64, name: document.getElementById('editName').value, title: document.getElementById('editTitle').value, bio: document.getElementById('editBio').value, lastUpdated: new Date().toISOString()
-            }, { merge: true });
+            await setDoc(doc(db, "system_settings", "superadmin_profile"), { photo: uploadedImageBase64, name: document.getElementById('editName').value, title: document.getElementById('editTitle').value, bio: document.getElementById('editBio').value, lastUpdated: new Date().toISOString() }, { merge: true });
             if (!isJustPhoto) { alert("Profile updated!"); loadProfile(); }
-        } catch (e) { console.error(e); } 
-        finally { if (!isJustPhoto) btn.innerText = "💾 Save Public Profile"; }
+        } catch (e) { console.error(e); } finally { if (!isJustPhoto) btn.innerText = "💾 Save Profile"; }
     }
 
     // --- INSTITUTION MANAGER LOGIC ---
@@ -602,7 +584,6 @@
     window.addInstitution = async function() {
         const name = document.getElementById('instName').value.trim();
         const type = document.getElementById('instType').value;
-        const location = document.getElementById('instLocation').value.trim();
         const adminEmail = document.getElementById('instEmail').value.trim().toLowerCase();
         const btn = document.getElementById('addInstBtn');
 
@@ -620,26 +601,13 @@
             await createUserWithEmailAndPassword(secondaryAuth, adminEmail, generatedPassword);
             await signOut(secondaryAuth); 
 
-            const newInstRef = await addDoc(collection(db, "schools"), {
-                name: name, type: type, formattedName: `${name} (${location})`, location: location, accessCode: generatedAccessCode, adminEmail: adminEmail, addedAt: new Date().toISOString()
-            });
+            const newInstRef = await addDoc(collection(db, "schools"), { name: name, type: type, accessCode: generatedAccessCode, adminEmail: adminEmail, addedAt: new Date().toISOString() });
+            await setDoc(doc(db, "permissions", adminEmail), { email: adminEmail, role: "school_admin", schoolId: newInstRef.id, status: "active", grantedAt: new Date().toISOString() });
 
-            await setDoc(doc(db, "permissions", adminEmail), {
-                email: adminEmail, role: "school_admin", schoolId: newInstRef.id, status: "active", grantedAt: new Date().toISOString()
-            });
-
-            const subject = encodeURIComponent(`Welcome to Career Intel - Dashboard Access`);
-            const body = encodeURIComponent(`Hello,\n\nYour institution (${name}) has been onboarded to the Career Intel platform.\n\nHere are your secure dashboard login credentials:\nLogin Portal: https://antoniovn96.github.io/vidyavantage.github.io/\nEmail: ${adminEmail}\nPassword: ${generatedPassword}\n\nIMPORTANT: Your Student Registration Code is: ${generatedAccessCode}\n(Please share this exact code with your students so they can join your cohort).\n\nBest regards,\nCareer Intel Team`);
-            window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
-
-            document.getElementById('instName').value = ""; 
-            document.getElementById('instType').value = "CBSE";
-            document.getElementById('instLocation').value = ""; 
-            document.getElementById('instEmail').value = "";
+            window.location.href = `mailto:${adminEmail}?subject=Career Intel Access&body=Credentials attached.`;
+            document.getElementById('instName').value = ""; document.getElementById('instEmail').value = "";
             loadInstitutions(); 
-        } 
-        catch(e) { console.error(e); alert("Failed to add institution. " + e.message); } 
-        finally { btn.innerText = "Create & Send Details"; btn.disabled = false; }
+        } catch(e) { console.error(e); alert("Failed."); } finally { btn.innerText = "Create & Send Details"; btn.disabled = false; }
     }
 
     async function loadInstitutions() {
@@ -649,7 +617,7 @@
         
         try {
             const snap = await getDocs(collection(db, "schools"));
-            tbody.innerHTML = snap.empty ? "<tr><td colspan='7' style='text-align:center;'>No institutions found.</td></tr>" : "";
+            tbody.innerHTML = snap.empty ? "<tr><td colspan='6' style='text-align:center;'>No institutions found.</td></tr>" : "";
             
             filterSelect.innerHTML = '<option value="ALL">Show All Students</option><option value="GENERAL">General Public (No School)</option>';
             accSelect.innerHTML = '<option value="ALL">All Institutions</option>';
@@ -663,17 +631,12 @@
                 
                 tbody.innerHTML += `<tr>
                     <td style="font-family:monospace; color:var(--text-muted);">${docSnap.id.substring(0,6)}...</td>
-                    <td>
-                        <strong class="school-link" onclick="filterStudentsBySchool('${docSnap.id}')" title="Click to view students">${data.name}</strong><br>
-                        <span style="font-size:0.7rem; color:var(--text-muted); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; background: rgba(255,255,255,0.05);">${data.type || 'School'}</span>
-                    </td>
-                    <td><span class="badge badge-gen">Basic</span><br><span style="font-size:0.75rem; color:var(--text-muted);">Dec 2026</span></td>
+                    <td><strong class="school-link" onclick="filterStudentsBySchool('${docSnap.id}')">${data.name}</strong><br><span style="font-size:0.7rem; color:var(--text-muted); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; background: rgba(255,255,255,0.05);">${data.type || 'School'}</span></td>
+                    <td><span class="badge badge-gen">Basic</span></td>
                     <td>0 / 500</td>
-                    <td><span style="color:var(--warning);">0%</span></td>
-                    <td><span class="badge badge-success" style="background:rgba(16,185,129,0.2); color:var(--success);">Active</span></td>
+                    <td><span class="badge badge-success">Active</span></td>
                     <td><button onclick="deleteInstitution('${docSnap.id}')" style="color:var(--danger); background:none; border:none; cursor:pointer;">Delete</button></td>
                 </tr>`;
-
                 filterSelect.innerHTML += `<option value="${docSnap.id}">${data.name}</option>`;
                 accSelect.innerHTML += `<option value="${docSnap.id}">${data.name}</option>`;
             });
@@ -682,17 +645,10 @@
         } catch(e) { console.error(e); }
     }
 
-    window.deleteInstitution = async function(id) {
-        if(!confirm("Are you sure you want to delete this school?")) return;
-        try { await deleteDoc(doc(db, "schools", id)); loadInstitutions(); } catch(e) { console.error(e); }
-    }
+    window.deleteInstitution = async function(id) { if(!confirm("Delete school?")) return; try { await deleteDoc(doc(db, "schools", id)); loadInstitutions(); } catch(e) {} }
 
     // --- STUDENT CONTROL LOGIC ---
-    window.filterStudentsBySchool = function(schoolId) {
-        switchTab('tab-students', document.getElementById('nav-btn-students'));
-        document.getElementById('studentFilter').value = schoolId;
-        loadAllStudents();
-    };
+    window.filterStudentsBySchool = function(schoolId) { switchTab('tab-students', document.getElementById('nav-btn-students')); document.getElementById('studentFilter').value = schoolId; loadAllStudents(); };
 
     window.loadAllStudents = async function() {
         const tbody = document.getElementById('globalStudentTableBody');
@@ -702,49 +658,41 @@
             const snap = await getDocs(collection(db, "students"));
             let studentCount = 0;
             tbody.innerHTML = "";
-            window.globalStudentData = {}; // Clear global cache
+            window.globalStudentData = {}; 
 
-            if (snap.empty) {
-                tbody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No students registered yet.</td></tr>";
-                document.getElementById('kpiStudents').innerText = 0;
-                return;
-            }
+            if (snap.empty) { tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No students registered yet.</td></tr>"; document.getElementById('kpiStudents').innerText = 0; return; }
 
             snap.forEach(docSnap => {
                 const data = docSnap.data();
                 const schoolId = data.schoolId || 'GENERAL';
-                
                 if (filterVal !== "ALL" && filterVal !== schoolId) return; 
-                
                 studentCount++;
-                window.globalStudentData[docSnap.id] = data; // Cache data for modal
+                window.globalStudentData[docSnap.id] = data; 
                 
                 const schoolName = schoolId === 'GENERAL' ? 'General Public' : (schoolDictionary[schoolId] || 'Unknown School');
                 const badgeClass = schoolId === 'GENERAL' ? 'badge-gen' : 'badge-school';
 
                 tbody.innerHTML += `<tr>
                     <td style="font-family:monospace; color:var(--text-muted); font-size:0.8rem;">${docSnap.id.substring(0,6)}...</td>
-                    <td>
-                        <strong class="student-link" onclick="openStudentModal('${docSnap.id}')">${data.name}</strong><br>
-                        <span style="font-size:0.8rem; color:var(--text-muted);">${data.email}</span>
-                    </td>
+                    <td><strong class="student-link" onclick="openStudentModal('${docSnap.id}')">${data.name}</strong><br><span style="font-size:0.8rem; color:var(--text-muted);">${data.email}</span></td>
                     <td><span class="badge ${badgeClass}">${schoolName}</span><br><span style="font-size:0.8rem; color:var(--text-muted);">Grade ${data.grade || 'N/A'}</span></td>
                     <td>${data.assessmentCompleted ? '<span style="color:var(--success);">Complete</span>' : '<span style="color:var(--warning);">Pending</span>'}</td>
                     <td><span class="badge" style="background:rgba(255,255,255,0.1); color:var(--text-muted);">Unknown</span></td>
-                    <td><button onclick="deleteStudent('${docSnap.id}', '${data.name}')" style="color:white; background:var(--danger); border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer;">Del</button></td>
+                    <td>
+                        <div style="display:flex; gap:10px;">
+                            <button onclick="openChatReview('${docSnap.id}', '${data.name}')" style="color:var(--secondary); background:transparent; border:1px solid var(--secondary); padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.75rem;">View Chat</button>
+                            <button onclick="deleteStudent('${docSnap.id}', '${data.name}')" style="color:white; background:var(--danger); border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.75rem;">Del</button>
+                        </div>
+                    </td>
                 </tr>`;
             });
 
-            if(studentCount === 0) tbody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No students found for this filter.</td></tr>";
+            if(studentCount === 0) tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No students found for this filter.</td></tr>";
             if(filterVal === "ALL") document.getElementById('kpiStudents').innerText = studentCount;
-
-        } catch(e) { console.error("Error loading students:", e); }
+        } catch(e) { console.error(e); }
     }
 
-    window.deleteStudent = async function(uid, name) {
-        if(!confirm(`WARNING: Are you sure you want to permanently delete ${name}?`)) return;
-        try { await deleteDoc(doc(db, "students", uid)); alert(`Deleted.`); loadAllStudents(); } catch(e) { console.error(e); }
-    }
+    window.deleteStudent = async function(uid, name) { if(!confirm(`Permanently delete ${name}?`)) return; try { await deleteDoc(doc(db, "students", uid)); loadAllStudents(); } catch(e) {} }
 
     // --- ACCESS CONTROL LOGIC ---
     window.grantAccess = async function() {
@@ -752,12 +700,8 @@
         const role = document.getElementById('accRole').value;
         const schoolId = document.getElementById('accSchool').value;
         const btn = document.getElementById('grantBtn');
-        if(!email || !email.includes('@')) return alert("Enter valid email.");
-        btn.innerText = "Authorizing... ⏳"; btn.disabled = true;
-        try {
-            await setDoc(doc(db, "permissions", email), { email: email, role: role, schoolId: schoolId, status: "active" });
-            document.getElementById('accEmail').value = ""; loadAccessList(); 
-        } catch (e) { console.error(e); } finally { btn.innerText = "Authorize User"; btn.disabled = false; }
+        if(!email) return; btn.innerText = "Wait..."; btn.disabled = true;
+        try { await setDoc(doc(db, "permissions", email), { email: email, role: role, schoolId: schoolId, status: "active" }); document.getElementById('accEmail').value = ""; loadAccessList(); } catch (e) {} finally { btn.innerText = "Authorize User"; btn.disabled = false; }
     }
 
     async function loadAccessList() {
@@ -767,37 +711,19 @@
             tbody.innerHTML = snap.empty ? "<tr><td colspan='4'>No access granted.</td></tr>" : "";
             snap.forEach(d => {
                 const data = d.data();
-                const badge = data.role === 'counsellor' ? 'rgba(139, 92, 246, 0.2)' : 'rgba(6, 182, 212, 0.2)';
-                const color = data.role === 'counsellor' ? 'var(--primary)' : 'var(--secondary)';
-                tbody.innerHTML += `<tr>
-                    <td style="color:white;">${data.email}</td>
-                    <td><span style="background:${badge}; color:${color}; padding:4px 8px; border-radius:4px; font-size:0.75rem; font-weight:bold; text-transform:uppercase;">${data.role.replace('_', ' ')}</span></td>
-                    <td>${data.schoolId}</td>
-                    <td><button onclick="revokeAccess('${data.email}')" style="color:var(--danger); background:none; border:1px solid var(--danger); padding:4px 8px; border-radius:4px; cursor:pointer;">Revoke</button></td>
-                </tr>`;
+                tbody.innerHTML += `<tr><td style="color:white;">${data.email}</td><td><span class="badge badge-school">${data.role.replace('_', ' ')}</span></td><td>${data.schoolId}</td><td><button onclick="revokeAccess('${data.email}')" style="color:var(--danger); background:none; border:1px solid var(--danger); padding:4px 8px; border-radius:4px; cursor:pointer;">Revoke</button></td></tr>`;
             });
         } catch(e) {}
     }
 
-    window.revokeAccess = async function(email) {
-        if(!confirm(`Revoke access for ${email}?`)) return;
-        try { await deleteDoc(doc(db, "permissions", email)); loadAccessList(); } catch(e) {}
-    }
+    window.revokeAccess = async function(email) { if(!confirm(`Revoke access?`)) return; try { await deleteDoc(doc(db, "permissions", email)); loadAccessList(); } catch(e) {} }
 
     function renderChart() {
         const ctx = document.getElementById('growthChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: { labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], datasets: [{ label: 'New Assessments', data: [120, 250, 410, 360], borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.2)', fill: true, tension: 0.4 }] },
-            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
-        });
+        new Chart(ctx, { type: 'line', data: { labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], datasets: [{ label: 'Assessments', data: [120, 250, 410, 360], borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.2)', fill: true, tension: 0.4 }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } } });
     }
 
-    // Init
-    loadProfile(); 
-    loadInstitutions(); 
-    loadAccessList(); 
-    setTimeout(renderChart, 500);
+    loadProfile(); loadInstitutions(); loadAccessList(); setTimeout(renderChart, 500);
 </script>
 </body>
 </html>
