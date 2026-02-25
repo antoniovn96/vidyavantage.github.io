@@ -480,6 +480,10 @@ permalink: /assessment/
   async function processClinicalData() {
     const answerKeys = Object.keys(state.answers);
     if(answerKeys.length < 69) return alert(`Please answer all questions. You have answered ${answerKeys.length}/69.`);
+    localStorage.removeItem('careerIntelState');
+      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+      
+      document.getElementById('progressWrap').style.display = 'none';
 
     const btn = document.getElementById('analyzeBtn');
     btn.innerText = "Analyzing Psychometrics... ⏳";
