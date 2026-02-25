@@ -62,7 +62,7 @@
       .form-group { margin-bottom: 15px; }
       .form-label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase;}
       .form-input, .form-select, .form-textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; color: white; background: #0f172a; box-sizing: border-box; font-family: inherit;}
-      .form-input:focus, .form-select:focus { border-color: var(--primary); outline: none; }
+      .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); outline: none; }
       .btn { background: linear-gradient(45deg, var(--primary), #a855f7); color: white; border: none; padding: 12px 25px; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s; }
       .btn:hover { opacity: 0.9; transform: translateY(-2px); }
       .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
@@ -117,9 +117,9 @@
             </div>
             <div class="card" style="margin-bottom:0; border-top: 4px solid var(--accent); background:rgba(0,0,0,0.2);">
                 <h3 style="font-size:1rem;">Psychometric Snapshot</h3>
-                <p style="margin: 5px 0; color:var(--text-muted);">Clarity Score: <strong style="color:var(--warning);">4 / 10</strong></p>
-                <p style="margin: 5px 0; color:var(--text-muted);">Top Traits: <strong style="color:white;">Investigative, Social</strong></p>
-                <p style="margin: 5px 0; color:var(--text-muted);">System Flag: <span class="badge badge-warning">Stream Ambiguity</span></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">Clarity Score: <strong style="color:var(--warning);" id="modalStuClarity">--</strong></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">Top Traits: <strong style="color:white;" id="modalStuTraits">--</strong></p>
+                <p style="margin: 5px 0; color:var(--text-muted);">System Flag: <span class="badge badge-warning" id="modalStuRisk">--</span></p>
             </div>
         </div>
         <button class="btn" style="width:100%; margin-top:20px;" onclick="closeStudentModal()">Close File</button>
@@ -134,6 +134,7 @@
     <button class="nav-btn active" onclick="switchTab('tab-overview', this)">🏠 Overview</button>
     <button class="nav-btn" onclick="switchTab('tab-queue', this)">🎓 Student Queue</button>
     <button class="nav-btn" onclick="switchTab('tab-sessions', this)">📅 Session Manager</button>
+    <button class="nav-btn" onclick="switchTab('tab-chat', this)">💬 Direct Chat</button>
     <button class="nav-btn" onclick="switchTab('tab-interventions', this)">🚨 Interventions</button>
     <button class="nav-btn" onclick="switchTab('tab-resources', this)">📚 Resources</button>
     <div style="border-top: 1px solid var(--border); margin: 15px 20px;"></div>
@@ -154,7 +155,7 @@
                         <strong id="dropName" style="color:white; display:block;">Counselor Name</strong>
                         <span id="dropEmail" style="font-size:0.8rem; color:var(--text-muted);">email@gmail.com</span>
                     </div>
-                    <a href="#" onclick="switchTab('tab-profile', document.querySelectorAll('.nav-btn')[5]); toggleDropdown();">⚙️ My Profile</a>
+                    <a href="#" onclick="switchTab('tab-profile', document.querySelectorAll('.nav-btn')[6]); toggleDropdown();">⚙️ My Profile</a>
                     <a href="#" style="color:var(--danger);" onclick="logoutUser()">🚪 Secure Logout</a>
                 </div>
             </div>
@@ -249,7 +250,7 @@
         </div>
 
         <div id="tab-sessions" class="tab-content">
-            <div class="header-bar"><h1>Session & Calendar Manager</h1><p>Set your availability for student bookings and log clinical notes.</p></div>
+            <div class="header-bar"><h1>Session & Case Manager</h1><p>Set your availability for student bookings and log clinical notes.</p></div>
             <div class="grid-2col">
                 
                 <div class="card" style="border-top: 4px solid var(--secondary);">
@@ -282,11 +283,47 @@
                 </div>
 
                 <div class="card" style="border-top: 4px solid var(--primary);">
-                    <h3>Log Session Notes</h3>
-                    <div class="form-group"><label class="form-label">Select Student</label><select class="form-select"><option>Aryan Sharma</option><option>Priya Kaur</option></select></div>
-                    <div class="form-group"><label class="form-label">Session Summary & Observations</label><textarea class="form-textarea" rows="4" placeholder="Confidential clinical notes..."></textarea></div>
-                    <div class="form-group"><label class="form-label">Next Action Plan</label><input type="text" class="form-input" placeholder="e.g. Needs to research Design colleges."></div>
-                    <button class="btn btn-outline" style="width: 100%;">Save to Case File</button>
+                    <h3>Log Clinical Case Notes</h3>
+                    <div class="form-group">
+                        <label class="form-label">Select Student</label>
+                        <select class="form-select" id="sessionStudentSelect">
+                            <option value="">Loading students...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Session Summary & Observations</label>
+                        <textarea class="form-textarea" id="sessionNotesInput" rows="3" placeholder="Notes shared with student/parents..."></textarea>
+                    </div>
+                    
+                    <div class="form-group" style="padding: 10px; background: rgba(244, 63, 94, 0.05); border-radius: 8px; border: 1px dashed var(--accent);">
+                        <label class="form-label" style="color: var(--accent);">Internal Admin Escalation (Hidden from Student)</label>
+                        <textarea class="form-textarea" id="adminNotesInput" rows="2" placeholder="Private alerts or concerns for Super Admin..." style="border-color: var(--accent);"></textarea>
+                    </div>
+
+                    <button class="btn btn-outline" id="saveNotesBtn" onclick="saveSessionNotes()" style="width: 100%;">Save to Case File</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-chat" class="tab-content">
+            <div class="header-bar"><h1>Direct Student Chat</h1><p>Secure two-way communication channel.</p></div>
+            <div class="grid-3-1">
+                <div class="card" style="border-top: 4px solid var(--secondary); display:flex; flex-direction:column; height: 60vh; padding: 0;">
+                    <div style="padding: 20px; border-bottom: 1px solid var(--border);">
+                        <h3 style="border:none; padding:0; margin:0;">Chat: <span id="chatActiveStudent">Select a student</span></h3>
+                    </div>
+                    <div style="flex:1; padding: 20px; overflow-y:auto; background: #0f172a;" id="chatMessages">
+                        <div style="text-align:center; color:var(--text-muted); margin-top:20px;">Select a student from the panel to view history.</div>
+                    </div>
+                    <div style="padding: 20px; border-top: 1px solid var(--border); display:flex; gap:10px;">
+                        <input type="text" id="chatInput" class="form-input" placeholder="Type a message to the student..." style="margin:0;">
+                        <button class="btn" onclick="sendChatMessage()">Send</button>
+                    </div>
+                </div>
+                <div class="card" style="padding:0; overflow-y:auto; height: 60vh;">
+                    <h3 style="padding: 20px; margin:0; border-bottom: 1px solid var(--border);">Active Roster</h3>
+                    <div id="chatStudentList">
+                        </div>
                 </div>
             </div>
         </div>
@@ -338,8 +375,7 @@
         </div>
 
         <div id="tab-profile" class="tab-content">
-            <div class="header-bar"><h1>My Counsellor Profile</h1><p>Customize your public-facing clinical profile.</p></div>
-            
+            <div class="header-bar"><h1>My Counsellor Profile</h1><p>Update your public details and availability.</p></div>
             <div class="card">
                 <div class="grid-3-1">
                     <div>
@@ -378,7 +414,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, getDocs, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     // ⚠️ USE YOUR REAL FIREBASE KEYS HERE
@@ -426,11 +462,52 @@
         document.getElementById('modalStuGrade').innerText = student.grade || "N/A";
         document.getElementById('modalStuStatus').innerHTML = student.assessmentCompleted ? '<span style="color:var(--success);">Completed</span>' : '<span style="color:var(--warning);">Pending</span>';
         
+        // Add Psychometric Summary if available
+        if(student.psychIndex) {
+            document.getElementById('modalStuClarity').innerText = student.psychIndex.careerClarity + " / 10";
+            document.getElementById('modalStuTraits').innerText = student.riasecCode || "--";
+            document.getElementById('modalStuRisk').innerText = student.psychIndex.riskCategory === "High" ? "High Risk Detected" : "Stable";
+            document.getElementById('modalStuRisk').className = student.psychIndex.riskCategory === "High" ? "badge badge-danger" : "badge badge-success";
+        }
+
         document.getElementById('studentModal').style.display = 'flex';
     }
     window.closeStudentModal = function() { document.getElementById('studentModal').style.display = 'none'; }
 
-    // --- PROFILE IMAGE UPLOAD LOGIC ---
+    // --- FIREBASE SECURITY & DATA LOADING ---
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            window.location.href = "index.html"; 
+            return;
+        }
+
+        activeUserEmail = user.email.toLowerCase();
+
+        try {
+            const permsRef = doc(db, "permissions", activeUserEmail);
+            const permsSnap = await getDoc(permsRef);
+
+            if (permsSnap.exists() && (permsSnap.data().role === "counsellor" || permsSnap.data().role === "school_admin")) {
+                
+                document.getElementById('dropEmail').innerText = user.email;
+                document.getElementById('profEmail').value = user.email;
+                const name = user.displayName || user.email.split('@')[0];
+                document.getElementById('dropName').innerText = name;
+                document.getElementById('profName').value = name;
+                
+                loadCounsellorProfile(activeUserEmail);
+                loadAssignedStudents();
+
+            } else {
+                alert("Unauthorized: You do not have Counsellor clearance.");
+                window.location.href = "student_portal.html";
+            }
+        } catch (error) {
+            console.error("Security check failed:", error);
+        }
+    });
+
+    // --- PROFILE IMAGE UPLOAD & SAVE ---
     let profileImageBase64 = "";
     document.getElementById('photoUpload').addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -480,47 +557,19 @@
         } catch(e) { console.error(e); }
     }
 
-    // --- FIREBASE SECURITY & DATA LOADING ---
-    onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-            window.location.href = "index.html"; 
-            return;
-        }
 
-        activeUserEmail = user.email.toLowerCase();
-
-        try {
-            const permsRef = doc(db, "permissions", activeUserEmail);
-            const permsSnap = await getDoc(permsRef);
-
-            if (permsSnap.exists() && (permsSnap.data().role === "counsellor" || permsSnap.data().role === "school_admin")) {
-                
-                // Populate Profile Headers
-                document.getElementById('dropEmail').innerText = user.email;
-                document.getElementById('profEmail').value = user.email;
-                const name = user.displayName || user.email.split('@')[0];
-                document.getElementById('dropName').innerText = name;
-                document.getElementById('profName').value = name;
-                
-                loadCounsellorProfile(activeUserEmail);
-                loadAssignedStudents();
-
-            } else {
-                alert("Unauthorized: You do not have Counsellor clearance.");
-                window.location.href = "student_portal.html";
-            }
-        } catch (error) {
-            console.error("Security check failed:", error);
-        }
-    });
-
-    // --- LOAD LIVE STUDENTS INTO QUEUE ---
+    // --- LOAD LIVE STUDENTS INTO QUEUE & DROPDOWNS ---
     async function loadAssignedStudents() {
         const tbody = document.getElementById('studentTableBody');
+        const sessionSelect = document.getElementById('sessionStudentSelect');
+        const chatList = document.getElementById('chatStudentList');
+        
         try {
             const snap = await getDocs(collection(db, "students"));
             let studentCount = 0;
             tbody.innerHTML = "";
+            sessionSelect.innerHTML = '<option value="">-- Select Student --</option>';
+            chatList.innerHTML = "";
             window.globalStudentData = {}; 
 
             if (snap.empty) {
@@ -531,10 +580,12 @@
             snap.forEach(docSnap => {
                 const data = docSnap.data();
                 studentCount++;
-                window.globalStudentData[docSnap.id] = data; // Save to global object for Modal
+                window.globalStudentData[docSnap.id] = data; 
 
+                // 1. Table Population
                 let riskBadge = '<span class="badge badge-success">Stable</span>';
-                if(!data.assessmentCompleted) riskBadge = '<span class="badge badge-warning">Needs Assmnt</span>';
+                if(data.psychIndex && data.psychIndex.riskCategory === "High") riskBadge = '<span class="badge badge-danger">High Risk</span>';
+                else if(!data.assessmentCompleted) riskBadge = '<span class="badge badge-warning">Needs Assmnt</span>';
                 
                 tbody.innerHTML += `<tr>
                     <td><strong style="color:white;">${data.name}</strong></td>
@@ -544,6 +595,19 @@
                     <td>${riskBadge}</td>
                     <td><button class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="openStudentModal('${docSnap.id}')">View File</button></td>
                 </tr>`;
+
+                // 2. Dropdown Population (Session Notes)
+                sessionSelect.innerHTML += `<option value="${docSnap.id}">${data.name} (${data.grade})</option>`;
+
+                // 3. Chat List Population
+                chatList.innerHTML += `
+                    <div class="list-item" style="padding: 15px 20px; cursor:pointer;" onclick="openChat('${docSnap.id}', '${data.name}')" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                        <div>
+                            <strong style="color:white; display:block;">${data.name}</strong>
+                            <span style="font-size:0.8rem; color:var(--text-muted);">Grade ${data.grade}</span>
+                        </div>
+                        <span style="color:var(--primary);">💬</span>
+                    </div>`;
             });
 
             document.getElementById('kpiStudents').innerText = studentCount;
@@ -553,6 +617,77 @@
             tbody.innerHTML = "<tr><td colspan='6' style='text-align:center; color:red;'>Failed to load database.</td></tr>";
         }
     }
+
+    // --- SESSION NOTES & ADMIN ESCALATION LOGIC ---
+    window.saveSessionNotes = async function() {
+        const studentUid = document.getElementById('sessionStudentSelect').value; 
+        const notes = document.getElementById('sessionNotesInput').value.trim();
+        const adminNotes = document.getElementById('adminNotesInput').value.trim(); // Private Super Admin Notes
+        const btn = document.getElementById('saveNotesBtn');
+
+        if(!studentUid || !notes) return alert("Please select a student and write a session summary.");
+
+        btn.innerText = "Saving... ⏳";
+        btn.disabled = true;
+
+        try {
+            await updateDoc(doc(db, "students", studentUid), {
+                counsellorNotes: arrayUnion({
+                    date: new Date().toISOString(),
+                    note: notes,
+                    adminEscalation: adminNotes, // This field is strictly for Super Admin view
+                    counsellorEmail: activeUserEmail
+                })
+            });
+            alert("Clinical notes saved to student dossier safely.");
+            document.getElementById('sessionNotesInput').value = "";
+            document.getElementById('adminNotesInput').value = "";
+        } catch (e) {
+            console.error(e);
+            alert("Failed to save notes. Ensure you have the correct permissions.");
+        } finally {
+            btn.innerText = "Save to Case File";
+            btn.disabled = false;
+        }
+    }
+
+    // --- CHAT LOGIC (UI Placeholder for Firebase Subcollection) ---
+    let currentChatStudentId = null;
+    
+    window.openChat = function(studentId, studentName) {
+        currentChatStudentId = studentId;
+        document.getElementById('chatActiveStudent').innerText = studentName;
+        
+        const chatBox = document.getElementById('chatMessages');
+        chatBox.innerHTML = `
+            <div style="text-align:center; color:var(--text-muted); margin-bottom: 20px; font-size:0.85rem;">Secure connection established with ${studentName}'s portal.</div>
+            <div style="background:var(--card-bg); border:1px solid var(--border); padding:10px 15px; border-radius:12px 12px 12px 0; max-width:80%; margin-bottom:15px; color:white;">
+                Hello ${studentName}, please complete your assessment before our session tomorrow. Let me know if you need help!
+                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:5px; text-align:right;">Sent 10:30 AM</div>
+            </div>
+        `;
+    }
+
+    window.sendChatMessage = function() {
+        if(!currentChatStudentId) return alert("Select a student to chat with first.");
+        
+        const input = document.getElementById('chatInput');
+        const msg = input.value.trim();
+        if(!msg) return;
+
+        const chatBox = document.getElementById('chatMessages');
+        chatBox.innerHTML += `
+            <div style="background:var(--primary); padding:10px 15px; border-radius:12px 12px 0 12px; max-width:80%; margin-bottom:15px; color:white; margin-left:auto;">
+                ${msg}
+                <div style="font-size:0.7rem; color:rgba(255,255,255,0.7); margin-top:5px; text-align:right;">Just now</div>
+            </div>
+        `;
+        
+        // FUTURE: Save this to a 'messages' subcollection in Firestore
+        input.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
 </script>
 </body>
 </html>
