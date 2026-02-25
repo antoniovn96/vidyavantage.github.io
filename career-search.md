@@ -13,15 +13,15 @@ permalink: /career-search/
   .roadmap-header h1 { margin:0; font-size: 3rem; font-weight: 900; letter-spacing: -1px;}
   .roadmap-header p { font-size: 1.2rem; color: #cbd5e1; margin-top: 10px; font-weight: 300;}
 
-  .filter-container { background: white; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: sticky; top: 70px; z-index: 100; border-bottom: 1px solid #e2e8f0;}
-  .filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; max-width: 1200px; margin: 0 auto; scrollbar-width: none;}
+  .filter-container { background: white; padding: 15px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: sticky; top: 70px; z-index: 100; border-bottom: 1px solid #e2e8f0;}
+  .filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; max-width: 1200px; margin: 0 auto; scrollbar-width: none;}
   .filter-scroll::-webkit-scrollbar { display: none; }
   
   .filter-btn { background: #f1f5f9; border: 1px solid #e2e8f0; color: #475569; padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.2s; display: flex; align-items: center; gap: 6px;}
   .filter-btn:hover { background: #e2e8f0; }
   .filter-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);}
 
-  .parent-mode-toggle { background: #fef3c7; color: #d97706; border: 2px solid #f59e0b; padding: 8px 16px; border-radius: 50px; font-weight: 900; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; margin-left: auto;}
+  .parent-mode-toggle { background: #fef3c7; color: #d97706; border: 2px solid #f59e0b; padding: 8px 16px; border-radius: 50px; font-weight: 900; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; margin-left: auto; white-space: nowrap;}
   .parent-mode-toggle.active { background: #d97706; color: white; }
 
   /* --- TREE CSS --- */
@@ -47,7 +47,7 @@ permalink: /career-search/
   .node-box.switch { background: #fffaf0; border: 2px dashed #f59e0b !important; border-left: none !important; color: #d97706; }
 
   /* --- PREMIUM INFO PANEL --- */
-  .info-panel { position: fixed; bottom: 30px; right: 30px; width: 400px; background: white; border-top: 6px solid #3b82f6; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); padding: 30px; border-radius: 20px; display: none; z-index: 1000; animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-height: 80vh; overflow-y: auto;}
+  .info-panel { position: fixed; bottom: 30px; right: 30px; width: 400px; background: white; border-top: 6px solid #3b82f6; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); padding: 30px; border-radius: 20px; display: none; z-index: 1000; animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-height: 85vh; overflow-y: auto; box-sizing: border-box;}
   @keyframes slideIn { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   
   .panel-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;}
@@ -76,10 +76,55 @@ permalink: /career-search/
   /* Smart Popup */
   .smart-popup { position: fixed; bottom: 30px; left: 30px; background: #0f172a; color: white; padding: 20px 25px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); z-index: 2000; display: none; animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-left: 5px solid #f59e0b; max-width: 300px;}
   @keyframes popUp { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+  .back-btn { position: absolute; top: 20px; left: 20px; color: white; text-decoration: none; font-weight: bold; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 50px; z-index: 10; }
+
+  /* ==========================================
+     MOBILE RESPONSIVE STYLES 
+     ========================================== */
+  @media (max-width: 768px) {
+    .roadmap-header { padding: 90px 15px 30px; }
+    .roadmap-header h1 { font-size: 2.2rem; }
+    .roadmap-header p { font-size: 1rem; }
+    
+    .back-btn { top: 15px; left: 15px; padding: 6px 12px; font-size: 0.85rem; }
+
+    /* Filter scroll area tweaks */
+    .filter-btn { padding: 6px 12px; font-size: 0.85rem; }
+    .parent-mode-toggle { padding: 6px 12px; font-size: 0.85rem; margin-left: 0; }
+
+    /* Make tree nodes fit better on small screens */
+    .tree-wrapper { padding: 30px 15px 150px; }
+    .node-box { min-width: 140px; padding: 10px 15px; font-size: 0.85rem; }
+    ul.tree li { padding: 0 15px; }
+    ul.tree ul { margin-left: 30px; }
+
+    /* Convert Info Panel to a Bottom Sheet for Mobile */
+    .info-panel {
+      width: 100%;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      border-radius: 25px 25px 0 0;
+      padding: 25px 20px;
+      max-height: 85vh;
+      border-top-width: 4px;
+    }
+    .panel-title { font-size: 1.4rem; }
+    
+    /* Center the Smart Popup on mobile */
+    .smart-popup {
+      width: 90%;
+      left: 5%;
+      bottom: 20px;
+      max-width: none;
+      box-sizing: border-box;
+    }
+  }
 </style>
 
 <div class="roadmap-header">
-  <a href="{{ '/' | relative_url }}" style="position:absolute; top:20px; left:20px; color:white; text-decoration:none; font-weight:bold; background:rgba(255,255,255,0.1); padding:8px 16px; border-radius:50px;">← Home</a>
+  <a href="{{ '/' | relative_url }}" class="back-btn">← Home</a>
   <h1>The Career GPS 🧭</h1>
   <p>Stop guessing. Use the filters below to find paths that match your criteria.</p>
 </div>
