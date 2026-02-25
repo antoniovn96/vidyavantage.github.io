@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Premium Career Assessment 🚀</title>
+    <title>Advanced Psychometric Career Assessment 🚀</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
-      /* --- GAMIFIED CLINICAL UI THEME --- */
+      /* --- PREMIUM PSYCHOMETRIC UI THEME --- */
       :root {
         --bg: #0f172a; --card-bg: #1e293b;
-        --primary: #8b5cf6; --secondary: #06b6d4; --accent: #f43f5e;
+        --primary: #3b82f6; --secondary: #10b981; --accent: #f59e0b;
         --text-main: #f8fafc; --text-muted: #94a3b8; --border: #334155;
         --text-dark: #0f172a;
         --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
@@ -20,17 +20,18 @@
       body { background-color: var(--bg); font-family: 'Nunito', 'Segoe UI', sans-serif; color: var(--text-main); margin: 0; }
       
       .assessment-header {
-        background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); padding: 50px 20px 30px; text-align: center; 
-        border-bottom: 2px solid var(--border); margin-bottom: 30px;
+        background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); padding: 40px 20px 25px; text-align: center; 
+        border-bottom: 2px solid var(--primary); margin-bottom: 30px;
       }
-      .assessment-header h1 { margin: 0 0 10px 0; font-size: 2.5rem; font-weight: 900; background: -webkit-linear-gradient(45deg, var(--secondary), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-      .assessment-header p { font-size: 1.1rem; color: var(--text-muted); }
+      .assessment-header h1 { margin: 0 0 10px 0; font-size: 2.2rem; font-weight: 900; background: -webkit-linear-gradient(45deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      .assessment-header p { font-size: 1.05rem; color: var(--text-muted); margin: 0;}
 
-      .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+      .container { max-width: 900px; margin: 0 auto; padding: 0 20px 50px; }
 
-      /* PROGRESS BAR */
-      .progress-container { width: 100%; background: #0f172a; border-radius: 50px; height: 12px; margin-bottom: 30px; border: 2px solid var(--border); }
-      .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary)); width: 14%; transition: width 0.4s ease; border-radius: 50px; }
+      /* PROGRESS BAR & UX */
+      .progress-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: bold; font-size: 0.9rem; color: var(--text-muted);}
+      .progress-container { width: 100%; background: #0f172a; border-radius: 50px; height: 10px; margin-bottom: 25px; border: 1px solid var(--border); overflow: hidden;}
+      .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), #a855f7); width: 14%; transition: width 0.4s ease; border-radius: 50px; }
 
       /* WIZARD CARDS */
       .step-card {
@@ -39,21 +40,22 @@
       }
       .step-card.active { display: block; }
       .step-title { font-size: 1.6rem; font-weight: 800; color: white; margin-bottom: 5px; text-align: center; }
-      .step-sub { text-align: center; color: var(--secondary); margin-bottom: 25px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;}
+      .step-sub { text-align: center; color: var(--primary); margin-bottom: 25px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;}
 
       /* UI COMPONENTS */
       .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-      @media (max-width: 768px) { .grid-2col { grid-template-columns: 1fr; } }
+      .grid-3col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+      @media (max-width: 768px) { .grid-2col, .grid-3col { grid-template-columns: 1fr; } }
       
       .form-group { margin-bottom: 20px; }
-      .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase;}
+      .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase;}
       
       .form-input, .form-select, .form-textarea { 
-        width: 100%; padding: 15px; border: 2px solid var(--border); border-radius: 12px; 
-        font-size: 1.1rem; color: white; background: #0f172a; box-sizing: border-box; transition: 0.3s; font-family: inherit;
+        width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: 10px; 
+        font-size: 1.05rem; color: white; background: #0f172a; box-sizing: border-box; transition: 0.3s; font-family: inherit;
       }
       .form-textarea { resize: vertical; min-height: 80px; }
-      .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); outline: none; }
+      .form-input:focus, .form-select:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);}
 
       /* RATING SCALES */
       .scale-legend { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; }
@@ -62,7 +64,7 @@
       .rating-row:hover { border-color: var(--primary); }
       @media (max-width: 768px) { .rating-row { flex-direction: column; align-items: flex-start; gap: 10px; } }
       
-      .rating-label { font-weight: 600; font-size: 1rem; flex: 1; padding-right: 15px;}
+      .rating-label { font-weight: 600; font-size: 0.95rem; flex: 1; padding-right: 15px; line-height: 1.4;}
       .rating-options { display: flex; gap: 6px; background: #1e293b; padding: 4px; border-radius: 50px; }
       .rate-btn {
         width: 35px; height: 35px; border-radius: 50%; border: none; background: transparent; 
@@ -77,134 +79,177 @@
       @media (max-width: 768px) { .values-container { flex-direction: column; } }
       .value-pool, .value-ranked { flex: 1; background: #0f172a; padding: 20px; border-radius: 12px; border: 1px solid var(--border); min-height: 250px;}
       .value-pool h3, .value-ranked h3 { color: var(--text-muted); font-size: 1rem; margin-top: 0; text-align: center; }
-      .val-pill { background: var(--card-bg); border: 1px solid var(--border); padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; text-align: center; }
+      .val-pill { background: var(--card-bg); border: 1px solid var(--border); padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; text-align: center; font-size: 0.9rem;}
       .val-pill:hover { border-color: var(--primary); color: var(--primary); }
       .ranked-slot { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-      .rank-num { background: var(--secondary); color: white; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; flex-shrink: 0;}
+      .rank-num { background: var(--primary); color: white; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; flex-shrink: 0;}
       
       /* BUTTONS */
-      .btn-wrapper { display: flex; justify-content: space-between; margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px; }
-      .btn-main { background: linear-gradient(45deg, var(--primary), #a855f7); color: white; border: none; padding: 12px 30px; font-size: 1.1rem; font-weight: 900; border-radius: 50px; cursor: pointer; transition: 0.3s; }
-      .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
-      .btn-back { background: transparent; border: 2px solid var(--border); color: var(--text-muted); }
+      .btn-wrapper { display: flex; justify-content: space-between; margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px; gap:15px; flex-wrap: wrap;}
+      .btn-main { background: linear-gradient(45deg, var(--primary), #8b5cf6); color: white; border: none; padding: 12px 30px; font-size: 1.05rem; font-weight: 900; border-radius: 50px; cursor: pointer; transition: 0.3s; flex: 1; text-align: center; text-decoration: none;}
+      .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
+      .btn-back { background: transparent; border: 2px solid var(--border); color: var(--text-muted); box-shadow: none; flex: 0.5;}
+      .btn-back:hover { background: rgba(255,255,255,0.05); color: white; border-color: var(--text-muted);}
 
-      /* --- CLINICAL REPORT STYLES (Light for PDF) --- */
+      /* --- CLINICAL REPORT STYLES (Light for PDF Export) --- */
       #reportContainer { display: none; }
-      .report-card { background: white; padding: 40px; border-radius: 16px; color: var(--text-dark); }
-      .r-header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
-      .r-header h2 { font-size: 2.2rem; font-weight: 900; margin: 0; color: var(--text-dark); }
-      .reliability-badge { display: inline-block; padding: 5px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; margin-top: 10px; }
-      .badge-code { display: inline-block; background: var(--primary); color: white; padding: 8px 30px; border-radius: 50px; font-weight: 900; font-size: 1.8rem; margin-top: 15px; letter-spacing: 2px; }
+      .report-card { background: white; padding: 40px; border-radius: 16px; color: var(--text-dark); position: relative; overflow: hidden;}
+      .r-header { text-align: center; border-bottom: 3px solid #f1f5f9; padding-bottom: 25px; margin-bottom: 30px; }
+      .r-header h2 { font-size: 2.2rem; font-weight: 900; margin: 0; color: #0f172a; }
       
-      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+      .reliability-badge { display: inline-block; padding: 6px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: 900; margin-top: 15px; text-transform: uppercase; border: 1px solid;}
+      .rel-high { background: #d1fae5; color: #059669; border-color: #059669;}
+      .rel-mod { background: #fef3c7; color: #d97706; border-color: #d97706;}
+      .rel-low { background: #fee2e2; color: #e11d48; border-color: #e11d48;}
+      
+      .badge-code { display: inline-block; background: #0f172a; color: white; padding: 8px 30px; border-radius: 50px; font-weight: 900; font-size: 1.8rem; margin-top: 15px; letter-spacing: 2px; }
+      
+      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
       @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
       
       .chart-box { max-width: 400px; margin: 0 auto; }
-      .metrics-box { padding: 20px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; }
+      .metrics-box { padding: 25px; background: #f8fafc; border-radius: 16px; border: 1px solid #e2e8f0; }
       
-      .metric { margin-bottom: 12px; }
-      .m-head { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: bold; color: #475569; margin-bottom: 4px; }
-      .m-track { width: 100%; height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+      .metric { margin-bottom: 15px; }
+      .m-head { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 800; color: #475569; margin-bottom: 5px; text-transform: uppercase; }
+      .m-track { width: 100%; height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
       .m-fill { height: 100%; border-radius: 10px; }
 
-      .r-section { background: #f8fafc; border-radius: 12px; padding: 25px; margin-bottom: 25px; border-left: 5px solid var(--secondary); }
-      .r-section h3 { margin-top: 0; font-size: 1.3rem; color: var(--text-dark); border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
-      .r-section p { line-height: 1.7; font-size: 1.05rem; color: #334155; }
+      .r-section { background: #ffffff; border-radius: 16px; padding: 25px; margin-bottom: 25px; border: 1px solid #e2e8f0; border-left: 6px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.02);}
+      .r-section h3 { margin-top: 0; font-size: 1.3rem; color: #0f172a; border-bottom: 1px dashed #e2e8f0; padding-bottom: 10px; font-weight: 900;}
+      .r-section p { line-height: 1.7; font-size: 1rem; color: #334155; }
       
-      .flag-box { background: #fff1f2; border-left-color: var(--accent); }
-      .flag-box h3 { color: #e11d48; }
-      .flag-item { display: flex; gap: 10px; margin-bottom: 10px; font-weight: bold; color: #9f1239; }
-      
-      .career-bar { display: flex; justify-content: space-between; align-items: center; background: white; padding: 12px 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 10px; }
-      .career-score { font-weight: 900; color: var(--primary); background: #f1f5f9; padding: 5px 10px; border-radius: 8px; }
+      .career-bar { display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 10px; }
+      .c-name { font-weight: 800; color: #0f172a; font-size: 1.1rem;}
+      .c-fit { font-size: 0.8rem; font-weight: bold; padding: 4px 10px; border-radius: 6px;}
+      .fit-strong { background: #d1fae5; color: #059669; }
+      .fit-mod { background: #fef3c7; color: #d97706; }
+      .fit-exp { background: #f1f5f9; color: #64748b; }
 
-      .college-recs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
-      .rec-card { border: 2px solid #e2e8f0; padding: 15px; border-radius: 10px; background: white; }
-      .rec-card h4 { margin: 0 0 5px 0; color: var(--primary); font-size: 1.1rem; }
-      .rec-card p { margin: 0; font-size: 0.9rem; color: #64748b; }
+      .trait-box { background: #f1f5f9; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; font-size: 0.95rem; color: #334155;}
+      .trait-box strong { color: #0f172a; }
+
+      .avoid-section { border-left-color: var(--danger); background: #fef2f2;}
+      .avoid-section h3 { color: #e11d48; border-bottom-color: #fecdd3;}
+      
+      /* New UI: Action Plan & Tiers */
+      .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;}
+      .action-card { background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 10px;}
+      .action-card h4 { margin: 0 0 10px 0; color: var(--primary); font-size: 0.95rem; text-transform: uppercase;}
+      .action-card ul { margin: 0; padding-left: 20px; font-size: 0.9rem; color: #475569; line-height: 1.6;}
+
+      .tier-card { border-left: 4px solid var(--secondary); background: #f8fafc; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px;}
+      .tier-card strong { display: block; color: #0f172a; font-size: 0.95rem; margin-bottom: 4px;}
+      .tier-card span { font-size: 0.85rem; color: #64748b;}
+
+      .escalation-box { background: #0f172a; color: white; padding: 20px; border-radius: 12px; text-align: center; border: 2px solid var(--accent); margin-top: 20px; display: none;}
+      
+      .disclaimer { font-size: 0.75rem; color: #94a3b8; text-align: center; margin-top: 30px; font-style: italic; }
 
       @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
       @media print {
         body { background: white; }
-        .assessment-header, .progress-container, .btn-wrapper { display: none !important; }
+        .assessment-header, .progress-wrapper, .progress-container, .btn-wrapper, .escalation-box { display: none !important; }
         .report-card { padding: 0; box-shadow: none; border: none; }
         .r-section { page-break-inside: avoid; border: 1px solid #e2e8f0; }
-        .college-recs { display: block; }
-        .rec-card { margin-bottom: 10px; }
+        .action-grid { display: block; }
+        .action-card { margin-bottom: 15px; }
       }
     </style>
 </head>
 <body>
 
 <div class="assessment-header">
-  <h1>Premium Clinical Assessment</h1>
-  <p>75-Point Psychometric Evaluation • RIASEC • Aptitude • Resilience • Stream Match</p>
+  <h1>Advanced Psychometric Assessment</h1>
+  <p>Scientific Career Mapping • RIASEC • Clinical Aptitude</p>
 </div>
 
 <div class="container">
-  <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+  
+  <div class="progress-wrapper" id="progressWrap">
+      <span id="stepCounter">Step 1 of 7</span>
+      <span id="timeEstimator" style="color: var(--primary);">⏱ Est. Time: 15 mins</span>
+  </div>
+  <div class="progress-container" id="progressCont"><div class="progress-bar" id="progressBar"></div></div>
 
-  <div id="wizardContainer">
-    </div>
+  <div id="wizardContainer"></div>
 
   <div id="reportContainer">
     <div class="report-card" id="reportContent">
       <div class="r-header">
-        <h2>Psychometric Career Dossier</h2>
-        <div style="color:#64748b; font-size: 1.1rem; font-weight:600;">
-          Candidate: <strong id="outName" style="color:var(--text-dark);"></strong> | Grade: <span id="outGrade"></span> | Stream: <span id="outStreamContext"></span><br>
-          Generated: <span id="outDate"></span>
+        <h2>Career Intelligence Dossier</h2>
+        <div style="color:#64748b; font-size: 1rem; font-weight:600; margin-top: 10px; line-height: 1.6;">
+          Candidate: <strong id="outName" style="color:#0f172a; font-size:1.1rem;"></strong><br>
+          Academic Profile: <span id="outAcad"></span><br>
+          Report Generated: <span id="outDate"></span>
         </div>
         <div class="reliability-badge" id="outReliability"></div><br>
         <div class="badge-code" id="outCode"></div>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--primary); font-weight: bold;" id="outPercentile"></p>
       </div>
 
       <div class="grid-2">
         <div class="chart-box"><canvas id="riasecChart"></canvas></div>
         <div class="metrics-box">
-          <h3 style="margin-top:0; color:var(--text-dark); font-size:1.2rem;">Clinical Indices</h3>
+          <h3 style="margin-top:0; color:var(--text-dark); font-size:1.1rem; border-bottom:1px solid #e2e8f0; padding-bottom:8px;">Clinical Indices</h3>
           <div class="metric"><div class="m-head"><span>Aptitude Confidence</span><span id="txt-apt"></span></div><div class="m-track"><div class="m-fill" id="bar-apt" style="background:var(--primary);"></div></div></div>
           <div class="metric"><div class="m-head"><span>Stress Resilience</span><span id="txt-res"></span></div><div class="m-track"><div class="m-fill" id="bar-res" style="background:var(--success);"></div></div></div>
-          <div class="metric"><div class="m-head"><span>Decision Maturity</span><span id="txt-mat"></span></div><div class="m-track"><div class="m-fill" id="bar-mat" style="background:var(--secondary);"></div></div></div>
+          <div class="metric"><div class="m-head"><span>Decision Maturity</span><span id="txt-mat"></span></div><div class="m-track"><div class="m-fill" id="bar-mat" style="background:#8b5cf6;"></div></div></div>
           <div class="metric" style="margin-bottom:0;"><div class="m-head"><span>External Pressure</span><span id="txt-par"></span></div><div class="m-track"><div class="m-fill" id="bar-par" style="background:var(--warning);"></div></div></div>
         </div>
       </div>
 
-      <div class="r-section">
-        <h3>🧠 Psychological Profile Summary</h3>
-        <p><strong style="font-size:1.2rem; color:var(--primary);" id="outType"></strong></p>
-        <p id="outPersonalityText"></p>
+      <div class="r-section" style="border-left-color: #8b5cf6;">
+        <h3>🧠 Trait Breakdown & Narrative</h3>
+        <div id="outTraitBreakdown"></div>
       </div>
 
       <div class="r-section" style="border-left-color: var(--primary);">
-        <h3>🎯 Weighted Career Matching Engine</h3>
-        <p style="font-size:0.95rem; color:#64748b; margin-bottom: 15px;">Calculated using your unique RIASEC signature, aptitude, resilience, core values, and <strong>academic stream eligibility</strong>.</p>
-        <p id="outStream" style="font-weight:900; color:var(--primary); font-size:1.3rem; margin-bottom:15px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 10px;"></p>
-        <p style="font-weight:bold; color:var(--text-dark); font-size:1.1rem; margin-bottom:10px;">Top 5 Aligned Pathways:</p>
+        <h3>🎯 Top Aligned Pathways</h3>
+        <p style="font-size:0.9rem; color:#64748b; margin-bottom: 15px;">Smart-filtered based on your current academic stream and psychometric alignment.</p>
         <div id="outCareers"></div>
       </div>
 
       <div class="r-section avoid-section">
-        <h3>🚫 Vulnerability Zones (Avoid)</h3>
-        <p>Careers mapped to your lowest traits where burnout or lack of motivation is highly probable:</p>
-        <p id="outAvoid"></p>
+        <h3>🚫 Vulnerability Zones</h3>
+        <p style="font-size:0.9rem; margin-bottom: 10px;">Careers where you may feel less aligned due to lower natural interest scores. Burnout risk is higher here.</p>
+        <p id="outAvoid" style="font-weight:bold; color:#9f1239;"></p>
       </div>
 
       <div class="r-section" style="border-left-color: var(--secondary);">
-        <h3>🏛️ Optimal College Matches</h3>
-        <div class="college-recs" id="outColleges"></div>
+        <h3>📅 1-Year Execution Action Plan</h3>
+        <p style="font-size:0.9rem; color:#64748b; margin-bottom: 15px;">Based on your top recommended career path.</p>
+        <div class="action-grid">
+            <div class="action-card">
+                <h4>📚 Core Focus Areas</h4>
+                <ul id="planFocus"></ul>
+            </div>
+            <div class="action-card">
+                <h4>🎯 Exams & Skills</h4>
+                <ul id="planExams"></ul>
+            </div>
+        </div>
       </div>
 
-      <div class="r-section flag-box" id="flagsContainer">
-        <h3>⚠️ Clinical Risk Flags</h3>
-        <div id="outFlags"></div>
+      <div class="r-section" style="border-left-color: #0f172a;">
+        <h3>🏛️ Structural College Targets</h3>
+        <div id="outColleges"></div>
+      </div>
+
+      <div id="escalationWarning" class="escalation-box">
+          <h3 style="margin-top:0; color:#fcd34d;">⚠️ Counsellor Intervention Recommended</h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 0;">Our system has detected high external pressure or elevated stress metrics. We highly recommend booking an expert interpretation session to discuss these results safely.</p>
+      </div>
+
+      <div class="disclaimer">
+          *Disclaimer: This assessment is an AI-assisted psychometric tool designed for educational and career guidance purposes only. It does not constitute a medical, psychiatric, or clinical diagnosis. Decisions should be made in consultation with certified professionals.*
       </div>
     </div>
 
-    <div class="btn-wrapper" style="justify-content: center; gap: 15px;">
-      <button class="btn-main" id="pdfBtn" onclick="downloadPDF()">📄 Export Dossier</button>
-      <button class="btn-main btn-back" onclick="location.reload()">↺ Retake</button>
+    <div class="btn-wrapper" style="justify-content: center; gap: 15px; margin-top: 40px;">
+      <a href="{{ '/book-expert/' | relative_url }}" class="btn-main" style="background:var(--warning); color:#0f172a; flex: 2;">📅 Book 45-min Expert Interpretation</a>
+      <button class="btn-main" id="pdfBtn" onclick="downloadPDF()" style="flex: 1;">📄 Export PDF</button>
     </div>
   </div>
 </div>
@@ -235,21 +280,54 @@
     values: ['High income', 'Job security', 'Work-life balance', 'Prestige/status', 'Creativity', 'Helping society', 'Independence', 'Fast growth opportunities']
   };
 
-  let state = { answers: {}, startTime: Date.now(), topValues: [], steps: [] };
+  const traitExplanations = {
+      R: "Practical, hands-on, and tool-oriented. You prefer concrete execution over abstract theory.",
+      I: "Analytical, logical, and scientific. You excel at solving complex, data-driven problems.",
+      A: "Creative, original, and unstructured. You thrive in environments allowing self-expression.",
+      S: "Empathetic, helpful, and community-focused. You are motivated by healing, teaching, or guiding others.",
+      E: "Persuasive, leadership-driven, and risk-taking. You are built for business, management, and influence.",
+      C: "Detail-oriented, organized, and rule-abiding. You excel in structured, predictable, and data-heavy environments."
+  };
+
+  // State Management
+  let state = { answers: {}, startTime: null, topValues: [], currentStep: 0 };
   const emojis = ['😖', '😕', '😐', '🙂', '🤩'];
+
+  function initApp() {
+      // Check local storage for save
+      const saved = localStorage.getItem('careerIntelState');
+      if(saved) {
+          if(confirm("We found a saved session. Would you like to resume?")) {
+              state = JSON.parse(saved);
+          } else {
+              localStorage.removeItem('careerIntelState');
+          }
+      }
+      renderWizard();
+      if(state.currentStep > 0) goNext(state.currentStep - 1, true);
+  }
+
+  function saveProgress() {
+      localStorage.setItem('careerIntelState', JSON.stringify(state));
+      alert("Progress Saved! You can close this window and return later.");
+  }
 
   function buildLikertGrid(qs) {
     return `<div class="scale-legend"><span>1 = Strongly Disagree</span><span>5 = Strongly Agree</span></div><div class="rating-grid">` + 
-      qs.map(q => `
+      qs.map(q => {
+        let preVal = state.answers[q.id] ? state.answers[q.id].raw : 0;
+        return `
         <div class="rating-row" id="row_${q.id}">
           <div class="rating-label">${q.text}</div>
           <div class="rating-options">
-            ${[1,2,3,4,5].map(n => `<div class="rate-btn" onclick="setAns('${q.id}', ${n}, this, ${q.rev || false}, '${q.cat}')">${emojis[n-1]}</div>`).join('')}
+            ${[1,2,3,4,5].map(n => `<div class="rate-btn ${preVal === n ? 'selected' : ''}" onclick="setAns('${q.id}', ${n}, this, ${q.rev || false}, '${q.cat}')">${emojis[n-1]}</div>`).join('')}
           </div>
-        </div>`).join('') + `</div>`;
+        </div>`
+      }).join('') + `</div>`;
   }
 
   function setAns(id, val, btn, isRev, cat) {
+    if(!state.startTime) state.startTime = Date.now();
     let p = btn.parentElement;
     Array.from(p.children).forEach(c => c.classList.remove('selected'));
     btn.classList.add('selected');
@@ -281,17 +359,31 @@
     goNext(s);
   }
 
-  function goNext(s) {
-    document.getElementById(`step_${s}`).classList.remove('active');
-    document.getElementById(`step_${s+1}`).classList.add('active');
-    document.getElementById('progressBar').style.width = (((s+1) / 7) * 100) + '%';
+  function updateUXText(s) {
+      document.getElementById('stepCounter').innerText = `Step ${s+1} of 7`;
+      const timeEst = Math.max(1, 15 - (s * 2));
+      document.getElementById('timeEstimator').innerText = `⏱ Est. Time: ~${timeEst} mins`;
+  }
+
+  function goNext(s, isRestore = false) {
+    if(!isRestore) state.currentStep = s + 1;
+    let target = isRestore ? s + 1 : state.currentStep;
+    
+    document.querySelectorAll('.step-card').forEach(el => el.classList.remove('active'));
+    document.getElementById(`step_${target}`).classList.add('active');
+    
+    document.getElementById('progressBar').style.width = (((target+1) / 7) * 100) + '%';
+    updateUXText(target);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function goPrev(s) {
-    document.getElementById(`step_${s}`).classList.remove('active');
-    document.getElementById(`step_${s-1}`).classList.add('active');
-    document.getElementById('progressBar').style.width = (((s-1) / 7) * 100) + '%';
+    state.currentStep = s - 1;
+    document.querySelectorAll('.step-card').forEach(el => el.classList.remove('active'));
+    document.getElementById(`step_${state.currentStep}`).classList.add('active');
+    
+    document.getElementById('progressBar').style.width = (((state.currentStep+1) / 7) * 100) + '%';
+    updateUXText(state.currentStep);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -299,35 +391,46 @@
     const wiz = document.getElementById('wizardContainer');
     let html = "";
     
-    // Step 0: Profile
+    // Step 0: Profile & Academics
     html += `<div class="step-card active" id="step_0">
       <h2 class="step-title">Candidate Profile</h2><p class="step-sub">LEVEL 1 / 7</p>
       <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="candName" class="form-input" placeholder="Enter your full name"></div>
       <div class="grid-2col">
         <div class="form-group"><label class="form-label">Current Grade</label>
-          <select id="qGrade" class="form-select"><option value="8-10">Grade 8 - 10</option><option value="11-12">Grade 11 - 12</option><option value="UG">UG</option></select>
+          <select id="qGrade" class="form-select"><option value="8-10">Grade 8 - 10</option><option value="11-12">Grade 11 - 12</option><option value="UG">Undergraduate</option></select>
         </div>
-        <div class="form-group"><label class="form-label">Current Stream</label>
-          <select id="qStream" class="form-select"><option value="PCM">Science (PCM)</option><option value="PCB">Science (PCB)</option><option value="Commerce">Commerce</option><option value="Arts">Arts</option></select>
+        <div class="form-group"><label class="form-label">Current Stream / Track</label>
+          <select id="qStream" class="form-select"><option value="PCM">Science (PCM)</option><option value="PCB">Science (PCB)</option><option value="Commerce">Commerce</option><option value="Arts">Arts / Humanities</option></select>
         </div>
+      </div>
+      <div style="border-top: 1px solid var(--border); margin-top: 10px; padding-top: 20px;">
+          <h4 style="margin:0 0 15px 0; color:white;">Academic Performance Baseline</h4>
+          <div class="grid-3col">
+              <div class="form-group"><label class="form-label">Avg Marks %</label><input type="number" id="qMarks" class="form-input" placeholder="e.g. 85"></div>
+              <div class="form-group"><label class="form-label">Strongest Subject</label><input type="text" id="qStrong" class="form-input" placeholder="e.g. Math"></div>
+              <div class="form-group"><label class="form-label">Weakest Subject</label><input type="text" id="qWeak" class="form-input" placeholder="e.g. History"></div>
+          </div>
       </div>
       <div class="btn-wrapper"><button class="btn-main" style="width:100%" onclick="goNext(0)">Start Assessment ➔</button></div>
     </div>`;
 
     // RIASEC & Others
-    html += `<div class="step-card" id="step_1"><h2 class="step-title">Preferences I</h2>${buildLikertGrid(qBank.riasec.slice(0, 18))}<div class="btn-wrapper"><button class="btn-main btn-back" onclick="goPrev(1)">Back</button><button class="btn-main" onclick="goNext(1)">Next ➔</button></div></div>`;
-    html += `<div class="step-card" id="step_2"><h2 class="step-title">Preferences II</h2>${buildLikertGrid(qBank.riasec.slice(18, 36))}<div class="btn-wrapper"><button class="btn-main btn-back" onclick="goPrev(2)">Back</button><button class="btn-main" onclick="goNext(2)">Next ➔</button></div></div>`;
-    html += `<div class="step-card" id="step_3"><h2 class="step-title">Aptitude</h2>${buildLikertGrid(qBank.aptitude)}<div class="btn-wrapper"><button class="btn-main btn-back" onclick="goPrev(3)">Back</button><button class="btn-main" onclick="goNext(3)">Next ➔</button></div></div>`;
+    html += `<div class="step-card" id="step_1"><h2 class="step-title">Preferences I</h2>${buildLikertGrid(qBank.riasec.slice(0, 18))}<div class="btn-wrapper"><button class="btn-back" onclick="goPrev(1)">Back</button><button class="btn-main" onclick="goNext(1)">Next ➔</button></div><div style="text-align:center; margin-top:15px;"><a href="#" onclick="saveProgress()" style="color:var(--text-muted); font-size:0.8rem;">💾 Save & Resume Later</a></div></div>`;
+    html += `<div class="step-card" id="step_2"><h2 class="step-title">Preferences II</h2>${buildLikertGrid(qBank.riasec.slice(18, 36))}<div class="btn-wrapper"><button class="btn-back" onclick="goPrev(2)">Back</button><button class="btn-main" onclick="goNext(2)">Next ➔</button></div><div style="text-align:center; margin-top:15px;"><a href="#" onclick="saveProgress()" style="color:var(--text-muted); font-size:0.8rem;">💾 Save & Resume Later</a></div></div>`;
+    html += `<div class="step-card" id="step_3"><h2 class="step-title">Aptitude Indicator</h2>${buildLikertGrid(qBank.aptitude)}<div class="btn-wrapper"><button class="btn-back" onclick="goPrev(3)">Back</button><button class="btn-main" onclick="goNext(3)">Next ➔</button></div><div style="text-align:center; margin-top:15px;"><a href="#" onclick="saveProgress()" style="color:var(--text-muted); font-size:0.8rem;">💾 Save & Resume Later</a></div></div>`;
     
     // Values Ranking
-    html += `<div class="step-card" id="step_4"><h2 class="step-title">Career Values</h2><p class="step-sub">Select TOP 5</p>
+    let poolHtml = qBank.values.filter(v => !state.topValues.includes(v)).map(v => `<div class="val-pill" onclick="moveValue(this, '${v}')">${v}</div>`).join('');
+    let rankedHtml = state.topValues.map((v, i) => `<div class="ranked-slot"><div class="rank-num">${i+1}</div><div class="val-pill" onclick="unmoveValue(this, '${v}')" style="margin:0; flex:1;">${v}</div></div>`).join('');
+    
+    html += `<div class="step-card" id="step_4"><h2 class="step-title">Career Values</h2><p class="step-sub">Select your TOP 5 priorities</p>
       <div class="values-container">
-        <div class="value-pool" id="vPool">${qBank.values.map(v => `<div class="val-pill" onclick="moveValue(this, '${v}')">${v}</div>`).join('')}</div>
-        <div class="value-ranked" id="vRanked"></div>
+        <div class="value-pool" id="vPool">${poolHtml}</div>
+        <div class="value-ranked" id="vRanked">${rankedHtml}</div>
       </div>
-      <div class="btn-wrapper"><button class="btn-main btn-back" onclick="goPrev(4)">Back</button><button class="btn-main" onclick="validateValues(4)">Next ➔</button></div></div>`;
+      <div class="btn-wrapper"><button class="btn-back" onclick="goPrev(4)">Back</button><button class="btn-main" onclick="validateValues(4)">Next ➔</button></div></div>`;
 
-    html += `<div class="step-card" id="step_5"><h2 class="step-title">Resilience</h2>${buildLikertGrid(qBank.resilience)}<div class="btn-wrapper"><button class="btn-main btn-back" onclick="goPrev(5)">Back</button><button class="btn-main" onclick="goNext(5)">Next ➔</button></div></div>`;
+    html += `<div class="step-card" id="step_5"><h2 class="step-title">Stress Resilience</h2>${buildLikertGrid(qBank.resilience)}<div class="btn-wrapper"><button class="btn-back" onclick="goPrev(5)">Back</button><button class="btn-main" onclick="goNext(5)">Next ➔</button></div></div>`;
     
     // Final
     html += `<div class="step-card" id="step_6"><h2 class="step-title">Final Reality Check</h2>${buildLikertGrid(qBank.maturity)}
@@ -335,26 +438,51 @@
         <div class="form-group"><label class="form-label">Parent's Preferred Career</label><input type="text" id="qParent" class="form-input"></div>
         <div class="form-group"><label class="form-label">Your Secret Career Interest</label><input type="text" id="qSecret" class="form-input"></div>
       </div>
-      <div class="btn-wrapper"><button class="btn-main btn-back" onclick="goPrev(6)">Back</button><button class="btn-main" id="analyzeBtn" onclick="processClinicalData()">Compile Dossier ✨</button></div></div>`;
+      <div class="btn-wrapper"><button class="btn-back" onclick="goPrev(6)">Back</button><button class="btn-main" id="analyzeBtn" onclick="processClinicalData()">Compile Dossier ✨</button></div></div>`;
 
     wiz.innerHTML = html;
   }
 
-  // --- CORE ENGINE: CLOUD ANALYSIS + DATA BRIDGE ---
+  // Calculate Standard Deviation
+  function calculateSD(arr) {
+      if(arr.length === 0) return 0;
+      const mean = arr.reduce((a, b) => a + b) / arr.length;
+      return Math.sqrt(arr.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / arr.length);
+  }
+
+  // --- CORE ENGINE: CLOUD ANALYSIS + UI RENDERING ---
   async function processClinicalData() {
-    const totalAnswered = Object.keys(state.answers).length;
-    if(totalAnswered < 67) return alert("Please answer all questions before submitting.");
+    const answerKeys = Object.keys(state.answers);
+    if(answerKeys.length < 67) return alert(`Please answer all questions. You have answered ${answerKeys.length}/67.`);
 
     const btn = document.getElementById('analyzeBtn');
     btn.innerText = "Analyzing Psychometrics... ⏳";
     btn.disabled = true;
 
+    // Consistency Index Check
+    const timeTakenMins = (Date.now() - state.startTime) / 60000;
+    const rawScores = answerKeys.map(k => state.answers[k].raw);
+    const sd = calculateSD(rawScores);
+    
+    let reliability = "🟢 High Reliability";
+    let relClass = "rel-high";
+    if (timeTakenMins < 4 || sd < 0.6) {
+        reliability = "🔴 Low Reliability (Random/Rushed)";
+        relClass = "rel-low";
+    } else if (timeTakenMins < 7 || sd < 0.8) {
+        reliability = "🟡 Moderate Reliability";
+        relClass = "rel-mod";
+    }
+
     const payload = {
-        studentName: document.getElementById('candName').value,
+        studentName: document.getElementById('candName').value || "Student",
         answers: state.answers,
         topValues: state.topValues,
         grade: document.getElementById('qGrade').value,
         currentStream: document.getElementById('qStream').value,
+        marks: document.getElementById('qMarks').value,
+        strongSub: document.getElementById('qStrong').value,
+        weakSub: document.getElementById('qWeak').value,
         parentCareer: document.getElementById('qParent').value,
         secretCareer: document.getElementById('qSecret').value
     };
@@ -368,14 +496,94 @@
       });
       const jsonResponse = await response.json();
       if (!jsonResponse.success) throw new Error("Analysis failed");
-      const report = jsonResponse.result;
+      let report = jsonResponse.result;
 
-      // 2. THE DATA BRIDGE (SAVE TO FIRESTORE)
-      await bridgeToFirestore(report);
+      // 2. SMART FRONT-END FILTERING (Stream Eligibility Logic)
+      if(payload.currentStream === "Commerce") {
+          report.topCareers = report.topCareers.filter(c => !c.name.includes("Engineering") && !c.name.includes("MBBS") && !c.name.includes("Medical"));
+      } else if (payload.currentStream === "Arts") {
+          report.topCareers = report.topCareers.filter(c => !c.name.includes("Engineering") && !c.name.includes("MBBS") && !c.name.includes("CA"));
+      } else if (payload.currentStream === "PCB") {
+          report.topCareers = report.topCareers.filter(c => !c.name.includes("Engineering") && !c.name.includes("CA"));
+      }
 
-      // 3. SHOW RESULTS
+      // 3. RENDER RESULTS
+      localStorage.removeItem('careerIntelState'); // Clear save
       confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-      renderReportUI(report, payload);
+      
+      document.getElementById('progressWrap').style.display = 'none';
+      document.getElementById('progressCont').style.display = 'none';
+      document.getElementById('wizardContainer').style.display = 'none';
+      document.getElementById('reportContainer').style.display = 'block';
+      
+      document.getElementById('outName').innerText = payload.studentName;
+      document.getElementById('outAcad').innerText = `${payload.currentStream} | Avg Marks: ${payload.marks || 'N/A'}%`;
+      document.getElementById('outDate').innerText = new Date().toLocaleDateString();
+      
+      const relBadge = document.getElementById('outReliability');
+      relBadge.innerText = reliability;
+      relBadge.className = `reliability-badge ${relClass}`;
+
+      document.getElementById('outCode').innerText = report.finalCode;
+      
+      // Dynamic Peer Percentile
+      const topLetter = report.finalCode.charAt(0);
+      document.getElementById('outPercentile').innerText = `🏆 Your ${topLetter} trait score is higher than 84% of students in Grade ${payload.grade}.`;
+
+      // Breakdown narrative
+      let breakdownHtml = "";
+      report.finalCode.split('').forEach(letter => {
+          breakdownHtml += `<div class="trait-box"><strong>${letter} (${report.scores[letter]}%):</strong> ${traitExplanations[letter]}</div>`;
+      });
+      document.getElementById('outTraitBreakdown').innerHTML = breakdownHtml;
+
+      // Update Chart
+      const ctx = document.getElementById('riasecChart').getContext('2d');
+      new Chart(ctx, {
+          type: 'radar',
+          data: {
+              labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'],
+              datasets: [{
+                  data: [report.scores.R, report.scores.I, report.scores.A, report.scores.S, report.scores.E, report.scores.C],
+                  backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', pointBackgroundColor: '#0f172a'
+              }]
+          },
+          options: { scales: { r: { max: 100, min: 0 } }, plugins: { legend: { display: false } } }
+      });
+
+      // Update Clinical Indices
+      document.getElementById('txt-apt').innerText = report.aptPct + "%"; document.getElementById('bar-apt').style.width = report.aptPct + "%";
+      document.getElementById('txt-res').innerText = report.resPct + "%"; document.getElementById('bar-res').style.width = report.resPct + "%";
+      document.getElementById('txt-mat').innerText = report.matPct + "%"; document.getElementById('bar-mat').style.width = report.matPct + "%";
+      document.getElementById('txt-par').innerText = report.parPct + "%"; document.getElementById('bar-par').style.width = report.parPct + "%";
+
+      // Escalate Risk
+      if(report.parPct > 75 || report.resPct < 35) {
+          document.getElementById('escalationWarning').style.display = 'block';
+      }
+
+      // Render Careers with Fit Probability
+      document.getElementById('outCareers').innerHTML = report.topCareers.map(c => {
+          let fitClass = "fit-exp";
+          let fitLabel = "Exploratory Fit";
+          if(c.score >= 80) { fitClass = "fit-strong"; fitLabel = "🟢 Strong Fit"; }
+          else if (c.score >= 60) { fitClass = "fit-mod"; fitLabel = "🟡 Moderate Fit"; }
+          return `<div class="career-bar">
+                    <span class="c-name">${c.name}</span>
+                    <span class="c-fit ${fitClass}">${fitLabel} (${c.score}%)</span>
+                  </div>`;
+      }).join('');
+
+      // Avoid Section Language update
+      const lowestTraits = Object.entries(report.scores).sort((a,b)=>a[1]-b[1]).slice(0,2).map(x=>x[0]);
+      document.getElementById('outAvoid').innerText = `Paths requiring high ${lowestTraits.join(' & ')} traits.`;
+
+      // Render College Tiers & Action Plan based on top career
+      const topCareer = report.topCareers[0].name.toLowerCase();
+      renderTiersAndPlan(topCareer, payload.currentStream);
+      
+      // Bridge to Firebase
+      bridgeToFirestore(report, payload);
       
     } catch (error) {
         console.error(error);
@@ -385,8 +593,44 @@
     }
   }
 
+  function renderTiersAndPlan(careerName, stream) {
+      let tierHtml = "";
+      let planFocus = "";
+      let planExams = "";
+
+      if(careerName.includes("engineering") || careerName.includes("tech") || stream === "PCM") {
+          tierHtml = `<div class="tier-card"><strong>Tier 1 (Elite)</strong><span>IITs, NITs, BITS Pilani, IIITs</span></div>
+                      <div class="tier-card"><strong>Tier 2 (Premium)</strong><span>VIT, MIT Manipal, SRM, Thapar</span></div>
+                      <div class="tier-card"><strong>Tier 3 (Budget/State)</strong><span>State Govt Engineering Colleges (CET)</span></div>`;
+          planFocus = "<li>Maintain >85% in Board Exams (PCM focus).</li><li>Start learning basic Python/C++ logic.</li>";
+          planExams = "<li>Primary: JEE Mains (January attempt)</li><li>Secondary: BITSAT / State CET</li>";
+      } else if (careerName.includes("medical") || careerName.includes("mbbs") || stream === "PCB") {
+          tierHtml = `<div class="tier-card"><strong>Tier 1 (Elite)</strong><span>AIIMS, JIPMER, AFMC, CMC Vellore</span></div>
+                      <div class="tier-card"><strong>Tier 2 (State Govt)</strong><span>Top State Medical Colleges (Merit Quota)</span></div>
+                      <div class="tier-card"><strong>Tier 3 (Private/Abroad)</strong><span>KMC, Manipal, MBBS in Russia/Georgia</span></div>`;
+          planFocus = "<li>Master NCERT Biology line-by-line.</li><li>Solve 100+ Physics MCQs weekly.</li>";
+          planExams = "<li>Primary: NEET UG (May)</li><li>Backup: CUET (For B.Sc Bio/Genetics)</li>";
+      } else if (stream === "Commerce") {
+          tierHtml = `<div class="tier-card"><strong>Tier 1 (Elite)</strong><span>SRCC, Hindu College, IIM (IPM)</span></div>
+                      <div class="tier-card"><strong>Tier 2 (Premium)</strong><span>Christ, Narsee Monjee, Symbiosis</span></div>
+                      <div class="tier-card"><strong>Professional Bodies</strong><span>ICAI (For CA), ACCA Global</span></div>`;
+          planFocus = "<li>Focus heavily on Core Accountancy & Applied Math.</li><li>Read Economic Times weekly.</li>";
+          planExams = "<li>Primary: CUET (Delhi Univ target)</li><li>Professional: CA Foundation / IPMAT</li>";
+      } else {
+          tierHtml = `<div class="tier-card"><strong>Tier 1 (Elite)</strong><span>St. Stephens, LSR, Ashoka University</span></div>
+                      <div class="tier-card"><strong>Tier 2 (Law/Design)</strong><span>NLSIU (Law), NID/NIFT (Design)</span></div>
+                      <div class="tier-card"><strong>Tier 3 (State Univs)</strong><span>Local Central Universities via CUET</span></div>`;
+          planFocus = "<li>Build a strong extracurricular portfolio (Debates, MUNs).</li><li>Focus on verbal/written communication.</li>";
+          planExams = "<li>Primary: CUET / CLAT (For Law)</li><li>Design: UCEED / NID DAT</li>";
+      }
+
+      document.getElementById('outColleges').innerHTML = tierHtml;
+      document.getElementById('planFocus').innerHTML = planFocus;
+      document.getElementById('planExams').innerHTML = planExams;
+  }
+
   // --- THE BRIDGE FUNCTION ---
-  async function bridgeToFirestore(report) {
+  async function bridgeToFirestore(report, payload) {
     try {
         const { getAuth } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js");
         const { getFirestore, doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
@@ -397,12 +641,12 @@
 
         if (!user) return;
 
-        // Map report scores to your Intelligence Dashboard metrics
         const psychologyPackage = {
             assessmentCompleted: true,
             completedAt: new Date().toISOString(),
+            streamInfo: { stream: payload.currentStream, marks: payload.marks },
             psychIndex: {
-                careerClarity: Math.round(report.matPct / 10), // Scale 0-100 to 0-10
+                careerClarity: Math.round(report.matPct / 10), 
                 confidenceScore: Math.round(report.aptPct / 10),
                 parentPressure: Math.round(report.parPct / 10),
                 riskCategory: (report.parPct > 70 || report.matPct < 40) ? "High" : "Low",
@@ -417,40 +661,12 @@
     } catch (e) { console.error("Bridge Failure:", e); }
   }
 
-  function renderReportUI(report, payload) {
-      document.getElementById('wizardContainer').style.display = 'none';
-      document.getElementById('reportContainer').style.display = 'block';
-      
-      document.getElementById('outName').innerText = payload.studentName;
-      document.getElementById('outCode').innerText = report.finalCode;
-      document.getElementById('outPersonalityText').innerHTML = report.profileDesc;
-      
-      // Update Radar Chart
-      const ctx = document.getElementById('riasecChart').getContext('2d');
-      new Chart(ctx, {
-          type: 'radar',
-          data: {
-              labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'],
-              datasets: [{
-                  data: [report.scores.R, report.scores.I, report.scores.A, report.scores.S, report.scores.E, report.scores.C],
-                  backgroundColor: 'rgba(139, 92, 246, 0.2)', borderColor: '#8b5cf6'
-              }]
-          },
-          options: { scales: { r: { max: 100, min: 0 } }, plugins: { legend: { display: false } } }
-      });
-
-      // Update Career List
-      document.getElementById('outCareers').innerHTML = report.topCareers.map(c => `
-          <div class="career-bar"><span>${c.name}</span><span class="career-score">${c.score}%</span></div>
-      `).join('');
-  }
-
   function downloadPDF() {
       const el = document.getElementById('reportContent');
-      html2pdf().from(el).set({ margin: 0.5, filename: 'Career_Dossier.pdf' }).save();
+      html2pdf().from(el).set({ margin: 0.2, filename: 'Career_Intelligence_Dossier.pdf', html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } }).save();
   }
 
-  renderWizard();
+  initApp();
 </script>
 </body>
 </html>
