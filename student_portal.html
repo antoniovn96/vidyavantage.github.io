@@ -150,7 +150,7 @@
                     <h1 id="welcomeText">Welcome back, Student!</h1>
                     <p>Let's take the next step toward your future today.</p>
                 </div>
-                <a href="career-assessment.html" class="btn">Start Assessment ➔</a>
+                <button onclick="launchAssessment()" class="btn">Start Assessment ➔</button>
             </div>
 
             <div class="grid-2" style="grid-template-columns: 1fr 1.5fr;">
@@ -198,7 +198,7 @@
                 <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.8;">📄</div>
                 <h2 style="color: #0f172a; font-size: 2rem; margin-bottom: 15px;">Report Locked</h2>
                 <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">You need to complete your Clinical Psychometric Assessment before the AI can generate your personalized Career Report.</p>
-                <a href="career-assessment.html" class="btn" style="padding: 15px 35px;">Take Assessment Now ➔</a>
+                <button onclick="launchAssessment()" class="btn" style="padding: 15px 35px;">Take Assessment Now ➔</button>
             </div>
         </div>
 
@@ -222,7 +222,7 @@
                     </ul>
                 </div>
                 
-                <a href="career-assessment.html" class="btn" style="width: 100%; justify-content: center; padding: 18px; font-size: 1.2rem;">Begin Full Assessment ➔</a>
+                <button onclick="launchAssessment()" class="btn" style="width: 100%; justify-content: center; padding: 18px; font-size: 1.2rem;">Begin Full Assessment ➔</button>
             </div>
         </div>
 
@@ -412,6 +412,14 @@
     const auth = getAuth(app);
     let activeUserUid = null;
     window.globalCounsellors = {};
+
+    // --- SMART ROUTING FOR JEKYLL (Fixes Link Errors) ---
+    window.launchAssessment = function() {
+        // This detects if you are on localhost or GitHub pages and routes cleanly
+        const currentUrl = window.location.href;
+        const basePath = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+        window.location.href = basePath + "/assessment/";
+    };
 
     // --- TAB NAVIGATION LOGIC ---
     window.switchTab = function(tabId, btn) {
