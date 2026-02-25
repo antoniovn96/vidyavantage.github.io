@@ -480,7 +480,7 @@ permalink: /assessment/
   async function processClinicalData() {
     const answerKeys = Object.keys(state.answers);
     if(answerKeys.length < 69) return alert(`Please answer all questions. You have answered ${answerKeys.length}/69.`);
-      
+
     const btn = document.getElementById('analyzeBtn');
     btn.innerText = "Analyzing Psychometrics... ⏳";
     btn.disabled = true;
@@ -541,7 +541,7 @@ permalink: /assessment/
       // RENDER RESULTS
       localStorage.removeItem('careerIntelState');
       
-      // Defensively check for confetti to prevent script crashes
+      // SAFELY trigger confetti
       if (typeof confetti === 'function') {
           confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
       } else {
@@ -571,7 +571,7 @@ permalink: /assessment/
       });
       document.getElementById('outTraitBreakdown').innerHTML = breakdownHtml;
 
-      // Defensively check for Chart.js to prevent script crashes
+      // SAFELY generate Chart
       const ctx = document.getElementById('riasecChart').getContext('2d');
       if (typeof Chart !== 'undefined') {
           new Chart(ctx, {
