@@ -174,6 +174,19 @@ title: Home
   </div>
 </div>
 
+<div class="section-wrap" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; text-align: center;">
+  <div style="max-width: 850px; margin: 0 auto;">
+    <span class="hero-badge" style="background: rgba(255,255,255,0.1); color: #FFD700; border: 1px solid #FFD700;">Free Interactive Tool</span>
+    <h2 style="font-size: 2.8rem; font-weight: 900; margin: 20px 0; letter-spacing: -1px;">The Ultimate Career GPS 🧭</h2>
+    <p style="font-size: 1.15rem; color: #cbd5e1; line-height: 1.7; margin-bottom: 35px;">
+      Confused about which stream to pick? Explore our interactive career tree. Filter by <strong>high salary</strong>, <strong>low competition</strong>, or <strong>careers without Maths</strong> to instantly find the perfect path for your future.
+    </p>
+    <a href="{{ '/career-search/' | relative_url }}" style="background: #F59E0B; color: #0f172a; padding: 16px 32px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.3s; box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);">
+      Launch Interactive Roadmap ➔
+    </a>
+  </div>
+</div>
+
 <div class="section-wrap alt-bg">
   <div class="section-header">
     <span class="section-tag">Who We Help</span>
