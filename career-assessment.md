@@ -480,8 +480,6 @@ permalink: /assessment/
   async function processClinicalData() {
     const answerKeys = Object.keys(state.answers);
     if(answerKeys.length < 69) return alert(`Please answer all questions. You have answered ${answerKeys.length}/69.`);
-    localStorage.removeItem('careerIntelState');
-      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
       
       document.getElementById('progressWrap').style.display = 'none';
 
@@ -542,9 +540,15 @@ permalink: /assessment/
       if (!jsonResponse.success) throw new Error("Analysis failed");
       let report = jsonResponse.result;
 
-      // RENDER RESULTS
+// RENDER RESULTS
       localStorage.removeItem('careerIntelState');
-      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+      
+      // Safely check if the confetti script loaded before trying to use it
+      if (typeof confetti === 'function') {
+          confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+      } else {
+          console.warn("Confetti animation skipped (script did not load).");
+      }
       
       document.getElementById('progressWrap').style.display = 'none';
       document.getElementById('progressCont').style.display = 'none';
