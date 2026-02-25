@@ -72,11 +72,14 @@
       .status-warning { background: #fef3c7; color: #d97706; }
       .status-pending { background: #f1f5f9; color: #64748b; }
 
-      /* Action Plan Tasks */
+      /* Action Plan & Resources */
       .task-item { display: flex; align-items: center; gap: 20px; padding: 20px; border-bottom: 1px dashed var(--border); transition: 0.2s;}
       .task-item:hover { background: #f8fafc; border-radius: 12px; border-bottom-color: transparent;}
       .task-item:last-child { border: none; }
       .task-checkbox { width: 24px; height: 24px; cursor: pointer; accent-color: var(--primary);}
+      
+      .resource-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; transition: 0.2s;}
+      .resource-item:hover { border-color: var(--primary); transform: translateX(5px);}
 
       /* Form Elements */
       .form-group { margin-bottom: 20px; }
@@ -119,7 +122,7 @@
         <button class="nav-btn" onclick="switchTab('tab-report', this)">📄 My Career Report</button>
         <button class="nav-btn" onclick="switchTab('tab-assessment', this)">📝 My Assessment</button>
         <button class="nav-btn" onclick="switchTab('tab-action', this)">🎯 Action Plan</button>
-        <button class="nav-btn" onclick="switchTab('tab-portfolio', this)">📁 My Portfolio</button>
+        <button class="nav-btn" onclick="switchTab('tab-portfolio', this)">📁 My Portfolio & Resources</button>
         <button class="nav-btn" onclick="switchTab('tab-counselling', this)">📅 Book Counselling</button>
         <button class="nav-btn" onclick="switchTab('tab-chat', this)">💬 Direct Chat</button>
         <button class="nav-btn" onclick="switchTab('tab-tracker', this)">📈 Progress Tracker</button>
@@ -251,12 +254,34 @@
 
         <div id="tab-portfolio" class="tab-content">
             <div class="header-bar">
-                <div><h1>My Portfolio</h1><p>Build your long-term academic and extracurricular profile.</p></div>
+                <div><h1>My Portfolio & Resources</h1><p>Build your resume and access counsellor-shared materials.</p></div>
                 <button class="btn btn-outline">+ Add Achievement</button>
             </div>
-            <div class="card" style="text-align:center; padding: 80px 20px;">
-                <div style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;">🏆</div>
-                <p style="color:var(--text-muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto;">Your portfolio is currently empty. Start adding your Olympiad scores, sports certificates, or school projects to build a strong resume!</p>
+            
+            <div class="grid-2">
+                <div class="card" style="border-top: 5px solid var(--primary);">
+                    <h3>📚 Resources Shared With Me</h3>
+                    
+                    <div class="resource-item">
+                        <div>
+                            <strong style="color:#0f172a; display:block;">Understanding RIASEC Guide</strong>
+                            <span style="font-size:0.8rem; color:var(--text-muted);">PDF • Dispatched by Dr. Smith</span>
+                        </div>
+                        <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; margin:0;">Download</button>
+                    </div>
+                    <div class="resource-item">
+                        <div>
+                            <strong style="color:#0f172a; display:block;">Stream Selection Worksheet</strong>
+                            <span style="font-size:0.8rem; color:var(--text-muted);">Document • Dispatched by Counsellor</span>
+                        </div>
+                        <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; margin:0;">View</button>
+                    </div>
+                </div>
+
+                <div class="card" style="text-align:center; padding: 40px 20px;">
+                    <div style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;">🏆</div>
+                    <p style="color:var(--text-muted); font-size: 1.05rem; margin: 0 auto;">Your personal achievement portfolio is empty. Add your Olympiad scores or school projects to build a strong resume!</p>
+                </div>
             </div>
         </div>
 
