@@ -697,7 +697,7 @@ permalink: /assessment/
         const user = auth.currentUser;
         if (!user) return;
 
-        const psychologyPackage = {
+const psychologyPackage = {
             assessmentCompleted: true,
             completedAt: new Date().toISOString(),
             streamInfo: { stream: payload.currentStream, marks: payload.marks },
@@ -710,7 +710,8 @@ permalink: /assessment/
                 reliability: payload.reliability
             },
             riasecCode: report.finalCode,
-            primaryTrait: report.dom
+            primaryTrait: report.dom,
+            fullReport: report // <--- ADD THIS LINE HERE
         };
 
         await setDoc(doc(db, "students", user.uid), psychologyPackage, { merge: true });
