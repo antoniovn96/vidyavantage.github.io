@@ -657,29 +657,59 @@ permalink: /assessment/
     }
   }
 
+  // --- UPGRADED SMART ACTION PLAN LOGIC ---
   function renderTiersAndPlan(careerName, stream) {
       let tierHtml = ""; let planCourses = ""; let planExams = "";
+      let c = careerName.toLowerCase();
 
-      if(careerName.includes("engineering") || careerName.includes("tech") || stream === "PCM") {
+      // 1. Tech & Engineering
+      if(c.includes("engineer") || c.includes("tech") || c.includes("data") || c.includes("cyber")) {
           tierHtml = `<div class="tier-card"><strong>Tier 1 (Elite)</strong><span>IITs, NITs, BITS Pilani, IIITs</span></div>
                       <div class="tier-card"><strong>Tier 2 (Premium)</strong><span>VIT, MIT Manipal, SRM, Thapar</span></div>`;
           planCourses = "<li>Basic Python/C++ Logic Foundation</li><li>JEE Mains Crash Course</li>";
           planExams = "<li>Primary: JEE Mains (Jan)</li><li>Secondary: BITSAT / State CET</li>";
-      } else if (careerName.includes("medical") || careerName.includes("mbbs") || stream === "PCB") {
+      } 
+      // 2. Medicine & Healthcare
+      else if (c.includes("medical") || c.includes("doctor") || c.includes("mbbs") || c.includes("clinic")) {
           tierHtml = `<div class="tier-card"><strong>Tier 1 (Elite)</strong><span>AIIMS, JIPMER, AFMC, CMC Vellore</span></div>
                       <div class="tier-card"><strong>Tier 2 (State Govt)</strong><span>Top State Medical Colleges (Merit)</span></div>`;
           planCourses = "<li>Advanced NCERT Biology Mastery</li><li>Clinical Shadowing (1 week)</li>";
           planExams = "<li>Primary: NEET UG (May)</li><li>Backup: CUET (B.Sc Bio)</li>";
-      } else if (stream === "Commerce") {
+      } 
+      // 3. Heavy Finance & Accounting (Only if AI specifically suggested it)
+      else if (c.includes("finance") || c.includes("account") || c.includes("ca") || c.includes("actuar")) {
           tierHtml = `<div class="tier-card"><strong>Tier 1 (Elite)</strong><span>SRCC, Hindu College, IIM (IPM)</span></div>
                       <div class="tier-card"><strong>Professional Bodies</strong><span>ICAI (For CA), ACCA Global</span></div>`;
           planCourses = "<li>Financial Excel Certification</li><li>CA Foundation Prep</li>";
           planExams = "<li>Primary: CUET (DU target)</li><li>Professional: CA Found / IPMAT</li>";
-      } else {
-          tierHtml = `<div class="tier-card"><strong>Tier 1 (Elite)</strong><span>St. Stephens, LSR, NLSIU</span></div>
-                      <div class="tier-card"><strong>Tier 2 (Design)</strong><span>NID, NIFT, Srishti</span></div>`;
-          planCourses = "<li>Public Speaking / MUN Workshops</li><li>Design Portfolio Building</li>";
-          planExams = "<li>Primary: CUET / CLAT</li><li>Design: UCEED / NID DAT</li>";
+      } 
+      // 4. Management, HR, Sales, Entrepreneurship (No Heavy Math)
+      else if (c.includes("business") || c.includes("manage") || c.includes("human resource") || c.includes("market") || c.includes("entrepreneur")) {
+          tierHtml = `<div class="tier-card"><strong>Tier 1 (Premium)</strong><span>IIM (IPM), NMIMS, Christ University, Symbiosis</span></div>
+                      <div class="tier-card"><strong>Tier 2 (Excellent)</strong><span>Local State Universities, UPES, TAPMI</span></div>`;
+          planCourses = "<li>Public Speaking & Communication Mastery</li><li>Digital Marketing Basics</li>";
+          planExams = "<li>Primary: CUET / IPMAT / NPAT</li><li>Focus: Building Leadership & Soft Skills</li>";
+      } 
+      // 5. Law & Public Policy
+      else if (c.includes("law") || c.includes("policy") || c.includes("legal")) {
+          tierHtml = `<div class="tier-card"><strong>Tier 1 (Elite)</strong><span>NLSIU Bangalore, NALSAR, NLU Delhi</span></div>
+                      <div class="tier-card"><strong>Tier 2 (Premium)</strong><span>Symbiosis Law, Jindal Global Law</span></div>`;
+          planCourses = "<li>Debate & MUN Participation</li><li>Logical Reasoning Practice</li>";
+          planExams = "<li>Primary: CLAT (December)</li><li>Secondary: AILET / LSAT</li>";
+      }
+      // 6. Design, Media, Arts, Humanities
+      else if (c.includes("design") || c.includes("media") || c.includes("art") || c.includes("psych") || c.includes("journal")) {
+          tierHtml = `<div class="tier-card"><strong>Tier 1 (Design/Arts)</strong><span>NID, NIFT, St. Stephens, Ashoka University</span></div>
+                      <div class="tier-card"><strong>Tier 2 (Premium)</strong><span>Srishti, Pearl Academy, Christ (Psychology)</span></div>`;
+          planCourses = "<li>Build a Creative Portfolio / Blog</li><li>Behavioral Psychology 101</li>";
+          planExams = "<li>Primary: UCEED / NID DAT (For Design)</li><li>Primary: CUET (For Humanities)</li>";
+      }
+      // 7. Generic / Alternative Pathways (Hospitality, Events, Vocational)
+      else {
+          tierHtml = `<div class="tier-card"><strong>Skill-Based Institutions</strong><span>Focus heavily on practical colleges and portfolio-building over pure academics.</span></div>
+                      <div class="tier-card"><strong>Top Hospitality/Vocational</strong><span>IHM (For Hotel Mgmt), specialized institutes.</span></div>`;
+          planCourses = "<li>Identify 2 core practical skills to master this year.</li><li>Find a local internship or shadowing opportunity.</li>";
+          planExams = "<li>Focus on Skill Certifications & Interviews over written entrance exams.</li>";
       }
 
       document.getElementById('outColleges').innerHTML = tierHtml;
@@ -697,7 +727,7 @@ permalink: /assessment/
         const user = auth.currentUser;
         if (!user) return;
 
-const psychologyPackage = {
+        const psychologyPackage = {
             assessmentCompleted: true,
             completedAt: new Date().toISOString(),
             streamInfo: { stream: payload.currentStream, marks: payload.marks },
@@ -711,7 +741,7 @@ const psychologyPackage = {
             },
             riasecCode: report.finalCode,
             primaryTrait: report.dom,
-            fullReport: report // <--- ADD THIS LINE HERE
+            fullReport: report // SAVES FULL REPORT FOR DASHBOARD
         };
 
         await setDoc(doc(db, "students", user.uid), psychologyPackage, { merge: true });
