@@ -81,9 +81,14 @@
       /* CASE LIST STYLING */
       .case-item { display: flex; align-items: center; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 12px; margin-bottom: 12px; border: 1px solid transparent; transition: 0.2s; }
       .case-item:hover { border-color: var(--primary); transform: translateX(5px); }
-      .case-status { width: 12px; height: 12px; border-radius: 50%; margin-right: 15px; }
+      .case-status { width: 12px; height: 12px; border-radius: 50%; margin-right: 15px; flex-shrink: 0;}
       .case-info { flex: 1; }
       .case-time { font-size: 0.8rem; color: var(--secondary); font-weight: bold; }
+
+      /* CHAT STYLES */
+      .chat-message { padding: 12px 18px; border-radius: 12px; margin-bottom: 12px; font-size: 0.95rem; max-width: 85%; line-height: 1.5;}
+      .msg-me { background: var(--primary); color: white; margin-left: auto; border-bottom-right-radius: 0; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2);}
+      .msg-them { background: rgba(255,255,255,0.05); color: white; margin-right: auto; border-bottom-left-radius: 0; border: 1px solid var(--border);}
 
       /* MODAL UI & UPLOADS */
       .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
@@ -149,7 +154,7 @@
             <a href="index.html" class="site-link">🌐 Live Website</a>
             
             <div class="profile-menu" id="profileDropdownBtn">
-                <img src="https://via.placeholder.com/150" class="avatar-btn" id="topAvatarImg" onclick="toggleDropdown()">
+                <img src="https://ui-avatars.com/api/?name=Counsellor&background=8b5cf6&color=fff" class="avatar-btn" id="topAvatarImg" onclick="toggleDropdown()">
                 <div class="dropdown-content">
                     <div style="padding: 15px; border-bottom: 1px solid var(--border); background:rgba(0,0,0,0.2);">
                         <strong id="dropName" style="color:white; display:block;">Counselor Name</strong>
@@ -168,40 +173,23 @@
             <div class="header-bar">
                 <div>
                     <h1>Counselor Command Center</h1>
-                    <p id="currentDateDisplay">Tuesday, Feb 24, 2026</p>
+                    <p id="currentDateDisplay">Date</p>
                 </div>
             </div>
 
             <div class="kpi-grid">
                 <div class="kpi-box" style="border-top: 3px solid var(--primary);"><h4>Assigned Students</h4><div class="val" id="kpiStudents">0</div></div>
-                <div class="kpi-box" style="border-top: 3px solid var(--secondary);"><h4>Sessions Today</h4><div class="val">3</div></div>
-                <div class="kpi-box" style="border-top: 3px solid var(--danger);"><h4>High Risk Flags</h4><div class="val">2</div></div>
-                <div class="kpi-box" style="border-top: 3px solid var(--warning);"><h4>Pending Reports</h4><div class="val">5</div></div>
+                <div class="kpi-box" style="border-top: 3px solid var(--secondary);"><h4>Pending Requests</h4><div class="val" id="kpiPending">0</div></div>
+                <div class="kpi-box" style="border-top: 3px solid var(--danger);"><h4>High Risk Flags</h4><div class="val" id="kpiRisk">0</div></div>
+                <div class="kpi-box" style="border-top: 3px solid var(--success);"><h4>Confirmed Sessions</h4><div class="val" id="kpiConfirmed">0</div></div>
             </div>
 
             <div class="grid-3-1">
                 <div>
                     <div class="card">
-                        <h3>Today's Appointment Queue</h3>
-                        
-                        <div class="case-item">
-                            <div class="case-status" style="background:var(--danger);"></div>
-                            <div class="case-info">
-                                <span class="case-time">10:30 AM (Online)</span>
-                                <div style="font-weight:bold;">Aryan Sharma <span class="badge badge-danger" style="margin-left: 10px;">High Parent Pressure</span></div>
-                                <div style="font-size:0.8rem; color:var(--text-muted);">The Knowledge Habitat • Grade 10</div>
-                            </div>
-                            <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Start Session</button>
-                        </div>
-
-                        <div class="case-item">
-                            <div class="case-status" style="background:var(--warning);"></div>
-                            <div class="case-info">
-                                <span class="case-time">11:45 AM (Offline)</span>
-                                <div style="font-weight:bold;">Priya Kaur <span class="badge badge-warning" style="margin-left: 10px;">Stream Ambiguity</span></div>
-                                <div style="font-size:0.8rem; color:var(--text-muted);">Sri Sharada Public School • Grade 12</div>
-                            </div>
-                            <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Start Session</button>
+                        <h3>Appointment Requests & Queue</h3>
+                        <div id="bookingRequestsContainer">
+                            <div style="text-align:center; color:var(--text-muted); padding: 20px;">Scanning for incoming requests...</div>
                         </div>
                     </div>
                 </div>
@@ -209,10 +197,8 @@
                 <div>
                     <div class="card" style="border-top: 4px solid var(--danger);">
                         <h3>System Alerts</h3>
-                        <div style="font-size:0.9rem; color:var(--text-muted); line-height: 1.6;">
-                            <p><strong style="color:var(--danger);">⚠️ Urgent:</strong> 2 students completed assessments indicating severe career anxiety.</p>
-                            <hr style="border:0; border-top:1px dashed var(--border); margin:10px 0;">
-                            <p><strong style="color:var(--warning);">Action Required:</strong> Parent meeting requested for Rahul D.</p>
+                        <div style="font-size:0.9rem; color:var(--text-muted); line-height: 1.6;" id="alertBox">
+                            <p style="text-align:center;">Monitoring system for clinical flags...</p>
                         </div>
                     </div>
                 </div>
@@ -271,14 +257,6 @@
                             <input type="time" class="form-input" value="18:00">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Meeting Mode</label>
-                        <select class="form-select">
-                            <option>Online (Google Meet/Zoom)</option>
-                            <option>In-Person (School Campus)</option>
-                            <option>Hybrid (Both options available)</option>
-                        </select>
-                    </div>
                     <button class="btn" style="width: 100%;">Update Calendar</button>
                 </div>
 
@@ -334,9 +312,8 @@
                 <h3>🚩 High Priority Queue</h3>
                 <table class="data-table">
                     <thead><tr><th>Student</th><th>Primary Risk Factor</th><th>Clarity Score</th><th>Action Required</th></tr></thead>
-                    <tbody>
-                        <tr><td>Arjun Mehta</td><td>High Parent Pressure</td><td>3/10</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;">Schedule Parent Call</button></td></tr>
-                        <tr><td>Sneha Patil</td><td>High Stress / Burnout</td><td>4/10</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;">Immediate Follow-up</button></td></tr>
+                    <tbody id="interventionTableBody">
+                        <tr><td colspan="4" style="text-align:center;">Scanning...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -393,7 +370,7 @@
                     <div style="text-align:center; border-left: 1px solid var(--border); padding-left: 20px;">
                         <h4 style="margin-top:0; color:var(--text-muted); font-size:0.85rem; text-transform:uppercase;">Profile Picture</h4>
                         <div class="avatar-wrapper" onclick="document.getElementById('photoUpload').click()" title="Click to change photo">
-                            <img src="https://via.placeholder.com/150" id="profAvatar" class="prof-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Expert&background=8b5cf6&color=fff" id="profAvatar" class="prof-avatar">
                         </div>
                         <input type="file" id="photoUpload" style="display: none;" accept="image/png, image/jpeg">
                         <p style="font-size:0.75rem; color:var(--text-muted);">Click image to upload. Recommended 500x500px.</p>
@@ -414,7 +391,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, collection, getDocs, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, getDocs, updateDoc, arrayUnion, query, where, orderBy, onSnapshot, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     // ⚠️ USE YOUR REAL FIREBASE KEYS HERE
@@ -433,13 +410,11 @@
     const auth = getAuth(app);
     
     let activeUserEmail = "";
-    window.globalStudentData = {}; // Stores student data for the Modal
+    window.globalStudentData = {}; 
 
-    // Set Date
     const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
     document.getElementById('currentDateDisplay').innerText = new Date().toLocaleDateString('en-US', options);
 
-    // --- TAB NAVIGATION ---
     window.switchTab = function(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -462,33 +437,26 @@
         document.getElementById('modalStuGrade').innerText = student.grade || "N/A";
         document.getElementById('modalStuStatus').innerHTML = student.assessmentCompleted ? '<span style="color:var(--success);">Completed</span>' : '<span style="color:var(--warning);">Pending</span>';
         
-        // Add Psychometric Summary if available
         if(student.psychIndex) {
             document.getElementById('modalStuClarity').innerText = student.psychIndex.careerClarity + " / 10";
             document.getElementById('modalStuTraits').innerText = student.riasecCode || "--";
             document.getElementById('modalStuRisk').innerText = student.psychIndex.riskCategory === "High" ? "High Risk Detected" : "Stable";
             document.getElementById('modalStuRisk').className = student.psychIndex.riskCategory === "High" ? "badge badge-danger" : "badge badge-success";
         }
-
         document.getElementById('studentModal').style.display = 'flex';
     }
     window.closeStudentModal = function() { document.getElementById('studentModal').style.display = 'none'; }
 
-    // --- FIREBASE SECURITY & DATA LOADING ---
+    // --- FIREBASE SECURITY & INITIALIZATION ---
     onAuthStateChanged(auth, async (user) => {
-        if (!user) {
-            window.location.href = "index.html"; 
-            return;
-        }
-
+        if (!user) { window.location.href = "index.html"; return; }
         activeUserEmail = user.email.toLowerCase();
 
         try {
             const permsRef = doc(db, "permissions", activeUserEmail);
             const permsSnap = await getDoc(permsRef);
 
-            if (permsSnap.exists() && (permsSnap.data().role === "counsellor" || permsSnap.data().role === "school_admin")) {
-                
+            if (permsSnap.exists() && (permsSnap.data().role === "counsellor" || permsSnap.data().role === "super_admin")) {
                 document.getElementById('dropEmail').innerText = user.email;
                 document.getElementById('profEmail').value = user.email;
                 const name = user.displayName || user.email.split('@')[0];
@@ -497,14 +465,13 @@
                 
                 loadCounsellorProfile(activeUserEmail);
                 loadAssignedStudents();
+                listenToBookings(activeUserEmail); // START LISTENING FOR APPOINTMENTS
 
             } else {
                 alert("Unauthorized: You do not have Counsellor clearance.");
                 window.location.href = "student_portal.html";
             }
-        } catch (error) {
-            console.error("Security check failed:", error);
-        }
+        } catch (error) { console.error("Security check failed:", error); }
     });
 
     // --- PROFILE IMAGE UPLOAD & SAVE ---
@@ -563,10 +530,13 @@
         const tbody = document.getElementById('studentTableBody');
         const sessionSelect = document.getElementById('sessionStudentSelect');
         const chatList = document.getElementById('chatStudentList');
+        const interventionBody = document.getElementById('interventionTableBody');
         
         try {
             const snap = await getDocs(collection(db, "students"));
-            let studentCount = 0;
+            let studentCount = 0; let riskCount = 0;
+            let intHtml = "";
+            
             tbody.innerHTML = "";
             sessionSelect.innerHTML = '<option value="">-- Select Student --</option>';
             chatList.innerHTML = "";
@@ -582,9 +552,12 @@
                 studentCount++;
                 window.globalStudentData[docSnap.id] = data; 
 
-                // 1. Table Population
                 let riskBadge = '<span class="badge badge-success">Stable</span>';
-                if(data.psychIndex && data.psychIndex.riskCategory === "High") riskBadge = '<span class="badge badge-danger">High Risk</span>';
+                if(data.psychIndex && data.psychIndex.riskCategory === "High") {
+                    riskBadge = '<span class="badge badge-danger">High Risk</span>';
+                    riskCount++;
+                    intHtml += `<tr><td><strong>${data.name}</strong></td><td>Elevated Pressure Metric</td><td>${data.psychIndex.careerClarity || 0}/10</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;" onclick="switchTab('tab-chat', document.querySelectorAll('.nav-btn')[3]); openChat('${docSnap.id}', '${data.name}')">Message User</button></td></tr>`;
+                }
                 else if(!data.assessmentCompleted) riskBadge = '<span class="badge badge-warning">Needs Assmnt</span>';
                 
                 tbody.innerHTML += `<tr>
@@ -596,21 +569,28 @@
                     <td><button class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="openStudentModal('${docSnap.id}')">View File</button></td>
                 </tr>`;
 
-                // 2. Dropdown Population (Session Notes)
-                sessionSelect.innerHTML += `<option value="${docSnap.id}">${data.name} (${data.grade})</option>`;
+                sessionSelect.innerHTML += `<option value="${docSnap.id}">${data.name} (${data.grade || 'N/A'})</option>`;
 
-                // 3. Chat List Population
                 chatList.innerHTML += `
                     <div class="list-item" style="padding: 15px 20px; cursor:pointer;" onclick="openChat('${docSnap.id}', '${data.name}')" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
                         <div>
                             <strong style="color:white; display:block;">${data.name}</strong>
-                            <span style="font-size:0.8rem; color:var(--text-muted);">Grade ${data.grade}</span>
+                            <span style="font-size:0.8rem; color:var(--text-muted);">Grade ${data.grade || 'N/A'}</span>
                         </div>
                         <span style="color:var(--primary);">💬</span>
                     </div>`;
             });
 
             document.getElementById('kpiStudents').innerText = studentCount;
+            document.getElementById('kpiRisk').innerText = riskCount;
+            if(intHtml) interventionBody.innerHTML = intHtml;
+            else interventionBody.innerHTML = "<tr><td colspan='4' style='text-align:center;'>No high-risk students currently detected.</td></tr>";
+
+            if(riskCount > 0) {
+                document.getElementById('alertBox').innerHTML = `<p><strong style="color:var(--danger);">⚠️ Urgent:</strong> ${riskCount} students flagged with High Risk clinical metrics. Review Intervention Panel.</p>`;
+            } else {
+                document.getElementById('alertBox').innerHTML = `<p style="color:var(--success);">System clear. No urgent clinical flags detected.</p>`;
+            }
 
         } catch(e) { 
             console.error("Error loading students:", e); 
@@ -618,74 +598,152 @@
         }
     }
 
-    // --- SESSION NOTES & ADMIN ESCALATION LOGIC ---
+    // --- REAL-TIME BOOKING LISTENER ---
+    window.listenToBookings = function(counsellorEmail) {
+        const q = query(collection(db, "bookings"), where("counsellorId", "==", counsellorEmail), orderBy("timestamp", "desc"));
+        onSnapshot(q, (snapshot) => {
+            const container = document.getElementById('bookingRequestsContainer');
+            let pendingCount = 0; let confirmedCount = 0;
+            
+            if (snapshot.empty) {
+                container.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--text-muted);">No appointments booked yet.</div>';
+                document.getElementById('kpiPending').innerText = 0;
+                document.getElementById('kpiConfirmed').innerText = 0;
+                return;
+            }
+
+            let html = '';
+            snapshot.forEach(doc => {
+                const b = doc.data();
+                if(b.status === 'Pending') pendingCount++;
+                if(b.status === 'Confirmed') confirmedCount++;
+
+                let statusColor = b.status === 'Pending' ? 'var(--warning)' : (b.status === 'Confirmed' ? 'var(--success)' : 'var(--danger)');
+                
+                html += `
+                    <div class="case-item">
+                        <div class="case-status" style="background:${statusColor};"></div>
+                        <div class="case-info">
+                            <span class="case-time">${b.date} at ${b.time} (${b.medium})</span>
+                            <div style="font-weight:bold; color:white; font-size:1.1rem; margin-top:2px;">${b.studentName} <span class="badge" style="margin-left:10px; background:rgba(255,255,255,0.1); color:${statusColor}; border:1px solid ${statusColor};">${b.status}</span></div>
+                            <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">📞 <a href="tel:${b.phone}" style="color:var(--secondary); text-decoration:none;">${b.phone}</a> &nbsp;|&nbsp; ✉️ <a href="mailto:${b.studentEmail}" style="color:var(--secondary); text-decoration:none;">${b.studentEmail}</a></div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                            ${b.status === 'Pending' ? `
+                                <button class="btn" style="padding: 6px 12px; font-size: 0.8rem; background:var(--success);" onclick="updateBookingStatus('${doc.id}', 'Confirmed')">Accept</button>
+                                <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; border-color:var(--danger); color:var(--danger);" onclick="updateBookingStatus('${doc.id}', 'Cancelled')">Decline</button>
+                            ` : ''}
+                            ${b.status === 'Confirmed' ? `
+                                <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="switchTab('tab-chat', document.querySelectorAll('.nav-btn')[3]); openChat('${b.studentId}', '${b.studentName}')">Message Student</button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            document.getElementById('kpiPending').innerText = pendingCount;
+            document.getElementById('kpiConfirmed').innerText = confirmedCount;
+        });
+    }
+
+    window.updateBookingStatus = async function(id, status) {
+        try { await updateDoc(doc(db, "bookings", id), { status: status }); } catch (e) { console.error(e); alert("Failed to update status."); }
+    }
+
+    // --- SESSION NOTES ---
     window.saveSessionNotes = async function() {
         const studentUid = document.getElementById('sessionStudentSelect').value; 
         const notes = document.getElementById('sessionNotesInput').value.trim();
-        const adminNotes = document.getElementById('adminNotesInput').value.trim(); // Private Super Admin Notes
+        const adminNotes = document.getElementById('adminNotesInput').value.trim(); 
         const btn = document.getElementById('saveNotesBtn');
 
         if(!studentUid || !notes) return alert("Please select a student and write a session summary.");
 
-        btn.innerText = "Saving... ⏳";
-        btn.disabled = true;
+        btn.innerText = "Saving... ⏳"; btn.disabled = true;
 
         try {
             await updateDoc(doc(db, "students", studentUid), {
                 counsellorNotes: arrayUnion({
-                    date: new Date().toISOString(),
-                    note: notes,
-                    adminEscalation: adminNotes, // This field is strictly for Super Admin view
-                    counsellorEmail: activeUserEmail
+                    date: new Date().toISOString(), note: notes, adminEscalation: adminNotes, counsellorEmail: activeUserEmail
                 })
             });
             alert("Clinical notes saved to student dossier safely.");
             document.getElementById('sessionNotesInput').value = "";
             document.getElementById('adminNotesInput').value = "";
         } catch (e) {
-            console.error(e);
-            alert("Failed to save notes. Ensure you have the correct permissions.");
+            console.error(e); alert("Failed to save notes. Ensure you have the correct permissions.");
         } finally {
-            btn.innerText = "Save to Case File";
-            btn.disabled = false;
+            btn.innerText = "Save to Case File"; btn.disabled = false;
         }
     }
 
-    // --- CHAT LOGIC (UI Placeholder for Firebase Subcollection) ---
+    // --- REALTIME CHAT SYSTEM ---
     let currentChatStudentId = null;
+    let unsubscribeChat = null;
     
     window.openChat = function(studentId, studentName) {
         currentChatStudentId = studentId;
         document.getElementById('chatActiveStudent').innerText = studentName;
         
         const chatBox = document.getElementById('chatMessages');
-        chatBox.innerHTML = `
-            <div style="text-align:center; color:var(--text-muted); margin-bottom: 20px; font-size:0.85rem;">Secure connection established with ${studentName}'s portal.</div>
-            <div style="background:var(--card-bg); border:1px solid var(--border); padding:10px 15px; border-radius:12px 12px 12px 0; max-width:80%; margin-bottom:15px; color:white;">
-                Hello ${studentName}, please complete your assessment before our session tomorrow. Let me know if you need help!
-                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:5px; text-align:right;">Sent 10:30 AM</div>
-            </div>
-        `;
+        chatBox.innerHTML = '<div style="text-align:center; color:var(--text-muted); margin-top:20px;">Loading encrypted chat history...</div>';
+
+        if(unsubscribeChat) unsubscribeChat();
+
+        const chatId = `${studentId}_${activeUserEmail}`;
+        const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
+        
+        unsubscribeChat = onSnapshot(q, (snapshot) => {
+            let html = `<div style="text-align:center; color:var(--text-muted); margin-bottom: 20px; font-size:0.85rem;">🔒 Secure connection established with ${studentName}.</div>`;
+            
+            if(snapshot.empty) {
+                html += `<div style="text-align:center; color:var(--text-muted);">No messages yet. Send a greeting to start the conversation!</div>`;
+            } else {
+                snapshot.forEach(doc => {
+                    const msg = doc.data();
+                    const isMe = msg.senderId === activeUserEmail;
+                    const timeString = msg.timestamp ? new Date(msg.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Sending...';
+                    
+                    if(isMe) {
+                        html += `
+                        <div class="chat-message msg-me">
+                            ${msg.text}
+                            <div class="chat-time" style="color:rgba(255,255,255,0.7);">${timeString}</div>
+                        </div>`;
+                    } else {
+                        html += `
+                        <div class="chat-message msg-them">
+                            ${msg.text}
+                            <div class="chat-time">${timeString}</div>
+                        </div>`;
+                    }
+                });
+            }
+            chatBox.innerHTML = html;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
     }
 
-    window.sendChatMessage = function() {
+    window.sendChatMessage = async function() {
         if(!currentChatStudentId) return alert("Select a student to chat with first.");
-        
         const input = document.getElementById('chatInput');
-        const msg = input.value.trim();
-        if(!msg) return;
+        const text = input.value.trim();
+        if(!text) return;
 
-        const chatBox = document.getElementById('chatMessages');
-        chatBox.innerHTML += `
-            <div style="background:var(--primary); padding:10px 15px; border-radius:12px 12px 0 12px; max-width:80%; margin-bottom:15px; color:white; margin-left:auto;">
-                ${msg}
-                <div style="font-size:0.7rem; color:rgba(255,255,255,0.7); margin-top:5px; text-align:right;">Just now</div>
-            </div>
-        `;
-        
-        // FUTURE: Save this to a 'messages' subcollection in Firestore
         input.value = "";
-        chatBox.scrollTop = chatBox.scrollHeight;
+        
+        try {
+            const chatId = `${currentChatStudentId}_${activeUserEmail}`;
+            await addDoc(collection(db, "chats", chatId, "messages"), {
+                text: text,
+                senderId: activeUserEmail,
+                senderType: 'counsellor',
+                timestamp: serverTimestamp()
+            });
+        } catch(e) {
+            console.error(e);
+            alert("Error sending message.");
+        }
     }
 
 </script>
