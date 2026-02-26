@@ -11,7 +11,13 @@ keywords: "delf exam fees india 2026, delf b2 level for masters in france, dalf 
 ---
 
 <style>
-  /* Blog Specific Styles */
+  /* Base & Blog Specific Styles */
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
   .level-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -59,13 +65,62 @@ keywords: "delf exam fees india 2026, delf b2 level for masters in france, dalf 
     border-radius: 4px;
   }
 
-  .fee-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-  .fee-table th { background: #fce4ec; color: #880e4f; padding: 12px; text-align: left; }
-  .fee-table td { padding: 12px; border-bottom: 1px solid #eee; }
-  
-  .comp-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
-  .comp-table th { background: #0f172a; color: white; padding: 12px; text-align: left; }
-  .comp-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+  /* Table Reset for Markdown & HTML Tables */
+  table, .comp-table, .fee-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin: 20px 0; 
+    font-size: 0.95rem; 
+  }
+  table th, .comp-table th, .fee-table th { 
+    background: #0f172a; 
+    color: white; 
+    padding: 12px; 
+    text-align: left; 
+  }
+  table td, .comp-table td, .fee-table td { 
+    padding: 12px; 
+    border-bottom: 1px solid #e2e8f0; 
+  }
+
+  /* --- MOBILE RESPONSIVENESS --- */
+  @media (max-width: 768px) {
+    /* Make tables horizontally scrollable instead of breaking the layout */
+    table, .comp-table, .fee-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Stack grid items vertically */
+    .level-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* Adjust typography for smaller screens */
+    h1 { font-size: 2.2rem !important; line-height: 1.2; }
+    h2 { font-size: 1.6rem !important; }
+    
+    /* Optimize boxes */
+    .magic-box {
+      padding: 15px;
+    }
+    .magic-box h2 {
+      font-size: 1.4rem !important;
+    }
+
+    /* Make CTA button full width and easy to tap */
+    .cta-btn-wrap {
+      display: flex !important;
+      flex-direction: column;
+    }
+    .btn {
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+    }
+  }
 </style>
 
 # The "Forever" Diploma.
@@ -211,6 +266,6 @@ You cannot "cram" a language, especially for the B2 level where you are tested o
 **Ready to start your French university journey?**
 Connect with our certified trainers to map out your language timeline.
 
-<div style="text-align: center; margin-top: 40px;">
-  <a href="{{ '/book-expert/' | relative_url }}" class="btn" style="background: #2563eb; color: white; padding: 15px 30px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 1.1rem;">🎓 Start Your DELF B2 Roadmap Today</a>
+<div class="cta-btn-wrap" style="text-align: center; margin-top: 40px;">
+  <a href="{{ '/book-expert/' | relative_url }}" class="btn" style="background: #2563eb; color: white; padding: 15px 30px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 1.1rem; display: inline-block;">🎓 Start Your DELF B2 Roadmap Today</a>
 </div>
