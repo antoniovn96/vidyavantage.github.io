@@ -478,6 +478,7 @@
     let activeUserUid = null;
     let studentDataObj = null;
     let miniChartInstance = null;
+    let reportRiasecChartInstance = null; // Added variable here
     let unsubscribeChat = null; 
     let globalUnreadCount = 0;
     const activeChatListeners = []; 
@@ -817,7 +818,30 @@
 
             if (typeof Chart !== 'undefined') {
                 const reportCtx = document.getElementById('reportRiasecChart').getContext('2d');
-                new Chart(reportCtx, { type: 'radar', data: { labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'], datasets: [{ data: [rep.scores.R, rep.scores.I, rep.scores.A, rep.scores.S, rep.scores.E, rep.scores.C], backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', pointBackgroundColor: '#0f172a' }] }, options: { maintainAspectRatio: false, scales: { r: { max: 100, min: 0 } }, plugins: { legend: { display: false } } } });
+                
+                // --- ADDED THE FIX HERE ---
+                if (reportRiasecChartInstance) {
+                    reportRiasecChartInstance.destroy();
+                }
+                
+                reportRiasecChartInstance = new Chart(reportCtx, { 
+                    type: 'radar', 
+                    data: { 
+                        labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'], 
+                        datasets: [{ 
+                            data: [rep.scores.R, rep.scores.I, rep.scores.A, rep.scores.S, rep.scores.E, rep.scores.C], 
+                            backgroundColor: 'rgba(59, 130, 246, 0.2)', 
+                            borderColor: '#3b82f6', 
+                            pointBackgroundColor: '#0f172a' 
+                        }] 
+                    }, 
+                    options: { 
+                        maintainAspectRatio: false, 
+                        scales: { r: { max: 100, min: 0 } }, 
+                        plugins: { legend: { display: false } } 
+                    } 
+                });
+                // ---------------------------
             }
         }
 
