@@ -436,18 +436,30 @@
     const db = getFirestore(app);
     const auth = getAuth(app); 
 
-    // 🚨 MASTER ADMIN EMAIL
-    const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com"; 
-
-    onAuthStateChanged(auth, (user) => {
-        if (!user || user.email.toLowerCase() !== SUPER_ADMIN_EMAIL.toLowerCase()) {
-            // Show login screen if not logged in or wrong user
+    // Dynamic Auth Listener with Firestore RBAC
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            // Nobody logged in, show the login overlay
             document.getElementById('adminLoginOverlay').style.display = 'flex';
-            if (user) signOut(auth); // Kick out the wrong user secretly
         } else {
-            // Success! Hide login and load dashboard
-            document.getElementById('adminLoginOverlay').style.display = 'none';
-            document.getElementById('dropEmail').innerText = user.email;
+            // Someone is logged in. Let's check if they are actually a Super Admin.
+            try {
+                const permsRef = doc(db, "permissions", user.email.toLowerCase());
+                const permsSnap = await getDoc(permsRef);
+
+                if (permsSnap.exists() && permsSnap.data().role === "super_admin") {
+                    // Success! They have the right database role. Hide login, show dashboard.
+                    document.getElementById('adminLoginOverlay').style.display = 'none';
+                    document.getElementById('dropEmail').innerText = user.email;
+                } else {
+                    // They are logged in, but DO NOT have the super_admin role. Kick them out.
+                    alert("Unauthorized. Super Admin privileges required.");
+                    signOut(auth);
+                    document.getElementById('adminLoginOverlay').style.display = 'flex';
+                }
+            } catch (error) {
+                console.error("Permission check failed:", error);
+            }
         }
     });
 
@@ -462,14 +474,9 @@
 
         signInWithPopup(auth, provider)
             .then((result) => {
-                const user = result.user;
-                // Double-check they didn't accidentally click a different Google account
-                if (user.email.toLowerCase() !== SUPER_ADMIN_EMAIL.toLowerCase()) {
-                    alert(`Access Denied! You logged in as ${user.email}. You must use your master email.`);
-                    signOut(auth);
-                    resetLoginBtn(btn);
-                }
-                // If it matches, the onAuthStateChanged listener above will automatically hide the overlay
+                // The onAuthStateChanged listener above will automatically verify their role 
+                // in the database and hide the overlay if they are an admin.
+                resetLoginBtn(btn);
             })
             .catch((error) => {
                 console.error(error);
@@ -477,7 +484,7 @@
                 resetLoginBtn(btn);
             });
     }
-    
+
     function resetLoginBtn(btn) {
         btn.innerHTML = `<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 20px;"> Sign in with Google`;
         btn.disabled = false;
