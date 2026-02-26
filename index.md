@@ -36,7 +36,8 @@ title: Home
   .hero-badge { display: inline-block; background: #dbeafe; color: var(--secondary); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
   h1.hero-headline { font-size: 3.5rem; line-height: 1.15; font-weight: 900; color: #0f172a; margin-bottom: 20px; letter-spacing: -1px;}
   .hero-headline span { background: -webkit-linear-gradient(45deg, var(--primary), #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero-subhead { font-size: 1.25rem; color: var(--text-light); margin-bottom: 35px; max-width: 90%; font-weight: 500;}
+  .hero-subhead { font-size: 1.25rem; color: var(--text-light); margin-bottom: 15px; max-width: 90%; font-weight: 500;}
+  .hero-location { font-size: 0.95rem; font-weight: 800; color: var(--primary); margin-bottom: 35px; display: flex; align-items: center; gap: 8px;}
 
   /* --- AUTH & WELCOME BOXES --- */
   .auth-box { background: white; padding: 35px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); max-width: 420px; margin: auto; position: relative; overflow: hidden;}
@@ -66,23 +67,31 @@ title: Home
   /* ==========================================
      2. DYNAMIC SOCIAL PROOF & STATS 
      ========================================== */
-  .stats-container { background: var(--secondary); color: white; padding: 60px 20px; position: relative; z-index: 2; }
+  .stats-container { background: var(--secondary); color: white; padding: 60px 20px 40px; position: relative; z-index: 2; }
   .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); text-align: center; gap: 30px; }
   .stat-number { font-size: 3.5rem; font-weight: 900; margin-bottom: 5px; color: var(--accent); }
   .stat-label { font-size: 1.1rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold;}
   .live-pulse { display: inline-block; width: 12px; height: 12px; background: var(--success); border-radius: 50%; margin-right: 8px; animation: pulse 2s infinite;}
+  .urgency-trigger { text-align: center; margin-top: 30px; font-size: 0.95rem; font-weight: bold; color: #a7f3d0; letter-spacing: 0.5px;}
 
   /* ==========================================
      SHARED SECTION STYLES
      ========================================== */
-  .section-wrap { padding: 100px 20px; }
+  .section-wrap { padding: 90px 20px; }
   .section-wrap.alt-bg { background: var(--bg-light); }
-  .section-header { text-align: center; max-width: 750px; margin: 0 auto 60px; }
+  .section-header { text-align: center; max-width: 750px; margin: 0 auto 50px; }
   .section-tag { color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1px;}
   .section-title { font-size: 2.8rem; font-weight: 900; margin: 15px 0; color: #0f172a; letter-spacing: -1px;}
 
   /* ==========================================
-     3. WHY GUESSWORK FAILS (Comparison)
+     3. FOR PARENTS (Micro-Section)
+     ========================================== */
+  .parents-box { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid var(--border); }
+  .parents-list { list-style: none; padding: 0; margin: 0 0 30px 0; display: flex; flex-direction: column; gap: 15px; font-size: 1.1rem; color: var(--text-dark); font-weight: 600; text-align: left; max-width: 450px; margin-left: auto; margin-right: auto;}
+  .parents-list li { display: flex; align-items: center; gap: 10px; }
+
+  /* ==========================================
+     4. WHY GUESSWORK FAILS (Comparison)
      ========================================== */
   .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1000px; margin: 0 auto; }
   .comp-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
@@ -92,7 +101,16 @@ title: Home
   .comp-list li { margin-bottom: 20px; font-size: 1.1rem; display: flex; align-items: flex-start; gap: 15px; font-weight: 600; color: var(--text-dark);}
   
   /* ==========================================
-     4. WHAT HAPPENS NEXT (The Process)
+     5. REAL TRANSFORMATION & WHO IS THIS FOR
+     ========================================== */
+  .story-box { max-width: 800px; margin: 0 auto 80px; background: linear-gradient(135deg, var(--bg-light), white); padding: 40px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.05); position: relative; }
+  .story-tag { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--secondary); color: white; padding: 6px 18px; border-radius: 50px; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;}
+  
+  .audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
+  .audience-card { background: white; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.02);}
+
+  /* ==========================================
+     6. WHAT HAPPENS NEXT (The Process)
      ========================================== */
   .process-timeline { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; position: relative; gap: 15px; flex-wrap: wrap;}
   .process-timeline::before { content:''; position:absolute; top:40px; left:0; width:100%; height:4px; background:var(--border); z-index:0; }
@@ -101,9 +119,12 @@ title: Home
   .timeline-step:hover .t-icon { transform: scale(1.1); background: var(--primary); color: white;}
   .timeline-step h4 { margin: 0 0 10px; color: #0f172a; font-weight: 800;}
   .timeline-step p { font-size: 0.9rem; color: var(--text-light);}
+  
+  .outcomes-row { max-width: 1000px; margin: 50px auto 0; padding-top: 40px; border-top: 1px solid var(--border); text-align: center; }
+  .outcome-pill { display: inline-block; background: white; border: 1px solid var(--border); padding: 10px 22px; border-radius: 50px; font-weight: 800; color: var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin: 5px;}
 
   /* ==========================================
-     5. ABOUT THE FOUNDER
+     7. ABOUT THE FOUNDER
      ========================================== */
   .founder-wrapper { display: flex; align-items: center; gap: 50px; max-width: 1000px; margin: 0 auto; background: white; padding: 50px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border);}
   .founder-photo { width: 250px; height: 250px; border-radius: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; font-size: 5rem; color: white; flex-shrink: 0; box-shadow: 0 15px 30px rgba(37,99,235,0.3);}
@@ -114,17 +135,13 @@ title: Home
   .f-stat span { font-size: 0.85rem; color: var(--text-light); text-transform: uppercase;}
 
   /* ==========================================
-     6. REPORT PREVIEW
+     8. REPORT PREVIEW & SCHOOLS CTA
      ========================================== */
   .preview-box { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-top: 8px solid var(--secondary); text-align: center;}
-  
-  /* ==========================================
-     7. FOR SCHOOLS CTA (FIXED VISIBILITY)
-     ========================================== */
   .school-cta { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; padding: 80px 20px; text-align: center; border-radius: 30px; max-width: 1100px; margin: 0 auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2);}
 
   /* ==========================================
-     8. FAQ ACCORDION
+     9. FAQ ACCORDION & BLOG
      ========================================== */
   .faq-container { max-width: 800px; margin: 0 auto; }
   .faq-item { background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: 0.3s;}
@@ -134,9 +151,6 @@ title: Home
   .faq-item.active { border-color: var(--primary); box-shadow: 0 10px 20px rgba(37,99,235,0.05);}
   .faq-item.active .faq-icon { transform: rotate(45deg); color: var(--primary);}
 
-  /* ==========================================
-     9. BLOG TEASERS
-     ========================================== */
   .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;}
   .blog-card { background: white; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: 0.3s; cursor: pointer;}
   .blog-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08);}
@@ -156,8 +170,10 @@ title: Home
     .hero-wrapper { flex-direction: column; text-align: center; padding-top: 40px; }
     .hero-text { padding-right: 0; margin-bottom: 40px; }
     .hero-headline { font-size: 2.8rem; }
+    .hero-location { justify-content: center; }
     .auth-box { margin: 20px auto; text-align: left; }
-    .comparison-grid, .founder-wrapper { flex-direction: column; grid-template-columns: 1fr; text-align: center;}
+    .comparison-grid, .founder-wrapper, .audience-grid { flex-direction: column; grid-template-columns: 1fr; text-align: center;}
+    .parents-list { align-items: center; text-align: center; }
     .founder-photo { margin: 0 auto; }
     .founder-stats { justify-content: center; }
     .process-timeline::before { display: none; }
@@ -174,6 +190,9 @@ title: Home
     <p class="hero-subhead">
       We replace guesswork with science. Get personalized career roadmaps powered by clinical psychometrics and expert 1-on-1 counseling for students in Class 8 to 12.
     </p>
+    <div class="hero-location">
+      <span style="font-size: 1.2rem;">📍</span> Serving students across Karnataka, Bangalore, and Pan-India.
+    </div>
   </div>
   
   <div class="hero-visual">
@@ -224,9 +243,26 @@ title: Home
         </div>
     </div>
   </div>
+  <div class="urgency-trigger">⚡ 11 students completed their assessment this week.</div>
 </div>
 
-<div class="section-wrap alt-bg">
+<div class="section-wrap alt-bg" style="padding-bottom: 60px;">
+  <div class="section-header" style="margin-bottom: 40px;">
+    <span class="section-tag">For Parents</span>
+    <h2 class="section-title">Built for Parents Who Want Clarity — Not Conflict.</h2>
+  </div>
+  
+  <div class="parents-box">
+      <ul class="parents-list">
+          <li><span style="color: var(--success); font-size: 1.2rem;">✔</span> Scientific, not emotional advice</li>
+          <li><span style="color: var(--success); font-size: 1.2rem;">✔</span> Transparent reports parents can easily access</li>
+          <li><span style="color: var(--success); font-size: 1.2rem;">✔</span> Conflict-reducing alignment model</li>
+      </ul>
+      <a href="#loginBoxUI" class="btn-outline" style="display:inline-block; padding: 12px 30px; border-radius: 8px; font-weight: 800; text-decoration: none;">See How Parent View Works ➔</a>
+  </div>
+</div>
+
+<div class="section-wrap" style="padding-top: 40px;">
   <div class="section-header">
     <span class="section-tag">The Problem</span>
     <h2 class="section-title">Why traditional guesswork fails.</h2>
@@ -246,11 +282,47 @@ title: Home
       <div class="comp-card comp-good">
           <h3 style="color:var(--success); font-size: 1.5rem; margin-top:0;">✅ The Career Intel Way</h3>
           <ul class="comp-list">
-              <li><span style="font-size:1.5rem;">🧠</span> Clinical psychometric evaluation.</li>
-              <li><span style="font-size:1.5rem;">📊</span> Structured clarity scoring system.</li>
-              <li><span style="font-size:1.5rem;">🤝</span> Expert parent-student alignment model.</li>
-              <li><span style="font-size:1.5rem;">🗺️</span> Result: A concrete, stress-free execution roadmap.</li>
+              <li><span style="font-size:1.5rem;">🧠</span> <strong>Clinical-grade psychometrics.</strong> Deep data mapping.</li>
+              <li><span style="font-size:1.5rem;">🤝</span> <strong>Parent-student alignment framework.</strong> Resolves friction.</li>
+              <li><span style="font-size:1.5rem;">🗺️</span> <strong>Execution roadmap.</strong> Not just a report, a 1-year plan.</li>
           </ul>
+      </div>
+  </div>
+</div>
+
+<div class="section-wrap alt-bg">
+  <div class="story-box">
+      <div class="story-tag">Real Transformation</div>
+      <div style="display: flex; flex-direction: column; gap: 15px; font-size: 1.15rem; color: var(--text-dark);">
+          <div><strong style="color: var(--danger); width: 80px; display:inline-block;">Before:</strong> Wanted Engineering because friends chose it.</div>
+          <div><strong style="color: var(--accent); width: 80px; display:inline-block;">After:</strong> Discovered high Artistic + Investigative profile.</div>
+          <div><strong style="color: var(--success); width: 80px; display:inline-block;">Now:</strong> Preparing for Architecture with full parental support.</div>
+      </div>
+      <div style="margin-top: 25px; padding-top: 25px; border-top: 1px dashed var(--border); text-align: center; font-weight: 900; color: var(--secondary); font-size: 1.3rem;">
+          Clarity Score Improved: <span style="color: var(--danger);">3</span> ➔ <span style="color: var(--success);">8</span>
+      </div>
+  </div>
+
+  <div class="section-header" style="margin-bottom: 40px;">
+      <span class="section-tag">Target Audience</span>
+      <h2 class="section-title">Who Is This For?</h2>
+  </div>
+  
+  <div class="audience-grid">
+      <div class="audience-card">
+          <div style="font-size: 3rem; margin-bottom: 15px;">👦</div>
+          <h3 style="margin: 0 0 5px 0; color: var(--secondary); font-size: 1.4rem;">Class 8–10</h3>
+          <p style="margin: 0; color: var(--text-light); font-weight: 600;">Stream Clarity & Foundation</p>
+      </div>
+      <div class="audience-card">
+          <div style="font-size: 3rem; margin-bottom: 15px;">🎓</div>
+          <h3 style="margin: 0 0 5px 0; color: var(--secondary); font-size: 1.4rem;">Class 11–12</h3>
+          <p style="margin: 0; color: var(--text-light); font-weight: 600;">Career Locking & College Targets</p>
+      </div>
+      <div class="audience-card">
+          <div style="font-size: 3rem; margin-bottom: 15px;">🏫</div>
+          <h3 style="margin: 0 0 5px 0; color: var(--secondary); font-size: 1.4rem;">Schools</h3>
+          <p style="margin: 0; color: var(--text-light); font-weight: 600;">Institutional Dashboards</p>
       </div>
   </div>
 </div>
@@ -289,6 +361,16 @@ title: Home
           <p>Generate your 1-year execution roadmap.</p>
       </div>
   </div>
+
+  <div class="outcomes-row">
+      <h4 style="color: var(--text-light); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">After Clarity, Students Get:</h4>
+      <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+          <span class="outcome-pill">🎯 Defined Stream</span>
+          <span class="outcome-pill">📚 Target Colleges</span>
+          <span class="outcome-pill">📅 1-Year Execution Plan</span>
+          <span class="outcome-pill">🧠 Reduced Anxiety</span>
+      </div>
+  </div>
 </div>
 
 <div class="section-wrap alt-bg">
@@ -296,7 +378,7 @@ title: Home
         <div class="founder-photo">AN</div>
         <div class="founder-info">
             <h3>Meet the Career Architect</h3>
-            <h4>Antonio Noronha | Lead Clinical Counsellor</h4>
+            <h4>Antonio Vian Noronha | Lead School Counsellor</h4>
             <p style="color:var(--text-light); font-size:1.1rem; line-height: 1.8;">
                 As a professional School Counsellor with an MSW specialized in Medical and Psychiatric Social Work, Antonio has witnessed firsthand the anxiety students face when making blind career choices. He built Career Intelligence to replace dinner-table arguments with clinical precision.
             </p>
@@ -330,7 +412,7 @@ title: Home
 <div class="section-wrap">
     <div class="school-cta">
         <span class="hero-badge" style="background: rgba(255,255,255,0.2); color: white; border: none;">B2B Partnerships</span>
-        <h2 style="font-size: 3rem; margin: 15px 0;">Are You a School Administrator?</h2>
+        <h2 style="font-size: 3rem; margin: 15px 0; color: #ffffff;">Are You a School Administrator?</h2>
         <p style="font-size: 1.2rem; color: #cbd5e1; max-width: 700px; margin: 0 auto 30px;">
             Empower your institution with a white-labeled career dashboard. Track student clarity metrics, identify high-risk students, and host expert parent workshops.
         </p>
@@ -399,8 +481,9 @@ title: Home
         <div class="t-badge">🔒 256-Bit Data Encryption</div>
         <div class="t-badge">🧠 Clinical-Grade Psychometrics</div>
         <div class="t-badge">🛡️ Data Never Sold to 3rd Parties</div>
+        <div class="t-badge" style="color: var(--accent);">🏆 CBSE & ICSE Aligned</div>
     </div>
-    <p style="font-size: 0.85rem; opacity: 0.7;">© 2026 Career Intelligence System. Built by Clinical Professionals.</p>
+    <p style="font-size: 0.85rem; opacity: 0.7;">© 2026 Vidyavantage Career Intelligence System. Built by Professional School Counsellors.</p>
 </footer>
 
 <script type="module">
@@ -453,7 +536,6 @@ title: Home
         const email = user.email.toLowerCase();
         try {
             // 🚨 1. EXPLICIT SUPER ADMIN BYPASS 🚨
-            // If the login email matches your exact master email, skip all db checks and go straight to admin.
             if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
                 if(status) status.innerText = "Authorized as Super Admin. Connecting...";
                 setTimeout(() => { window.location.href = "admin.html"; }, 1000);
