@@ -203,7 +203,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
         <p class="section-subtitle">Fill out the form below for a free, instant profile evaluation by our experts.</p>
     </div>
     <div class="lead-container">
-        <form action="mailto:antonio.antonio.noronha@gmail.com" method="post" enctype="text/plain">
+        <form onsubmit="event.preventDefault(); window.open('https://chat.whatsapp.com/JsOIiMJbR5gHTwHxgIDu5O', '_blank');">
             <div class="form-grid">
                 <input type="text" class="form-input" placeholder="Full Name" required>
                 <input type="tel" class="form-input" placeholder="WhatsApp Number" required>
@@ -231,6 +231,9 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
                 </select>
             </div>
             <button type="submit" class="btn-submit">Check My Eligibility Now ➔</button>
+            <p style="text-align:center; font-size:0.9rem; color:var(--text-muted); margin-top:15px; font-weight:bold;">
+                You will be redirected to our WhatsApp Community. An expert will reach out to you directly!
+            </p>
         </form>
     </div>
 </div>
