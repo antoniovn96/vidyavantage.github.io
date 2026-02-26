@@ -126,6 +126,12 @@
       .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;}
       .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); background: #f8fafc; color: #0f172a; box-sizing: border-box; font-family: inherit; font-size: 0.95rem; transition: 0.3s;}
       .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #93c5fd; outline: none; background: white; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);}
+      
+      /* Dynamic Subject Row */
+      .subject-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
+      .subject-row .form-group { margin-bottom: 0; flex: 1; }
+      .btn-remove-sub { background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; font-size: 1.2rem; margin-top: 24px;}
+      .btn-remove-sub:hover { background: #fca5a5; color: white; }
 
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
       @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
@@ -366,23 +372,107 @@
             </div>
             
             <div class="grid-2">
-                <div class="card" id="academicInputCard">
+                <div class="card" id="academicInputCard" style="border-top: 4px solid var(--primary);">
                     <h3>📊 Academic Metrics</h3>
+                    
                     <div class="grid-2col" style="gap:15px;">
-                        <div class="form-group"><label class="form-label">Latest Average Marks (%)</label><input type="number" id="portMarks" class="form-input" placeholder="e.g. 88"></div>
-                        <div class="form-group"><label class="form-label">Target Stream</label><select id="portStream" class="form-select"><option value="Undecided">Undecided</option><option value="PCM">PCM</option><option value="PCB">PCB</option><option value="Commerce">Commerce</option><option value="Arts">Arts</option></select></div>
+                        <div class="form-group">
+                            <label class="form-label">Grading System</label>
+                            <select id="portGradingSystem" class="form-select" onchange="updateGradingInput()">
+                                <option value="Percentage (%)">Percentage (%)</option>
+                                <option value="GPA (Out of 4)">GPA (Out of 4)</option>
+                                <option value="CGPA (Out of 10)">CGPA (Out of 10)</option>
+                                <option value="Percentile">Percentile</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Overall Score</label>
+                            <input type="number" id="portOverallScore" class="form-input" placeholder="e.g. 88" step="0.01">
+                        </div>
                     </div>
-                    <div class="form-group"><label class="form-label">Strongest Subject</label><input type="text" id="portStrong" class="form-input" placeholder="e.g. Mathematics"></div>
-                    <div class="form-group"><label class="form-label">Weakest Subject</label><input type="text" id="portWeak" class="form-input" placeholder="e.g. History"></div>
-                    <button class="btn btn-save-academic hide-from-parent" style="width:100%;" onclick="saveAcademicPortfolio()">Save Academics</button>
+
+                    <div class="grid-2col" style="gap:15px; margin-bottom: 25px;">
+                        <div class="form-group">
+                            <label class="form-label">Academic Trend</label>
+                            <select id="portTrend" class="form-select">
+                                <option value="Stable">Stable</option>
+                                <option value="Improving">Improving</option>
+                                <option value="Declining">Declining</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Target Stream</label>
+                            <select id="portStream" class="form-select">
+                                <option value="Undecided">Undecided</option>
+                                <option value="PCM">PCM</option>
+                                <option value="PCB">PCB</option>
+                                <option value="Commerce">Commerce</option>
+                                <option value="Arts">Arts</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 style="border-top: 1px solid var(--border); padding-top: 25px;">📘 Subjects Studied</h3>
+                    <div id="subjectContainer">
+                        </div>
+                    <button type="button" class="btn btn-outline" onclick="addSubjectRow()" style="margin-bottom: 20px; font-size: 0.85rem; padding: 8px 15px;">➕ Add Subject</button>
+                    
                 </div>
 
                 <div>
-                    <div class="card" style="margin-bottom: 20px;">
-                        <h3>🏆 Extra-Curriculars</h3>
-                        <textarea class="form-textarea" rows="4" placeholder="e.g. 1st Place State Science Fair..."></textarea>
-                        <button class="btn btn-outline btn-save-academic hide-from-parent" style="width:100%; margin-top:10px;">Update Portfolio</button>
+                    <div class="card" style="border-top: 4px solid #8b5cf6; margin-bottom: 20px;">
+                        <h3>🎓 School Details</h3>
+                        <div class="form-group">
+                            <label class="form-label">School Name</label>
+                            <input type="text" id="portSchoolName" class="form-input" placeholder="Enter full school name">
+                        </div>
+                        <div class="grid-2col" style="gap:15px;">
+                            <div class="form-group">
+                                <label class="form-label">Board of Studies</label>
+                                <select id="portBoard" class="form-select">
+                                    <option value="CBSE">CBSE</option>
+                                    <option value="ICSE">ICSE / ISC</option>
+                                    <option value="State Board">State Board</option>
+                                    <option value="IB">IB</option>
+                                    <option value="Cambridge (IGCSE)">Cambridge (IGCSE/A-Level)</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Country</label>
+                                <select id="portCountry" class="form-select" onchange="toggleLocationFields()">
+                                    <option value="India">India</option>
+                                    <option value="NRI/International">NRI / International</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="indianLocationFields" class="grid-2col" style="gap:15px;">
+                            <div class="form-group">
+                                <label class="form-label">State</label>
+                                <select id="portState" class="form-select" onchange="populateDistricts()">
+                                    <option value="">Select State</option>
+                                    </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">District</label>
+                                <select id="portDistrict" class="form-select">
+                                    <option value="">Select District</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <input type="text" id="portCity" class="form-input" placeholder="e.g. Bangalore">
+                        </div>
                     </div>
+
+                    <div class="card" style="border-top: 4px solid var(--accent); margin-bottom: 20px;">
+                        <h3>🏆 Extra-Curriculars</h3>
+                        <textarea class="form-textarea" rows="3" placeholder="e.g. 1st Place State Science Fair..."></textarea>
+                    </div>
+                    
+                    <button class="btn hide-from-parent" style="width:100%; padding: 16px; font-size: 1.1rem; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);" onclick="saveAcademicPortfolio()">💾 Save Entire Academic Profile</button>
                 </div>
             </div>
         </div>
@@ -507,6 +597,81 @@
     let globalUnreadCount = 0;
     const activeChatListeners = []; 
     let previouslyUnlockedBadges = new Set();
+
+    // --- ACADEMIC & REGIONAL LOGIC DATA ---
+    const stateDistricts = {
+      "Karnataka": ["Bangalore Urban", "Bangalore Rural", "Mysore", "Mangalore", "Hubli", "Belgaum", "Dharwad", "Tumkur", "Gulbarga"],
+      "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Thane", "Aurangabad"],
+      "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
+      "Delhi": ["New Delhi", "North Delhi", "South Delhi", "West Delhi"],
+      "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"],
+      "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Kollam"]
+    };
+
+    window.populateStates = function() {
+        const stateSelect = document.getElementById('portState');
+        stateSelect.innerHTML = '<option value="">Select State</option>';
+        Object.keys(stateDistricts).sort().forEach(state => {
+            stateSelect.innerHTML += `<option value="${state}">${state}</option>`;
+        });
+    }
+
+    window.populateDistricts = function(selectedDistrict = "") {
+        const stateSelect = document.getElementById('portState').value;
+        const distSelect = document.getElementById('portDistrict');
+        distSelect.innerHTML = '<option value="">Select District</option>';
+        
+        if(stateSelect && stateDistricts[stateSelect]) {
+            stateDistricts[stateSelect].sort().forEach(dist => {
+                distSelect.innerHTML += `<option value="${dist}" ${dist === selectedDistrict ? 'selected' : ''}>${dist}</option>`;
+            });
+        }
+    }
+
+    window.toggleLocationFields = function() {
+        const country = document.getElementById('portCountry').value;
+        const locWrap = document.getElementById('indianLocationFields');
+        if(country === 'India') {
+            locWrap.style.display = 'grid';
+        } else {
+            locWrap.style.display = 'none';
+            document.getElementById('portState').value = "";
+            document.getElementById('portDistrict').value = "";
+        }
+    }
+
+    window.updateGradingInput = function() {
+        const sys = document.getElementById('portGradingSystem').value;
+        const inp = document.getElementById('portOverallScore');
+        if(sys.includes('%') || sys === 'Percentile') { inp.placeholder = 'e.g. 88'; inp.max = 100; }
+        else if(sys.includes('4')) { inp.placeholder = 'e.g. 3.8'; inp.max = 4; }
+        else if(sys.includes('10')) { inp.placeholder = 'e.g. 9.2'; inp.max = 10; }
+    }
+
+    window.addSubjectRow = function(name = "", score = "", grade = "") {
+        const container = document.getElementById('subjectContainer');
+        const row = document.createElement('div');
+        row.className = 'subject-row';
+        row.innerHTML = `
+            <div class="form-group">
+                <label class="form-label" style="${container.children.length > 0 ? 'display:none;' : ''}">Subject Name</label>
+                <input type="text" class="form-input sub-name" placeholder="e.g. Physics" value="${name}">
+            </div>
+            <div class="form-group">
+                <label class="form-label" style="${container.children.length > 0 ? 'display:none;' : ''}">Score/Marks</label>
+                <input type="number" class="form-input sub-score" placeholder="e.g. 85" step="0.01" value="${score}">
+            </div>
+            <div class="form-group">
+                <label class="form-label" style="${container.children.length > 0 ? 'display:none;' : ''}">Grade (Opt)</label>
+                <input type="text" class="form-input sub-grade" placeholder="e.g. A+" value="${grade}">
+            </div>
+            <button type="button" class="btn-remove-sub" onclick="this.parentElement.remove()" style="${container.children.length > 0 ? 'margin-top:0;' : ''}" title="Remove Subject">×</button>
+        `;
+        container.appendChild(row);
+    }
+    
+    // Initialize standard state dropdown on load
+    populateStates();
 
     // Disallow past dates in calendar
     const today = new Date().toISOString().split('T')[0];
@@ -756,13 +921,12 @@
         });
     }
 
-    // Badge Unlock Animation Helper
     function unlockBadge(id, primaryClass, xpValue) {
         const el = document.getElementById(id);
         if(!previouslyUnlockedBadges.has(id) && !el.classList.contains(primaryClass)) {
             el.classList.add(primaryClass);
             el.style.animation = 'none';
-            el.offsetHeight; /* trigger reflow */
+            el.offsetHeight; 
             el.style.animation = 'badgePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
             showToastNotification(`Achievement Unlocked!`, `+${xpValue} XP added to your profile.`);
             previouslyUnlockedBadges.add(id);
@@ -774,7 +938,7 @@
         let percentProgress = 10;
         let levelName = "Level 1 - Explorer";
         let levelText = "You are beginning your career discovery journey.";
-        let percentile = 82; // Updated: Now reads as "Ahead of X%"
+        let percentile = 82; 
         
         let focusTitle = "Complete Baseline Profile";
         let focusDesc = "Log your academic scores to help the AI contextualize your upcoming assessment.";
@@ -783,7 +947,8 @@
 
         previouslyUnlockedBadges.add('badge-registered');
 
-        if(data.academic && (data.academic.marks || data.academic.stream)) { 
+        // Note: Checking the new object structure for academic presence
+        if(data.academic && (data.academic.overallScore || data.academic.stream || (data.academic.subjects && data.academic.subjects.length > 0))) { 
             score += 2; xp += 20; percentProgress = 30;
             unlockBadge('badge-academic', 'unlocked-primary', 20);
             document.getElementById('dot-portfolio').innerText = "✔";
@@ -838,8 +1003,6 @@
             document.getElementById('lockCareerSection').style.display = 'none'; document.getElementById('careerLockedSuccess').style.display = 'none';
         }
 
-        // Set Gamification Levels based on Score
-        // Percentile is now "Ahead of X%"
         if(score >= 10) { levelName = "Level 5 - Decided"; levelText = "Path locked. Action plan activated. Time to execute."; percentile = 95; }
         else if (score >= 8) { levelName = "Level 4 - Strategist"; levelText = "Excellent clarity! You are ready to lock your final strategic path."; percentile = 88;}
         else if (score >= 6) { levelName = "Level 3 - Analyst"; levelText = "You've moved from exploration to structured comparison."; percentile = 65;}
@@ -851,7 +1014,6 @@
         document.getElementById('dynClarityScore').innerText = score;
         document.getElementById('dynXp').innerText = xp;
         
-        // Update Focus Card
         document.getElementById('weeklyFocusTitle').innerText = focusTitle;
         document.getElementById('weeklyFocusDesc').innerText = focusDesc;
         const fBtn = document.getElementById('weeklyFocusBtn');
@@ -877,7 +1039,6 @@
                 `;
             }
 
-            // NATIVE CHART.JS FIX
             if (typeof Chart !== 'undefined') {
                 let existingChart = Chart.getChart('reportRiasecChart');
                 if (existingChart) {
@@ -921,22 +1082,53 @@
             studentDataObj.careerLocked = true; 
             calculateDynamicScore(studentDataObj);
             
-            // Premium Lock Animation
             const successBox = document.getElementById('careerLockedSuccess');
             successBox.style.animation = 'lockSuccessPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
             showToastNotification("Achievement Unlocked! 🏆", "You have officially locked your strategic career path.");
         } catch(e) { console.error(e); }
     }
 
+    // --- NEW ACADEMIC SAVE LOGIC ---
     window.saveAcademicPortfolio = async function() {
         if(!activeUserUid) return;
-        const academicData = { marks: document.getElementById('portMarks').value, stream: document.getElementById('portStream').value, strongSub: document.getElementById('portStrong').value, weakSub: document.getElementById('portWeak').value };
+        
+        // Harvest dynamic subjects
+        const subjectNodes = document.querySelectorAll('.subject-row');
+        let parsedSubjects = [];
+        subjectNodes.forEach(node => {
+            let n = node.querySelector('.sub-name').value.trim();
+            let s = node.querySelector('.sub-score').value.trim();
+            let g = node.querySelector('.sub-grade').value.trim();
+            if(n || s) { parsedSubjects.push({ name: n, score: s, grade: g }); }
+        });
+
+        // Harvest School Details
+        const isIndia = document.getElementById('portCountry').value === 'India';
+        const schoolObj = {
+            country: document.getElementById('portCountry').value,
+            name: document.getElementById('portSchoolName').value.trim(),
+            board: document.getElementById('portBoard').value,
+            state: isIndia ? document.getElementById('portState').value : "",
+            district: isIndia ? document.getElementById('portDistrict').value : "",
+            city: document.getElementById('portCity').value.trim()
+        };
+
+        const academicData = { 
+            gradingSystem: document.getElementById('portGradingSystem').value,
+            overallScore: document.getElementById('portOverallScore').value,
+            trend: document.getElementById('portTrend').value,
+            stream: document.getElementById('portStream').value,
+            subjects: parsedSubjects,
+            school: schoolObj
+        };
+
         try {
             await setDoc(doc(db, "students", activeUserUid), { academic: academicData }, { merge: true });
-            alert("Academic Portfolio Updated!");
+            showToastNotification("Academic Profile Updated!", "Your metrics have been successfully saved.");
             if(!studentDataObj.academic) studentDataObj.academic = {};
-            studentDataObj.academic = {...studentDataObj.academic, ...academicData}; calculateDynamicScore(studentDataObj);
-        } catch(e) { console.error(e); }
+            studentDataObj.academic = {...studentDataObj.academic, ...academicData}; 
+            calculateDynamicScore(studentDataObj);
+        } catch(e) { console.error(e); alert("Failed to save. Check your connection.");}
     }
 
     onAuthStateChanged(auth, async (user) => {
@@ -964,11 +1156,43 @@
                     document.getElementById('stuInitials').innerText = firstName.charAt(0).toUpperCase();
                 }
                 
+                // --- LOAD NEW ACADEMIC STRUCTURE ---
                 if(data.academic) {
-                    if(data.academic.marks) document.getElementById('portMarks').value = data.academic.marks;
+                    if(data.academic.gradingSystem) { document.getElementById('portGradingSystem').value = data.academic.gradingSystem; updateGradingInput(); }
+                    if(data.academic.overallScore) document.getElementById('portOverallScore').value = data.academic.overallScore;
+                    if(data.academic.trend) document.getElementById('portTrend').value = data.academic.trend;
                     if(data.academic.stream) document.getElementById('portStream').value = data.academic.stream;
-                    if(data.academic.strongSub) document.getElementById('portStrong').value = data.academic.strongSub;
-                    if(data.academic.weakSub) document.getElementById('portWeak').value = data.academic.weakSub;
+                    
+                    // Legacy Fallback for older data format
+                    if(!data.academic.overallScore && data.academic.marks) { document.getElementById('portOverallScore').value = data.academic.marks; }
+                    
+                    // Load Subjects
+                    const subContainer = document.getElementById('subjectContainer');
+                    subContainer.innerHTML = '';
+                    if(data.academic.subjects && data.academic.subjects.length > 0) {
+                        data.academic.subjects.forEach(sub => addSubjectRow(sub.name, sub.score, sub.grade));
+                    } else {
+                        // Fallback empty row
+                        addSubjectRow();
+                        // Pre-fill legacy strong/weak if available
+                        if(data.academic.strongSub) { document.querySelector('.sub-name').value = data.academic.strongSub; }
+                    }
+
+                    // Load School
+                    if(data.academic.school) {
+                        document.getElementById('portCountry').value = data.academic.school.country || "India";
+                        toggleLocationFields();
+                        document.getElementById('portSchoolName').value = data.academic.school.name || "";
+                        document.getElementById('portBoard').value = data.academic.school.board || "CBSE";
+                        if(data.academic.school.state) {
+                            document.getElementById('portState').value = data.academic.school.state;
+                            populateDistricts(data.academic.school.district);
+                        }
+                        document.getElementById('portCity').value = data.academic.school.city || "";
+                    }
+                } else {
+                    // Initial empty state for subjects
+                    addSubjectRow();
                 }
 
                 calculateDynamicScore(data);
@@ -976,7 +1200,6 @@
         } catch (error) { console.error("Data load failed:", error); }
     });
 
-    // Top Header Logout Button
     document.getElementById('logoutBtnTop').addEventListener('click', () => {
         if(confirm("Are you sure you want to log out?")) { signOut(auth).then(() => { window.location.href = "index.html"; }); }
     });
