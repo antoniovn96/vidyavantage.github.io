@@ -422,6 +422,9 @@ title: Home
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
+    // 🚨 DEFINING THE MASTER KEY HERE 
+    const SUPER_ADMIN_EMAIL = "antonio.antonio.noronha@gmail.com";
+
     const status = document.getElementById('statusMsg');
     const loginBoxUI = document.getElementById('loginBoxUI');
     const welcomeBoxUI = document.getElementById('welcomeBoxUI');
@@ -449,7 +452,15 @@ title: Home
     async function processUserRouting(user) {
         const email = user.email.toLowerCase();
         try {
-            // Check Database Permissions dynamically
+            // 🚨 1. EXPLICIT SUPER ADMIN BYPASS 🚨
+            // If the login email matches your exact master email, skip all db checks and go straight to admin.
+            if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
+                if(status) status.innerText = "Authorized as Super Admin. Connecting...";
+                setTimeout(() => { window.location.href = "admin.html"; }, 1000);
+                return;
+            }
+
+            // 2. Check Database Permissions dynamically for staff/schools
             const permsRef = doc(db, "permissions", email);
             const permsSnap = await getDoc(permsRef);
 
@@ -466,6 +477,7 @@ title: Home
                 return;
             }
 
+            // 3. Fallback to normal student flow
             const studentRef = doc(db, "students", user.uid);
             const studentSnap = await getDoc(studentRef);
 
