@@ -27,15 +27,27 @@
       .nav-btn.active { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-left: 4px solid #3b82f6; border-radius: 0 12px 12px 0;}
 
       /* --- MAIN CONTENT & LAYOUT --- */
-      .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; transition: border 0.3s ease; border-top: 0px solid var(--warning); }
+      .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; transition: border 0.3s ease; border-top: 0px solid var(--warning); position: relative;}
       .top-header { background: white; height: 70px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); z-index: 10;}
       
-      /* CLEAN PARENT MODE UI (No layout breaking) */
+      /* CLEAN PARENT MODE UI */
       body.parent-mode-active .main-wrapper { border-top: 5px solid var(--warning); }
       body.parent-mode-active .hide-from-parent { display: none !important; }
       body.parent-mode-active .form-input, body.parent-mode-active .form-select, body.parent-mode-active .form-textarea { 
           background: transparent; border: none; padding: 0; font-weight: bold; color: var(--primary); pointer-events: none; -webkit-appearance: none; appearance: none;
       }
+
+      /* --- NOTIFICATION UI --- */
+      .header-actions { display: flex; align-items: center; gap: 20px; }
+      .notif-bell { position: relative; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
+      .notif-bell:hover { transform: scale(1.1); }
+      .notif-badge { position: absolute; top: -5px; right: -5px; background: var(--danger); color: white; font-size: 0.7rem; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; display: none; border: 2px solid white;}
+      
+      /* Toast Notifications */
+      .toast-container { position: absolute; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+      .toast { background: white; border-left: 5px solid var(--primary); padding: 15px 20px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); animation: slideInRight 0.3s ease forwards; display: flex; flex-direction: column; min-width: 250px; cursor: pointer;}
+      .toast-title { font-weight: 800; color: #0f172a; font-size: 0.95rem; margin-bottom: 3px; }
+      .toast-body { font-size: 0.85rem; color: var(--text-muted); }
 
       .main-content { flex: 1; padding: 40px 50px; overflow-y: auto; position: relative;}
       .tab-content { display: none; animation: fadeIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
@@ -108,6 +120,8 @@
       .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); outline: none; background: white; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);}
 
       @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+      @keyframes fadeOut { to { opacity: 0; } }
     </style>
 </head>
 <body>
@@ -146,9 +160,15 @@
 </div>
 
 <div class="main-wrapper">
+    <div class="toast-container" id="toastContainer"></div>
+
     <div class="top-header">
         <h2 style="margin:0; font-size:1.2rem; color:var(--text-muted); font-weight:800;" id="headerTitle">Dashboard Home</h2>
-        <div style="display:flex; align-items:center; gap:15px;">
+        <div class="header-actions">
+            <div class="notif-bell hide-from-parent" onclick="switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5])">
+                🔔 <span class="notif-badge" id="notifBadge">0</span>
+            </div>
+
             <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="toggleParentMode()">
                 👨‍👩‍👧 Parent View
             </div>
@@ -353,20 +373,28 @@
                     </div>
                     <div id="bookingAvailInfo" style="margin-bottom: 25px; padding: 20px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; display:none;">
                         <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Availability</span><span id="bookingTimeText" style="color:#0f172a; font-weight:900;">Mon, Wed, Fri</span></div>
-                        <div style="display:flex; justify-content:space-between; border-top: 1px dashed var(--border); padding-top:10px; margin-top:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Consultation Fee</span><span style="color:var(--success); font-weight:900; font-size:1.1rem;">₹1,999</span></div>
+                        <div style="display:flex; justify-content:space-between; border-top: 1px dashed var(--border); padding-top:10px; margin-top:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Consultation Fee</span><span style="color:var(--success); font-weight:900; font-size:1.1rem;">100% Free</span></div>
                     </div>
                     <p style="color: var(--danger); font-size: 0.85rem; font-weight: bold; text-align: center; margin-bottom: 10px;">🔥 Only 3 expert slots left this week.</p>
-                    <button class="btn hide-from-parent" style="width:100%; justify-content:center; padding: 18px; font-size:1.1rem;">Confirm Booking & Pay</button>
+                    <button class="btn hide-from-parent" style="width:100%; justify-content:center; padding: 18px; font-size:1.1rem;">Confirm Booking</button>
                 </div>
             </div>
         </div>
 
         <div id="tab-chat" class="tab-content">
-            <div class="header-bar"><h1>Direct Counsellor Chat</h1><p>Secure, private messaging with your assigned expert.</p></div>
+            <div class="header-bar">
+                <div>
+                    <h1>Direct Counsellor Chat</h1>
+                    <p>Secure, private, and <strong style="color:var(--success);">100% Free</strong> messaging with your assigned expert.</p>
+                </div>
+            </div>
             <div class="grid-3-1">
                 <div class="card" style="padding:0; overflow:hidden; display:flex; flex-direction:column; height:60vh; border-top: 5px solid var(--primary);">
                     <div style="padding: 20px 25px; border-bottom: 1px solid var(--border); background: #f8fafc;">
-                        <div class="form-group" style="margin:0;"><label class="form-label" style="font-size:0.8rem;">Select Counsellor</label><select class="form-select" id="studentChatSelect" onchange="loadCounsellorChat(this.value)"><option value="">-- Choose a Counsellor --</option></select></div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label" style="font-size:0.8rem;">Select Counsellor</label>
+                            <select class="form-select" id="studentChatSelect" onchange="loadCounsellorChat(this.value)"><option value="">-- Choose a Counsellor --</option></select>
+                        </div>
                     </div>
                     <div style="flex:1; padding: 25px; overflow-y:auto; background: #ffffff;" id="studentChatMessages">
                         <div style="text-align:center; color:var(--text-muted); margin-top:40px; font-size: 1.1rem;">Select a counsellor to start chatting.</div>
@@ -374,6 +402,12 @@
                     <div style="padding: 20px 25px; border-top: 1px solid var(--border); display:flex; gap:15px; background: #f8fafc;">
                         <input type="text" id="studentChatInput" class="form-input" placeholder="Type a message..." style="margin:0; background:white;">
                         <button class="btn" onclick="sendStudentChatMessage()" style="padding: 0 30px;">Send</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="card">
+                        <h3>Expert Profile</h3>
+                        <div id="counsellorProfileCard" style="text-align:center; color:var(--text-muted); padding: 20px 0;">Select a counsellor to view their profile.</div>
                     </div>
                 </div>
             </div>
@@ -419,7 +453,9 @@
     let activeUserUid = null;
     let studentDataObj = null;
     let miniChartInstance = null;
-    let unsubscribeChat = null; // Holds the real-time chat listener
+    let unsubscribeChat = null; 
+    let globalUnreadCount = 0;
+    const activeChatListeners = []; // Array to hold listeners for notifications
 
     window.launchAssessment = function() {
         const currentUrl = window.location.href;
@@ -433,9 +469,41 @@
         document.getElementById(tabId).classList.add('active');
         btn.classList.add('active');
         document.getElementById('headerTitle').innerText = btn.innerText.replace(/[^\w\s]/gi, '').trim();
+        
+        // If clicking the chat tab, clear notifications
+        if(tabId === 'tab-chat') {
+            globalUnreadCount = 0;
+            const badge = document.getElementById('notifBadge');
+            badge.style.display = 'none';
+            badge.innerText = '0';
+        }
     };
 
-    // --- BEAUTIFUL PARENT MODE (Pure CSS Toggling) ---
+    // --- TOAST NOTIFICATION SYSTEM ---
+    window.showToastNotification = function(title, message) {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `<div class="toast-title">🔔 ${title}</div><div class="toast-body">${message}</div>`;
+        
+        toast.onclick = () => {
+            window.switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5]);
+            toast.style.animation = 'fadeOut 0.3s ease forwards';
+            setTimeout(() => toast.remove(), 300);
+        };
+
+        container.appendChild(toast);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if(toast.parentElement) {
+                toast.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }
+        }, 5000);
+    }
+
+    // --- BEAUTIFUL PARENT MODE ---
     window.toggleParentMode = function() {
         const btn = document.getElementById('parentToggleBtn');
         
@@ -444,7 +512,6 @@
             btn.classList.add('active');
             btn.innerText = "👨‍👩‍👧 Exit Parent View";
             
-            // Switch to Dashboard automatically if they were in Chat or Settings
             const activeTab = document.querySelector('.tab-content.active').id;
             if(activeTab === 'tab-chat' || activeTab === 'tab-settings') {
                 window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
@@ -456,7 +523,6 @@
         }
     }
 
-    // --- ACTUAL CAREER LAB RENDERER ---
     function renderCareerLabActuals(report) {
         if(!report || !report.topCareers || report.topCareers.length === 0) return;
         
@@ -464,31 +530,14 @@
 
         report.topCareers.slice(0,3).forEach(c => {
             let subjects = "Check specific college criteria.";
-            let searchString = c.name; // Used for the URL parameter
+            let searchString = c.name; 
             
-            // Map AI Career to Subjects
-            if(c.name.toLowerCase().includes('engineer') || c.name.toLowerCase().includes('tech') || c.name.toLowerCase().includes('data')) {
-                subjects = "Physics, Chemistry, Mathematics (PCM) + Computer Science";
-                searchString = "engineering";
-            }
-            else if(c.name.toLowerCase().includes('medic') || c.name.toLowerCase().includes('doctor') || c.name.toLowerCase().includes('clinic')) {
-                subjects = "Physics, Chemistry, Biology (PCB)";
-                searchString = "medical";
-            }
-            else if(c.name.toLowerCase().includes('business') || c.name.toLowerCase().includes('financ') || c.name.toLowerCase().includes('account')) {
-                subjects = "Commerce, Accountancy, Economics, Business Studies";
-                searchString = "commerce";
-            }
-            else if(c.name.toLowerCase().includes('design') || c.name.toLowerCase().includes('art') || c.name.toLowerCase().includes('media')) {
-                subjects = "Any Stream (Focus heavily on Portfolio & Creativity)";
-                searchString = "design";
-            }
-            else if(c.name.toLowerCase().includes('law') || c.name.toLowerCase().includes('policy')) {
-                subjects = "Any Stream (Humanities or Commerce preferred) + Legal Studies";
-                searchString = "law";
-            }
+            if(c.name.toLowerCase().includes('engineer') || c.name.toLowerCase().includes('tech') || c.name.toLowerCase().includes('data')) { subjects = "Physics, Chemistry, Mathematics (PCM) + Computer Science"; searchString = "engineering"; }
+            else if(c.name.toLowerCase().includes('medic') || c.name.toLowerCase().includes('doctor') || c.name.toLowerCase().includes('clinic')) { subjects = "Physics, Chemistry, Biology (PCB)"; searchString = "medical"; }
+            else if(c.name.toLowerCase().includes('business') || c.name.toLowerCase().includes('financ') || c.name.toLowerCase().includes('account')) { subjects = "Commerce, Accountancy, Economics, Business Studies"; searchString = "commerce"; }
+            else if(c.name.toLowerCase().includes('design') || c.name.toLowerCase().includes('art') || c.name.toLowerCase().includes('media')) { subjects = "Any Stream (Focus heavily on Portfolio & Creativity)"; searchString = "design"; }
+            else if(c.name.toLowerCase().includes('law') || c.name.toLowerCase().includes('policy')) { subjects = "Any Stream (Humanities or Commerce preferred) + Legal Studies"; searchString = "law"; }
 
-            // Create the card pointing to your actual website
             labHtml += `
             <div class="card" style="border-left: 5px solid var(--primary); margin-bottom: 15px; padding: 25px;">
                 <h4 style="margin: 0 0 10px 0; font-size: 1.2rem; color: #0f172a;">${c.name} <span class="status-pill status-success" style="float:right;">${c.score}% Match</span></h4>
@@ -500,22 +549,59 @@
         document.getElementById('exploreLabDynamicArea').innerHTML = labHtml;
     }
 
-    // --- REAL DATABASE COUNSELLOR LOAD ---
+    // --- REAL DATABASE COUNSELLOR LOAD & NOTIFICATION SETUP ---
     async function loadCounsellors() {
         const chatSelect = document.getElementById('studentChatSelect');
         const bookSelect = document.getElementById('bookCounsellorSelect');
+        window.globalCounsellors = {};
         
         try {
             const snap = await getDocs(collection(db, "counsellor_profiles"));
             if(!snap.empty) {
                 chatSelect.innerHTML = '<option value="">-- Choose your assigned Counsellor --</option>';
                 bookSelect.innerHTML = '<option value="">-- Choose an Expert --</option>';
+                
+                // Clear old notification listeners
+                activeChatListeners.forEach(unsub => unsub());
+                activeChatListeners.length = 0;
+
                 snap.forEach(docSnap => {
                     const data = docSnap.data();
                     window.globalCounsellors[docSnap.id] = data;
-                    const optionHtml = `<option value="${docSnap.id}">${data.name || docSnap.id} - ${data.title || 'Counsellor'}</option>`;
+                    
+                    // Added 🟢 Online Status to the name visually
+                    const optionHtml = `<option value="${docSnap.id}">🟢 ${data.name || docSnap.id} - Online</option>`;
                     chatSelect.innerHTML += optionHtml;
                     bookSelect.innerHTML += optionHtml;
+
+                    // SET UP BACKGROUND NOTIFICATION LISTENER FOR THIS COUNSELLOR
+                    const chatId = `${activeUserUid}_${docSnap.id}`;
+                    const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
+                    let isInitialLoad = true;
+
+                    const unsub = onSnapshot(q, (snapshot) => {
+                        snapshot.docChanges().forEach((change) => {
+                            if (change.type === "added") {
+                                const msg = change.doc.data();
+                                // If it's a new message, and it's NOT from the student, trigger notification!
+                                if (!isInitialLoad && msg.senderId !== activeUserUid) {
+                                    
+                                    // Check if user is currently looking at this specific chat. If not, notify.
+                                    const isViewingChat = document.querySelector('.tab-content.active').id === 'tab-chat' && document.getElementById('studentChatSelect').value === docSnap.id;
+                                    
+                                    if(!isViewingChat) {
+                                        globalUnreadCount++;
+                                        const badge = document.getElementById('notifBadge');
+                                        badge.innerText = globalUnreadCount;
+                                        badge.style.display = 'flex';
+                                        showToastNotification(data.name || "Counsellor", "Sent you a new message.");
+                                    }
+                                }
+                            }
+                        });
+                        isInitialLoad = false;
+                    });
+                    activeChatListeners.push(unsub);
                 });
             } else {
                 chatSelect.innerHTML = '<option value="">No counsellors currently registered.</option>';
@@ -526,15 +612,27 @@
 
     // --- REALTIME CHAT SYSTEM ---
     window.loadCounsellorChat = function(counsellorId) {
-        if(!counsellorId) return;
+        if(!counsellorId) {
+            document.getElementById('counsellorProfileCard').innerHTML = "Select a counsellor to view their profile.";
+            return;
+        }
         
-        // Unsubscribe from previous chat listener if switching counsellors
+        // Update Profile Card to show Online status
+        const c = window.globalCounsellors[counsellorId];
+        if(c) {
+            document.getElementById('counsellorProfileCard').innerHTML = `
+                <img src="${c.photo || 'https://ui-avatars.com/api/?name=Expert&background=3b82f6&color=fff'}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:4px solid var(--success); margin-bottom:15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <h4 style="margin:0; color:#0f172a; font-size:1.2rem;">${c.name}</h4>
+                <p style="font-size:0.85rem; margin:5px 0; color:var(--success); font-weight:bold;">🟢 Online Now</p>
+                <p style="font-size:0.85rem; line-height:1.5;">${c.bio || 'Clinical Career Expert'}</p>
+            `;
+        }
+
         if(unsubscribeChat) unsubscribeChat();
 
         const chatBox = document.getElementById('studentChatMessages');
         chatBox.innerHTML = '<div style="text-align:center; color:var(--text-muted); margin-top:40px;">Loading messages...</div>';
 
-        // Listen to Firestore real-time
         const chatId = `${activeUserUid}_${counsellorId}`;
         const messagesRef = collection(db, "chats", chatId, "messages");
         const q = query(messagesRef, orderBy("timestamp", "asc"));
@@ -570,7 +668,7 @@
         if(!text) return;
         if(!counsellorId) return alert("Please select a counsellor from the dropdown menu first.");
 
-        input.value = ""; // Clear immediately for good UX
+        input.value = ""; 
         
         try {
             const chatId = `${activeUserUid}_${counsellorId}`;
@@ -586,7 +684,6 @@
         }
     }
 
-    // --- UI RENDERING LOGIC ---
     function renderMiniChart(score) {
         if (typeof Chart === 'undefined') return;
         const ctx = document.getElementById('miniClarityChart');
@@ -619,15 +716,10 @@
 
         if(data.assessmentCompleted && !data.careerLocked) document.getElementById('dashActionBtn').style.display = 'none'; 
 
-        // UNLOCK REPORT & CAREER LAB UI
         if(data.assessmentCompleted && data.fullReport) {
             document.getElementById('lockedReportUI').style.display = 'none';
             document.getElementById('unlockedReportUI').style.display = 'block';
-            
-            // Build Career Lab Actuals
             renderCareerLabActuals(data.fullReport);
-
-            // Populate Report Tab
             const rep = data.fullReport;
             document.getElementById('reportRiasecCode').innerText = rep.finalCode;
             document.getElementById('reportProfileDesc').innerText = rep.profileDesc;
@@ -637,7 +729,6 @@
             `).join('');
             
             if(rep.topCareers && rep.topCareers.length > 0) {
-                // Populate Dashboard Preview
                 document.getElementById('dashCareersContainer').innerHTML = `
                     <div class="career-pill" style="border-left: 4px solid var(--primary);"><span>${rep.topCareers[0].name}</span> <span>🔥 Strong Match</span></div>
                     <div class="career-pill" style="border-left: 4px solid var(--secondary);"><span>${rep.topCareers[1].name}</span> <span>⭐ Good Match</span></div>
@@ -682,7 +773,6 @@
         } catch(e) { console.error(e); }
     }
 
-    // --- FIREBASE AUTH & LOAD ---
     onAuthStateChanged(auth, async (user) => {
         if (!user) { window.location.href = "index.html"; return; }
         activeUserUid = user.uid;
