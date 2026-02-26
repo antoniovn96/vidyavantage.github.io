@@ -33,8 +33,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
     background-position: center;
     color: white;
     text-align: center;
-    /* Pushed padding-top from 100px to 180px so it clears your website's top navigation bar! */
-    padding: 180px 20px 120px; 
+    padding: 160px 20px 100px; 
     border-radius: 0 0 50% 50% / 40px; 
     margin-bottom: 60px;
   }
@@ -54,24 +53,11 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
     color: #F39C12;
   }
 
-  .visa-hero h1 { 
-    font-size: 3.5rem; 
-    margin: 0 0 15px; 
-    font-weight: 900; 
-    letter-spacing: -1px; 
-    color: #ffffff !important; /* Forced white to guarantee visibility */
-  }
-  
-  .visa-hero p { 
-    font-size: 1.25rem; 
-    max-width: 700px; 
-    margin: 0 auto; 
-    color: #E5E7EB; 
-    line-height: 1.6; 
-  }
+  .visa-hero h1 { font-size: 3.5rem; margin: 0 0 15px; font-weight: 800; letter-spacing: -1px; color: #ffffff !important; }
+  .visa-hero p { font-size: 1.25rem; max-width: 700px; margin: 0 auto; color: #E5E7EB; line-height: 1.6; }
 
   /* --- 2. PROCESS STEPS (Floating) --- */
-  .process-container { max-width: 1000px; margin: -90px auto 80px; padding: 0 20px; position: relative; z-index: 10; }
+  .process-container { max-width: 1000px; margin: -70px auto 80px; padding: 0 20px; position: relative; z-index: 10; }
   .process-card { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 15px 50px rgba(0,0,0,0.1); display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
   .step-item { position: relative; }
   .step-item:not(:last-child)::after { content: '→'; position: absolute; top: 25%; right: -15px; color: #E5E7EB; font-size: 1.5rem; font-weight: 300; }
@@ -88,7 +74,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 
   /* Fixed Tag alignment */
   .section-tag { 
-    display: block; /* Forces it to center instead of hanging on the side */
+    display: block; 
     text-align: center;
     color: var(--primary); 
     font-weight: 800; 
@@ -113,10 +99,11 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   .auth-card h4 { margin: 0 0 10px 0; color: var(--primary); font-size: 1.1rem;}
 
   /* --- 5. THE 100% FREE PACKAGE --- */
-  .free-package-box { background: linear-gradient(135deg, var(--primary), #1a365d); color: white; max-width: 1000px; margin: 0 auto; border-radius: 20px; padding: 50px; text-align: center; position: relative; overflow: hidden;}
+  .free-package-box { background: linear-gradient(135deg, var(--primary), #1a365d); color: white; max-width: 1000px; margin: 0 auto; border-radius: 20px; padding: 50px 30px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(10, 35, 66, 0.2);}
   .free-badge { background: var(--success); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 20px; display: inline-block; letter-spacing: 1px;}
   .package-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 30px;}
-  .pkg-item { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);}
+  .pkg-item { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s;}
+  .pkg-item:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1);}
 
   /* --- 6. TIMELINE & COURSES TABLE --- */
   .data-table-wrapper { max-width: 1100px; margin: 0 auto; overflow-x: auto; background: white; border-radius: 16px; box-shadow: var(--card-shadow); border: 1px solid #E5E7EB;}
@@ -127,7 +114,7 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   .td-highlight { font-weight: bold; color: var(--primary); }
 
   /* --- 7. DESTINATIONS GRID --- */
-  .country-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+  .country-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
   .country-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow); transition: all 0.4s ease; text-decoration: none; display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; }
   .country-card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); border-color: #e0e0e0; }
   .card-img-wrapper { height: 200px; overflow: hidden; position: relative; }
@@ -161,38 +148,41 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   /* --- 10. LEGAL DISCLAIMER & WHATSAPP --- */
   .legal-footer { text-align: center; padding: 40px 20px; background: #111827; color: #9CA3AF; font-size: 0.85rem; line-height: 1.5; }
   
+  /* Sleek Desktop WhatsApp Button */
   .whatsapp-float {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 25px;
+    right: 25px;
     background-color: #25D366;
     color: white;
     border-radius: 50px;
-    padding: 12px 20px;
+    padding: 10px 18px; 
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    font-size: 0.95rem;
     font-weight: bold;
     text-decoration: none;
-    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
     z-index: 1000;
     transition: transform 0.3s;
   }
   .whatsapp-float:hover { transform: scale(1.05); color: white;}
-  .whatsapp-float svg { width: 24px; height: 24px; fill: white;}
+  .whatsapp-float svg { width: 20px; height: 20px; fill: white;}
 
   /* --- RESPONSIVE FIXES --- */
   @media (max-width: 900px) {
-    .visa-hero { border-radius: 0 0 30px 30px; padding-bottom: 80px; padding-top: 140px; }
+    .visa-hero { border-radius: 0 0 30px 30px; padding: 130px 20px 80px; }
     .visa-hero h1 { font-size: 2.2rem; }
     .process-card { grid-template-columns: 1fr; gap: 40px; padding: 30px; }
     .step-item:not(:last-child)::after { content: '↓'; top: auto; bottom: -30px; right: 50%; transform: translateX(50%); }
     .form-grid { grid-template-columns: 1fr; }
     .package-grid { grid-template-columns: 1fr; }
     
-    /* WhatsApp Mobile Fix */
-    .whatsapp-text { display: none; } /* Hides text on mobile */
-    .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px;}
+    /* Perfect Circle WhatsApp Mobile Fix */
+    .whatsapp-text { display: none; }
+    .whatsapp-float { padding: 12px; border-radius: 50%; bottom: 20px; right: 20px;}
+    .whatsapp-float svg { width: 24px; height: 24px; margin: 0;}
   }
 </style>
 
@@ -271,25 +261,25 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 <div class="section-wrap">
     <div class="free-package-box">
         <span class="free-badge">Zero Agent Commissions</span>
-        <h2 style="font-size: 2.5rem; margin: 0 0 15px 0;">100% Free End-to-End Guidance</h2>
+        <h2 style="font-size: 2.5rem; margin: 0 0 15px 0; color: #ffffff !important;">100% Free End-to-End Guidance</h2>
         <p style="font-size: 1.15rem; color: #cbd5e1; max-width: 700px; margin: 0 auto;">
             Unlike traditional agents who push you toward universities that pay them commissions, our platform is built on transparency. We handle your entire journey—from psychometric career matching to visa filing—completely free of service charges.
         </p>
         <div class="package-grid">
             <div class="pkg-item">
-                <div style="font-size: 2rem; margin-bottom: 10px;">🧠</div>
-                <h4 style="margin: 0 0 5px 0;">Career Assessment</h4>
-                <span style="font-size: 0.85rem; color: #9ca3af;">Find your true aptitude</span>
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🧠</div>
+                <h4 style="margin: 0 0 5px 0; color: #ffffff;">Career Assessment</h4>
+                <span style="font-size: 0.9rem; color: #9ca3af;">Find your true aptitude</span>
             </div>
             <div class="pkg-item">
-                <div style="font-size: 2rem; margin-bottom: 10px;">🏛️</div>
-                <h4 style="margin: 0 0 5px 0;">University Selection</h4>
-                <span style="font-size: 0.85rem; color: #9ca3af;">Unbiased course mapping</span>
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🏛️</div>
+                <h4 style="margin: 0 0 5px 0; color: #ffffff;">University Selection</h4>
+                <span style="font-size: 0.9rem; color: #9ca3af;">Unbiased course mapping</span>
             </div>
             <div class="pkg-item">
-                <div style="font-size: 2rem; margin-bottom: 10px;">🛂</div>
-                <h4 style="margin: 0 0 5px 0;">Visa Filing Support</h4>
-                <span style="font-size: 0.85rem; color: #9ca3af;">Error-free documentation</span>
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🛂</div>
+                <h4 style="margin: 0 0 5px 0; color: #ffffff;">Visa Filing Support</h4>
+                <span style="font-size: 0.9rem; color: #9ca3af;">Error-free documentation</span>
             </div>
         </div>
     </div>
