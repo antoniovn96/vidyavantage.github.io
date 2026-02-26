@@ -371,12 +371,37 @@
                         <label class="form-label">Select Expert Counsellor</label>
                         <select class="form-select" id="bookCounsellorSelect" onchange="showCounsellorTimes(this.value)"><option value="">-- Loading Experts --</option></select>
                     </div>
+                    
                     <div id="bookingAvailInfo" style="margin-bottom: 25px; padding: 20px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; display:none;">
                         <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Availability</span><span id="bookingTimeText" style="color:#0f172a; font-weight:900;">Mon, Wed, Fri</span></div>
                         <div style="display:flex; justify-content:space-between; border-top: 1px dashed var(--border); padding-top:10px; margin-top:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.85rem; text-transform:uppercase;">Consultation Fee</span><span style="color:var(--success); font-weight:900; font-size:1.1rem;">100% Free</span></div>
+                        
+                        <div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">
+                            <div class="grid-2col" style="margin-bottom: 15px;">
+                                <div class="form-group" style="margin:0;">
+                                    <label class="form-label">Select Date</label>
+                                    <input type="date" id="bookDate" class="form-input" required>
+                                </div>
+                                <div class="form-group" style="margin:0;">
+                                    <label class="form-label">Select Time</label>
+                                    <input type="time" id="bookTime" class="form-input" required>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 15px;">
+                                <label class="form-label">Contact Number (For Call/WhatsApp)</label>
+                                <input type="tel" id="bookPhone" class="form-input" placeholder="+91 99999 99999" required>
+                            </div>
+                            <div class="form-group" style="margin:0;">
+                                <label class="form-label">Preferred Medium</label>
+                                <select id="bookMedium" class="form-select">
+                                    <option value="Google Meet">Google Meet (Video)</option>
+                                    <option value="Phone Call">Direct Phone Call</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <p style="color: var(--danger); font-size: 0.85rem; font-weight: bold; text-align: center; margin-bottom: 10px;">🔥 Only 3 expert slots left this week.</p>
-                    <button class="btn hide-from-parent" style="width:100%; justify-content:center; padding: 18px; font-size:1.1rem;">Confirm Booking</button>
+                    
+                    <button class="btn hide-from-parent" id="confirmBookingBtn" onclick="submitBooking()" style="width:100%; justify-content:center; padding: 18px; font-size:1.1rem;">Confirm Booking</button>
                 </div>
             </div>
         </div>
@@ -455,7 +480,11 @@
     let miniChartInstance = null;
     let unsubscribeChat = null; 
     let globalUnreadCount = 0;
-    const activeChatListeners = []; // Array to hold listeners for notifications
+    const activeChatListeners = []; 
+
+    // Disallow past dates in calendar
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("bookDate").setAttribute('min', today);
 
     window.launchAssessment = function() {
         const currentUrl = window.location.href;
@@ -470,7 +499,6 @@
         btn.classList.add('active');
         document.getElementById('headerTitle').innerText = btn.innerText.replace(/[^\w\s]/gi, '').trim();
         
-        // If clicking the chat tab, clear notifications
         if(tabId === 'tab-chat') {
             globalUnreadCount = 0;
             const badge = document.getElementById('notifBadge');
@@ -493,8 +521,6 @@
         };
 
         container.appendChild(toast);
-        
-        // Auto remove after 5 seconds
         setTimeout(() => {
             if(toast.parentElement) {
                 toast.style.animation = 'fadeOut 0.3s ease forwards';
@@ -503,17 +529,14 @@
         }, 5000);
     }
 
-    // --- BEAUTIFUL PARENT MODE ---
     window.toggleParentMode = function() {
         const btn = document.getElementById('parentToggleBtn');
-        
         if(!document.body.classList.contains('parent-mode-active')) {
             document.body.classList.add('parent-mode-active');
             btn.classList.add('active');
             btn.innerText = "👨‍👩‍👧 Exit Parent View";
-            
             const activeTab = document.querySelector('.tab-content.active').id;
-            if(activeTab === 'tab-chat' || activeTab === 'tab-settings') {
+            if(activeTab === 'tab-chat' || activeTab === 'tab-settings' || activeTab === 'tab-counselling') {
                 window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
             }
         } else {
@@ -525,7 +548,6 @@
 
     function renderCareerLabActuals(report) {
         if(!report || !report.topCareers || report.topCareers.length === 0) return;
-        
         let labHtml = `<div style="margin-bottom: 20px;"><h3 style="color:var(--primary); margin-top:0;">Based on your Psychometric Data:</h3><p style="color:var(--text-muted); margin-top:-5px;">Here are your customized subject combinations and college targets.</p></div>`;
 
         report.topCareers.slice(0,3).forEach(c => {
@@ -545,8 +567,74 @@
                 <a href="https://antoniovn96.github.io/vidyavantage.github.io/colleges/?search=${searchString}" target="_blank" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.9rem; text-decoration: none; display: inline-block;">🏫 View Best Colleges for this Path ➔</a>
             </div>`;
         });
-
         document.getElementById('exploreLabDynamicArea').innerHTML = labHtml;
+    }
+
+    // --- NEW: BOOKING SYSTEM LOGIC ---
+    window.showCounsellorTimes = function(cid) {
+        const infoBox = document.getElementById('bookingAvailInfo');
+        if(cid) {
+            infoBox.style.display = 'block';
+        } else {
+            infoBox.style.display = 'none';
+        }
+    }
+
+    window.submitBooking = async function() {
+        const cid = document.getElementById('bookCounsellorSelect').value;
+        const date = document.getElementById('bookDate').value;
+        const time = document.getElementById('bookTime').value;
+        const phone = document.getElementById('bookPhone').value;
+        const medium = document.getElementById('bookMedium').value;
+
+        if(!cid) return alert("Please select an expert counsellor first.");
+        if(!date || !time) return alert("Please select a valid date and time for the session.");
+        if(!phone) return alert("Please provide your contact number so the expert can reach you.");
+
+        const btn = document.getElementById('confirmBookingBtn');
+        btn.innerText = "Processing Booking... ⏳";
+        btn.disabled = true;
+
+        try {
+            // Save Booking to Database
+            await addDoc(collection(db, "bookings"), {
+                studentId: activeUserUid,
+                studentName: studentDataObj.name,
+                studentEmail: studentDataObj.email,
+                counsellorId: cid,
+                counsellorName: window.globalCounsellors[cid].name,
+                date: date,
+                time: time,
+                phone: phone,
+                medium: medium,
+                status: "Pending",
+                timestamp: serverTimestamp()
+            });
+
+            // Update student's session count to unlock the badge!
+            const currentSessions = studentDataObj.sessionsHad || 0;
+            await updateDoc(doc(db, "students", activeUserUid), {
+                sessionsHad: currentSessions + 1
+            });
+            studentDataObj.sessionsHad = currentSessions + 1;
+            calculateDynamicScore(studentDataObj);
+
+            showToastNotification("Booking Confirmed! 🎉", `Your session on ${date} at ${time} is locked. Keep an eye on your email for the invite.`);
+            
+            // Reset fields
+            document.getElementById('bookDate').value = "";
+            document.getElementById('bookTime').value = "";
+            document.getElementById('bookPhone').value = "";
+            document.getElementById('bookCounsellorSelect').value = "";
+            showCounsellorTimes(""); 
+            
+        } catch (e) {
+            console.error(e);
+            alert("Error connecting to the scheduling system. Please try again.");
+        } finally {
+            btn.innerText = "Confirm Booking";
+            btn.disabled = false;
+        }
     }
 
     // --- REAL DATABASE COUNSELLOR LOAD & NOTIFICATION SETUP ---
@@ -561,7 +649,6 @@
                 chatSelect.innerHTML = '<option value="">-- Choose your assigned Counsellor --</option>';
                 bookSelect.innerHTML = '<option value="">-- Choose an Expert --</option>';
                 
-                // Clear old notification listeners
                 activeChatListeners.forEach(unsub => unsub());
                 activeChatListeners.length = 0;
 
@@ -569,12 +656,10 @@
                     const data = docSnap.data();
                     window.globalCounsellors[docSnap.id] = data;
                     
-                    // Added 🟢 Online Status to the name visually
                     const optionHtml = `<option value="${docSnap.id}">🟢 ${data.name || docSnap.id} - Online</option>`;
                     chatSelect.innerHTML += optionHtml;
                     bookSelect.innerHTML += optionHtml;
 
-                    // SET UP BACKGROUND NOTIFICATION LISTENER FOR THIS COUNSELLOR
                     const chatId = `${activeUserUid}_${docSnap.id}`;
                     const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
                     let isInitialLoad = true;
@@ -583,12 +668,8 @@
                         snapshot.docChanges().forEach((change) => {
                             if (change.type === "added") {
                                 const msg = change.doc.data();
-                                // If it's a new message, and it's NOT from the student, trigger notification!
                                 if (!isInitialLoad && msg.senderId !== activeUserUid) {
-                                    
-                                    // Check if user is currently looking at this specific chat. If not, notify.
                                     const isViewingChat = document.querySelector('.tab-content.active').id === 'tab-chat' && document.getElementById('studentChatSelect').value === docSnap.id;
-                                    
                                     if(!isViewingChat) {
                                         globalUnreadCount++;
                                         const badge = document.getElementById('notifBadge');
@@ -617,7 +698,6 @@
             return;
         }
         
-        // Update Profile Card to show Online status
         const c = window.globalCounsellors[counsellorId];
         if(c) {
             document.getElementById('counsellorProfileCard').innerHTML = `
