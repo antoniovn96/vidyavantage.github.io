@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Student Dashboard | Career Intelligence</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
       :root {
         --bg: #f8fafc; --sidebar: #0f172a; --card-bg: #ffffff; 
@@ -31,9 +32,9 @@
       .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
       .top-header { background: white; height: 70px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); z-index: 10;}
       
-      /* PARENT RIBBON */
+      /* PARENT RIBBON & CSS OVERLAY PROTECTION */
       #parentRibbon { display: none; background: #d97706; color: white; text-align: center; padding: 6px; font-size: 0.85rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;}
-      .section-readonly { pointer-events: none; opacity: 0.6; filter: grayscale(30%); transition: 0.3s; }
+      .section-readonly { pointer-events: none; opacity: 0.7; filter: grayscale(30%); transition: 0.3s; user-select: none;}
 
       .main-content { flex: 1; padding: 40px 50px; overflow-y: auto; position: relative;}
       .tab-content { display: none; animation: fadeIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
@@ -49,7 +50,7 @@
       .card h3 { margin-top: 0; color: #0f172a; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; font-size: 1.2rem; font-weight: 900; display: flex; justify-content: space-between; align-items: center;}
       
       .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-      .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+      .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; } 
       .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
       .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
       @media (max-width: 1000px) { .grid-2, .grid-3-1, .grid-2col { grid-template-columns: 1fr; } }
@@ -71,7 +72,7 @@
       .clarity-score { font-size: 4rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 10px; background: -webkit-linear-gradient(45deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
       .meter-bg { width: 100%; height: 12px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 20px; overflow: hidden;}
       .meter-fill { height: 100%; background: linear-gradient(90deg, #fcd34d, #f59e0b); width: 0%; border-radius: 10px; box-shadow: 0 0 10px rgba(245, 158, 11, 0.5); transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
-      .mini-chart-container { height: 50px; margin-top: 15px; width: 100%; }
+      .mini-chart-container { height: 60px; margin-top: 20px; width: 100%; }
 
       /* --- BUTTONS --- */
       .btn { background: linear-gradient(45deg, var(--primary), #60a5fa); color: white; border: none; padding: 14px 28px; font-size: 1.05rem; font-weight: 800; border-radius: 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);}
@@ -81,6 +82,9 @@
       .btn-outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); transform: translateY(-2px);}
 
       .status-pill { padding: 6px 16px; border-radius: 50px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;}
+      .status-success { background: #d1fae5; color: #059669; }
+      .status-warning { background: #fef3c7; color: #d97706; }
+      .status-pending { background: #f1f5f9; color: #64748b; }
 
       /* --- PARENT TOGGLE --- */
       .parent-toggle-wrap { display: flex; align-items: center; gap: 10px; background: #fffbeb; border: 1px solid #fde68a; padding: 8px 16px; border-radius: 50px; cursor: pointer; font-weight: 800; color: #d97706; transition: 0.3s;}
@@ -98,6 +102,7 @@
       /* --- UI PILLS & TABLES --- */
       .career-pill { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; color: #1e293b;}
       .career-pill.locked { filter: grayscale(100%); opacity: 0.5; }
+      .badge-code { display: inline-block; background: var(--primary); color: white; padding: 6px 20px; border-radius: 50px; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;}
 
       .compare-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
       .compare-table th, .compare-table td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.95rem;}
@@ -178,7 +183,7 @@
                 </div>
             </div>
 
-            <div class="card" id="riskAlertBanner" style="display:none; margin-bottom: 25px; padding: 20px;">
+            <div class="card protect-parent" id="riskAlertBanner" style="display:none; margin-bottom: 25px; padding: 20px;">
                 <h3 id="riskAlertTitle" style="border-bottom: none; padding-bottom: 0; font-size: 1.1rem; margin-bottom: 5px;">⚠️ Academic Alignment Warning</h3>
                 <p id="riskAlertText" style="margin-bottom: 0; font-size: 0.95rem;"></p>
             </div>
@@ -210,7 +215,7 @@
                     <div id="careerLockedSuccess" style="display:none; margin-top: 15px; background: rgba(16, 185, 129, 0.2); padding: 20px; border-radius: 16px; text-align: center; border: 1px solid var(--success);">
                         <h4 style="margin: 0 0 10px 0; color: var(--success); font-size: 1.2rem;">🎉 Career Locked!</h4>
                         <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">Your parent has been notified. Time to execute the plan.</p>
-                        <button class="btn btn-outline" style="color: white; border-color: white; width:100%;">📄 Download Final Roadmap</button>
+                        <button class="btn btn-outline" style="color: white; border-color: white; width:100%;" onclick="switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])">📄 View Final Report</button>
                     </div>
                 </div>
 
@@ -262,7 +267,7 @@
             </div>
             
             <div class="grid-2col">
-                <div class="card protect-parent" style="border-top: 5px solid var(--secondary);">
+                <div class="card protect-parent" id="exploreLabCard" style="border-top: 5px solid var(--secondary);">
                     <h3>⚖️ Compare Careers</h3>
                     <div class="grid-2col" style="margin-bottom: 20px;">
                         <select class="form-select" id="comp1" onchange="runComparison()"><option value="btech">B.Tech (Computer Science)</option><option value="bba">BBA / MBA</option><option value="psych">Clinical Psychology</option></select>
@@ -295,25 +300,51 @@
 
         <div id="tab-report" class="tab-content">
             <div class="header-bar">
-                <div><h1>My Career Report</h1><p>Your personalized, AI-driven career and stream analysis.</p></div>
-                <button class="btn btn-outline" disabled style="opacity:0.5; cursor:not-allowed;">🔒 Download PDF</button>
+                <div><h1>My Career Report</h1><p>Your personalized, AI-driven psychometric analysis.</p></div>
+                <button class="btn btn-outline" id="btnDownloadReport" disabled style="opacity:0.5; cursor:not-allowed;">🔒 Download PDF</button>
             </div>
-            <div class="card" style="text-align:center; padding: 80px 20px;">
+            
+            <div id="lockedReportUI" class="card" style="text-align:center; padding: 80px 20px;">
                 <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.8;">📄</div>
                 <h2 style="color: #0f172a; font-size: 2rem; margin-bottom: 15px;">Report Locked</h2>
                 <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">You need to complete your Psychometric Assessment before the AI can generate your personalized Career Report.</p>
                 <button onclick="launchAssessment()" class="btn protect-parent" style="padding: 15px 35px;">Take Assessment Now ➔</button>
+            </div>
+
+            <div id="unlockedReportUI" style="display:none;" class="report-render-area">
+                <div class="grid-2">
+                    <div class="card" style="border-top: 4px solid var(--primary);">
+                        <h3>🧠 Psychometric Profile</h3>
+                        <div style="margin-bottom: 20px;">
+                            <span class="badge-code" id="reportRiasecCode"></span>
+                        </div>
+                        <p id="reportProfileDesc" style="color: #334155; line-height: 1.6; font-size: 1.05rem;"></p>
+                        <div style="height: 250px; width: 100%; margin-top:20px;">
+                            <canvas id="reportRiasecChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="card" style="border-top: 4px solid var(--secondary);">
+                        <h3>🎯 Top Recommended Pathways</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top:-5px; margin-bottom: 15px;">These fields closely match your natural aptitudes and personality traits.</p>
+                        <div id="reportCareersContainer"></div>
+                        
+                        <h3 style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">🚫 Vulnerability Zones</h3>
+                        <p style="font-size: 0.9rem; color: #475569; margin-top:-5px; margin-bottom: 10px;">Careers where you may feel less naturally aligned, leading to higher burnout probability.</p>
+                        <p id="reportAvoid" style="color: var(--danger); font-weight: bold; font-size: 1rem;"></p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="tab-portfolio" class="tab-content">
             <div class="header-bar">
                 <div><h1>Academic Profile Builder</h1><p>Log your marks, strengths, and extra-curriculars to improve AI matching.</p></div>
-                <button class="btn btn-outline" onclick="alert('Auto-resume builder coming soon!')">📄 Generate Smart Resume</button>
+                <button class="btn btn-outline protect-parent" onclick="alert('Auto-resume builder coming soon!')">📄 Generate Smart Resume</button>
             </div>
             
             <div class="grid-2">
-                <div class="card protect-parent" style="border-top: 5px solid var(--primary);">
+                <div class="card protect-parent" id="academicInputCard" style="border-top: 5px solid var(--primary);">
                     <h3>📊 Academic Metrics</h3>
                     <div class="grid-2col" style="gap:15px;">
                         <div class="form-group"><label class="form-label">Latest Average Marks (%)</label><input type="number" id="portMarks" class="form-input" placeholder="e.g. 88"></div>
@@ -620,6 +651,49 @@
         // Hide Assessment Button if already done
         if(data.assessmentCompleted && !data.careerLocked) {
             document.getElementById('dashActionBtn').style.display = 'none'; 
+        }
+
+        // UNLOCK REPORT UI
+        if(data.assessmentCompleted && data.fullReport) {
+            document.getElementById('lockedReportUI').style.display = 'none';
+            document.getElementById('unlockedReportUI').style.display = 'block';
+            
+            const btnDl = document.getElementById('btnDownloadReport');
+            btnDl.disabled = false;
+            btnDl.innerHTML = '📄 Download Full PDF';
+            btnDl.style.opacity = '1';
+            btnDl.style.cursor = 'pointer';
+            btnDl.onclick = () => window.print();
+
+            const rep = data.fullReport;
+            document.getElementById('reportRiasecCode').innerText = rep.finalCode;
+            document.getElementById('reportProfileDesc').innerText = rep.profileDesc;
+
+            document.getElementById('reportCareersContainer').innerHTML = rep.topCareers.map(c => `
+                <div class="career-pill" style="margin-bottom:8px; padding:10px 15px;">
+                    <span>${c.name}</span>
+                    <span class="status-pill status-success" style="font-size:0.75rem;">${c.score}% Match</span>
+                </div>
+            `).join('');
+            
+            const sorted = Object.entries(rep.scores).sort((a,b)=>a[1]-b[1]);
+            document.getElementById('reportAvoid').innerText = `Paths requiring heavily dominant ${sorted[0][0]} & ${sorted[1][0]} traits.`;
+
+            // Draw Report Chart safely
+            if (typeof Chart !== 'undefined') {
+                const reportCtx = document.getElementById('reportRiasecChart').getContext('2d');
+                new Chart(reportCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'],
+                        datasets: [{
+                            data: [rep.scores.R, rep.scores.I, rep.scores.A, rep.scores.S, rep.scores.E, rep.scores.C],
+                            backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', pointBackgroundColor: '#0f172a'
+                        }]
+                    },
+                    options: { maintainAspectRatio: false, scales: { r: { max: 100, min: 0 } }, plugins: { legend: { display: false } } }
+                });
+            }
         }
 
         // Animate UI
