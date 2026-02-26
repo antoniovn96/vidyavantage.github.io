@@ -1,31 +1,89 @@
 ---
 layout: default
-title: Global Visa Services 🌏
+title: Student Visa Assistance for Indian Students | USA, UK, Canada, Germany
 permalink: /visa/
 image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, and more. Student, Tourist, and Work Visas made easy."
+description: "Study abroad from India. Expert student visa process for Canada SDS, F1 visa, UK Student Route, and Germany blocked account. SOP & Interview Support."
 ---
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Career Intelligence System",
+  "url": "https://antoniovn96.github.io/vidyavantage.github.io/",
+  "logo": "https://antoniovn96.github.io/vidyavantage.github.io/assets/logo.png",
+  "description": "Expert Career Guidance and Student Visa processing for Indian Students.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "IN"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "vidhyaadvantage+visa@gmail.com",
+    "contactType": "customer support"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do we need to show the entire 4-year tuition fee in our bank account?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Most countries only require you to show liquid funds covering the first year of tuition fees plus 1 year of living expenses. We guide you on acceptable financial formats like FDs and Education Loans."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the visa gets rejected?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While our audit system prevents basic errors, if a rejection occurs, we analyze the rejection letter and re-file with strengthened documentation at no extra processing fee."
+      }
+    }
+  ]
+}
+</script>
 
 <style>
   /* --- VARIABLES & RESET --- */
   :root {
-    --primary: #0A2342; /* Deep Navy */
-    --accent: #F39C12; /* Golden/Passport Color */
+    --primary: #0A2342; 
+    --accent: #F39C12; 
     --bg-light: #F9FAFB;
     --text-dark: #1F2937;
     --text-muted: #6B7280;
     --card-shadow: 0 10px 30px rgba(0,0,0,0.06);
     --hover-shadow: 0 20px 40px rgba(0,0,0,0.12);
     --success: #10B981;
+    --danger: #ef4444;
   }
 
   body {
     background-color: var(--bg-light);
     font-family: 'Segoe UI', system-ui, sans-serif;
     margin: 0;
+    line-height: 1.6;
   }
 
-  /* --- 1. HERO SECTION --- */
+  /* --- 10. CROSS-LINK BANNER --- */
+  .ecosystem-banner {
+    background: #EFF6FF;
+    border-bottom: 1px solid #BFDBFE;
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #1E3A8A;
+    font-weight: 600;
+  }
+  .ecosystem-banner a { color: #2563EB; font-weight: 800; text-decoration: underline; margin-left: 10px;}
+
+  /* --- HERO SECTION --- */
   .visa-hero {
     background: linear-gradient(135deg, rgba(10, 35, 66, 0.95), rgba(10, 35, 66, 0.8)), 
                 url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
@@ -33,9 +91,9 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
     background-position: center;
     color: white;
     text-align: center;
-    padding: 160px 20px 100px; 
+    padding: 140px 20px 100px; 
     border-radius: 0 0 50% 50% / 40px; 
-    margin-bottom: 60px;
+    margin-bottom: 20px;
   }
   
   .hero-badge {
@@ -53,18 +111,13 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
     color: #F39C12;
   }
 
-  .visa-hero h1 { font-size: 3.5rem; margin: 0 0 15px; font-weight: 800; letter-spacing: -1px; color: #ffffff !important; }
-  .visa-hero p { font-size: 1.25rem; max-width: 700px; margin: 0 auto; color: #E5E7EB; line-height: 1.6; }
+  .visa-hero h1 { font-size: 3.5rem; margin: 0 0 15px; font-weight: 900; letter-spacing: -1px; color: #ffffff !important; }
+  .visa-hero p { font-size: 1.25rem; max-width: 750px; margin: 0 auto; color: #E5E7EB; line-height: 1.6; }
 
-  /* --- 2. PROCESS STEPS (Floating) --- */
-  .process-container { max-width: 1000px; margin: -70px auto 80px; padding: 0 20px; position: relative; z-index: 10; }
-  .process-card { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 15px 50px rgba(0,0,0,0.1); display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-  .step-item { position: relative; }
-  .step-item:not(:last-child)::after { content: '→'; position: absolute; top: 25%; right: -15px; color: #E5E7EB; font-size: 1.5rem; font-weight: 300; }
-  .step-icon { width: 60px; height: 60px; background: #EFF6FF; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 15px; transition: 0.3s; }
-  .step-item:hover .step-icon { background: var(--primary); color: white; transform: scale(1.1); }
-  .step-title { font-weight: 700; color: var(--text-dark); margin-bottom: 5px; font-size: 1.1rem; }
-  .step-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; }
+  /* --- 9. TRUST ANCHORS --- */
+  .trust-anchors { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;}
+  .t-anchor { background: rgba(0,0,0,0.3); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; color: #E5E7EB; border: 1px solid rgba(255,255,255,0.1);}
+  .t-anchor span { color: var(--success); font-weight: bold; margin-right: 5px;}
 
   /* --- GLOBAL SHARED STYLES --- */
   .section-wrap { padding: 80px 20px; }
@@ -72,48 +125,68 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   .section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem; max-width: 700px; margin-left: auto; margin-right: auto;}
   .alt-bg { background: white; }
 
-  /* Fixed Tag alignment */
-  .section-tag { 
-    display: block; 
-    text-align: center;
-    color: var(--primary); 
-    font-weight: 800; 
-    text-transform: uppercase; 
-    font-size: 0.95rem; 
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-  }
+  .section-tag { display: block; text-align: center; color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1px; margin-bottom: 10px; }
 
-  /* --- 3. LEAD CAPTURE FORM --- */
+  /* --- CAREER BEFORE COUNTRY (POSITIONING) --- */
+  .philosophy-box { max-width: 1000px; margin: -40px auto 60px; background: white; border-radius: 20px; box-shadow: var(--card-shadow); padding: 40px; display: flex; align-items: center; gap: 40px; position: relative; z-index: 10; border-left: 8px solid var(--accent);}
+  .phil-text { flex: 1; }
+  .phil-text h3 { font-size: 2rem; color: var(--primary); margin: 0 0 15px 0; font-weight: 800; letter-spacing: -0.5px;}
+  .phil-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px;}
+  .phil-compare { background: #F3F4F6; padding: 20px; border-radius: 12px; font-weight: bold; color: var(--text-dark);}
+  .phil-compare span.bad { color: var(--danger); display: block; margin-bottom: 10px; text-decoration: line-through;}
+  .phil-compare span.good { color: var(--success); display: block; font-size: 1.1rem;}
+
+  /* --- LEAD CAPTURE FORM --- */
   .lead-container { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; padding: 40px; box-shadow: var(--card-shadow); border-top: 5px solid var(--accent); }
+  .urgency-block { background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.95rem; margin-bottom: 20px;}
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;}
   .form-input, .form-select { width: 100%; padding: 14px; border: 2px solid #E5E7EB; border-radius: 8px; font-size: 1rem; box-sizing: border-box; font-family: inherit; transition: 0.3s;}
   .form-input:focus, .form-select:focus { border-color: var(--primary); outline: none;}
   .btn-submit { background: var(--primary); color: white; border: none; width: 100%; padding: 16px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s;}
   .btn-submit:hover { background: #07182e; transform: translateY(-2px);}
 
-  /* --- 4. WHY CHOOSE US (AUTHORITY) --- */
-  .authority-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;}
-  .auth-card { background: var(--bg-light); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid #E5E7EB;}
-  .auth-icon { font-size: 2.5rem; margin-bottom: 15px; color: var(--accent);}
-  .auth-card h4 { margin: 0 0 10px 0; color: var(--primary); font-size: 1.1rem;}
+  /* --- WHO THIS IS NOT FOR --- */
+  .disqualifier-box { max-width: 800px; margin: 40px auto 0; background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 16px; padding: 30px; text-align: center; border-left: 6px solid var(--danger);}
+  .disqualifier-box h4 { color: #991B1B; font-size: 1.2rem; margin: 0 0 15px 0;}
+  .disqualifier-box ul { list-style: none; padding: 0; margin: 0; color: #7F1D1D; text-align: left; max-width: 600px; margin: 0 auto;}
+  .disqualifier-box li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-weight: 500;}
 
-  /* --- 5. THE 100% FREE PACKAGE --- */
+  /* --- 1. VISA SUCCESS FACTORS --- */
+  .success-factors { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;}
+  .factor-item { background: white; padding: 25px; border-radius: 12px; border: 1px solid #E5E7EB; box-shadow: 0 4px 6px rgba(0,0,0,0.02);}
+  .factor-item h4 { margin: 0 0 10px 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 10px;}
+  .factor-item p { margin: 0; font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;}
+
+  /* --- 100% FREE PACKAGE --- */
   .free-package-box { background: linear-gradient(135deg, var(--primary), #1a365d); color: white; max-width: 1000px; margin: 0 auto; border-radius: 20px; padding: 50px 30px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(10, 35, 66, 0.2);}
   .free-badge { background: var(--success); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 20px; display: inline-block; letter-spacing: 1px;}
   .package-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 30px;}
   .pkg-item { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s;}
   .pkg-item:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1);}
 
-  /* --- 6. TIMELINE & COURSES TABLE --- */
-  .data-table-wrapper { max-width: 1100px; margin: 0 auto; overflow-x: auto; background: white; border-radius: 16px; box-shadow: var(--card-shadow); border: 1px solid #E5E7EB;}
-  .visa-table { width: 100%; border-collapse: collapse; text-align: left; }
+  /* --- VISUAL TIMELINE --- */
+  .timeline-visual { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; position: relative; gap: 15px;}
+  .timeline-visual::before { content: ''; position: absolute; top: 25px; left: 5%; width: 90%; height: 4px; background: #E5E7EB; z-index: 0; }
+  .time-node { text-align: center; position: relative; z-index: 1; flex: 1; }
+  .node-circle { width: 50px; height: 50px; background: white; border: 4px solid var(--accent); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary); box-shadow: 0 5px 15px rgba(243, 156, 18, 0.2);}
+  .time-node h4 { margin: 0 0 5px; color: var(--text-dark); font-size: 1rem; font-weight: 800;}
+  .time-node p { margin: 0; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: bold;}
+
+  /* --- AUTHORITY GRID --- */
+  .authority-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;}
+  .auth-card { background: var(--bg-light); padding: 25px; border-radius: 12px; text-align: center; border: 1px solid #E5E7EB;}
+  .auth-icon { font-size: 2.5rem; margin-bottom: 15px; color: var(--accent);}
+  .auth-card h4 { margin: 0 0 10px 0; color: var(--primary); font-size: 1.1rem;}
+
+  /* --- TABLES --- */
+  .data-table-wrapper { max-width: 1100px; margin: 0 auto 40px; overflow-x: auto; background: white; border-radius: 16px; box-shadow: var(--card-shadow); border: 1px solid #E5E7EB;}
+  .visa-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 700px; }
   .visa-table th { background: var(--primary); color: white; padding: 18px; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; white-space: nowrap;}
-  .visa-table td { padding: 18px; border-bottom: 1px solid #E5E7EB; color: var(--text-dark); font-size: 0.95rem; white-space: nowrap;}
+  .visa-table td { padding: 18px; border-bottom: 1px solid #E5E7EB; color: var(--text-dark); font-size: 0.95rem;}
   .visa-table tr:hover { background: #f8fafc; }
   .td-highlight { font-weight: bold; color: var(--primary); }
 
-  /* --- 7. DESTINATIONS GRID --- */
+  /* --- DESTINATIONS GRID --- */
   .country-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
   .country-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow); transition: all 0.4s ease; text-decoration: none; display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; }
   .country-card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); border-color: #e0e0e0; }
@@ -129,106 +202,108 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   .card-btn { display: block; text-align: center; padding: 10px; border: 1px solid #E5E7EB; border-radius: 8px; color: var(--text-dark); font-weight: 600; transition: 0.2s; font-size: 0.9rem; }
   .country-card:hover .card-btn { background: var(--primary); color: white; border-color: var(--primary); }
 
-  /* --- 8. TESTIMONIALS --- */
-  .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
-  .testimonial-card { background: white; padding: 30px; border-radius: 16px; box-shadow: var(--card-shadow); border-top: 4px solid var(--accent); }
-  .test-flag { font-size: 1.5rem; margin-bottom: 10px; }
-  .test-quote { font-style: italic; color: var(--text-dark); margin-bottom: 20px; font-size: 1.05rem; line-height: 1.6;}
-  .test-author { font-weight: bold; color: var(--primary); }
-  .test-meta { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+  /* --- CASE STUDY BLOCK --- */
+  .case-study-box { max-width: 1000px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: var(--card-shadow); border: 1px solid #E5E7EB; overflow: hidden; display: flex;}
+  .cs-visual { background: var(--bg-light); padding: 40px; flex: 0.8; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-right: 1px solid #E5E7EB;}
+  .cs-visual h4 { color: var(--primary); font-size: 1.5rem; margin: 10px 0;}
+  .cs-content { padding: 40px; flex: 1.2;}
+  .cs-tag { display: inline-block; background: #dbeafe; color: var(--secondary); padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase;}
+  .cs-flow { border-left: 2px solid var(--accent); padding-left: 20px; margin-top: 20px;}
+  .cs-step { margin-bottom: 15px; position: relative;}
+  .cs-step::before { content: ''; position: absolute; left: -26px; top: 5px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%;}
 
-  /* --- 9. PARENT FAQ --- */
+  /* --- PARENT FAQ --- */
   .faq-container { max-width: 800px; margin: 0 auto; }
   .faq-item { background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: 0.3s;}
   .faq-question { padding: 20px; cursor: pointer; font-weight: 700; color: #0f172a; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem;}
   .faq-answer { padding: 0 20px 20px; color: var(--text-muted); line-height: 1.6; display: none; }
   .faq-item.active .faq-answer { display: block; }
   .faq-item.active { border-color: var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.05);}
-  
-  /* --- 10. LEGAL DISCLAIMER & WHATSAPP --- */
+
+  /* --- LEGAL DISCLAIMER & FLOATING CHAT --- */
   .legal-footer { text-align: center; padding: 40px 20px; background: #111827; color: #9CA3AF; font-size: 0.85rem; line-height: 1.5; }
   
-  /* Sleek Desktop WhatsApp Button */
-  .whatsapp-float {
+  .email-float {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background-color: #25D366;
+    background-color: var(--primary);
     color: white;
     border-radius: 50px;
-    padding: 10px 18px; 
+    padding: 12px 20px; 
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-size: 0.95rem;
     font-weight: bold;
     text-decoration: none;
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+    box-shadow: 0 8px 20px rgba(10, 35, 66, 0.4);
     z-index: 1000;
     transition: transform 0.3s;
   }
-  .whatsapp-float:hover { transform: scale(1.05); color: white;}
-  .whatsapp-float svg { width: 20px; height: 20px; fill: white;}
+  .email-float:hover { transform: scale(1.05); color: white;}
 
   /* --- RESPONSIVE FIXES --- */
   @media (max-width: 900px) {
-    .visa-hero { border-radius: 0 0 30px 30px; padding: 130px 20px 80px; }
+    .visa-hero { border-radius: 0 0 30px 30px; padding: 140px 20px 80px; }
     .visa-hero h1 { font-size: 2.2rem; }
-    .process-card { grid-template-columns: 1fr; gap: 40px; padding: 30px; }
-    .step-item:not(:last-child)::after { content: '↓'; top: auto; bottom: -30px; right: 50%; transform: translateX(50%); }
+    .philosophy-box { flex-direction: column; text-align: center; margin: 40px 20px; padding: 30px;}
+    .timeline-visual { flex-direction: column; gap: 30px; }
+    .timeline-visual::before { display: none; }
     .form-grid { grid-template-columns: 1fr; }
     .package-grid { grid-template-columns: 1fr; }
+    .case-study-box { flex-direction: column; }
+    .cs-visual { border-right: none; border-bottom: 1px solid #E5E7EB; }
     
-    /* Perfect Circle WhatsApp Mobile Fix */
-    .whatsapp-text { display: none; }
-    .whatsapp-float { padding: 12px; border-radius: 50%; bottom: 20px; right: 20px;}
-    .whatsapp-float svg { width: 24px; height: 24px; margin: 0;}
+    .chat-text { display: none; }
+    .email-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px;}
   }
 </style>
 
-<div class="visa-hero">
-  <span class="hero-badge">✈️ Global Opportunities Await</span>
-  <h1>Visa Services & Immigration</h1>
-  <p>Simplified visa processing for students, professionals, and tourists. We handle the paperwork so you can focus on the journey.</p>
+<div class="ecosystem-banner">
+    🔁 Already completed your Psychometric Assessment? <a href="{{ '/student_portal.html' | relative_url }}">Continue your global pathway planning inside your dashboard ➔</a>
 </div>
 
-<div class="process-container">
-  <div class="process-card">
-    <div class="step-item">
-      <div class="step-icon">📋</div>
-      <div class="step-title">Profile Analysis</div>
-      <div class="step-desc">We assess your eligibility and choose the right visa category.</div>
-    </div>
-    <div class="step-item">
-      <div class="step-icon">📂</div>
-      <div class="step-title">Documentation</div>
-      <div class="step-desc">Expert help with SOPs, financials, and application forms.</div>
-    </div>
-    <div class="step-item">
-      <div class="step-icon">🏛️</div>
-      <div class="step-title">Embassy Filing</div>
-      <div class="step-desc">Error-free submission and interview preparation.</div>
-    </div>
-    <div class="step-item">
-      <div class="step-icon">✈️</div>
-      <div class="step-title">Fly High</div>
-      <div class="step-desc">Pre-departure briefing and post-landing support.</div>
-    </div>
+<div class="visa-hero">
+  <span class="hero-badge">✈️ Global Education Pathways</span>
+  <h1>Your global career begins with the right decision — not just the right destination.</h1>
+  <p>Seamlessly transition from psychometric career mapping to securing your international study visa. Built exclusively for ambitious Indian students.</p>
+  
+  <div class="trust-anchors">
+      <div class="t-anchor"><span>✔</span> Guided across 6+ countries</div>
+      <div class="t-anchor"><span>✔</span> Structured document review</div>
+      <div class="t-anchor"><span>✔</span> Ethical advisory model</div>
   </div>
+</div>
+
+<div class="philosophy-box">
+    <div style="font-size: 5rem; line-height: 1;">🧭</div>
+    <div class="phil-text">
+        <h3>Career Before Country.</h3>
+        <p>Unlike traditional agencies, we do not push you toward universities just because they pay high commissions. We are a clinical career intelligence platform first.</p>
+        <div class="phil-compare">
+            <span class="bad">Typical Agents ask: "Which country do you want to go to?"</span>
+            <span class="good">We ask: "Which course actually aligns with your natural aptitude?"</span>
+        </div>
+    </div>
 </div>
 
 <div class="section-wrap alt-bg" style="padding-top: 0;">
     <div class="section-header" style="margin-bottom: 30px;">
-        <h2 class="section-title">Check Your Visa Eligibility</h2>
-        <p class="section-subtitle">Fill out the form below for a free, instant profile evaluation by our experts.</p>
+        <h2 class="section-title">Check Your Profile Eligibility</h2>
+        <p class="section-subtitle">Fill out the form below. An expert will audit your profile and connect with you directly.</p>
     </div>
     <div class="lead-container">
-        <form onsubmit="event.preventDefault(); window.open('https://chat.whatsapp.com/JsOIiMJbR5gHTwHxgIDu5O', '_blank');">
+        <div class="urgency-block">
+            🗓️ Urgent: Fall 2026 intake closes in 4–6 months for most top global universities. Start documentation now.
+        </div>
+        
+        <form id="visaLeadForm">
             <div class="form-grid">
-                <input type="text" class="form-input" placeholder="Full Name" required>
-                <input type="tel" class="form-input" placeholder="WhatsApp Number" required>
-                <input type="email" class="form-input" placeholder="Email Address" required>
-                <select class="form-select" required>
+                <input type="text" id="targetName" class="form-input" placeholder="Full Name" required>
+                <input type="tel" id="targetPhone" class="form-input" placeholder="10-Digit Mobile Number" pattern="[0-9]{10}" title="Please enter a valid 10-digit Indian phone number" required>
+                <input type="email" id="targetEmail" class="form-input" placeholder="Email Address" required>
+                <select class="form-select" id="targetDest" required>
                     <option value="" disabled selected>Target Destination</option>
                     <option value="USA">USA</option>
                     <option value="UK">UK</option>
@@ -237,13 +312,13 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
                     <option value="Germany">Germany</option>
                     <option value="Other">Other</option>
                 </select>
-                <select class="form-select" required>
+                <select class="form-select" id="targetType" required>
                     <option value="" disabled selected>Visa Type</option>
-                    <option value="Student">Student Visa</option>
-                    <option value="Work">Work/PR Visa</option>
-                    <option value="Tourist">Tourist/Visitor</option>
+                    <option value="Student Visa">Student Visa</option>
+                    <option value="Work Visa">Work/PR Visa</option>
+                    <option value="Tourist Visa">Tourist/Visitor</option>
                 </select>
-                <select class="form-select">
+                <select class="form-select" id="targetIntake" required>
                     <option value="" disabled selected>Planned Intake</option>
                     <option value="2026">2026</option>
                     <option value="2027">2027</option>
@@ -251,35 +326,46 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
                 </select>
             </div>
             <button type="submit" class="btn-submit">Check My Eligibility Now ➔</button>
-            <p style="text-align:center; font-size:0.9rem; color:var(--text-muted); margin-top:15px; font-weight:bold;">
-                You will be redirected to our WhatsApp Community. An expert will reach out to you directly!
+            <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:15px; font-weight:bold;">
+                🔒 Your data is secure and never shared with third parties.
             </p>
         </form>
+    </div>
+    
+    <div class="disqualifier-box">
+        <h4>⚠️ Who This Is NOT For</h4>
+        <ul>
+            <li>❌ Students applying purely for migration without genuine academic intent.</li>
+            <li>❌ Applicants unwilling or unable to show verifiable financial proof.</li>
+            <li>❌ Students unwilling to meet embassy academic and language proficiency requirements (IELTS/TOEFL).</li>
+        </ul>
     </div>
 </div>
 
 <div class="section-wrap">
     <div class="free-package-box">
-        <span class="free-badge">Zero Agent Commissions</span>
-        <h2 style="font-size: 2.5rem; margin: 0 0 15px 0; color: #ffffff !important;">100% Free End-to-End Guidance</h2>
-        <p style="font-size: 1.15rem; color: #cbd5e1; max-width: 700px; margin: 0 auto;">
-            Unlike traditional agents who push you toward universities that pay them commissions, our platform is built on transparency. We handle your entire journey—from psychometric career matching to visa filing—completely free of service charges.
+        <span class="free-badge">Zero Agent Fees</span>
+        <h2 style="font-size: 2.5rem; margin: 0 0 15px 0; color: #ffffff !important;">100% Free Processing</h2>
+        <p style="font-size: 1.15rem; color: #cbd5e1; max-width: 750px; margin: 0 auto;">
+            We believe in total transparency. Our platform revenue comes entirely from our official global university partnerships. This means we process your psychometric assessment, university applications, and visa documentation <strong>completely free of charge to you.</strong>
         </p>
+        <p style="font-size: 0.95rem; color: #9ca3af; font-style: italic; margin-top: 10px;">*We recommend universities based strictly on career alignment — not commission value.</p>
+        
         <div class="package-grid">
             <div class="pkg-item">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">🧠</div>
-                <h4 style="margin: 0 0 5px 0; color: #ffffff;">Career Assessment</h4>
-                <span style="font-size: 0.9rem; color: #9ca3af;">Find your true aptitude</span>
+                <h4 style="margin: 0 0 5px 0; color: #ffffff;">1. Career Assessment</h4>
+                <span style="font-size: 0.9rem; color: #9ca3af;">Identify your true aptitude.</span>
             </div>
             <div class="pkg-item">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">🏛️</div>
-                <h4 style="margin: 0 0 5px 0; color: #ffffff;">University Selection</h4>
-                <span style="font-size: 0.9rem; color: #9ca3af;">Unbiased course mapping</span>
+                <h4 style="margin: 0 0 5px 0; color: #ffffff;">2. University Mapping</h4>
+                <span style="font-size: 0.9rem; color: #9ca3af;">Get an unbiased shortlist.</span>
             </div>
             <div class="pkg-item">
                 <div style="font-size: 2.5rem; margin-bottom: 10px;">🛂</div>
-                <h4 style="margin: 0 0 5px 0; color: #ffffff;">Visa Filing Support</h4>
-                <span style="font-size: 0.9rem; color: #9ca3af;">Error-free documentation</span>
+                <h4 style="margin: 0 0 5px 0; color: #ffffff;">3. Visa & SOP Support</h4>
+                <span style="font-size: 0.9rem; color: #9ca3af;">Audited, error-free filing.</span>
             </div>
         </div>
     </div>
@@ -287,77 +373,100 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 
 <div class="section-wrap alt-bg">
     <div class="section-header">
-        <h2 class="section-title">Why Students Trust Our Process</h2>
+        <span class="section-tag">Embassy Logic</span>
+        <h2 class="section-title">What Actually Determines Visa Approval?</h2>
+        <p class="section-subtitle">We don't rely on luck. We ensure your profile meets these 5 strict embassy criteria.</p>
     </div>
-    <div class="authority-grid">
-        <div class="auth-card">
-            <div class="auth-icon">🎯</div>
-            <h4>98% Approval Rate</h4>
-            <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">High success due to clinical-level file auditing.</p>
+    <div class="success-factors">
+        <div class="factor-item">
+            <h4><span>📚</span> Academic Progression Logic</h4>
+            <p>Does your chosen course make sense based on your previous studies and psychometric profile?</p>
         </div>
-        <div class="auth-card">
-            <div class="auth-icon">📝</div>
-            <h4>SOP Refinement</h4>
-            <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">Expert review to make your story embassy-ready.</p>
+        <div class="factor-item">
+            <h4><span>💰</span> Financial Transparency</h4>
+            <p>Can you prove the source of your funds clearly through clean banking history or approved education loans?</p>
         </div>
-        <div class="auth-card">
-            <div class="auth-icon">🎙️</div>
-            <h4>Mock Interviews</h4>
-            <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">Extensive training to build confidence for the real day.</p>
+        <div class="factor-item">
+            <h4><span>✍️</span> Clear SOP Narrative</h4>
+            <p>Does your Statement of Purpose articulate exactly why you need this specific degree from this specific country?</p>
         </div>
-        <div class="auth-card">
-            <div class="auth-icon">🛡️</div>
-            <h4>Error Audit System</h4>
-            <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">Triple-check process prevents stupid rejections.</p>
+        <div class="factor-item">
+            <h4><span>🎯</span> Genuine Intent Alignment</h4>
+            <p>During mock interviews, do you sound like a genuine student, or someone just looking for a PR backdoor?</p>
         </div>
     </div>
 </div>
 
 <div class="section-wrap">
     <div class="section-header">
-        <h2 class="section-title">Global Snapshot: Timelines & Top Courses</h2>
-        <p class="section-subtitle">A quick reference guide for Indian students planning their study abroad journey.</p>
+        <span class="section-tag">Planning Ahead</span>
+        <h2 class="section-title">The Real Execution Timeline</h2>
+        <p class="section-subtitle">How we move you from confusion to boarding your flight in 5 months.</p>
     </div>
+    
+    <div class="timeline-visual" style="margin-bottom: 80px;">
+        <div class="time-node">
+            <div class="node-circle">1</div>
+            <h4>Psychometrics</h4>
+            <p>Month 1</p>
+        </div>
+        <div class="time-node">
+            <div class="node-circle">2</div>
+            <h4>Uni Applications</h4>
+            <p>Month 2</p>
+        </div>
+        <div class="time-node">
+            <div class="node-circle">3</div>
+            <h4>Offer & Financials</h4>
+            <p>Month 3</p>
+        </div>
+        <div class="time-node">
+            <div class="node-circle">4</div>
+            <h4>Visa Filing</h4>
+            <p>Month 4</p>
+        </div>
+        <div class="time-node">
+            <div class="node-circle">5</div>
+            <h4>Pre-Departure</h4>
+            <p>Month 5</p>
+        </div>
+    </div>
+
+    <h3 style="text-align:center; font-size:1.8rem; margin-bottom: 20px; color:var(--text-dark);">💰 Study Cost Snapshot (Indian Students)</h3>
     <div class="data-table-wrapper">
         <table class="visa-table">
             <thead>
                 <tr>
                     <th>Country</th>
-                    <th>Avg. Processing Time</th>
-                    <th>Work Rights (Study Visa)</th>
-                    <th>Top Synergistic Courses</th>
+                    <th>Avg. Yearly Tuition</th>
+                    <th>Est. Living Cost (Year)</th>
+                    <th>Education Loan Friendly?</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="td-highlight">🇺🇸 United States</td>
-                    <td>4 - 8 Weeks</td>
-                    <td>On-Campus Only (20 hrs/wk)</td>
-                    <td>Computer Science, Business Analytics, AI</td>
+                    <td class="td-highlight">🇺🇸 USA</td>
+                    <td>₹18L - ₹40L</td>
+                    <td>₹10L - ₹15L</td>
+                    <td><strong style="color:var(--success);">Highly Friendly</strong> (Non-collateral available)</td>
                 </tr>
                 <tr>
-                    <td class="td-highlight">🇬🇧 United Kingdom</td>
-                    <td>3 - 5 Weeks</td>
-                    <td>20 hrs/week (Term time)</td>
-                    <td>Law, Management, FinTech, Humanities</td>
+                    <td class="td-highlight">🇬🇧 UK</td>
+                    <td>₹15L - ₹30L</td>
+                    <td>₹12L - ₹14L</td>
+                    <td><strong style="color:var(--success);">Friendly</strong> (1-Year Masters preferred)</td>
                 </tr>
                 <tr>
                     <td class="td-highlight">🇨🇦 Canada</td>
-                    <td>4 - 10 Weeks (SDS)</td>
-                    <td>20 hrs/week (Off-Campus)</td>
-                    <td>Data Science, Nursing, Supply Chain</td>
+                    <td>₹12L - ₹25L</td>
+                    <td>₹12L (GIC required)</td>
+                    <td><strong style="color:var(--success);">Highly Friendly</strong></td>
                 </tr>
                 <tr>
                     <td class="td-highlight">🇩🇪 Germany</td>
-                    <td>4 - 8 Weeks</td>
-                    <td>120 full days / 240 half days</td>
-                    <td>Mechanical Engineering, Automotive, Robotics</td>
-                </tr>
-                <tr>
-                    <td class="td-highlight">🇮🇪 Ireland</td>
-                    <td>4 - 6 Weeks</td>
-                    <td>20 hrs/week</td>
-                    <td>Pharmaceuticals, Cloud Computing, IT</td>
+                    <td>₹0 - ₹3L (Public)</td>
+                    <td>₹10.5L (Blocked A/C)</td>
+                    <td><strong style="color:var(--accent);">Moderate</strong> (Collateral usually needed)</td>
                 </tr>
             </tbody>
         </table>
@@ -365,8 +474,37 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
 </div>
 
 <div class="section-wrap alt-bg">
+    <div class="section-header">
+        <h2 class="section-title">Why Students Trust Our Process</h2>
+        <p style="font-weight:bold; color:var(--primary); margin-top:10px;">Includes guidance on IELTS/PTE score strategy and university waiver eligibility.</p>
+    </div>
+    <div class="authority-grid">
+        <div class="auth-card">
+            <div class="auth-icon">🎯</div>
+            <h4>High Approval Success</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">Achieved through our strict internal documentation audit.</p>
+        </div>
+        <div class="auth-card">
+            <div class="auth-icon">📝</div>
+            <h4>SOP Refinement</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">Expert psychological review to make your story embassy-ready.</p>
+        </div>
+        <div class="auth-card">
+            <div class="auth-icon">🎙️</div>
+            <h4>Mock Interviews</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">Extensive situational training to build absolute confidence.</p>
+        </div>
+        <div class="auth-card">
+            <div class="auth-icon">🛡️</div>
+            <h4>Financial Guidance</h4>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">Clear pathways for education loans and acceptable fund formats.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section-wrap">
     <h2 class="section-title">Explore Sub-Pages</h2>
-    <p class="section-subtitle">Click to view detailed requirements for each specific region.</p>
+    <p class="section-subtitle">Click to view detailed requirements and top courses for each specific region.</p>
 
     <div class="country-grid">
       <a href="{{ '/visa/usa/' | relative_url }}" class="country-card">
@@ -379,9 +517,8 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
           <div class="visa-tags">
             <span class="v-tag">F1 Student</span>
             <span class="v-tag">H1B Work</span>
-            <span class="v-tag">B1/B2 Tourist</span>
           </div>
-          <p class="card-text">Navigate the complex US immigration system with expert DS-160 filing and mock interview sessions.</p>
+          <p class="card-text">Navigate the complex US immigration system with expert DS-160 filing and specialized F1 mock interviews.</p>
           <span class="card-btn">View USA Details</span>
         </div>
       </a>
@@ -394,11 +531,27 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
         <div class="card-body">
           <h3 class="card-title">United Kingdom</h3>
           <div class="visa-tags">
-            <span class="v-tag">Tier 4 Student</span>
-            <span class="v-tag">Skilled Worker</span>
+            <span class="v-tag">Student Route</span>
+            <span class="v-tag">Post-Study Work</span>
           </div>
-          <p class="card-text">Study at prestigious UK universities or work with top employers. We assist with CAS and NHS surcharge.</p>
+          <p class="card-text">Study at prestigious universities with streamlined assistance for your CAS letter and NHS surcharge.</p>
           <span class="card-btn">View UK Details</span>
+        </div>
+      </a>
+
+      <a href="{{ '/visa/canada/' | relative_url }}" class="country-card">
+        <div class="card-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1503614472-8c93d56e92ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Canada">
+          <img src="https://flagcdn.com/w80/ca.png" class="flag-badge" alt="Canada Flag">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Canada</h3>
+          <div class="visa-tags">
+            <span class="v-tag">Study Permit (SDS)</span>
+            <span class="v-tag">PGWP</span>
+          </div>
+          <p class="card-text">Expert guidance on navigating SDS requirements, GIC setup, and Provincial Attestation Letters (PAL).</p>
+          <span class="card-btn">View Canada Details</span>
         </div>
       </a>
 
@@ -412,58 +565,41 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
           <div class="visa-tags">
             <span class="v-tag">Student Visa</span>
             <span class="v-tag">Job Seeker</span>
-            <span class="v-tag">Blue Card</span>
           </div>
-          <p class="card-text">Unlock free education and engineering careers in Europe's economic powerhouse.</p>
+          <p class="card-text">Unlock free public education. Get assistance with APS certification and Blocked Account setup.</p>
           <span class="card-btn">View Germany Details</span>
         </div>
       </a>
-
-      <a href="{{ '/visa/canada/' | relative_url }}" class="country-card">
-        <div class="card-img-wrapper">
-          <img src="https://images.unsplash.com/photo-1503614472-8c93d56e92ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Canada">
-          <img src="https://flagcdn.com/w80/ca.png" class="flag-badge" alt="Canada Flag">
-        </div>
-        <div class="card-body">
-          <h3 class="card-title">Canada</h3>
-          <div class="visa-tags">
-            <span class="v-tag">Study Permit</span>
-            <span class="v-tag">Express Entry</span>
-          </div>
-          <p class="card-text">Expert guidance on SDS/Non-SDS categories and Post-Graduation Work Permits (PGWP).</p>
-          <span class="card-btn">View Canada Details</span>
-        </div>
-      </a>
-      </div>
-</div>
-
-<div class="section-wrap">
-    <div class="section-header">
-        <h2 class="section-title">Visa Success Stories</h2>
-    </div>
-    <div class="testimonial-grid">
-        <div class="testimonial-card">
-            <div class="test-flag">🇨🇦</div>
-            <p class="test-quote">"Got my Canada Study Permit under the SDS category in exactly 18 days. The SOP review team was incredibly detailed."</p>
-            <div class="test-author">Rahul V.</div>
-            <div class="test-meta">Student Visa • Fall Intake</div>
-        </div>
-        <div class="testimonial-card">
-            <div class="test-flag">🇺🇸</div>
-            <p class="test-quote">"The mock interviews were lifesavers. They asked me the exact questions the actual embassy officer asked me. Approved!"</p>
-            <div class="test-author">Sneha P.</div>
-            <div class="test-meta">F1 Visa • Masters in CS</div>
-        </div>
-        <div class="testimonial-card">
-            <div class="test-flag">🇬🇧</div>
-            <p class="test-quote">"Navigating the CAS letter and NHS surcharge was confusing, but the team handled the entire backend process smoothly."</p>
-            <div class="test-author">Karan M.</div>
-            <div class="test-meta">Tier 4 • Business Admin</div>
-        </div>
     </div>
 </div>
 
 <div class="section-wrap alt-bg">
+    <div class="section-header">
+        <span class="section-tag">Case Study</span>
+        <h2 class="section-title">The Power of Process</h2>
+    </div>
+    
+    <div class="case-study-box">
+        <div class="cs-visual">
+            <div style="font-size: 4rem; margin-bottom: 10px;">🇮🇪</div>
+            <h4 style="margin-bottom:0;">Ireland Transition</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">From Commerce to Data</p>
+        </div>
+        <div class="cs-content">
+            <span class="cs-tag">MSc Data Analytics</span>
+            <h3 style="margin: 0 0 15px 0; font-size: 1.5rem; color: #0f172a;">How a Class 12 Commerce student secured a top tech admit.</h3>
+            <p style="color: var(--text-muted); line-height: 1.6;">Rahul initially wanted to pursue an MBA because "everyone was doing it." Our clinical assessment revealed exceptionally high logic and investigative traits, but low traditional management traits.</p>
+            
+            <div class="cs-flow">
+                <div class="cs-step"><strong>Assessment:</strong> Pivoted roadmap to Data Analytics.</div>
+                <div class="cs-step"><strong>Execution:</strong> Recommended bridge courses in Python & Stats.</div>
+                <div class="cs-step"><strong>Result:</strong> Secured admit in Ireland + Visa approved in 22 days.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section-wrap">
   <div class="section-header">
     <span class="section-tag">For Parents</span>
     <h2 class="section-title">Parent Advisory Corner</h2>
@@ -485,9 +621,9 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   </div>
 </div>
 
-<a href="https://chat.whatsapp.com/JsOIiMJbR5gHTwHxgIDu5O" target="_blank" class="whatsapp-float">
-  <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.553 4.183 1.6 6.002L.156 23.364l5.474-1.436a11.966 11.966 0 006.401 1.834h.004c6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.765h-.003a9.96 9.96 0 01-5.074-1.385l-.364-.216-3.771.99.999-3.676-.237-.377A9.957 9.957 0 012.067 12.03c0-5.503 4.478-9.98 9.964-9.98 5.504 0 9.98 4.477 9.98 9.98s-4.476 9.98-9.98 9.98zm5.47-7.464c-.3-.15-1.774-.875-2.049-.975-.274-.1-.475-.15-.675.15-.2.3-.775.975-.95 1.175-.175.2-.35.225-.65.075-1.488-.737-2.618-1.588-3.606-3.325-.2-.35.225-.325.5-.925.075-.15.038-.288-.038-.438-.075-.15-.675-1.625-.925-2.225-.25-.6-.5-.525-.675-.537-.175-.013-.375-.013-.575-.013s-.525.075-.8.375c-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.1 3.25 5.125 4.55 1.95.838 2.7.775 3.175.7 1.05-.175 1.774-.725 2.024-1.425.25-.7.25-1.3.175-1.425-.075-.125-.275-.2-.575-.35z"/></svg>
-  <span class="whatsapp-text">Join WhatsApp Community</span>
+<a href="mailto:vidhyaadvantage+visa@gmail.com?subject=Inquiry: Study Abroad Visa Assistance" class="email-float">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+  <span class="chat-text">Email an Expert</span>
 </a>
 
 <footer class="legal-footer">
@@ -496,3 +632,29 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
     </p>
     <p style="margin-top: 20px; opacity: 0.7;">© 2026 Career Intelligence System. All Rights Reserved.</p>
 </footer>
+
+<script>
+    // AUTOMATED EMAIL ROUTING SCRIPT
+    document.getElementById('visaLeadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('targetName').value;
+        const phone = document.getElementById('targetPhone').value;
+        const email = document.getElementById('targetEmail').value;
+        const dest = document.getElementById('targetDest').value;
+        const vtype = document.getElementById('targetType').value;
+        const intake = document.getElementById('targetIntake').value;
+        
+        const subject = encodeURIComponent(`Visa Eligibility Check: ${name} - ${dest}`);
+        const body = encodeURIComponent(`Hi Team,\n\nI would like to check my eligibility. Here are my details:\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nDestination: ${dest}\nVisa Type: ${vtype}\nPlanned Intake: ${intake}\n\nPlease get back to me with the next steps.\n\nThanks!`);
+        
+        window.location.href = `mailto:vidhyaadvantage+visa@gmail.com?subject=${subject}&body=${body}`;
+    });
+
+    // NOTE FOR ADMIN: 
+    // To add a real Live Chat (like Tawk.to) in the future:
+    // 1. Go to tawk.to and create a free account.
+    // 2. They will give you a small <script> tag.
+    // 3. Paste that script right here before the closing </body> tag.
+    // 4. Delete the "email-float" <a> tag above.
+</script>
