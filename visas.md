@@ -33,7 +33,8 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
     background-position: center;
     color: white;
     text-align: center;
-    padding: 100px 20px 120px;
+    /* Pushed padding-top from 100px to 180px so it clears your website's top navigation bar! */
+    padding: 180px 20px 120px; 
     border-radius: 0 0 50% 50% / 40px; 
     margin-bottom: 60px;
   }
@@ -53,8 +54,21 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
     color: #F39C12;
   }
 
-  .visa-hero h1 { font-size: 3.5rem; margin: 0 0 15px; font-weight: 800; letter-spacing: -1px; }
-  .visa-hero p { font-size: 1.25rem; max-width: 700px; margin: 0 auto; color: #E5E7EB; line-height: 1.6; }
+  .visa-hero h1 { 
+    font-size: 3.5rem; 
+    margin: 0 0 15px; 
+    font-weight: 900; 
+    letter-spacing: -1px; 
+    color: #ffffff !important; /* Forced white to guarantee visibility */
+  }
+  
+  .visa-hero p { 
+    font-size: 1.25rem; 
+    max-width: 700px; 
+    margin: 0 auto; 
+    color: #E5E7EB; 
+    line-height: 1.6; 
+  }
 
   /* --- 2. PROCESS STEPS (Floating) --- */
   .process-container { max-width: 1000px; margin: -90px auto 80px; padding: 0 20px; position: relative; z-index: 10; }
@@ -71,6 +85,18 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   .section-title { text-align: center; font-size: 2.5rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; letter-spacing: -1px;}
   .section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem; max-width: 700px; margin-left: auto; margin-right: auto;}
   .alt-bg { background: white; }
+
+  /* Fixed Tag alignment */
+  .section-tag { 
+    display: block; /* Forces it to center instead of hanging on the side */
+    text-align: center;
+    color: var(--primary); 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    font-size: 0.95rem; 
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
 
   /* --- 3. LEAD CAPTURE FORM --- */
   .lead-container { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; padding: 40px; box-shadow: var(--card-shadow); border-top: 5px solid var(--accent); }
@@ -95,8 +121,8 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   /* --- 6. TIMELINE & COURSES TABLE --- */
   .data-table-wrapper { max-width: 1100px; margin: 0 auto; overflow-x: auto; background: white; border-radius: 16px; box-shadow: var(--card-shadow); border: 1px solid #E5E7EB;}
   .visa-table { width: 100%; border-collapse: collapse; text-align: left; }
-  .visa-table th { background: var(--primary); color: white; padding: 18px; font-weight: 600; text-transform: uppercase; font-size: 0.9rem;}
-  .visa-table td { padding: 18px; border-bottom: 1px solid #E5E7EB; color: var(--text-dark); font-size: 0.95rem;}
+  .visa-table th { background: var(--primary); color: white; padding: 18px; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; white-space: nowrap;}
+  .visa-table td { padding: 18px; border-bottom: 1px solid #E5E7EB; color: var(--text-dark); font-size: 0.95rem; white-space: nowrap;}
   .visa-table tr:hover { background: #f8fafc; }
   .td-highlight { font-weight: bold; color: var(--primary); }
 
@@ -155,14 +181,18 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   .whatsapp-float:hover { transform: scale(1.05); color: white;}
   .whatsapp-float svg { width: 24px; height: 24px; fill: white;}
 
-  /* RESPONSIVE */
+  /* --- RESPONSIVE FIXES --- */
   @media (max-width: 900px) {
-    .visa-hero { border-radius: 0 0 30px 30px; padding-bottom: 100px; }
-    .visa-hero h1 { font-size: 2.5rem; }
+    .visa-hero { border-radius: 0 0 30px 30px; padding-bottom: 80px; padding-top: 140px; }
+    .visa-hero h1 { font-size: 2.2rem; }
     .process-card { grid-template-columns: 1fr; gap: 40px; padding: 30px; }
     .step-item:not(:last-child)::after { content: '↓'; top: auto; bottom: -30px; right: 50%; transform: translateX(50%); }
     .form-grid { grid-template-columns: 1fr; }
     .package-grid { grid-template-columns: 1fr; }
+    
+    /* WhatsApp Mobile Fix */
+    .whatsapp-text { display: none; } /* Hides text on mobile */
+    .whatsapp-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px;}
   }
 </style>
 
@@ -414,7 +444,6 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
           <span class="card-btn">View Canada Details</span>
         </div>
       </a>
-      
       </div>
 </div>
 
@@ -466,9 +495,9 @@ description: "Expert Visa Assistance for USA, UK, Canada, Australia, Germany, an
   </div>
 </div>
 
-<a href="https://wa.me/919035222046?text=Hi!%20I%20would%20like%20to%20check%20my%20visa%20eligibility." target="_blank" class="whatsapp-float">
+<a href="https://chat.whatsapp.com/JsOIiMJbR5gHTwHxgIDu5O" target="_blank" class="whatsapp-float">
   <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.12.553 4.183 1.6 6.002L.156 23.364l5.474-1.436a11.966 11.966 0 006.401 1.834h.004c6.646 0 12.031-5.385 12.031-12.031S18.677 0 12.031 0zm0 21.765h-.003a9.96 9.96 0 01-5.074-1.385l-.364-.216-3.771.99.999-3.676-.237-.377A9.957 9.957 0 012.067 12.03c0-5.503 4.478-9.98 9.964-9.98 5.504 0 9.98 4.477 9.98 9.98s-4.476 9.98-9.98 9.98zm5.47-7.464c-.3-.15-1.774-.875-2.049-.975-.274-.1-.475-.15-.675.15-.2.3-.775.975-.95 1.175-.175.2-.35.225-.65.075-1.488-.737-2.618-1.588-3.606-3.325-.2-.35.225-.325.5-.925.075-.15.038-.288-.038-.438-.075-.15-.675-1.625-.925-2.225-.25-.6-.5-.525-.675-.537-.175-.013-.375-.013-.575-.013s-.525.075-.8.375c-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.1 3.25 5.125 4.55 1.95.838 2.7.775 3.175.7 1.05-.175 1.774-.725 2.024-1.425.25-.7.25-1.3.175-1.425-.075-.125-.275-.2-.575-.35z"/></svg>
-  Chat with an Expert
+  <span class="whatsapp-text">Join WhatsApp Community</span>
 </a>
 
 <footer class="legal-footer">
