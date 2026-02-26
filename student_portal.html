@@ -133,6 +133,11 @@
       .btn-remove-sub { background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; font-size: 1.2rem; margin-top: 24px;}
       .btn-remove-sub:hover { background: #fca5a5; color: white; }
 
+      /* Academic Steps UI */
+      .step-indicator { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 15px;}
+      .step-pill { background: #f1f5f9; color: var(--text-muted); padding: 6px 16px; border-radius: 50px; font-weight: 800; font-size: 0.85rem;}
+      .step-pill.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(59,130,246,0.2);}
+
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
       @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
       @keyframes badgePop { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
@@ -368,12 +373,17 @@
 
         <div id="tab-portfolio" class="tab-content">
             <div class="header-bar">
-                <div><h1>Academic Profile</h1><p>Log your strengths and metrics to improve AI matching.</p></div>
+                <div><h1>Academic Profile</h1><p>Provide your context to enhance AI targeting.</p></div>
             </div>
             
+            <div class="step-indicator">
+                <span class="step-pill active">Step 1: Metrics & Subjects</span>
+                <span class="step-pill">Step 2: School Context</span>
+            </div>
+
             <div class="grid-2">
                 <div class="card" id="academicInputCard" style="border-top: 4px solid var(--primary);">
-                    <h3>📊 Academic Metrics</h3>
+                    <h3>📊 Core Academic Metrics</h3>
                     
                     <div class="grid-2col" style="gap:15px;">
                         <div class="form-group">
@@ -387,7 +397,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Overall Score</label>
-                            <input type="number" id="portOverallScore" class="form-input" placeholder="e.g. 88" step="0.01">
+                            <input type="number" id="portOverallScore" class="form-input" placeholder="e.g. 88" step="0.01" min="0" max="100">
                         </div>
                     </div>
 
@@ -412,16 +422,23 @@
                         </div>
                     </div>
 
-                    <h3 style="border-top: 1px solid var(--border); padding-top: 25px;">📘 Subjects Studied</h3>
-                    <div id="subjectContainer">
+                    <div style="border-top: 1px solid var(--border); padding-top: 25px; margin-top:10px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                            <h3 style="border:none; padding:0; margin:0;">📘 Subject Breakdowns</h3>
+                            <button type="button" class="btn btn-outline" onclick="toggleSubjectSection()" id="toggleSubjectBtn" style="padding: 6px 12px; font-size: 0.8rem;">View / Add Subjects ⬇</button>
                         </div>
-                    <button type="button" class="btn btn-outline" onclick="addSubjectRow()" style="margin-bottom: 20px; font-size: 0.85rem; padding: 8px 15px;">➕ Add Subject</button>
-                    
+                        
+                        <div id="subjectSectionWrapper" style="display:none;">
+                            <div id="subjectContainer">
+                                </div>
+                            <button type="button" class="btn btn-outline" onclick="addSubjectRow()" style="margin-bottom: 10px; font-size: 0.85rem; padding: 8px 15px; width:100%;">➕ Add Another Subject</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
                     <div class="card" style="border-top: 4px solid #8b5cf6; margin-bottom: 20px;">
-                        <h3>🎓 School Details</h3>
+                        <h3>🎓 School Context</h3>
                         <div class="form-group">
                             <label class="form-label">School Name</label>
                             <input type="text" id="portSchoolName" class="form-input" placeholder="Enter full school name">
@@ -461,18 +478,14 @@
                                     </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">City</label>
-                            <input type="text" id="portCity" class="form-input" placeholder="e.g. Bangalore">
-                        </div>
                     </div>
 
                     <div class="card" style="border-top: 4px solid var(--accent); margin-bottom: 20px;">
                         <h3>🏆 Extra-Curriculars</h3>
-                        <textarea class="form-textarea" rows="3" placeholder="e.g. 1st Place State Science Fair..."></textarea>
+                        <textarea class="form-textarea" rows="3" placeholder="e.g. 1st Place State Science Fair..." id="portExtraCurricular"></textarea>
                     </div>
                     
-                    <button class="btn hide-from-parent" style="width:100%; padding: 16px; font-size: 1.1rem; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);" onclick="saveAcademicPortfolio()">💾 Save Entire Academic Profile</button>
+                    <button class="btn hide-from-parent" style="width:100%; padding: 16px; font-size: 1.1rem; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);" onclick="saveAcademicPortfolio()">💾 Save Academic Profile</button>
                 </div>
             </div>
         </div>
@@ -598,14 +611,44 @@
     const activeChatListeners = []; 
     let previouslyUnlockedBadges = new Set();
 
-    // --- ACADEMIC & REGIONAL LOGIC DATA ---
+    // --- FULL INDIAN STATES & DISTRICTS ---
     const stateDistricts = {
-      "Karnataka": ["Bangalore Urban", "Bangalore Rural", "Mysore", "Mangalore", "Hubli", "Belgaum", "Dharwad", "Tumkur", "Gulbarga"],
-      "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Thane", "Aurangabad"],
-      "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
-      "Delhi": ["New Delhi", "North Delhi", "South Delhi", "West Delhi"],
-      "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"],
-      "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Kollam"]
+      "Andaman and Nicobar Islands": ["Nicobar", "North and Middle Andaman", "South Andaman"],
+      "Andhra Pradesh": ["Adilabad", "Anantapur", "Chittoor", "East Godavari", "Guntur", "Hyderabad", "Kadapa", "Krishna", "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari"],
+      "Arunachal Pradesh": ["Anjaw", "Changlang", "East Kameng", "East Siang", "Kurung Kumey", "Lohit", "Lower Dibang Valley", "Lower Subansiri", "Papum Pare", "Tawang", "Tirap", "Upper Dibang Valley", "Upper Siang", "Upper Subansiri", "West Kameng", "West Siang"],
+      "Assam": ["Baksa", "Barpeta", "Bongaigaon", "Cachar", "Charaideo", "Chirang", "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Dima Hasao", "Goalpara", "Golaghat", "Hailakandi", "Jorhat", "Kamrup Metropolitan", "Kamrup", "Karbi Anglong", "Karimganj", "Kokrajhar", "Lakhimpur", "Morigaon", "Nagaon", "Nalbari", "Sivasagar", "Sonitpur", "Tinsukia", "Udalguri"],
+      "Bihar": ["Baksa", "Barpeta", "Bongaigaon", "Cachar", "Charaideo", "Chirang", "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Dima Hasao", "Goalpara", "Golaghat", "Hailakandi", "Jorhat", "Kamrup Metropolitan", "Kamrup", "Karbi Anglong", "Karimganj", "Kokrajhar", "Lakhimpur", "Morigaon", "Nagaon", "Nalbari", "Sivasagar", "Sonitpur", "Tinsukia", "Udalguri"],
+      "Chandigarh": ["Chandigarh"],
+      "Chhattisgarh": ["Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial", "Jangaon", "Jayashankar Bhupalpally", "Jogulamba Gadwal", "Kamareddy", "Karimnagar", "Khammam", "Komaram Bheem Asifabad", "Mahabubabad", "Mahabubnagar", "Mancherial", "Medak", "Medchal", "Nagarkurnool", "Nalgonda", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna Sircilla", "Ranga Reddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", "Warangal (Rural)", "Warangal (Urban)", "Yadadri Bhuvanagiri"],
+      "Dadra and Nagar Haveli": ["Dadra and Nagar Haveli"],
+      "Daman and Diu": ["Daman", "Diu"],
+      "Delhi": ["Central Delhi", "East Delhi", "New Delhi", "North Delhi", "North East Delhi", "North West Delhi", "Shahdara", "South Delhi", "South East Delhi", "South West Delhi", "West Delhi"],
+      "Goa": ["North Goa", "South Goa"],
+      "Gujarat": ["North Goa", "South Goa"],
+      "Haryana": ["Ambala", "Bhiwani", "Charkhi Dadri", "Faridabad", "Fatehabad", "Gurugram", "Hisar", "Jhajjar", "Jind", "Kaithal", "Karnal", "Kurukshetra", "Mahendragarh", "Mewat", "Palwal", "Panchkula", "Panipat", "Rewari", "Rohtak", "Sirsa", "Sonipat", "Yamunanagar"],
+      "Himachal Pradesh": ["Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kinnaur", "Kullu", "Lahaul and Spiti", "Mandi", "Shimla", "Sirmaur", "Solan", "Una"],
+      "Jammu and Kashmir": ["Anantnag", "Bandipore", "Baramulla", "Budgam", "Doda", "Ganderbal", "Jammu", "Kargil", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Poonch", "Pulwama", "Rajouri", "Ramban", "Reasi", "Samba", "Shopian", "Srinagar", "Udhampur"],
+      "Jharkhand": ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai", "Bhagalpur", "Bhojpur", "Buxar", "Darbhanga", "East Champaran", "Gaya", "Gopalganj", "Jamui", "Jehanabad", "Kaimur", "Katihar", "Khagaria", "Kishanganj", "Lakhisarai", "Madhepura", "Madhubani", "Munger", "Muzaffarpur", "Nalanda", "Nawada", "Patna", "Purnia", "Rohtas", "Saharsa", "Samastipur", "Saran", "Sheikhpura", "Sheohar", "Sitamarhi", "Siwan", "Supaul", "Vaishali", "West Champaran"],
+      "Karnataka": ["Bagalkot", "Ballari (Bellary)", "Belagavi (Belgaum)", "Bengaluru (Bangalore) Rural", "Bengaluru (Bangalore) Urban", "Bidar", "Chamarajanagar", "Chikballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", "Davangere", "Dharwad", "Gadag", "Hassan", "Haveri", "Kalaburagi (Gulbarga)", "Kodagu", "Kolar", "Koppal", "Mandya", "Mysuru (Mysore)", "Raichur", "Ramanagara", "Shivamogga (Shimoga)", "Tumakuru (Tumkur)", "Udupi", "Uttara Kannada (Karwar)", "Vijayapura (Bijapur)", "Yadgir"],
+      "Kerala": ["Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", "Thiruvananthapuram", "Thrissur", "Wayanad"],
+      "Lakshadweep": ["Lakshadweep"],
+      "Madhya Pradesh": ["Agar Malwa", "Alirajpur", "Anuppur", "Ashoknagar", "Balaghat", "Barwani", "Betul", "Bhind", "Bhopal", "Burhanpur", "Chhatarpur", "Chhindwara", "Damoh", "Datia", "Dewas", "Dhar", "Dindori", "Guna", "Gwalior", "Harda", "Hoshangabad", "Indore", "Jabalpur", "Jhabua", "Katni", "Khandwa", "Khargone", "Mandla", "Mandsaur", "Morena", "Narsinghpur", "Neemuch", "Panna", "Raisen", "Rajgarh", "Ratlam", "Rewa", "Sagar", "Satna", "Sehore", "Seoni", "Shahdol", "Shajapur", "Sheopur", "Shivpuri", "Sidhi", "Singrauli", "Tikamgarh", "Ujjain", "Umaria", "Vidisha"],
+      "Maharashtra": ["Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban", "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani", "Pune", "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg", "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"],
+      "Manipur": ["Anjaw", "Changlang", "East Kameng", "East Siang", "Kurung Kumey", "Lohit", "Lower Dibang Valley", "Lower Subansiri", "Papum Pare", "Tawang", "Tirap", "Upper Dibang Valley", "Upper Siang", "Upper Subansiri", "West Kameng", "West Siang"],
+      "Meghalaya": ["Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West", "Jiribam", "Kakching", "Kamjong", "Kangpokpi", "Noney", "Pherzawl", "Senapati", "Tamenglong", "Tengnoupal", "Thoubal", "Ukhrul"],
+      "Mizoram": ["East Garo Hills", "East Jaintia Hills", "East Khasi Hills", "North Garo Hills", "Ri Bhoi", "South Garo Hills", "South West Garo Hills", "South West Khasi Hills", "West Garo Hills", "West Jaintia Hills", "West Khasi Hills"],
+      "Nagaland": ["Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung", "Mon", "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto"],
+      "Odisha": ["Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak", "Boudh", "Cuttack", "Deogarh", "Dhenkanal", "Gajapati", "Ganjam", "Jagatsinghapur", "Jajpur", "Jharsuguda", "Kalahandi", "Kandhamal", "Kendrapara", "Kendujhar (Keonjhar)", "Khordha", "Koraput", "Malkangiri", "Mayurbhanj", "Nabarangpur", "Nayagarh", "Nuapada", "Puri", "Rayagada", "Sambalpur", "Subarnapur", "Sundargarh"],
+      "Puducherry": ["Karaikal", "Mahe", "Pondicherry", "Yanam"],
+      "Punjab": ["Amritsar", "Barnala", "Bathinda", "Faridkot", "Fatehgarh Sahib", "Fazilka", "Ferozepur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "Kapurthala", "Ludhiana", "Mansa", "Moga", "Muktsar", "Nawanshahr (Shahid Bhagat Singh Nagar)", "Pathankot", "Patiala", "Rupnagar", "Sahibzada Ajit Singh Nagar (Nawanshahr)", "Sangrur", "Tarn Taran"],
+      "Rajasthan": ["Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha (Palanpur)", "Bharuch", "Bhavnagar", "Botad", "Chhota Udepur", "Dahod", "Dangs (Ahwa)", "Devbhoomi Dwarka", "Gandhinagar", "Gir Somnath", "Jamnagar", "Junagadh", "Kachchh", "Kheda (Nadiad)", "Mahisagar", "Mehsana", "Morbi", "Narmada (Rajpipla)", "Navsari", "Panchmahal (Godhra)", "Patan", "Porbandar", "Rajkot", "Sabarkantha (Himmatnagar)", "Surat", "Surendranagar", "Tapi (Vyara)", "Vadodara", "Valsad"],
+      "Sikkim": ["Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung", "Mon", "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto"],
+      "Tamil Nadu": ["Ariyalur", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kanchipuram", "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Salem", "Sivaganga", "Thanjavur", "Theni", "Thoothukudi (Tuticorin)", "Tiruchirappalli", "Tirunelveli", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram", "Virudhunagar"],
+      "Telangana": ["Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial", "Jangaon", "Jayashankar Bhupalpally", "Jogulamba Gadwal", "Kamareddy", "Karimnagar", "Khammam", "Komaram Bheem Asifabad", "Mahabubabad", "Mahabubnagar", "Mancherial", "Medak", "Medchal", "Nagarkurnool", "Nalgonda", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna Sircilla", "Ranga Reddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", "Warangal (Rural)", "Warangal (Urban)", "Yadadri Bhuvanagiri"],
+      "Tripura": ["Aizawl", "Champhai", "Kolasib", "Lawngtlai", "Lunglei", "Mamit", "Saiha", "Serchhip"],
+      "Uttar Pradesh": ["Ajmer", "Alwar", "Banswara", "Baran", "Barmer", "Barmer", "Bhilwara", "Bikaner", "Bundi", "Chittorgarh", "Churu", "Dausa", "Dholpur", "Dungarpur", "Hanumangarh", "Jaipur", "Jaisalmer", "Jalore", "Jhalawar", "Jhunjhunu", "Jodhpur", "Karauli", "Kota", "Nagaur", "Pali", "Pratapgarh", "Rajsamand", "Sawai Madhopur", "Sikar", "Sirohi", "Sri Ganganagar", "Tonk", "Udaipur"],
+      "Uttarakhand": ["Almora", "Bageshwar", "Chamoli", "Champawat", "Dehradun", "Haridwar", "Nainital", "Pauri Garhwal", "Pithoragarh", "Rudraprayag", "Tehri Garhwal", "Udham Singh Nagar", "Uttarkashi"],
+      "West Bengal": ["Alipurduar", "Bankura", "Birbhum", "Burdwan (Bardhaman)", "Cooch Behar", "Dakshin Dinajpur (South Dinajpur)", "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Kalimpong", "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas", "Paschim Medinipur (West Medinipur)", "Purba Medinipur (East Medinipur)", "Purulia", "South 24 Parganas", "Uttar Dinajpur (North Dinajpur)"]
     };
 
     window.populateStates = function() {
@@ -646,6 +689,18 @@
         if(sys.includes('%') || sys === 'Percentile') { inp.placeholder = 'e.g. 88'; inp.max = 100; }
         else if(sys.includes('4')) { inp.placeholder = 'e.g. 3.8'; inp.max = 4; }
         else if(sys.includes('10')) { inp.placeholder = 'e.g. 9.2'; inp.max = 10; }
+    }
+    
+    window.toggleSubjectSection = function() {
+        const wrap = document.getElementById('subjectSectionWrapper');
+        const btn = document.getElementById('toggleSubjectBtn');
+        if(wrap.style.display === 'none') {
+            wrap.style.display = 'block';
+            btn.innerText = 'Hide Subjects ⬆';
+        } else {
+            wrap.style.display = 'none';
+            btn.innerText = 'View / Add Subjects ⬇';
+        }
     }
 
     window.addSubjectRow = function(name = "", score = "", grade = "") {
@@ -718,7 +773,7 @@
         toast.innerHTML = `<div class="toast-title">🔔 ${title}</div><div class="toast-body">${message}</div>`;
         
         toast.onclick = () => {
-            if(title.includes("Achievement") || title.includes("Level")) {
+            if(title.includes("Achievement") || title.includes("Level") || title.includes("Academic")) {
                 window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
             } else {
                 window.switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5]);
@@ -947,7 +1002,6 @@
 
         previouslyUnlockedBadges.add('badge-registered');
 
-        // Note: Checking the new object structure for academic presence
         if(data.academic && (data.academic.overallScore || data.academic.stream || (data.academic.subjects && data.academic.subjects.length > 0))) { 
             score += 2; xp += 20; percentProgress = 30;
             unlockBadge('badge-academic', 'unlocked-primary', 20);
@@ -1088,10 +1142,26 @@
         } catch(e) { console.error(e); }
     }
 
-    // --- NEW ACADEMIC SAVE LOGIC ---
+    // --- NEW ACADEMIC SAVE LOGIC WITH VALIDATION ---
     window.saveAcademicPortfolio = async function() {
         if(!activeUserUid) return;
         
+        const sys = document.getElementById('portGradingSystem').value;
+        const scoreVal = parseFloat(document.getElementById('portOverallScore').value);
+
+        // Score Validation
+        if (!isNaN(scoreVal)) {
+            if ((sys.includes('%') || sys === 'Percentile') && scoreVal > 100) {
+                return alert("Score cannot be greater than 100 for Percentage or Percentile.");
+            }
+            if (sys.includes('4') && scoreVal > 4) {
+                return alert("Score cannot be greater than 4 for a 4-point GPA system.");
+            }
+            if (sys.includes('10') && scoreVal > 10) {
+                return alert("Score cannot be greater than 10 for a 10-point CGPA system.");
+            }
+        }
+
         // Harvest dynamic subjects
         const subjectNodes = document.querySelectorAll('.subject-row');
         let parsedSubjects = [];
@@ -1110,16 +1180,19 @@
             board: document.getElementById('portBoard').value,
             state: isIndia ? document.getElementById('portState').value : "",
             district: isIndia ? document.getElementById('portDistrict').value : "",
-            city: document.getElementById('portCity').value.trim()
         };
+        
+        // Include Extra Curriculars
+        const extraCurr = document.getElementById('portExtraCurricular').value.trim();
 
         const academicData = { 
-            gradingSystem: document.getElementById('portGradingSystem').value,
-            overallScore: document.getElementById('portOverallScore').value,
+            gradingSystem: sys,
+            overallScore: isNaN(scoreVal) ? "" : scoreVal,
             trend: document.getElementById('portTrend').value,
             stream: document.getElementById('portStream').value,
             subjects: parsedSubjects,
-            school: schoolObj
+            school: schoolObj,
+            extraCurriculars: extraCurr
         };
 
         try {
@@ -1162,6 +1235,7 @@
                     if(data.academic.overallScore) document.getElementById('portOverallScore').value = data.academic.overallScore;
                     if(data.academic.trend) document.getElementById('portTrend').value = data.academic.trend;
                     if(data.academic.stream) document.getElementById('portStream').value = data.academic.stream;
+                    if(data.academic.extraCurriculars) document.getElementById('portExtraCurricular').value = data.academic.extraCurriculars;
                     
                     // Legacy Fallback for older data format
                     if(!data.academic.overallScore && data.academic.marks) { document.getElementById('portOverallScore').value = data.academic.marks; }
@@ -1171,10 +1245,11 @@
                     subContainer.innerHTML = '';
                     if(data.academic.subjects && data.academic.subjects.length > 0) {
                         data.academic.subjects.forEach(sub => addSubjectRow(sub.name, sub.score, sub.grade));
+                        // Automatically show subject section if data exists
+                        document.getElementById('subjectSectionWrapper').style.display = 'block';
+                        document.getElementById('toggleSubjectBtn').innerText = 'Hide Subjects ⬆';
                     } else {
-                        // Fallback empty row
-                        addSubjectRow();
-                        // Pre-fill legacy strong/weak if available
+                        addSubjectRow(); // Fallback empty row
                         if(data.academic.strongSub) { document.querySelector('.sub-name').value = data.academic.strongSub; }
                     }
 
@@ -1188,11 +1263,9 @@
                             document.getElementById('portState').value = data.academic.school.state;
                             populateDistricts(data.academic.school.district);
                         }
-                        document.getElementById('portCity').value = data.academic.school.city || "";
                     }
                 } else {
-                    // Initial empty state for subjects
-                    addSubjectRow();
+                    addSubjectRow(); // Initial empty state for subjects
                 }
 
                 calculateDynamicScore(data);
