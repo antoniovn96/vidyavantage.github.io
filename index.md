@@ -119,7 +119,12 @@ title: Home
   .preview-box { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-top: 8px solid var(--secondary); text-align: center;}
   
   /* ==========================================
-     7. FAQ ACCORDION
+     7. FOR SCHOOLS CTA (FIXED VISIBILITY)
+     ========================================== */
+  .school-cta { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; padding: 80px 20px; text-align: center; border-radius: 30px; max-width: 1100px; margin: 0 auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2);}
+
+  /* ==========================================
+     8. FAQ ACCORDION
      ========================================== */
   .faq-container { max-width: 800px; margin: 0 auto; }
   .faq-item { background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: 0.3s;}
@@ -128,11 +133,6 @@ title: Home
   .faq-item.active .faq-answer { display: block; }
   .faq-item.active { border-color: var(--primary); box-shadow: 0 10px 20px rgba(37,99,235,0.05);}
   .faq-item.active .faq-icon { transform: rotate(45deg); color: var(--primary);}
-
-  /* ==========================================
-     8. FOR SCHOOLS CTA
-     ========================================== */
-  .school-cta { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; padding: 80px 20px; text-align: center; border-radius: 30px; max-width: 1100px; margin: 100px auto;}
 
   /* ==========================================
      9. BLOG TEASERS
@@ -323,18 +323,18 @@ title: Home
           <span style="background: var(--bg-light); color: var(--secondary); padding: 8px 16px; border-radius: 8px; font-weight: bold;">🎯 Top 5 Career Matches</span>
           <span style="background: var(--bg-light); color: var(--secondary); padding: 8px 16px; border-radius: 8px; font-weight: bold;">📚 Recommended Subjects</span>
       </div>
-      <a href="#loginBoxUI" class="btn" style="padding: 15px 40px; font-size: 1.2rem;">Take the Assessment Now</a>
+      <a href="#loginBoxUI" class="btn" style="padding: 15px 40px; font-size: 1.2rem; text-decoration: none;">Take the Assessment Now</a>
   </div>
 </div>
 
 <div class="section-wrap">
     <div class="school-cta">
-        <span class="hero-badge" style="background: rgba(255,255,255,0.2); color: white;">B2B Partnerships</span>
+        <span class="hero-badge" style="background: rgba(255,255,255,0.2); color: white; border: none;">B2B Partnerships</span>
         <h2 style="font-size: 3rem; margin: 15px 0;">Are You a School Administrator?</h2>
         <p style="font-size: 1.2rem; color: #cbd5e1; max-width: 700px; margin: 0 auto 30px;">
             Empower your institution with a white-labeled career dashboard. Track student clarity metrics, identify high-risk students, and host expert parent workshops.
         </p>
-        <button class="btn" style="background: white; color: #0f172a; padding: 15px 40px; font-size: 1.1rem;">Request Institutional Demo</button>
+        <button class="btn" style="background: white; color: #0f172a; padding: 15px 40px; font-size: 1.1rem;" onclick="window.location.href='mailto:antonio.antonio.noronha@gmail.com?subject=School Partnership Inquiry'">Request Institutional Demo</button>
     </div>
 </div>
 
