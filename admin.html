@@ -126,6 +126,24 @@
 </head>
 <body>
 
+<div id="adminLoginOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; display:none;">
+    <div class="card" style="width: 100%; max-width: 400px; text-align: center; border-top: 4px solid var(--primary);">
+        <h2 style="color: white; margin-top: 0;">Super Admin Access</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Please authenticate to access the control center.</p>
+        
+        <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); padding: 10px; border-radius: 8px; margin-bottom: 25px;">
+            <span style="font-size: 0.8rem; color: var(--warning); font-weight: bold; text-transform: uppercase;">Master Account Required</span><br>
+            <span style="font-size: 0.9rem; color: white;">antonio.antonio.noronha@gmail.com</span>
+        </div>
+        
+        <button class="btn" style="width: 100%; background: white; color: #0f172a; display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="executeAdminLogin()" id="adminLoginBtn">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 20px;">
+            Sign in with Google
+        </button>
+        <a href="index.html" style="display: block; margin-top: 20px; color: var(--text-muted); text-decoration: none; font-size: 0.85rem;">← Back to Public Site</a>
+    </div>
+</div>
+
 <div class="modal-overlay" id="studentDossierModal">
     <div class="modal-content">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
@@ -402,7 +420,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-    import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     // ⚠️ YOUR EXACT FIREBASE KEYS
     const firebaseConfig = {
@@ -423,11 +441,47 @@
 
     onAuthStateChanged(auth, (user) => {
         if (!user || user.email.toLowerCase() !== SUPER_ADMIN_EMAIL.toLowerCase()) {
-            alert("Unauthorized."); window.location.href = "index.html"; 
+            // Show login screen if not logged in or wrong user
+            document.getElementById('adminLoginOverlay').style.display = 'flex';
+            if (user) signOut(auth); // Kick out the wrong user secretly
         } else {
+            // Success! Hide login and load dashboard
+            document.getElementById('adminLoginOverlay').style.display = 'none';
             document.getElementById('dropEmail').innerText = user.email;
         }
     });
+
+    // Google Sign-In Provider
+    const provider = new GoogleAuthProvider();
+
+    // Function to handle Google Login
+    window.executeAdminLogin = function() {
+        const btn = document.getElementById('adminLoginBtn');
+        btn.innerText = "Authenticating... ⏳";
+        btn.disabled = true;
+
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                // Double-check they didn't accidentally click a different Google account
+                if (user.email.toLowerCase() !== SUPER_ADMIN_EMAIL.toLowerCase()) {
+                    alert(`Access Denied! You logged in as ${user.email}. You must use your master email.`);
+                    signOut(auth);
+                    resetLoginBtn(btn);
+                }
+                // If it matches, the onAuthStateChanged listener above will automatically hide the overlay
+            })
+            .catch((error) => {
+                console.error(error);
+                alert("Login cancelled or failed. Please try again.");
+                resetLoginBtn(btn);
+            });
+    }
+    
+    function resetLoginBtn(btn) {
+        btn.innerHTML = `<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 20px;"> Sign in with Google`;
+        btn.disabled = false;
+    }
 
     let uploadedImageBase64 = "";
     window.globalStudentData = {}; 
