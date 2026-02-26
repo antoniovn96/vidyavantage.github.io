@@ -27,11 +27,11 @@
       .nav-btn.active { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-left: 4px solid #3b82f6; border-radius: 0 12px 12px 0;}
 
       /* --- MAIN CONTENT & LAYOUT --- */
-      .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+      .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; transition: border 0.3s ease; border-top: 0px solid var(--warning); }
       .top-header { background: white; height: 70px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); z-index: 10;}
       
-      /* CLEAN PARENT MODE UI */
-      #parentRibbon { display: none; background: #d97706; color: white; text-align: center; padding: 8px; font-size: 0.9rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;}
+      /* CLEAN PARENT MODE UI (No layout breaking) */
+      body.parent-mode-active .main-wrapper { border-top: 5px solid var(--warning); }
       body.parent-mode-active .hide-from-parent { display: none !important; }
       body.parent-mode-active .form-input, body.parent-mode-active .form-select, body.parent-mode-active .form-textarea { 
           background: transparent; border: none; padding: 0; font-weight: bold; color: var(--primary); pointer-events: none; -webkit-appearance: none; appearance: none;
@@ -111,8 +111,6 @@
     </style>
 </head>
 <body>
-
-<div id="parentRibbon">👨‍👩‍👧 Viewing as Parent (Read-Only Mode)</div>
 
 <div class="sidebar">
     <div class="profile-info">
@@ -440,13 +438,11 @@
     // --- BEAUTIFUL PARENT MODE (Pure CSS Toggling) ---
     window.toggleParentMode = function() {
         const btn = document.getElementById('parentToggleBtn');
-        const ribbon = document.getElementById('parentRibbon');
         
         if(!document.body.classList.contains('parent-mode-active')) {
             document.body.classList.add('parent-mode-active');
             btn.classList.add('active');
             btn.innerText = "👨‍👩‍👧 Exit Parent View";
-            ribbon.style.display = 'block';
             
             // Switch to Dashboard automatically if they were in Chat or Settings
             const activeTab = document.querySelector('.tab-content.active').id;
@@ -457,7 +453,6 @@
             document.body.classList.remove('parent-mode-active');
             btn.classList.remove('active');
             btn.innerText = "👨‍👩‍👧 Parent View";
-            ribbon.style.display = 'none';
         }
     }
 
@@ -704,6 +699,14 @@
                 document.getElementById('welcomeText').innerText = `Welcome back, ${firstName}!`;
                 document.getElementById('setStuName').value = data.name;
                 document.getElementById('setStuEmail').value = data.email;
+                
+                if(data.photo) {
+                    document.getElementById('stuAvatarImg').src = data.photo;
+                    document.getElementById('stuAvatarImg').style.display = 'block';
+                    document.getElementById('stuInitials').style.display = 'none';
+                } else {
+                    document.getElementById('stuInitials').innerText = firstName.charAt(0).toUpperCase();
+                }
                 
                 if(data.academic) {
                     if(data.academic.marks) document.getElementById('portMarks').value = data.academic.marks;
