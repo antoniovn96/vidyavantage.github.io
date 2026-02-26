@@ -90,10 +90,15 @@
       .msg-me { background: var(--primary); color: white; margin-left: auto; border-bottom-right-radius: 0; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2);}
       .msg-them { background: rgba(255,255,255,0.05); color: white; margin-right: auto; border-bottom-left-radius: 0; border: 1px solid var(--border);}
 
-      /* MODAL UI & UPLOADS */
+      /* MODAL UI (UPGRADED) */
       .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-      .modal-content { background: var(--card-bg); width: 700px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: fadeIn 0.3s ease;}
+      .modal-content { background: var(--card-bg); width: 900px; max-width: 95%; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.5); animation: fadeIn 0.3s ease;}
       
+      .profile-360-header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--primary); padding-bottom: 15px; margin-bottom: 20px;}
+      .readiness-track { display: flex; gap: 5px; margin-top: 10px;}
+      .readiness-box { flex: 1; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; position: relative;}
+      .readiness-box.active { background: var(--success); box-shadow: 0 0 10px var(--success);}
+
       .avatar-wrapper { position: relative; width: 100px; height: 100px; margin-bottom: 15px; cursor: pointer; }
       .prof-avatar { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--primary); object-fit: cover; background: #0f172a; transition: 0.3s;}
       .avatar-wrapper:hover .prof-avatar { opacity: 0.7; }
@@ -106,28 +111,81 @@
 
 <div class="modal-overlay" id="studentModal">
     <div class="modal-content">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+        <div class="profile-360-header">
             <div>
                 <h2 id="modalStuName" style="margin: 0 0 5px 0; color: white;">Student Name</h2>
                 <span id="modalStuEmail" style="color: var(--text-muted); font-size: 0.9rem;">student@email.com</span>
+                <div style="margin-top: 10px;">
+                    <span class="badge" id="modalStuGrade">Grade --</span>
+                    <span class="badge" id="modalStuStatus">Status</span>
+                    <span class="badge" id="modalStuRisk">Risk</span>
+                </div>
             </div>
             <button onclick="closeStudentModal()" style="background:transparent; border:none; color:var(--text-muted); font-size:1.8rem; cursor:pointer;">&times;</button>
         </div>
         
         <div class="grid-2col">
-            <div class="card" style="margin-bottom:0; background:rgba(0,0,0,0.2);">
-                <h3 style="font-size:1rem;">Academic Details</h3>
-                <p style="margin: 5px 0; color:var(--text-muted);">Grade: <strong id="modalStuGrade" style="color:white;">--</strong></p>
-                <p style="margin: 5px 0; color:var(--text-muted);">Assessment: <strong id="modalStuStatus" style="color:white;">--</strong></p>
+            <div>
+                <div class="card" style="margin-bottom:20px; background:rgba(0,0,0,0.2);">
+                    <h3 style="font-size:1rem; border-bottom:1px dashed var(--border);">📊 Academic & Career Alignment</h3>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span style="color:var(--text-muted); font-size:0.9rem;">Current Stream:</span>
+                        <strong style="color:white;" id="modalStuStream">--</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span style="color:var(--text-muted); font-size:0.9rem;">Avg Marks:</span>
+                        <strong style="color:white;" id="modalStuMarks">--%</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span style="color:var(--text-muted); font-size:0.9rem;">Top Subject:</span>
+                        <strong style="color:var(--secondary);" id="modalStuStrong">--</strong>
+                    </div>
+                    <div style="background: rgba(139,92,246,0.1); border: 1px solid var(--primary); padding: 10px; border-radius: 8px; margin-top: 15px;">
+                        <span style="display:block; font-size:0.8rem; color:var(--primary); text-transform:uppercase; font-weight:bold;">RIASEC Match Alert</span>
+                        <span style="color:white; font-size:0.9rem;" id="modalStuMatchAlert">System calculating...</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom:0; background:rgba(0,0,0,0.2);">
+                    <h3 style="font-size:1rem; border-bottom:1px dashed var(--border);">📈 Clarity Growth Curve</h3>
+                    <div style="height: 150px; width: 100%;">
+                        <canvas id="modalClarityChart"></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="card" style="margin-bottom:0; border-top: 4px solid var(--accent); background:rgba(0,0,0,0.2);">
-                <h3 style="font-size:1rem;">Psychometric Snapshot</h3>
-                <p style="margin: 5px 0; color:var(--text-muted);">Clarity Score: <strong style="color:var(--warning);" id="modalStuClarity">--</strong></p>
-                <p style="margin: 5px 0; color:var(--text-muted);">Top Traits: <strong style="color:white;" id="modalStuTraits">--</strong></p>
-                <p style="margin: 5px 0; color:var(--text-muted);">System Flag: <span class="badge badge-warning" id="modalStuRisk">--</span></p>
+
+            <div>
+                <div class="card" style="margin-bottom:20px; background:rgba(0,0,0,0.2); border-top: 4px solid var(--success);">
+                    <h3 style="font-size:1rem; border-bottom:none; margin-bottom:5px;">🧩 Decision Readiness Stage</h3>
+                    <div class="readiness-track">
+                        <div class="readiness-box" id="r-stage-1" title="Exploration"></div>
+                        <div class="readiness-box" id="r-stage-2" title="Comparison"></div>
+                        <div class="readiness-box" id="r-stage-3" title="Shortlisting"></div>
+                        <div class="readiness-box" id="r-stage-4" title="Finalizing"></div>
+                        <div class="readiness-box" id="r-stage-5" title="Locked"></div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-top:5px;">
+                        <span>Exploring</span><span>Locked</span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom:0; background:rgba(0,0,0,0.2);">
+                    <h3 style="font-size:1rem; border-bottom:1px dashed var(--border);">📋 Clinical Case Summary</h3>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:0.9rem;">
+                        <span style="color:var(--text-muted);">Total Sessions:</span>
+                        <strong style="color:white;" id="modalSessionCount">0</strong>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:0.9rem;">
+                        <span style="color:var(--text-muted);">Parent Involvement:</span>
+                        <strong style="color:var(--warning);" id="modalParentInv">Unknown</strong>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.05); border: 1px dashed var(--border); padding: 10px; border-radius: 8px; font-size: 0.85rem; color: var(--text-main); max-height: 150px; overflow-y:auto;" id="modalLastNote">
+                        No previous session notes found.
+                    </div>
+                </div>
             </div>
         </div>
-        <button class="btn" style="width:100%; margin-top:20px;" onclick="closeStudentModal()">Close File</button>
     </div>
 </div>
 
@@ -200,6 +258,11 @@
                         <div style="font-size:0.9rem; color:var(--text-muted); line-height: 1.6;" id="alertBox">
                             <p style="text-align:center;">Monitoring system for clinical flags...</p>
                         </div>
+                        
+                        <div id="interventionSuggestionPanel" style="margin-top:20px; padding-top:15px; border-top:1px dashed var(--border); display:none;">
+                            <span style="font-size:0.8rem; font-weight:bold; color:var(--primary); text-transform:uppercase;">🎯 Smart Suggestion</span>
+                            <p id="interventionText" style="margin:5px 0; color:white; font-size:0.9rem;"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -211,7 +274,15 @@
                     <h1>Student Queue</h1>
                     <p>Live database of all students assigned to your roster.</p>
                 </div>
-                <input type="text" class="form-input" placeholder="Search student name..." style="width: 250px;">
+                <div style="display:flex; gap:10px;">
+                    <select class="form-select" id="clinicalFilter" onchange="loadAssignedStudents()" style="width:180px;">
+                        <option value="ALL">All Students</option>
+                        <option value="RISK">High Risk Flags</option>
+                        <option value="LOCKED">Career Locked</option>
+                        <option value="PENDING">Needs Assessment</option>
+                    </select>
+                    <input type="text" id="studentSearchInput" class="form-input" placeholder="Search name..." style="width: 200px;" onkeyup="loadAssignedStudents()">
+                </div>
             </div>
 
             <div class="card">
@@ -223,7 +294,7 @@
                                 <th>Email</th>
                                 <th>Grade</th>
                                 <th>Assessment</th>
-                                <th>Risk Indicator</th>
+                                <th>Primary Flag</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -261,15 +332,36 @@
                 </div>
 
                 <div class="card" style="border-top: 4px solid var(--primary);">
-                    <h3>Log Clinical Case Notes</h3>
+                    <h3>Log Structured Case Notes</h3>
                     <div class="form-group">
-                        <label class="form-label">Select Student</label>
                         <select class="form-select" id="sessionStudentSelect">
-                            <option value="">Loading students...</option>
+                            <option value="">-- Select Student --</option>
                         </select>
                     </div>
+                    
+                    <div class="grid-2col" style="gap:15px;">
+                        <div class="form-group">
+                            <label class="form-label">Session Type</label>
+                            <select class="form-select" id="logType">
+                                <option value="Exploration">Exploration</option>
+                                <option value="Clarification">Clarification</option>
+                                <option value="Conflict Resolution">Parent Conflict Resolution</option>
+                                <option value="Study Abroad Planning">Study Abroad Planning</option>
+                                <option value="Crisis Intervention">Crisis Intervention</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Parent Attended?</label>
+                            <select class="form-select" id="logParent">
+                                <option value="No">No</option>
+                                <option value="Yes - Supportive">Yes - Supportive</option>
+                                <option value="Yes - High Pressure">Yes - High Pressure</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                        <label class="form-label">Session Summary & Observations</label>
+                        <label class="form-label">Session Outcomes & Homework</label>
                         <textarea class="form-textarea" id="sessionNotesInput" rows="3" placeholder="Notes shared with student/parents..."></textarea>
                     </div>
                     
@@ -311,7 +403,7 @@
             <div class="card" style="border-top: 4px solid var(--danger);">
                 <h3>🚩 High Priority Queue</h3>
                 <table class="data-table">
-                    <thead><tr><th>Student</th><th>Primary Risk Factor</th><th>Clarity Score</th><th>Action Required</th></tr></thead>
+                    <thead><tr><th>Student</th><th>Primary Risk Factor</th><th>Clarity Trend</th><th>Action Required</th></tr></thead>
                     <tbody id="interventionTableBody">
                         <tr><td colspan="4" style="text-align:center;">Scanning...</td></tr>
                     </tbody>
@@ -401,8 +493,7 @@
       projectId: "career-intelligence-system",
       storageBucket: "career-intelligence-system.firebasestorage.app",
       messagingSenderId: "223785446772",
-      appId: "1:223785446772:web:0f9ded4e89a978fc551021",
-      measurementId: "G-HGKJJN9KDF"
+      appId: "1:223785446772:web:0f9ded4e89a978fc551021"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -411,6 +502,7 @@
     
     let activeUserEmail = "";
     window.globalStudentData = {}; 
+    let modalChartInstance = null; // Holds the mini line graph
 
     const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
     document.getElementById('currentDateDisplay').innerText = new Date().toLocaleDateString('en-US', options);
@@ -427,25 +519,121 @@
     window.onclick = function(event) { if (!event.target.matches('.avatar-btn')) { document.getElementById("profileDropdownBtn").classList.remove("active"); } }
     window.logoutUser = function() { signOut(auth).then(() => { window.location.href = "index.html"; }); }
 
-    // --- MODAL LOGIC ---
+    // --- UPGRADED MODAL LOGIC (360 VIEW) ---
     window.openStudentModal = function(uid) {
         const student = window.globalStudentData[uid];
         if(!student) return;
         
         document.getElementById('modalStuName').innerText = student.name;
         document.getElementById('modalStuEmail').innerText = student.email;
-        document.getElementById('modalStuGrade').innerText = student.grade || "N/A";
-        document.getElementById('modalStuStatus').innerHTML = student.assessmentCompleted ? '<span style="color:var(--success);">Completed</span>' : '<span style="color:var(--warning);">Pending</span>';
+        document.getElementById('modalStuGrade').innerText = "Grade " + (student.grade || "N/A");
         
+        // 1. Academic & Traits
+        if(student.academic) {
+            document.getElementById('modalStuStream').innerText = student.academic.stream || "--";
+            document.getElementById('modalStuMarks').innerText = student.academic.marks ? `${student.academic.marks}%` : "--";
+            document.getElementById('modalStuStrong').innerText = student.academic.strongSub || "--";
+        }
+
+        document.getElementById('modalStuStatus').innerText = student.assessmentCompleted ? 'Assessment Done' : 'Pending Test';
+        document.getElementById('modalStuStatus').className = student.assessmentCompleted ? 'badge badge-success' : 'badge badge-warning';
+
+        document.getElementById('modalSessionCount').innerText = student.sessionsHad || "0";
+        document.getElementById('modalParentInv').innerText = "Unknown"; // Will update based on notes
+
         if(student.psychIndex) {
             document.getElementById('modalStuClarity').innerText = student.psychIndex.careerClarity + " / 10";
             document.getElementById('modalStuTraits').innerText = student.riasecCode || "--";
-            document.getElementById('modalStuRisk').innerText = student.psychIndex.riskCategory === "High" ? "High Risk Detected" : "Stable";
-            document.getElementById('modalStuRisk').className = student.psychIndex.riskCategory === "High" ? "badge badge-danger" : "badge badge-success";
+            
+            // Multi-Factor Risk Display
+            let riskReason = "Stable";
+            let rClass = "badge-success";
+            
+            if(student.psychIndex.riskCategory === "High") {
+                rClass = "badge-danger";
+                // Logic: Is it academic mismatch or parental pressure?
+                if(student.academic && parseInt(student.academic.marks) < 55) {
+                    riskReason = "Academic Mismatch Risk";
+                } else if(student.psychIndex.parentPressure > 70) {
+                    riskReason = "High Parent Expectation";
+                } else {
+                    riskReason = "Low Clarity / High Stress";
+                }
+            }
+            document.getElementById('modalStuRisk').innerText = riskReason;
+            document.getElementById('modalStuRisk').className = `badge ${rClass}`;
+
+            // Career Alignment Fake Logic (Real logic would compare Stream + RIASEC)
+            let alertMsg = "Strong Alignment.";
+            if(student.academic && student.riasecCode) {
+                if(student.academic.stream === "Commerce" && !student.riasecCode.includes('C') && !student.riasecCode.includes('E')) alertMsg = "⚠️ Mismatch Warning: Student in Commerce but lacks C/E traits.";
+                if(student.academic.stream === "PCM" && !student.riasecCode.includes('I')) alertMsg = "⚠️ Mismatch Warning: PCM chosen but Investigative trait is low.";
+            }
+            document.getElementById('modalStuMatchAlert').innerText = alertMsg;
+
+            // Readiness Indicator Logic
+            document.querySelectorAll('.readiness-box').forEach(b => b.classList.remove('active'));
+            let stage = 1; // Default
+            if(student.assessmentCompleted) stage = 2;
+            if(student.sessionsHad > 0) stage = 3;
+            if(student.psychIndex.careerClarity >= 8) stage = 4;
+            if(student.careerLocked) stage = 5;
+            
+            for(let i=1; i<=stage; i++) {
+                document.getElementById(`r-stage-${i}`).classList.add('active');
+            }
+
+            // Clarity Graph Render
+            renderClarityGraph(student.psychIndex.careerClarity);
         }
+
+        // Render Last Note
+        if(student.counsellorNotes && student.counsellorNotes.length > 0) {
+            const last = student.counsellorNotes[student.counsellorNotes.length - 1];
+            document.getElementById('modalLastNote').innerHTML = `
+                <span style="color:var(--primary); font-size:0.8rem; font-weight:bold;">${new Date(last.date).toLocaleDateString()} - ${last.type || 'Session'}</span><br>
+                ${last.note}
+            `;
+            if(last.parentAttended) document.getElementById('modalParentInv').innerText = last.parentAttended;
+        } else {
+            document.getElementById('modalLastNote').innerHTML = "No previous session notes found.";
+        }
+
         document.getElementById('studentModal').style.display = 'flex';
     }
+
     window.closeStudentModal = function() { document.getElementById('studentModal').style.display = 'none'; }
+
+    function renderClarityGraph(currentScore) {
+        if (typeof Chart === 'undefined') return;
+        const ctx = document.getElementById('modalClarityChart');
+        if(!ctx) return;
+        if(modalChartInstance) modalChartInstance.destroy();
+        
+        // Mocking historical data based on current score
+        let s1 = Math.max(1, currentScore - 4);
+        let s2 = Math.max(3, currentScore - 2);
+        
+        modalChartInstance = new Chart(ctx.getContext('2d'), {
+            type: 'line',
+            data: { 
+                labels: ['Registration', 'Assessment', 'Current'], 
+                datasets: [{ 
+                    label: 'Clarity Score',
+                    data: [s1, s2, currentScore], 
+                    borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', borderWidth: 3, pointRadius: 5, fill: true, tension: 0.3 
+                }] 
+            },
+            options: { 
+                responsive: true, maintainAspectRatio: false, 
+                plugins: { legend: { display: false } }, 
+                scales: { 
+                    x: { ticks: { color: '#94a3b8' }, grid: { display: false } }, 
+                    y: { min: 0, max: 10, ticks: { color: '#64748b' }, grid: { color: 'rgba(255,255,255,0.05)' } } 
+                } 
+            }
+        });
+    }
 
     // --- FIREBASE SECURITY & INITIALIZATION ---
     onAuthStateChanged(auth, async (user) => {
@@ -465,7 +653,7 @@
                 
                 loadCounsellorProfile(activeUserEmail);
                 loadAssignedStudents();
-                listenToBookings(activeUserEmail); // START LISTENING FOR APPOINTMENTS
+                listenToBookings(activeUserEmail); 
 
             } else {
                 alert("Unauthorized: You do not have Counsellor clearance.");
@@ -525,13 +713,16 @@
     }
 
 
-    // --- LOAD LIVE STUDENTS INTO QUEUE & DROPDOWNS ---
-    async function loadAssignedStudents() {
+    // --- LOAD LIVE STUDENTS (UPGRADED WITH SEARCH & MULTI-RISK) ---
+    window.loadAssignedStudents = async function() {
         const tbody = document.getElementById('studentTableBody');
         const sessionSelect = document.getElementById('sessionStudentSelect');
         const chatList = document.getElementById('chatStudentList');
         const interventionBody = document.getElementById('interventionTableBody');
         
+        const filterVal = document.getElementById('clinicalFilter') ? document.getElementById('clinicalFilter').value : "ALL";
+        const searchVal = document.getElementById('studentSearchInput') ? document.getElementById('studentSearchInput').value.toLowerCase() : "";
+
         try {
             const snap = await getDocs(collection(db, "students"));
             let studentCount = 0; let riskCount = 0;
@@ -549,23 +740,42 @@
 
             snap.forEach(docSnap => {
                 const data = docSnap.data();
-                studentCount++;
                 window.globalStudentData[docSnap.id] = data; 
 
+                // Search Filter
+                if (searchVal && !data.name.toLowerCase().includes(searchVal)) return;
+
+                // Risk & Clinical Logic
                 let riskBadge = '<span class="badge badge-success">Stable</span>';
+                let primaryRiskString = "None";
+                let isHighRisk = false;
+
                 if(data.psychIndex && data.psychIndex.riskCategory === "High") {
+                    isHighRisk = true;
                     riskBadge = '<span class="badge badge-danger">High Risk</span>';
+                    
+                    if(data.academic && parseInt(data.academic.marks) < 55) primaryRiskString = "Academic Mismatch";
+                    else if(data.psychIndex.parentPressure > 70) primaryRiskString = "Parent Expectation";
+                    else primaryRiskString = "Low Clarity / High Stress";
+
                     riskCount++;
-                    intHtml += `<tr><td><strong>${data.name}</strong></td><td>Elevated Pressure Metric</td><td>${data.psychIndex.careerClarity || 0}/10</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;" onclick="switchTab('tab-chat', document.querySelectorAll('.nav-btn')[3]); openChat('${docSnap.id}', '${data.name}')">Message User</button></td></tr>`;
+                    intHtml += `<tr><td><strong>${data.name}</strong></td><td>${primaryRiskString}</td><td>${data.psychIndex.careerClarity || 0}/10 📉</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;" onclick="switchTab('tab-chat', document.querySelectorAll('.nav-btn')[3]); openChat('${docSnap.id}', '${data.name}')">Message User</button></td></tr>`;
                 }
                 else if(!data.assessmentCompleted) riskBadge = '<span class="badge badge-warning">Needs Assmnt</span>';
-                
+
+                // Tab Filter Logic
+                if (filterVal === "RISK" && !isHighRisk) return;
+                if (filterVal === "LOCKED" && !data.careerLocked) return;
+                if (filterVal === "PENDING" && data.assessmentCompleted) return;
+
+                studentCount++;
+
                 tbody.innerHTML += `<tr>
                     <td><strong style="color:white;">${data.name}</strong></td>
                     <td style="color:var(--text-muted);">${data.email}</td>
                     <td>Grade ${data.grade || 'N/A'}</td>
                     <td>${data.assessmentCompleted ? '<span style="color:var(--success);">Complete</span>' : '<span style="color:var(--text-muted);">Pending</span>'}</td>
-                    <td>${riskBadge}</td>
+                    <td>${primaryRiskString !== "None" ? `<span style="color:var(--danger); font-weight:bold; font-size:0.85rem;">${primaryRiskString}</span>` : riskBadge}</td>
                     <td><button class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="openStudentModal('${docSnap.id}')">View File</button></td>
                 </tr>`;
 
@@ -581,15 +791,21 @@
                     </div>`;
             });
 
+            if(studentCount === 0) tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No students found matching filters.</td></tr>";
+
             document.getElementById('kpiStudents').innerText = studentCount;
             document.getElementById('kpiRisk').innerText = riskCount;
             if(intHtml) interventionBody.innerHTML = intHtml;
             else interventionBody.innerHTML = "<tr><td colspan='4' style='text-align:center;'>No high-risk students currently detected.</td></tr>";
 
+            // SaaS Intervention Suggestion Engine
             if(riskCount > 0) {
                 document.getElementById('alertBox').innerHTML = `<p><strong style="color:var(--danger);">⚠️ Urgent:</strong> ${riskCount} students flagged with High Risk clinical metrics. Review Intervention Panel.</p>`;
+                document.getElementById('interventionSuggestionPanel').style.display = 'block';
+                document.getElementById('interventionText').innerText = "System detects elevated Parent Expectation stress across multiple files. Recommend bulk dispatching 'Parent Alignment Worksheet' from Resource Library.";
             } else {
                 document.getElementById('alertBox').innerHTML = `<p style="color:var(--success);">System clear. No urgent clinical flags detected.</p>`;
+                document.getElementById('interventionSuggestionPanel').style.display = 'none';
             }
 
         } catch(e) { 
@@ -650,9 +866,11 @@
         try { await updateDoc(doc(db, "bookings", id), { status: status }); } catch (e) { console.error(e); alert("Failed to update status."); }
     }
 
-    // --- SESSION NOTES ---
+    // --- STRUCTURED SESSION NOTES LOGIC ---
     window.saveSessionNotes = async function() {
         const studentUid = document.getElementById('sessionStudentSelect').value; 
+        const type = document.getElementById('logType').value;
+        const parent = document.getElementById('logParent').value;
         const notes = document.getElementById('sessionNotesInput').value.trim();
         const adminNotes = document.getElementById('adminNotesInput').value.trim(); 
         const btn = document.getElementById('saveNotesBtn');
@@ -664,12 +882,18 @@
         try {
             await updateDoc(doc(db, "students", studentUid), {
                 counsellorNotes: arrayUnion({
-                    date: new Date().toISOString(), note: notes, adminEscalation: adminNotes, counsellorEmail: activeUserEmail
+                    date: new Date().toISOString(), 
+                    type: type,
+                    parentAttended: parent,
+                    note: notes, 
+                    adminEscalation: adminNotes, 
+                    counsellorEmail: activeUserEmail
                 })
             });
-            alert("Clinical notes saved to student dossier safely.");
+            alert("Structured clinical notes saved to student dossier.");
             document.getElementById('sessionNotesInput').value = "";
             document.getElementById('adminNotesInput').value = "";
+            loadAssignedStudents(); // Refresh modal data secretly
         } catch (e) {
             console.error(e); alert("Failed to save notes. Ensure you have the correct permissions.");
         } finally {
