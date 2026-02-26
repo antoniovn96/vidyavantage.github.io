@@ -238,8 +238,8 @@
             <div class="kpi-grid">
                 <div class="kpi-box" style="border-top: 3px solid var(--primary);"><h4>Total Institutions</h4><div class="val" id="kpiSchools">0</div></div>
                 <div class="kpi-box" style="border-top: 3px solid var(--success);"><h4>Active Students</h4><div class="val" id="kpiStudents">0</div></div>
-                <div class="kpi-box" style="border-top: 3px solid var(--secondary);"><h4>Assessments (Mo)</h4><div class="val">1,142</div></div>
-                <div class="kpi-box" style="border-top: 3px solid var(--accent);"><h4>Revenue (Mo)</h4><div class="val">₹2.4L</div></div>
+                <div class="kpi-box" style="border-top: 3px solid var(--secondary);"><h4>Assessments Taken</h4><div class="val" id="kpiAssessments">0</div></div>
+                <div class="kpi-box" style="border-top: 3px solid var(--accent);"><h4>Revenue</h4><div class="val">--</div></div>
             </div>
 
             <div class="grid-3col">
@@ -251,9 +251,8 @@
                 <div style="display:flex; flex-direction:column; gap:20px;">
                     <div class="card" style="margin-bottom:0; border-top: 4px solid var(--warning);">
                         <h3>Immediate Action Required</h3>
-                        <div class="list-item"><span style="color:white;">High Risk Flags</span> <span class="badge badge-danger">18 Students</span></div>
-                        <div class="list-item"><span style="color:white;">Expiring Institutions</span> <span class="badge badge-warn">2 Schools</span></div>
-                        <div class="list-item"><span style="color:white;">Parent Meeting Req.</span> <span class="badge badge-school">5 Pending</span></div>
+                        <div class="list-item"><span style="color:white;">High Risk Flags</span> <span class="badge badge-danger" id="kpiHighRisk">0 Students</span></div>
+                        <div class="list-item"><span style="color:white;">Expiring Institutions</span> <span class="badge badge-warn">0 Schools</span></div>
                     </div>
                 </div>
             </div>
@@ -296,7 +295,6 @@
                             <option value="ALL">All Institutions</option>
                             <option value="GENERAL">General Public</option>
                         </select>
-                        <select class="form-select" style="width:150px;"><option>All Grades</option></select>
                     </div>
                     <input type="text" class="form-input" placeholder="Search by Name..." style="width: 200px;">
                 </div>
@@ -317,16 +315,11 @@
             <div class="grid-2col">
                 <div class="card">
                     <h3>Top Career Interests (Platform Wide)</h3>
-                    <div class="list-item"><span>1. Artificial Intelligence</span> <span style="color:var(--primary); font-weight:bold;">18%</span></div>
-                    <div class="list-item"><span>2. Clinical Psychology</span> <span style="color:var(--primary); font-weight:bold;">14%</span></div>
-                    <div class="list-item"><span>3. Financial Analytics</span> <span style="color:var(--primary); font-weight:bold;">11%</span></div>
-                    <div class="list-item"><span>4. Biotechnology</span> <span style="color:var(--primary); font-weight:bold;">9%</span></div>
+                    <div style="text-align:center; padding: 30px; color:var(--text-muted);">Sufficient data required to generate platform-wide insights.</div>
                 </div>
                 <div class="card">
                     <h3>Clinical & Stress Indicators</h3>
-                    <div class="list-item"><span>Avg. Career Clarity (Pre-Test)</span> <span class="badge badge-danger">32%</span></div>
-                    <div class="list-item"><span>Avg. Career Clarity (Post-Report)</span> <span class="badge badge-success">88%</span></div>
-                    <div class="list-item"><span>High Parent Pressure Indicated</span> <span style="color:var(--warning); font-weight:bold;">24% of Users</span></div>
+                    <div style="text-align:center; padding: 30px; color:var(--text-muted);">Sufficient data required to generate clinical indicators.</div>
                 </div>
             </div>
         </div>
@@ -334,9 +327,9 @@
         <div id="tab-revenue" class="tab-content">
             <div class="header-bar"><h1>Revenue & Subscription Control</h1><p>Financial overview and plan management.</p></div>
             <div class="kpi-grid">
-                <div class="kpi-box"><h4>Monthly Recurring (MRR)</h4><div class="val">₹2,40,000</div></div>
-                <div class="kpi-box"><h4>Annual Projected</h4><div class="val">₹28,80,000</div></div>
-                <div class="kpi-box"><h4>Renewal Rate</h4><div class="val" style="color:var(--success);">94%</div></div>
+                <div class="kpi-box"><h4>Monthly Recurring (MRR)</h4><div class="val">--</div></div>
+                <div class="kpi-box"><h4>Annual Projected</h4><div class="val">--</div></div>
+                <div class="kpi-box"><h4>Renewal Rate</h4><div class="val" style="color:var(--success);">--</div></div>
             </div>
         </div>
 
@@ -347,9 +340,8 @@
                     <h3>🚩 High Risk Intervention Queue</h3>
                     <table class="data-table">
                         <thead><tr><th>Student</th><th>Flag Reason</th><th>Action</th></tr></thead>
-                        <tbody>
-                            <tr><td>Rahul S.</td><td>High Stress / Low Clarity</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;">Review</button></td></tr>
-                            <tr><td>Priya M.</td><td>Parent Conflict Identified</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;">Review</button></td></tr>
+                        <tbody id="counsellingTableBody">
+                            <tr><td colspan="3" style="text-align:center;">Scanning database...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -379,20 +371,25 @@
         </div>
 
         <div id="tab-access" class="tab-content">
-            <div class="header-bar"><h1>User Access Management</h1><p>Control who can log into the sub-dashboards.</p></div>
+            <div class="header-bar"><h1>User Access Management</h1><p>Control who can log into sub-dashboards and appear as Counsellors.</p></div>
             <div class="grid-2col">
                 <div class="card" style="border-top: 4px solid var(--secondary);">
                     <h3>Grant Additional Access</h3>
+                    <div class="form-group"><label class="form-label">User Full Name</label><input type="text" id="accName" class="form-input" placeholder="e.g. Dr. Sarah Jenkins"></div>
                     <div class="form-group"><label class="form-label">User Email Address</label><input type="email" id="accEmail" class="form-input" placeholder="counsellor.name@gmail.com"></div>
                     <div class="form-group"><label class="form-label">Assign Role</label>
-                        <select id="accRole" class="form-select"><option value="school_admin">Institutional Admin</option><option value="counsellor">Counsellor (Clinical)</option></select>
+                        <select id="accRole" class="form-select">
+                            <option value="school_admin">Institutional Admin</option>
+                            <option value="counsellor">Counsellor (Clinical)</option>
+                        </select>
                     </div>
                     <div class="form-group"><label class="form-label">Link to Institution</label><select id="accSchool" class="form-select"><option value="ALL">All Institutions</option></select></div>
                     <button class="btn" style="width:100%; margin-top:10px;" id="grantBtn" onclick="grantAccess()">Authorize User</button>
                 </div>
+                
                 <div class="card" style="border-top: 4px solid var(--primary);">
                     <h3>Active Authorized Users</h3>
-                    <table class="data-table"><thead><tr><th>User Email</th><th>Role</th><th>School ID</th><th>Action</th></tr></thead><tbody id="accessTableBody"></tbody></table>
+                    <table class="data-table"><thead><tr><th>User Info</th><th>Role</th><th>School ID</th><th>Action</th></tr></thead><tbody id="accessTableBody"></tbody></table>
                 </div>
             </div>
         </div>
@@ -436,12 +433,8 @@
     let uploadedImageBase64 = "";
     window.globalStudentData = {}; 
 
-    // --- MOBILE MENU LOGIC ---
-    window.toggleMobileMenu = function() {
-        document.getElementById('sidebar').classList.toggle('open');
-    }
+    window.toggleMobileMenu = function() { document.getElementById('sidebar').classList.toggle('open'); }
 
-    // --- CLOCK & DAILY QUOTE LOGIC ---
     function updateClock() {
         const now = new Date();
         const dd = String(now.getDate()).padStart(2, '0');
@@ -457,21 +450,20 @@
     const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
     document.getElementById('dailyQuote').innerText = `"${quotes[dayOfYear % quotes.length]}"`;
 
-    // --- UI INTERACTIONS ---
     window.switchTab = function(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
         btn.classList.add('active');
         document.getElementById('headerTitle').innerText = btn.innerText.replace(/[^\w\s]/gi, '').trim();
-        document.getElementById('sidebar').classList.remove('open'); // close mobile menu on click
+        document.getElementById('sidebar').classList.remove('open');
     };
 
     window.toggleDropdown = function() { document.getElementById("profileDropdownBtn").classList.toggle("active"); }
     window.onclick = function(event) { if (!event.target.matches('.avatar-btn') && !event.target.matches('.mobile-menu-btn')) { document.getElementById("profileDropdownBtn").classList.remove("active"); } }
     window.logoutUser = function() { signOut(auth).then(() => { window.location.href = "index.html"; }); }
 
-    // --- MODAL LOGIC (THE DOSSIER & CHAT) ---
+    // --- MODAL LOGIC (THE DOSSIER) ---
     window.openStudentModal = function(uid) {
         const student = window.globalStudentData[uid];
         if(!student) return;
@@ -482,16 +474,17 @@
         document.getElementById('modalStuGrade').innerText = student.grade || "N/A";
         
         let dateJoined = "Unknown";
-        if(student.joinedAt) {
-            const d = new Date(student.joinedAt);
-            dateJoined = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
-        }
+        if(student.joinedAt) { const d = new Date(student.joinedAt); dateJoined = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`; }
         document.getElementById('modalStuDate').innerText = dateJoined;
         
         document.getElementById('modalStuStatus').innerHTML = student.assessmentCompleted ? '<span style="color:var(--success);">Completed</span>' : '<span style="color:var(--warning);">Pending</span>';
-        document.getElementById('modalStuRisk').innerHTML = student.assessmentCompleted ? 'Stable' : 'Needs Assessment';
+        
+        let riskHtml = '<span class="badge badge-success">Stable</span>';
+        if(student.psychIndex && student.psychIndex.riskCategory === 'High') {
+             riskHtml = '<span class="badge badge-danger">High Risk</span>';
+        }
+        document.getElementById('modalStuRisk').innerHTML = student.assessmentCompleted ? riskHtml : 'Needs Assessment';
 
-        // Admin & Counsellor Notes Logic
         const notesDiv = document.getElementById('modalCounsellorNotes');
         if (student.counsellorNotes && student.counsellorNotes.length > 0) {
             notesDiv.innerHTML = student.counsellorNotes.map(n => {
@@ -507,35 +500,11 @@
                 }
                 return html;
             }).join('');
-        } else {
-            notesDiv.innerHTML = "No clinical notes have been logged for this student yet.";
-        }
+        } else { notesDiv.innerHTML = "No clinical notes have been logged for this student yet."; }
 
         document.getElementById('studentDossierModal').style.display = 'flex';
     }
     window.closeStudentModal = function() { document.getElementById('studentDossierModal').style.display = 'none'; }
-
-    // Chat Viewer Logic
-    window.openChatReview = function(uid, name) {
-        document.getElementById('chatModalStuName').innerText = name;
-        
-        // FUTURE: Fetch actual messages subcollection from Firestore here
-        // For now, rendering a static mock view to demonstrate UI
-        const chatBox = document.getElementById('chatLogContainer');
-        chatBox.innerHTML = `
-            <div class="chat-message chat-counsellor">
-                Hello ${name}, please make sure to complete your assessment before tomorrow.
-                <div class="chat-time">10:30 AM - Counsellor</div>
-            </div>
-            <div class="chat-message chat-student">
-                Yes ma'am, I am doing it right now!
-                <div class="chat-time">10:35 AM - ${name}</div>
-            </div>
-        `;
-        
-        document.getElementById('chatReviewModal').style.display = 'flex';
-    }
-    window.closeChatModal = function() { document.getElementById('chatReviewModal').style.display = 'none'; }
 
 
     // --- PROFILE LOGIC ---
@@ -602,7 +571,7 @@
             await signOut(secondaryAuth); 
 
             const newInstRef = await addDoc(collection(db, "schools"), { name: name, type: type, accessCode: generatedAccessCode, adminEmail: adminEmail, addedAt: new Date().toISOString() });
-            await setDoc(doc(db, "permissions", adminEmail), { email: adminEmail, role: "school_admin", schoolId: newInstRef.id, status: "active", grantedAt: new Date().toISOString() });
+            await setDoc(doc(db, "permissions", adminEmail), { name: name + " Admin", email: adminEmail, role: "school_admin", schoolId: newInstRef.id, status: "active", grantedAt: new Date().toISOString() });
 
             window.location.href = `mailto:${adminEmail}?subject=Career Intel Access&body=Credentials attached.`;
             document.getElementById('instName').value = ""; document.getElementById('instEmail').value = "";
@@ -657,70 +626,138 @@
         try {
             const snap = await getDocs(collection(db, "students"));
             let studentCount = 0;
+            let completedAssessments = 0;
+            let highRiskCount = 0;
+            let highRiskHtml = "";
+            
             tbody.innerHTML = "";
             window.globalStudentData = {}; 
 
-            if (snap.empty) { tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No students registered yet.</td></tr>"; document.getElementById('kpiStudents').innerText = 0; return; }
+            if (snap.empty) { 
+                tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No students registered yet.</td></tr>"; 
+                document.getElementById('kpiStudents').innerText = 0; 
+                document.getElementById('counsellingTableBody').innerHTML = "<tr><td colspan='3' style='text-align:center;'>Scanning database...</td></tr>";
+                return; 
+            }
 
             snap.forEach(docSnap => {
                 const data = docSnap.data();
                 const schoolId = data.schoolId || 'GENERAL';
+                
+                // Track total stats regardless of filter
+                if(data.assessmentCompleted) completedAssessments++;
+                if(data.psychIndex && data.psychIndex.riskCategory === 'High') {
+                    highRiskCount++;
+                    highRiskHtml += `<tr><td>${data.name}</td><td style="color:var(--danger); font-size: 0.85rem;">High Pressure / Low Resilience Detected</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;" onclick="openStudentModal('${docSnap.id}')">Review Dossier</button></td></tr>`;
+                }
+
+                // Table Filtering
                 if (filterVal !== "ALL" && filterVal !== schoolId) return; 
                 studentCount++;
                 window.globalStudentData[docSnap.id] = data; 
                 
                 const schoolName = schoolId === 'GENERAL' ? 'General Public' : (schoolDictionary[schoolId] || 'Unknown School');
                 const badgeClass = schoolId === 'GENERAL' ? 'badge-gen' : 'badge-school';
+                
+                let riskBadge = '<span class="badge" style="background:rgba(255,255,255,0.1); color:var(--text-muted);">Unknown</span>';
+                if(data.psychIndex && data.psychIndex.riskCategory === 'High') riskBadge = '<span class="badge badge-danger">High Risk</span>';
+                else if (data.assessmentCompleted) riskBadge = '<span class="badge badge-success">Stable</span>';
 
                 tbody.innerHTML += `<tr>
                     <td style="font-family:monospace; color:var(--text-muted); font-size:0.8rem;">${docSnap.id.substring(0,6)}...</td>
                     <td><strong class="student-link" onclick="openStudentModal('${docSnap.id}')">${data.name}</strong><br><span style="font-size:0.8rem; color:var(--text-muted);">${data.email}</span></td>
                     <td><span class="badge ${badgeClass}">${schoolName}</span><br><span style="font-size:0.8rem; color:var(--text-muted);">Grade ${data.grade || 'N/A'}</span></td>
-                    <td>${data.assessmentCompleted ? '<span style="color:var(--success);">Complete</span>' : '<span style="color:var(--warning);">Pending</span>'}</td>
-                    <td><span class="badge" style="background:rgba(255,255,255,0.1); color:var(--text-muted);">Unknown</span></td>
-                    <td>
-                        <div style="display:flex; gap:10px;">
-                            <button onclick="openChatReview('${docSnap.id}', '${data.name}')" style="color:var(--secondary); background:transparent; border:1px solid var(--secondary); padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.75rem;">View Chat</button>
-                            <button onclick="deleteStudent('${docSnap.id}', '${data.name}')" style="color:white; background:var(--danger); border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.75rem;">Del</button>
-                        </div>
-                    </td>
+                    <td>${data.assessmentCompleted ? '<span style="color:var(--success); font-weight:bold;">Complete</span>' : '<span style="color:var(--warning);">Pending</span>'}</td>
+                    <td>${riskBadge}</td>
+                    <td><button onclick="deleteStudent('${docSnap.id}', '${data.name}')" style="color:white; background:var(--danger); border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.75rem;">Delete</button></td>
                 </tr>`;
             });
 
             if(studentCount === 0) tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No students found for this filter.</td></tr>";
-            if(filterVal === "ALL") document.getElementById('kpiStudents').innerText = studentCount;
+            
+            // Update Global Dashboards
+            document.getElementById('kpiStudents').innerText = Object.keys(window.globalStudentData).length; // Total students overall
+            document.getElementById('kpiAssessments').innerText = completedAssessments;
+            document.getElementById('kpiHighRisk').innerText = `${highRiskCount} Students`;
+            document.getElementById('counsellingTableBody').innerHTML = highRiskHtml || "<tr><td colspan='3' style='text-align:center; color:var(--text-muted);'>No high-risk students detected.</td></tr>";
+            
         } catch(e) { console.error(e); }
     }
 
     window.deleteStudent = async function(uid, name) { if(!confirm(`Permanently delete ${name}?`)) return; try { await deleteDoc(doc(db, "students", uid)); loadAllStudents(); } catch(e) {} }
 
-    // --- ACCESS CONTROL LOGIC ---
+    // --- ACCESS CONTROL & COUNSELLOR AUTOMATION ---
     window.grantAccess = async function() {
+        const name = document.getElementById('accName').value.trim();
         const email = document.getElementById('accEmail').value.trim().toLowerCase();
         const role = document.getElementById('accRole').value;
         const schoolId = document.getElementById('accSchool').value;
         const btn = document.getElementById('grantBtn');
-        if(!email) return; btn.innerText = "Wait..."; btn.disabled = true;
-        try { await setDoc(doc(db, "permissions", email), { email: email, role: role, schoolId: schoolId, status: "active" }); document.getElementById('accEmail').value = ""; loadAccessList(); } catch (e) {} finally { btn.innerText = "Authorize User"; btn.disabled = false; }
+        
+        if(!email || !name) return alert("User Full Name and Email are required."); 
+        btn.innerText = "Wait..."; btn.disabled = true;
+        
+        try { 
+            // 1. Give them system access
+            await setDoc(doc(db, "permissions", email), { name: name, email: email, role: role, schoolId: schoolId, status: "active" }); 
+            
+            // 2. AUTOMATION: If they are a counsellor, automatically add them to the Counsellor Dropdown for students
+            if(role === 'counsellor') {
+                 await setDoc(doc(db, "counsellor_profiles", email), {
+                     name: name,
+                     title: "Clinical Career Counsellor",
+                     email: email,
+                     bio: "Assigned Career Expert",
+                     photo: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=3b82f6&color=fff`
+                 });
+            }
+            
+            document.getElementById('accName').value = ""; 
+            document.getElementById('accEmail').value = ""; 
+            loadAccessList(); 
+        } catch (e) {
+            console.error(e); alert("Failed to grant access.");
+        } finally { 
+            btn.innerText = "Authorize User"; btn.disabled = false; 
+        }
     }
 
     async function loadAccessList() {
         const tbody = document.getElementById('accessTableBody');
         try {
             const snap = await getDocs(collection(db, "permissions"));
-            tbody.innerHTML = snap.empty ? "<tr><td colspan='4'>No access granted.</td></tr>" : "";
+            tbody.innerHTML = snap.empty ? "<tr><td colspan='4' style='text-align:center;'>No access granted.</td></tr>" : "";
             snap.forEach(d => {
                 const data = d.data();
-                tbody.innerHTML += `<tr><td style="color:white;">${data.email}</td><td><span class="badge badge-school">${data.role.replace('_', ' ')}</span></td><td>${data.schoolId}</td><td><button onclick="revokeAccess('${data.email}')" style="color:var(--danger); background:none; border:1px solid var(--danger); padding:4px 8px; border-radius:4px; cursor:pointer;">Revoke</button></td></tr>`;
+                tbody.innerHTML += `<tr>
+                    <td style="color:white;"><strong>${data.name || 'Unknown'}</strong><br><span style="color:var(--text-muted); font-size:0.8rem;">${data.email}</span></td>
+                    <td><span class="badge badge-school">${data.role.replace('_', ' ')}</span></td>
+                    <td>${data.schoolId}</td>
+                    <td><button onclick="revokeAccess('${data.email}', '${data.role}')" style="color:var(--danger); background:none; border:1px solid var(--danger); padding:4px 8px; border-radius:4px; cursor:pointer;">Revoke</button></td>
+                </tr>`;
             });
-        } catch(e) {}
+        } catch(e) { console.error(e); }
     }
 
-    window.revokeAccess = async function(email) { if(!confirm(`Revoke access?`)) return; try { await deleteDoc(doc(db, "permissions", email)); loadAccessList(); } catch(e) {} }
+    window.revokeAccess = async function(email, role) { 
+        if(!confirm(`Revoke access for ${email}?`)) return; 
+        try { 
+            await deleteDoc(doc(db, "permissions", email)); 
+            
+            // AUTOMATION: If they were a counsellor, instantly remove them from the student's chat dropdown
+            if(role === 'counsellor') {
+                await deleteDoc(doc(db, "counsellor_profiles", email));
+            }
+            
+            loadAccessList(); 
+        } catch(e) { console.error(e); } 
+    }
 
+    // --- CHART LOGIC ---
     function renderChart() {
         const ctx = document.getElementById('growthChart').getContext('2d');
-        new Chart(ctx, { type: 'line', data: { labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], datasets: [{ label: 'Assessments', data: [120, 250, 410, 360], borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.2)', fill: true, tension: 0.4 }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } } });
+        // Future upgrade: Map this to actual timestamps from students
+        new Chart(ctx, { type: 'line', data: { labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], datasets: [{ label: 'Assessments', data: [2, 5, 12, 18], borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.2)', fill: true, tension: 0.4 }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } } });
     }
 
     loadProfile(); loadInstitutions(); loadAccessList(); setTimeout(renderChart, 500);
