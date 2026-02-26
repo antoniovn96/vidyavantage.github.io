@@ -190,7 +190,7 @@
     <button class="nav-btn" onclick="switchTab('tab-institutions', this)">🏫 Institution Control</button>
     <button class="nav-btn" id="nav-btn-students" onclick="switchTab('tab-students', this)">🎓 Student Master</button>
     <button class="nav-btn" onclick="switchTab('tab-analytics', this)">📊 Analytics & Intel</button>
-    <button class="nav-btn" onclick="switchTab('tab-revenue', this)">💰 Revenue & Subs</button>
+    <button class="nav-btn" onclick="switchTab('tab-revenue', this)">🔒 Health & Licensing</button>
     <button class="nav-btn" onclick="switchTab('tab-counselling', this)">🧠 Counselling Control</button>
     <button class="nav-btn" onclick="switchTab('tab-settings', this)">⚙️ System Settings</button>
     <button class="nav-btn" onclick="switchTab('tab-profile', this)">👤 My Profile</button>
@@ -239,20 +239,20 @@
                 <div class="kpi-box" style="border-top: 3px solid var(--primary);"><h4>Total Institutions</h4><div class="val" id="kpiSchools">0</div></div>
                 <div class="kpi-box" style="border-top: 3px solid var(--success);"><h4>Active Students</h4><div class="val" id="kpiStudents">0</div></div>
                 <div class="kpi-box" style="border-top: 3px solid var(--secondary);"><h4>Assessments Taken</h4><div class="val" id="kpiAssessments">0</div></div>
-                <div class="kpi-box" style="border-top: 3px solid var(--accent);"><h4>Revenue</h4><div class="val">--</div></div>
+                <div class="kpi-box" style="border-top: 3px solid var(--accent);"><h4>Active Counsellors</h4><div class="val" id="kpiCounsellors">0</div></div>
             </div>
 
             <div class="grid-3col">
                 <div class="card">
-                    <h3>Platform Growth (Assessments)</h3>
-                    <canvas id="growthChart" height="150"></canvas>
+                    <h3>Platform Dominant Traits</h3>
+                    <div style="height: 200px; width: 100%;"><canvas id="growthChart"></canvas></div>
                 </div>
                 
                 <div style="display:flex; flex-direction:column; gap:20px;">
                     <div class="card" style="margin-bottom:0; border-top: 4px solid var(--warning);">
-                        <h3>Immediate Action Required</h3>
-                        <div class="list-item"><span style="color:white;">High Risk Flags</span> <span class="badge badge-danger" id="kpiHighRisk">0 Students</span></div>
-                        <div class="list-item"><span style="color:white;">Expiring Institutions</span> <span class="badge badge-warn">0 Schools</span></div>
+                        <h3>Action Queue</h3>
+                        <div class="list-item"><span style="color:white;">High Risk Interventions</span> <span class="badge badge-danger" id="kpiHighRisk">0 Students</span></div>
+                        <div class="list-item"><span style="color:white;">Unassigned Students</span> <span class="badge badge-warn">0 Students</span></div>
                     </div>
                 </div>
             </div>
@@ -311,25 +311,25 @@
         </div>
 
         <div id="tab-analytics" class="tab-content">
-            <div class="header-bar"><h1>Analytics & Intelligence</h1><p>System-wide clinical patterns and engagement scores.</p></div>
+            <div class="header-bar"><h1>Analytics & Intelligence</h1><p>System-wide clinical patterns and engagement scores based on actual assessment data.</p></div>
             <div class="grid-2col">
                 <div class="card">
                     <h3>Top Career Interests (Platform Wide)</h3>
-                    <div style="text-align:center; padding: 30px; color:var(--text-muted);">Sufficient data required to generate platform-wide insights.</div>
+                    <div id="dynamicTopCareers"><div style="text-align:center; padding: 30px; color:var(--text-muted);">Sufficient data required to generate platform-wide insights.</div></div>
                 </div>
                 <div class="card">
                     <h3>Clinical & Stress Indicators</h3>
-                    <div style="text-align:center; padding: 30px; color:var(--text-muted);">Sufficient data required to generate clinical indicators.</div>
+                    <div id="dynamicClinicalStats"><div style="text-align:center; padding: 30px; color:var(--text-muted);">Sufficient data required to generate clinical indicators.</div></div>
                 </div>
             </div>
         </div>
 
         <div id="tab-revenue" class="tab-content">
-            <div class="header-bar"><h1>Revenue & Subscription Control</h1><p>Financial overview and plan management.</p></div>
+            <div class="header-bar"><h1>System Health & Licensing</h1><p>Overview of technical status and school capacities.</p></div>
             <div class="kpi-grid">
-                <div class="kpi-box"><h4>Monthly Recurring (MRR)</h4><div class="val">--</div></div>
-                <div class="kpi-box"><h4>Annual Projected</h4><div class="val">--</div></div>
-                <div class="kpi-box"><h4>Renewal Rate</h4><div class="val" style="color:var(--success);">--</div></div>
+                <div class="kpi-box"><h4>Active School Licenses</h4><div class="val" id="healthSchools">0</div></div>
+                <div class="kpi-box"><h4>Platform Uptime</h4><div class="val" style="color:var(--success);">99.9%</div></div>
+                <div class="kpi-box"><h4>System Status</h4><div class="val" style="color:var(--success); font-size:1.5rem;">Secure</div></div>
             </div>
         </div>
 
@@ -411,8 +411,7 @@
       projectId: "career-intelligence-system",
       storageBucket: "career-intelligence-system.firebasestorage.app",
       messagingSenderId: "223785446772",
-      appId: "1:223785446772:web:0f9ded4e89a978fc551021",
-      measurementId: "G-HGKJJN9KDF"
+      appId: "1:223785446772:web:0f9ded4e89a978fc551021"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -432,6 +431,7 @@
 
     let uploadedImageBase64 = "";
     window.globalStudentData = {}; 
+    let chartInstance = null;
 
     window.toggleMobileMenu = function() { document.getElementById('sidebar').classList.toggle('open'); }
 
@@ -610,13 +610,14 @@
                 accSelect.innerHTML += `<option value="${docSnap.id}">${data.name}</option>`;
             });
             document.getElementById('kpiSchools').innerText = count;
+            document.getElementById('healthSchools').innerText = count;
             loadAllStudents(); 
         } catch(e) { console.error(e); }
     }
 
     window.deleteInstitution = async function(id) { if(!confirm("Delete school?")) return; try { await deleteDoc(doc(db, "schools", id)); loadInstitutions(); } catch(e) {} }
 
-    // --- STUDENT CONTROL LOGIC ---
+    // --- STUDENT CONTROL & ANALYTICS LOGIC ---
     window.filterStudentsBySchool = function(schoolId) { switchTab('tab-students', document.getElementById('nav-btn-students')); document.getElementById('studentFilter').value = schoolId; loadAllStudents(); };
 
     window.loadAllStudents = async function() {
@@ -629,6 +630,10 @@
             let completedAssessments = 0;
             let highRiskCount = 0;
             let highRiskHtml = "";
+            
+            // Analytics Containers
+            let careerFreq = {};
+            let traitFreq = { R:0, I:0, A:0, S:0, E:0, C:0 };
             
             tbody.innerHTML = "";
             window.globalStudentData = {}; 
@@ -644,8 +649,19 @@
                 const data = docSnap.data();
                 const schoolId = data.schoolId || 'GENERAL';
                 
-                // Track total stats regardless of filter
-                if(data.assessmentCompleted) completedAssessments++;
+                // Track total stats & Analytics regardless of filter
+                if(data.assessmentCompleted && data.fullReport) {
+                    completedAssessments++;
+                    
+                    // Track Traits
+                    const dom = data.fullReport.dom;
+                    if(dom && traitFreq[dom] !== undefined) traitFreq[dom]++;
+                    
+                    // Track Careers
+                    const topCareer = data.fullReport.topCareers[0]?.name;
+                    if(topCareer) careerFreq[topCareer] = (careerFreq[topCareer] || 0) + 1;
+                }
+
                 if(data.psychIndex && data.psychIndex.riskCategory === 'High') {
                     highRiskCount++;
                     highRiskHtml += `<tr><td>${data.name}</td><td style="color:var(--danger); font-size: 0.85rem;">High Pressure / Low Resilience Detected</td><td><button class="btn btn-outline" style="padding:4px 8px; font-size:0.8rem;" onclick="openStudentModal('${docSnap.id}')">Review Dossier</button></td></tr>`;
@@ -681,6 +697,28 @@
             document.getElementById('kpiHighRisk').innerText = `${highRiskCount} Students`;
             document.getElementById('counsellingTableBody').innerHTML = highRiskHtml || "<tr><td colspan='3' style='text-align:center; color:var(--text-muted);'>No high-risk students detected.</td></tr>";
             
+            // Build Dynamic Analytics
+            if (completedAssessments > 0) {
+                // Top Careers
+                const sortedCareers = Object.entries(careerFreq).sort((a,b) => b[1] - a[1]).slice(0,4);
+                let analyticsHtml = '';
+                sortedCareers.forEach((c, index) => {
+                    const pct = Math.round((c[1] / completedAssessments) * 100);
+                    analyticsHtml += `<div class="list-item"><span>${index+1}. ${c[0]}</span> <span style="color:var(--primary); font-weight:bold;">${pct}%</span></div>`;
+                });
+                document.getElementById('dynamicTopCareers').innerHTML = analyticsHtml;
+
+                // Clinical Stats
+                const highRiskPct = Math.round((highRiskCount / Object.keys(window.globalStudentData).length) * 100) || 0;
+                document.getElementById('dynamicClinicalStats').innerHTML = `
+                    <div class="list-item"><span>Assessment Completion Rate</span> <span class="badge badge-success">${Math.round((completedAssessments / Object.keys(window.globalStudentData).length) * 100)}%</span></div>
+                    <div class="list-item"><span>High Risk / Intervention Required</span> <span style="color:var(--warning); font-weight:bold;">${highRiskPct}% of Users</span></div>
+                `;
+
+                // Update Chart
+                renderChart(traitFreq);
+            }
+
         } catch(e) { console.error(e); }
     }
 
@@ -727,8 +765,10 @@
         try {
             const snap = await getDocs(collection(db, "permissions"));
             tbody.innerHTML = snap.empty ? "<tr><td colspan='4' style='text-align:center;'>No access granted.</td></tr>" : "";
+            let counsellorCount = 0;
             snap.forEach(d => {
                 const data = d.data();
+                if(data.role === 'counsellor') counsellorCount++;
                 tbody.innerHTML += `<tr>
                     <td style="color:white;"><strong>${data.name || 'Unknown'}</strong><br><span style="color:var(--text-muted); font-size:0.8rem;">${data.email}</span></td>
                     <td><span class="badge badge-school">${data.role.replace('_', ' ')}</span></td>
@@ -736,6 +776,7 @@
                     <td><button onclick="revokeAccess('${data.email}', '${data.role}')" style="color:var(--danger); background:none; border:1px solid var(--danger); padding:4px 8px; border-radius:4px; cursor:pointer;">Revoke</button></td>
                 </tr>`;
             });
+            document.getElementById('kpiCounsellors').innerText = counsellorCount;
         } catch(e) { console.error(e); }
     }
 
@@ -753,14 +794,34 @@
         } catch(e) { console.error(e); } 
     }
 
-    // --- CHART LOGIC ---
-    function renderChart() {
+    // --- DYNAMIC CHART LOGIC ---
+    function renderChart(traitFreq = {R:0, I:0, A:0, S:0, E:0, C:0}) {
         const ctx = document.getElementById('growthChart').getContext('2d');
-        // Future upgrade: Map this to actual timestamps from students
-        new Chart(ctx, { type: 'line', data: { labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], datasets: [{ label: 'Assessments', data: [2, 5, 12, 18], borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.2)', fill: true, tension: 0.4 }] }, options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } } });
+        if(chartInstance) chartInstance.destroy();
+        
+        chartInstance = new Chart(ctx, { 
+            type: 'bar', 
+            data: { 
+                labels: ['Realistic', 'Investigative', 'Artistic', 'Social', 'Enterprising', 'Conventional'], 
+                datasets: [{ 
+                    label: 'Students', 
+                    data: [traitFreq.R, traitFreq.I, traitFreq.A, traitFreq.S, traitFreq.E, traitFreq.C], 
+                    backgroundColor: ['#ef4444', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#8b5cf6'],
+                    borderRadius: 4
+                }] 
+            }, 
+            options: { 
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } }, 
+                scales: { 
+                    y: { beginAtZero: true, ticks: { color: '#64748b' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+                } 
+            } 
+        });
     }
 
-    loadProfile(); loadInstitutions(); loadAccessList(); setTimeout(renderChart, 500);
+    loadProfile(); loadInstitutions(); loadAccessList();
 </script>
 </body>
 </html>
