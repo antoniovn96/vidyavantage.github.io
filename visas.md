@@ -71,7 +71,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
     line-height: 1.6;
   }
 
-  /* --- 10. CROSS-LINK BANNER --- */
+  /* --- ECOSYSTEM CROSS-LINK BANNER --- */
   .ecosystem-banner {
     background: #EFF6FF;
     border-bottom: 1px solid #BFDBFE;
@@ -114,7 +114,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
   .visa-hero h1 { font-size: 3.5rem; margin: 0 0 15px; font-weight: 900; letter-spacing: -1px; color: #ffffff !important; }
   .visa-hero p { font-size: 1.25rem; max-width: 750px; margin: 0 auto; color: #E5E7EB; line-height: 1.6; }
 
-  /* --- 9. TRUST ANCHORS --- */
+  /* --- TRUST ANCHORS --- */
   .trust-anchors { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;}
   .t-anchor { background: rgba(0,0,0,0.3); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; color: #E5E7EB; border: 1px solid rgba(255,255,255,0.1);}
   .t-anchor span { color: var(--success); font-weight: bold; margin-right: 5px;}
@@ -151,7 +151,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
   .disqualifier-box ul { list-style: none; padding: 0; margin: 0; color: #7F1D1D; text-align: left; max-width: 600px; margin: 0 auto;}
   .disqualifier-box li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-weight: 500;}
 
-  /* --- 1. VISA SUCCESS FACTORS --- */
+  /* --- VISA SUCCESS FACTORS --- */
   .success-factors { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;}
   .factor-item { background: white; padding: 25px; border-radius: 12px; border: 1px solid #E5E7EB; box-shadow: 0 4px 6px rgba(0,0,0,0.02);}
   .factor-item h4 { margin: 0 0 10px 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 10px;}
@@ -220,28 +220,8 @@ description: "Study abroad from India. Expert student visa process for Canada SD
   .faq-item.active .faq-answer { display: block; }
   .faq-item.active { border-color: var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.05);}
 
-  /* --- LEGAL DISCLAIMER & FLOATING CHAT --- */
+  /* --- LEGAL DISCLAIMER --- */
   .legal-footer { text-align: center; padding: 40px 20px; background: #111827; color: #9CA3AF; font-size: 0.85rem; line-height: 1.5; }
-  
-  .email-float {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background-color: var(--primary);
-    color: white;
-    border-radius: 50px;
-    padding: 12px 20px; 
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.95rem;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 8px 20px rgba(10, 35, 66, 0.4);
-    z-index: 1000;
-    transition: transform 0.3s;
-  }
-  .email-float:hover { transform: scale(1.05); color: white;}
 
   /* --- RESPONSIVE FIXES --- */
   @media (max-width: 900px) {
@@ -254,9 +234,6 @@ description: "Study abroad from India. Expert student visa process for Canada SD
     .package-grid { grid-template-columns: 1fr; }
     .case-study-box { flex-direction: column; }
     .cs-visual { border-right: none; border-bottom: 1px solid #E5E7EB; }
-    
-    .chat-text { display: none; }
-    .email-float { padding: 15px; border-radius: 50%; bottom: 20px; right: 20px;}
   }
 </style>
 
@@ -621,11 +598,6 @@ description: "Study abroad from India. Expert student visa process for Canada SD
   </div>
 </div>
 
-<a href="mailto:vidhyaadvantage+visa@gmail.com?subject=Inquiry: Study Abroad Visa Assistance" class="email-float">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-  <span class="chat-text">Email an Expert</span>
-</a>
-
 <footer class="legal-footer">
     <p style="max-width: 800px; margin: 0 auto; font-size: 0.9rem;">
         <strong>Legal Disclaimer:</strong> Career Intelligence System provides documentation guidance, profile evaluation, and application assistance only. We are not an embassy or a government body. The final decision to grant or refuse a visa rests entirely at the discretion of the respective country's embassy or consulate.
@@ -650,11 +622,16 @@ description: "Study abroad from India. Expert student visa process for Canada SD
         
         window.location.href = `mailto:vidhyaadvantage+visa@gmail.com?subject=${subject}&body=${body}`;
     });
+</script>
 
-    // NOTE FOR ADMIN: 
-    // To add a real Live Chat (like Tawk.to) in the future:
-    // 1. Go to tawk.to and create a free account.
-    // 2. They will give you a small <script> tag.
-    // 3. Paste that script right here before the closing </body> tag.
-    // 4. Delete the "email-float" <a> tag above.
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/699ff30042971f1c3a85ffb7/1jiccqesr';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
 </script>
