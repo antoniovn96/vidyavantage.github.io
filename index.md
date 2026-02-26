@@ -505,46 +505,6 @@ title: Home
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    // 🚨 DEFINING THE MASTER KEY HERE 
-    async function processUserRouting(user) {
-        const email = user.email.toLowerCase();
-        try {
-            // Check Database Permissions dynamically for ALL staff (including you)
-            const permsRef = doc(db, "permissions", email);
-            const permsSnap = await getDoc(permsRef);
-
-            if (permsSnap.exists()) {
-                const role = permsSnap.data().role;
-                if(status) status.innerText = `Authorized as ${role.replace('_', ' ')}. Connecting...`;
-                
-                setTimeout(() => {
-                    // The system now dynamically routes based on the role in your database
-                    if (role === "super_admin") window.location.href = "admin.html";
-                    else if (role === "school_admin") window.location.href = "school_dashboard.html";
-                    else if (role === "counsellor") window.location.href = "counsellor_dashboard.html";
-                    else window.location.href = "student_portal.html"; 
-                }, 1000);
-                return;
-            }
-
-            // Fallback to normal student flow if they aren't in the permissions collection
-            const studentRef = doc(db, "students", user.uid);
-            const studentSnap = await getDoc(studentRef);
-
-            if (studentSnap.exists()) {
-                if(status) status.innerText = "Welcome back! Opening Student Portal...";
-                setTimeout(() => window.location.href = "student_portal.html", 1000);
-            } else {
-                if(status) status.innerText = "New profile detected! Let's get you registered...";
-                setTimeout(() => window.location.href = "register.html", 1500);
-            }
-        } catch (error) {
-            console.error("Routing Error:", error);
-            if(status) { status.innerText = "Error analyzing profile permissions."; status.style.color = "red"; }
-            if(fastTravelBtn) fastTravelBtn.innerText = "Connection Error";
-        }
-    }
-
     const status = document.getElementById('statusMsg');
     const loginBoxUI = document.getElementById('loginBoxUI');
     const welcomeBoxUI = document.getElementById('welcomeBoxUI');
@@ -572,14 +532,7 @@ title: Home
     async function processUserRouting(user) {
         const email = user.email.toLowerCase();
         try {
-            // 🚨 1. EXPLICIT SUPER ADMIN BYPASS 🚨
-            if (email === SUPER_ADMIN_EMAIL.toLowerCase()) {
-                if(status) status.innerText = "Authorized as Super Admin. Connecting...";
-                setTimeout(() => { window.location.href = "admin.html"; }, 1000);
-                return;
-            }
-
-            // 2. Check Database Permissions dynamically for staff/schools
+            // Check Database Permissions dynamically for ALL staff (including you)
             const permsRef = doc(db, "permissions", email);
             const permsSnap = await getDoc(permsRef);
 
@@ -588,15 +541,16 @@ title: Home
                 if(status) status.innerText = `Authorized as ${role.replace('_', ' ')}. Connecting...`;
                 
                 setTimeout(() => {
+                    // The system now dynamically routes based on the role in your database
                     if (role === "super_admin") window.location.href = "admin.html";
                     else if (role === "school_admin") window.location.href = "school_dashboard.html";
                     else if (role === "counsellor") window.location.href = "counsellor_dashboard.html";
-                    else window.location.href = "admin.html"; // Fallback for legacy setups
+                    else window.location.href = "student_portal.html"; 
                 }, 1000);
                 return;
             }
 
-            // 3. Fallback to normal student flow
+            // Fallback to normal student flow if they aren't in the permissions collection
             const studentRef = doc(db, "students", user.uid);
             const studentSnap = await getDoc(studentRef);
 
