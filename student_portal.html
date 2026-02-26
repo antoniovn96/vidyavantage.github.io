@@ -55,6 +55,11 @@
       @media (max-width: 1000px) { .grid-2, .grid-3-1, .grid-2col { grid-template-columns: 1fr; } }
       
       /* --- KPI & GAMIFICATION --- */
+      .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 30px; }
+      .kpi-box { background: linear-gradient(145deg, #ffffff, #f8fafc); padding: 25px; border-radius: 16px; border: 1px solid var(--border); text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02);}
+      .kpi-box h4 { margin:0 0 15px 0; color:var(--text-muted); font-size:0.85rem; text-transform:uppercase; letter-spacing: 0.5px; font-weight: 800;}
+      .kpi-box .val { font-size:2rem; font-weight:900; color: var(--primary); }
+
       .badge-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;}
       .gamify-badge { background: #f1f5f9; color: #64748b; padding: 8px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; border: 1px solid var(--border); display: flex; align-items: center; gap: 5px; opacity: 0.6; filter: grayscale(100%); transition: 0.3s;}
       .gamify-badge.unlocked { opacity: 1; filter: grayscale(0%); background: #fffbeb; color: #d97706; border-color: #fcd34d;}
@@ -104,7 +109,8 @@
       .form-label { display: block; font-weight: 800; margin-bottom: 8px; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;}
       .form-input, .form-select, .form-textarea { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background: #f8fafc; color: #0f172a; box-sizing: border-box; font-family: inherit; font-size: 1rem; transition: 0.3s;}
       .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); outline: none; background: white; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);}
-      
+      .form-input:disabled, .form-select:disabled { opacity: 0.6; cursor: not-allowed; background: #e2e8f0; }
+
       @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -389,7 +395,7 @@
                         <h3>Expert Profile</h3>
                         <div id="counsellorProfileCard" style="text-align:center; color:var(--text-muted); padding: 20px 0;">Select a counsellor to view their profile.</div>
                     </div>
-                    <button class="btn btn-outline" style="width:100%; border-color:var(--accent); color:var(--accent);">🤖 Ask Career AI (Instant FAQ)</button>
+                    <button class="btn btn-outline protect-parent" style="width:100%; border-color:var(--accent); color:var(--accent);">🤖 Ask Career AI (Instant FAQ)</button>
                 </div>
             </div>
         </div>
@@ -478,6 +484,11 @@
     }
 
     function renderMiniChart(score) {
+        if (typeof Chart === 'undefined') {
+            console.warn("Chart.js failed to load. Skipping mini chart rendering.");
+            return;
+        }
+
         const ctx = document.getElementById('miniClarityChart');
         if(!ctx) return;
         if(miniChartInstance) miniChartInstance.destroy();
@@ -486,13 +497,13 @@
             type: 'line',
             data: { 
                 labels: ['Start', 'Academics', 'Assessment', 'Now'], 
-                datasets: [{ data: [1, 3, score >= 7 ? 7 : score, score], borderColor: '#f59e0b', borderWidth: 2, pointRadius: 3, tension: 0.4 }] 
+                datasets: [{ data: [1, 3, score >= 6 ? 6 : score, score], borderColor: '#f59e0b', borderWidth: 3, pointRadius: 4, pointBackgroundColor: '#0f172a', tension: 0.4 }] 
             },
             options: { 
                 responsive: true, maintainAspectRatio: false, 
                 plugins: { legend: { display: false }, tooltip: {enabled: false} }, 
                 scales: { x: { display: false }, y: { display: false, min: 0, max: 10 } }, 
-                layout: { padding: 0 } 
+                layout: { padding: 5 } 
             }
         });
     }
@@ -502,13 +513,13 @@
         let score = 1; // Base Profile (1)
         let msg = "Complete your academic profile to establish a baseline.";
         
-        // Academic Check (2)
+        // Academic Check (+2)
         if(data.academic && (data.academic.marks || data.academic.stream)) { 
             score += 2; 
             document.getElementById('badge-academic').classList.add('unlocked-primary');
         } 
         
-        // Assessment Check (3)
+        // Assessment Check (+3)
         if(data.assessmentCompleted) {
             score += 3;
             document.getElementById('badge-assessed').classList.add('unlocked-primary');
@@ -541,7 +552,7 @@
                 }
             }
 
-            // Populate Careers Preview (Weighted Narrative)
+            // Populate Careers Preview (Weighted Narrative - Counsellor Tone)
             if(data.riasecCode) {
                 let career1 = "General Pathways"; let match1 = "Exploring";
                 let career2 = "Skill Development"; let match2 = "Exploring";
@@ -555,19 +566,19 @@
                 } else if (r.includes('A') && r.includes('S')) {
                     career1 = "Psychology / Humanities"; match1 = "🔥 Strong Match";
                     career2 = "Design / Media / Education"; match2 = "⭐ Good Match";
-                    textMatch = "Your profile suggests strong alignment with creative, human-centric, and expressive roles. You draw energy from connecting with others and thinking outside the box.";
+                    textMatch = "Your profile indicates a natural aptitude for creative, human-centric, and expressive roles. You draw energy from connecting with others, making this a highly fulfilling direction.";
                 } else if (r.includes('E') && r.includes('C')) {
                     career1 = "Business / Management"; match1 = "🔥 Strong Match";
                     career2 = "Finance / Operations"; match2 = "⭐ Good Match";
-                    textMatch = "Your profile suggests natural energy toward leadership, organization, and structured execution. Roles requiring strategic decision-making suit you well.";
+                    textMatch = "Your results point toward leadership, organization, and structured execution. Roles requiring strategic decision-making and project management align strongly with your natural traits.";
                 } else if (r.includes('I') && r.includes('S')) {
                     career1 = "Medicine / Healthcare"; match1 = "🔥 Strong Match";
                     career2 = "Clinical Sciences"; match2 = "⭐ Good Match";
-                    textMatch = "Your profile blends analytical rigor with a strong desire to help others, making healthcare and clinical sciences a highly rewarding potential pathway.";
+                    textMatch = "Your profile blends analytical rigor with a strong desire to help others. Healthcare, clinical sciences, or research-driven social work are highly rewarding potential pathways.";
                 } else {
                     career1 = "Interdisciplinary Roles"; match1 = "🔥 Strong Match";
                     career2 = "Management / Consulting"; match2 = "⭐ Good Match";
-                    textMatch = "Your profile shows a unique blend of traits. You are likely to thrive in interdisciplinary roles that combine strategy with execution.";
+                    textMatch = "Your profile shows a unique, versatile blend of traits. You are likely to thrive in interdisciplinary roles that combine strategic thinking with execution.";
                 }
 
                 document.getElementById('dashCareersContainer').innerHTML = `
@@ -579,14 +590,14 @@
             }
         }
         
-        // Session Check (2)
+        // Session Check (+2)
         if(data.sessionsHad && data.sessionsHad > 0) {
             score += 2;
             document.getElementById('badge-counselled').classList.add('unlocked-primary');
             document.getElementById('tl-step-3').classList.add('completed');
         }
 
-        // Lock Logic (2)
+        // Lock Logic (+2 = Max 10)
         if(data.careerLocked) {
             score = 10;
             document.getElementById('badge-locked').classList.add('unlocked-success');
@@ -623,7 +634,9 @@
 
     // --- LOCK UI LOGIC ---
     function lockUI() {
-        document.querySelectorAll('#comp1, #comp2, #portMarks, #portStream, #portStrong, #portWeak, .btn-save-academic').forEach(el => el.disabled = true);
+        document.getElementById('academicInputCard').classList.add('section-readonly');
+        document.getElementById('exploreLabCard').classList.add('section-readonly');
+        
         const actionBtn = document.getElementById('dashActionBtn');
         if(actionBtn) {
             actionBtn.style.display = 'block';
