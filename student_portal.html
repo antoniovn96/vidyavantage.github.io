@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Student Dashboard | Career Intelligence</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
       :root {
         --bg: #f8fafc; --sidebar: #0f172a; --card-bg: #ffffff; 
@@ -334,6 +333,20 @@
                         <p id="reportAvoid" style="color: var(--danger); font-weight: bold; font-size: 1rem;"></p>
                     </div>
                 </div>
+                
+                <div class="card" style="border-top: 4px solid #8b5cf6;">
+                    <h3>📅 1-Year Execution Action Plan</h3>
+                    <div class="grid-2">
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <h4 style="color: var(--primary); margin-top: 0;">📚 Recommended Courses</h4>
+                            <ul id="reportPlanCourses" style="color: #334155; line-height: 1.6;"></ul>
+                        </div>
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <h4 style="color: var(--primary); margin-top: 0;">🎯 Exams & Focus</h4>
+                            <ul id="reportPlanExams" style="color: #334155; line-height: 1.6;"></ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -539,6 +552,37 @@
         });
     }
 
+    // --- UPGRADED ACTION PLAN RENDERER ---
+    function renderTiersAndPlan(careerName) {
+        let planCourses = ""; let planExams = "";
+        let c = careerName.toLowerCase();
+
+        if(c.includes("engineer") || c.includes("tech") || c.includes("data") || c.includes("cyber")) {
+            planCourses = "<li>Basic Python/C++ Logic Foundation</li><li>JEE Mains Crash Course</li>";
+            planExams = "<li>Primary: JEE Mains (Jan)</li><li>Secondary: BITSAT / State CET</li>";
+        } else if (c.includes("medical") || c.includes("doctor") || c.includes("mbbs") || c.includes("clinic")) {
+            planCourses = "<li>Advanced NCERT Biology Mastery</li><li>Clinical Shadowing (1 week)</li>";
+            planExams = "<li>Primary: NEET UG (May)</li><li>Backup: CUET (B.Sc Bio)</li>";
+        } else if (c.includes("finance") || c.includes("account") || c.includes("ca") || c.includes("actuar")) {
+            planCourses = "<li>Financial Excel Certification</li><li>CA Foundation Prep</li>";
+            planExams = "<li>Primary: CUET (DU target)</li><li>Professional: CA Found / IPMAT</li>";
+        } else if (c.includes("business") || c.includes("manage") || c.includes("human resource") || c.includes("market") || c.includes("entrepreneur")) {
+            planCourses = "<li>Public Speaking & Communication Mastery</li><li>Digital Marketing Basics</li>";
+            planExams = "<li>Primary: CUET / IPMAT / NPAT</li><li>Focus: Building Leadership & Soft Skills</li>";
+        } else if (c.includes("law") || c.includes("policy") || c.includes("legal")) {
+            planCourses = "<li>Debate & MUN Participation</li><li>Logical Reasoning Practice</li>";
+            planExams = "<li>Primary: CLAT (December)</li><li>Secondary: AILET / LSAT</li>";
+        } else if (c.includes("design") || c.includes("media") || c.includes("art") || c.includes("psych") || c.includes("journal")) {
+            planCourses = "<li>Build a Creative Portfolio / Blog</li><li>Behavioral Psychology 101</li>";
+            planExams = "<li>Primary: UCEED / NID DAT (For Design)</li><li>Primary: CUET (For Humanities)</li>";
+        } else {
+            planCourses = "<li>Identify 2 core practical skills to master this year.</li><li>Find a local internship or shadowing opportunity.</li>";
+            planExams = "<li>Focus on Skill Certifications & Interviews over written entrance exams.</li>";
+        }
+        document.getElementById('reportPlanCourses').innerHTML = planCourses;
+        document.getElementById('reportPlanExams').innerHTML = planExams;
+    }
+
     // --- DYNAMIC CLARITY SCORE (Base 10) & RISK LOGIC ---
     window.calculateDynamicScore = function(data) {
         let score = 1; // Base Profile (1)
@@ -693,6 +737,11 @@
                     },
                     options: { maintainAspectRatio: false, scales: { r: { max: 100, min: 0 } }, plugins: { legend: { display: false } } }
                 });
+            }
+            
+            // Build the Smart Action Plan based on the top career
+            if(rep.topCareers && rep.topCareers.length > 0) {
+                 renderTiersAndPlan(rep.topCareers[0].name);
             }
         }
 
