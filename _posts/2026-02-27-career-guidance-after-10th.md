@@ -65,27 +65,43 @@ keywords: "what to do after 10th, science vs commerce vs arts, career guidance a
     contain-intrinsic-size: 1000px;
   }
 
-  /* --- HERO OVERLAY FIX FOR READABILITY --- */
+  /* --- BULLETPROOF HERO OVERLAY FIX --- */
   .blog-hero {
-    /* Darkened the gradient significantly */
-    background: linear-gradient(rgba(10,35,66,0.95), rgba(10,35,66,0.9)),
-                url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&auto=format&fit=crop');
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     padding: 120px 20px;
-    color: white;
     text-align: center;
+  }
+
+  /* Solid dark layer placed directly over the image */
+  .blog-hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 35, 66, 0.85); /* Very dark blue */
+    z-index: 1;
+  }
+
+  /* Ensures text sits ABOVE the dark layer */
+  .hero-overlay {
+    position: relative;
+    z-index: 2; 
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   .blog-hero h1 {
     font-size: 3.2rem;
     margin-bottom: 15px;
     line-height: 1.2;
-    /* Added strong text shadow */
+    color: #ffffff !important; /* Forces white text */
     text-shadow: 0 4px 15px rgba(0,0,0,0.8);
   }
 
   .blog-hero p {
+    color: #f8fafc !important; /* Forces off-white text */
     text-shadow: 0 2px 10px rgba(0,0,0,0.6);
   }
 
@@ -94,7 +110,7 @@ keywords: "what to do after 10th, science vs commerce vs arts, career guidance a
     margin-top: 20px;
     padding: 8px 16px;
     background: #F59E0B; /* Accessible orange/gold */
-    color: #000000;
+    color: #000000 !important;
     border-radius: 30px;
     font-weight: 800;
     letter-spacing: 0.5px;
@@ -271,7 +287,7 @@ keywords: "what to do after 10th, science vs commerce vs arts, career guidance a
 <section class="blog-hero">
   <div class="hero-overlay">
     <h1>What to Do After 10th? Complete Career Guide</h1>
-    <p style="font-size: 1.2rem; color: #e2e8f0; margin-bottom: 0; max-width: 700px; margin: 0 auto;">Science, Commerce, or Arts? Confused after 10th? Here is the right way to choose your future.</p>
+    <p style="font-size: 1.2rem; margin-bottom: 0; max-width: 700px; margin: 0 auto;">Science, Commerce, or Arts? Confused after 10th? Here is the right way to choose your future.</p>
     <div class="hero-badge">Updated for 2026 Admissions</div>
   </div>
 </section>
@@ -440,13 +456,13 @@ keywords: "what to do after 10th, science vs commerce vs arts, career guidance a
         <tr>
           <td><strong>Commerce</strong></td>
           <td>Business & Finance careers</td>
-          <td><span style="color: #B45309; font-weight: bold;">Moderate</span></td>
+          <td><span style="color: #B45309; font-weight: bold;">Moderate</span></td> 
           <td>High</td>
         </tr>
         <tr>
           <td><strong>Arts</strong></td>
           <td>Creative & Administrative roles</td>
-          <td><span style="color: #047857; font-weight: bold;">Moderate</span></td>
+          <td><span style="color: #047857; font-weight: bold;">Moderate</span></td> 
           <td>Growing rapidly</td>
         </tr>
       </tbody>
