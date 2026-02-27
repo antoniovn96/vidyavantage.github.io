@@ -4,6 +4,9 @@ title: Career Blog
 permalink: /blog/
 ---
 
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1600&auto=format&fit=crop">
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
 <style>
   /* --- GLOBAL RESETS & BACKGROUND --- */
   body {
@@ -14,11 +17,27 @@ permalink: /blog/
     margin: 0;
   }
 
+  /* Visually Hidden Label for Accessibility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
   /* --- PREMIUM PAGE HEADER --- */
   .blog-header { 
     text-align: center; 
     padding: 100px 20px; 
-    background: radial-gradient(circle at top right, #1e1b4b, #0f172a); 
+    background: radial-gradient(circle at top right, rgba(30, 27, 75, 0.9), rgba(15, 23, 42, 0.95)), 
+                url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1600&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
     color: #ffffff; 
     margin-bottom: 60px;
     position: relative;
@@ -27,37 +46,26 @@ permalink: /blog/
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   }
   
-  .blog-header::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
   .blog-header h1 { 
     font-size: 3.5rem; 
     font-weight: 900; 
     margin: 0 0 15px 0; 
     position: relative;
     z-index: 1;
-    background: -webkit-linear-gradient(45deg, #60a5fa, #ffffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: white; /* Fallback */
+    color: white; 
     letter-spacing: -1px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
   }
   
   .blog-header p { 
     font-size: 1.25rem; 
-    color: #cbd5e1; 
+    color: #e2e8f0; 
     max-width: 650px; 
     margin: 0 auto; 
     position: relative;
     z-index: 1;
     line-height: 1.6;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
   }
 
   /* --- MAIN LAYOUT (Two Column) --- */
@@ -112,7 +120,7 @@ permalink: /blog/
     outline: none; 
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); 
   }
-  .search-icon { position: absolute; left: 18px; top: 16px; color: #64748b; font-size: 1.2rem; }
+  .search-icon { position: absolute; left: 18px; top: 16px; color: #4B5563; font-size: 1.2rem; }
 
   /* Premium Filter Buttons */
   .filter-list { display: flex; flex-direction: column; gap: 8px; }
@@ -158,7 +166,7 @@ permalink: /blog/
     border: 1px solid #e2e8f0; 
     border-radius: 20px; 
     overflow: hidden; 
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
     background: white; 
     text-decoration: none !important; 
     color: inherit; 
@@ -180,7 +188,7 @@ permalink: /blog/
     background: #f1f5f9; /* Skeleton load color */
   }
   .blog-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-  .blog-card:hover .blog-img { transform: scale(1.08); } /* Image zoom on hover */
+  .blog-card:hover .blog-img { transform: scale(1.08); } 
 
   .blog-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1;}
   
@@ -238,6 +246,8 @@ permalink: /blog/
 </style>
 
 <main>
+  <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1600&auto=format&fit=crop" style="display:none;" alt="Students working" width="1600" height="1067" aria-hidden="true" decoding="async">
+
   <header class="blog-header">
     <h1>The Career Intel Blog</h1>
     <p>Verified clinical insights on career paths, institutional data, and the psychology of student success.</p>
@@ -249,16 +259,15 @@ permalink: /blog/
       <div class="search-container">
         <h2 class="sidebar-section-title">Search Library</h2>
         <span class="search-icon" aria-hidden="true">🔍</span>
-        <input type="text" id="searchInput" class="search-input" placeholder="Keywords, topics..." aria-label="Search blog posts">
+        <label for="searchInput" class="sr-only">Search blog posts</label>
+        <input type="text" id="searchInput" class="search-input" placeholder="Keywords, topics...">
       </div>
 
       <div class="filter-container">
         <h2 class="sidebar-section-title">Categories</h2>
         <div class="filter-list" role="tablist">
           <button class="filter-btn active" onclick="setCategory('all', this)" role="tab" aria-selected="true">All Research</button>
-          
           <button class="filter-btn" onclick="setCategory('career-guidance', this)" role="tab" aria-selected="false">Career Guidance</button>
-          
           <button class="filter-btn" onclick="setCategory('study-abroad', this)" role="tab" aria-selected="false">Study Abroad & Visas</button>
           <button class="filter-btn" onclick="setCategory('psychology', this)" role="tab" aria-selected="false">Student Psychology</button>
           <button class="filter-btn" onclick="setCategory('admissions', this)" role="tab" aria-selected="false">Admissions & Exams</button>
@@ -334,8 +343,13 @@ permalink: /blog/
     cards.forEach(card => {
       // Get data from the card
       const cardCat = card.getAttribute('data-category');
-      const titleText = card.querySelector('.blog-title').innerText.toLowerCase();
-      const excerptText = card.querySelector('.blog-excerpt').innerText.toLowerCase();
+      
+      // Ensure titleText and excerptText exist before calling toLowerCase() to prevent errors on empty cards
+      const titleElement = card.querySelector('.blog-title');
+      const excerptElement = card.querySelector('.blog-excerpt');
+      
+      const titleText = titleElement ? titleElement.innerText.toLowerCase() : '';
+      const excerptText = excerptElement ? excerptElement.innerText.toLowerCase() : '';
 
       // Check Category Match
       const matchesCategory = (currentCategory === 'all' || cardCat === currentCategory);
