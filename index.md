@@ -184,7 +184,7 @@ title: Home
 </style>
 
 <p style="display:none;">
-We provide professional career counselling and psychometric assessments for students of Class 8, 9, 10, 11 and 12 across Bangalore, Karnataka and Pan-India. Our services help students choose the right stream after 10th and the best career options after 12th using scientific aptitude testing.
+We provide professional online career counselling and psychometric assessments for students of Class 8, 9, 10, 11 and 12 across India. Headquartered in Bangalore, our services help students choose the right stream after 10th and the best career options after 12th using scientific aptitude testing.
 </p>
 
 <script type="application/ld+json">
@@ -212,13 +212,13 @@ We provide professional career counselling and psychometric assessments for stud
   <div class="hero-text">
     <span class="hero-badge">Verified Career Intelligence</span>
     
-    <h1 class="hero-headline">Career Guidance & Psychometric Assessment for Class 8–12 Students in <span>Bangalore & India</span></h1>
+    <h1 class="hero-headline">Career Guidance & Psychometric Assessment for Class 8–12 Students <span>Across India</span></h1>
     
     <p class="hero-subhead">
       End the Confusion. Map Your Future with Clinical Precision. We replace guesswork with science. Get personalized career roadmaps powered by clinical psychometrics and expert 1-on-1 counseling.
     </p>
     <div class="hero-location">
-      <span style="font-size: 1.2rem;">📍</span> Serving students across Karnataka, Bangalore, and Pan-India.
+      <span style="font-size: 1.2rem;">📍</span> Serving students Pan-India | Headquartered in Bangalore.
     </div>
   </div>
   
@@ -292,7 +292,7 @@ We provide professional career counselling and psychometric assessments for stud
 <div class="section-wrap">
   <div class="section-header">
     <span class="section-tag">Our Career Guidance Services</span>
-    <h2 class="section-title">Career Counselling in Bangalore & Karnataka</h2>
+    <h2 class="section-title">Online Career Counselling & Psychometric Testing Pan-India</h2>
     <p style="color:var(--text-light); font-size:1.15rem;">Choosing a career based on marks or peer pressure leads to burnout.</p>
   </div>
 
@@ -517,7 +517,7 @@ We provide professional career counselling and psychometric assessments for stud
     </div>
     
     <div style="margin: 30px 0; font-size: 0.85rem; color: #94a3b8; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-        <strong>Our Focus Areas:</strong> Career Counsellor in Bangalore | Best Career Guidance Centre in Karnataka | Career Counselling After 10th | Career Counselling After 12th | Psychometric Career Assessment Near Me | Online Career Counselling in India
+        <strong>Our Focus Areas:</strong> Online Career Counselling in India | Best Career Guidance Pan-India | Career Counsellor in Bangalore | Psychometric Career Assessment For Students | Stream Selection After 10th | Career Planning After 12th
     </div>
 
     <p style="font-size: 0.85rem; opacity: 0.7;">© 2026 Vidyavantage Career Intelligence System. Built by Professional School Counsellors.</p>
