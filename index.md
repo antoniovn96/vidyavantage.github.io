@@ -409,7 +409,7 @@ We provide professional online career counselling and psychometric assessments f
                 As a professional School Counsellor with an MSW specialized in Medical and Psychiatric Social Work, Antonio has witnessed firsthand the anxiety students face when making blind career choices. He built Career Intelligence to replace dinner-table arguments with clinical precision.
             </p>
             <div class="founder-stats">
-                <div class="f-stat"><strong>MSW</strong><span>Psychiatric SW</span></div>
+                <div class="f-stat"><strong>MSW</strong><span>Psychiatric Social Work</span></div>
                 <div class="f-stat"><strong>5k+</strong><span>Students Guided</span></div>
             </div>
         </div>
