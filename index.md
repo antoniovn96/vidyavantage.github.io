@@ -3,7 +3,6 @@ layout: default
 title: Home
 ---
 
-<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 
 <style>
@@ -34,7 +33,7 @@ title: Home
      ========================================== */
   .hero-wrapper { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 80px 20px; min-height: 80vh; gap: 40px;}
   .hero-text { flex: 1.2; animation: slideInLeft 0.8s ease-out; }
-  .hero-visual { flex: 0.8; position: relative; animation: slideInRight 0.8s ease-out; }
+  .hero-visual { flex: 0.8; position: relative; animation: slideInRight 0.8s ease-out; min-height: 450px; /* Anti-Jitter for Firebase */ }
 
   .hero-badge { display: inline-block; background: #dbeafe; color: var(--secondary); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
   h1.hero-headline { font-size: 3.5rem; line-height: 1.15; font-weight: 900; color: #0f172a; margin-bottom: 20px; letter-spacing: -1px;}
@@ -43,14 +42,15 @@ title: Home
   .hero-location { font-size: 0.95rem; font-weight: 800; color: var(--primary); margin-bottom: 35px; display: flex; align-items: center; gap: 8px;}
 
   /* --- AUTH & WELCOME BOXES --- */
-  .auth-box { background: white; padding: 35px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); max-width: 420px; margin: auto; position: relative; overflow: hidden;}
+  .auth-container { min-height: 450px; display: flex; align-items: center; justify-content: center; width: 100%; }
+  .auth-box { width: 100%; background: white; padding: 35px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); max-width: 420px; position: relative; overflow: hidden;}
   .auth-box::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
   
   .auth-input { width: 100%; padding: 14px 15px; margin-bottom: 15px; border: 2px solid var(--border); border-radius: 10px; font-size: 1rem; box-sizing: border-box; font-family: inherit; transition: 0.3s; background: #f8fafc;}
   .auth-input:focus { border-color: var(--primary); outline: none; background: white; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);}
   
   .auth-buttons { display: flex; gap: 10px; margin-bottom: 20px; }
-  .btn-auth { flex: 1; padding: 14px; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; font-size: 1rem; text-align: center;}
+  .btn-auth { flex: 1; padding: 14px; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; font-size: 1rem; text-align: center; touch-action: manipulation;}
   .btn-signin { background: var(--primary); color: white; }
   .btn-signin:hover { background: var(--secondary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);}
   .btn-signup { background: var(--bg-light); color: var(--text-dark); border: 2px solid var(--border); }
@@ -61,11 +61,19 @@ title: Home
   .divider:not(:empty)::before { margin-right: .5em; }
   .divider:not(:empty)::after { margin-left: .5em; }
 
-  .btn-google { width: 100%; background: white; color: var(--text-dark); padding: 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: all 0.3s; }
+  .btn-google { width: 100%; background: white; color: var(--text-dark); padding: 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: all 0.3s; touch-action: manipulation;}
   .btn-google:hover { border-color: var(--primary); background: #f8fafc; }
-  .btn-google svg { width: 22px; height: 22px; }
-
+  
   #statusMsg { margin-top: 15px; color: var(--primary); font-weight: bold; font-size: 0.95rem; text-align: center; min-height: 20px; }
+
+  /* ==========================================
+     SHARED SECTION STYLES (Performance Optimized)
+     ========================================== */
+  .section-wrap { padding: 90px 20px; content-visibility: auto; contain-intrinsic-size: 800px; }
+  .section-wrap.alt-bg { background: var(--bg-light); }
+  .section-header { text-align: center; max-width: 750px; margin: 0 auto 50px; }
+  .section-tag { color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1px;}
+  .section-title { font-size: 2.8rem; font-weight: 900; margin: 15px 0; color: #0f172a; letter-spacing: -1px;}
 
   /* ==========================================
      2. DYNAMIC SOCIAL PROOF & STATS 
@@ -76,15 +84,6 @@ title: Home
   .stat-label { font-size: 1.1rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold;}
   .live-pulse { display: inline-block; width: 12px; height: 12px; background: var(--success); border-radius: 50%; margin-right: 8px; animation: pulse 2s infinite;}
   .urgency-trigger { text-align: center; margin-top: 30px; font-size: 0.95rem; font-weight: bold; color: #a7f3d0; letter-spacing: 0.5px;}
-
-  /* ==========================================
-     SHARED SECTION STYLES
-     ========================================== */
-  .section-wrap { padding: 90px 20px; }
-  .section-wrap.alt-bg { background: var(--bg-light); }
-  .section-header { text-align: center; max-width: 750px; margin: 0 auto 50px; }
-  .section-tag { color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 1px;}
-  .section-title { font-size: 2.8rem; font-weight: 900; margin: 15px 0; color: #0f172a; letter-spacing: -1px;}
 
   /* ==========================================
      3. FOR PARENTS (Micro-Section)
@@ -134,8 +133,6 @@ title: Home
   .founder-info h3 { font-size: 2rem; margin: 0 0 5px 0; color: #0f172a; font-weight: 900;}
   .founder-info h4 { font-size: 1.1rem; color: var(--primary); margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px;}
   .founder-stats { display: flex; gap: 20px; margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px;}
-  .f-stat strong { display: block; font-size: 1.5rem; color: #0f172a; font-weight: 900;}
-  .f-stat span { font-size: 0.85rem; color: var(--text-light); text-transform: uppercase;}
 
   /* ==========================================
      8. REPORT PREVIEW & SCHOOLS CTA
@@ -148,12 +145,11 @@ title: Home
      ========================================== */
   .faq-container { max-width: 800px; margin: 0 auto; }
   .faq-item { background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: 0.3s;}
-  .faq-question { padding: 20px 25px; cursor: pointer; font-weight: 800; color: #0f172a; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem;}
-  .faq-answer { padding: 0 25px 20px; color: var(--text-light); line-height: 1.6; display: none; }
+  .faq-question { padding: 24px 25px; cursor: pointer; font-weight: 800; color: #0f172a; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; touch-action: manipulation;}
+  .faq-answer { padding: 0 25px 24px; color: var(--text-light); line-height: 1.6; display: none; }
   .faq-item.active .faq-answer { display: block; }
   .faq-item.active { border-color: var(--primary); box-shadow: 0 10px 20px rgba(37,99,235,0.05);}
-  .faq-item.active .faq-icon { transform: rotate(45deg); color: var(--primary);}
-
+  
   .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;}
   .blog-card { background: white; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: 0.3s; cursor: pointer; display: block;}
   .blog-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08);}
@@ -162,14 +158,11 @@ title: Home
   .blog-content h4 { margin: 0 0 10px 0; font-size: 1.25rem; color: #0f172a;}
   
   /* ==========================================
-     10. FOOTER & TRUST BADGES
+     10. FOOTER
      ========================================== */
-  .trust-footer { background: #0f172a; color: #cbd5e1; padding: 40px 20px; text-align: center; border-top: 1px solid #334155;}
+  .trust-footer { background: #0f172a; color: #cbd5e1; padding: 40px 20px; text-align: center; border-top: 1px solid #334155; content-visibility: auto;}
   .trust-badges { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;}
   .t-badge { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 0.9rem;}
-
-  /* RESPONSIVE & IMAGE OPTIMIZATIONS */
-  img.responsive-img { max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 12px; }
 
   @media (max-width: 900px) {
     .hero-wrapper { flex-direction: column; text-align: center; padding-top: 40px; }
@@ -183,9 +176,6 @@ title: Home
     .founder-stats { justify-content: center; }
     .process-timeline::before { display: none; }
   }
-  @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 </style>
 
 <p style="display:none;">
@@ -228,38 +218,39 @@ We provide professional online career counselling and psychometric assessments f
   </div>
   
   <div class="hero-visual">
-    <div class="auth-box" id="loginBoxUI">
-        <h3 style="margin-top:0; color:var(--text-dark); font-size: 1.4rem; font-weight: 900;">Access Your Dashboard</h3>
-        <p style="color:var(--text-light); font-size:0.9rem; margin-bottom:20px;">Parents, Students, and Counsellors login here.</p>
-        
-        <input type="email" id="emailInput" class="auth-input" placeholder="Email Address">
-        <input type="password" id="passwordInput" class="auth-input" placeholder="Password">
-        
-        <div class="auth-buttons">
-            <button class="btn-auth btn-signin" id="emailLoginBtn">Sign In</button>
-            <button class="btn-auth btn-signup" id="emailSignUpBtn">Register</button>
+    <div class="auth-container">
+        <div class="auth-box" id="loginBoxUI">
+            <h3 style="margin-top:0; color:var(--text-dark); font-size: 1.4rem; font-weight: 900;">Access Your Dashboard</h3>
+            <p style="color:var(--text-light); font-size:0.9rem; margin-bottom:20px;">Parents, Students, and Counsellors login here.</p>
+            
+            <input type="email" id="emailInput" class="auth-input" placeholder="Email Address" aria-label="Email Address">
+            <input type="password" id="passwordInput" class="auth-input" placeholder="Password" aria-label="Password">
+            
+            <div class="auth-buttons">
+                <button class="btn-auth btn-signin" id="emailLoginBtn">Sign In</button>
+                <button class="btn-auth btn-signup" id="emailSignUpBtn">Register</button>
+            </div>
+            
+            <div class="divider">OR SECURE LOGIN WITH</div>
+            
+            <button class="btn-google" id="googleLoginBtn">
+                <svg width="22" height="22" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
+                Continue with Google
+            </button>
+            <p id="statusMsg"></p>
         </div>
-        
-        <div class="divider">OR SECURE LOGIN WITH</div>
-        
-        <button class="btn-google" id="googleLoginBtn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>
-            Continue with Google
-        </button>
 
-        <p id="statusMsg"></p>
-    </div>
-
-    <div class="auth-box" id="welcomeBoxUI" style="display: none; text-align: center; padding: 50px 30px;">
-        <div style="font-size: 4rem; margin-bottom: 15px; line-height:1;">👋</div>
-        <h3 style="margin-top:0; color:var(--text-dark); font-size: 1.8rem; font-weight: 900;">Welcome Back,<br><span id="welcomeNameDisplay" style="color:var(--primary);"></span>!</h3>
-        <p style="color:var(--text-light); margin-bottom: 30px; font-size: 1.05rem;">
-            You are securely logged in as:<br>
-            <strong id="loggedInEmailDisplay" style="color:#0f172a;">...</strong>
-        </p>
-        <button class="btn-auth btn-signin" id="fastTravelBtn" style="width: 100%; padding: 18px; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(37,99,235,0.3);">
-            Enter My Portal ➔
-        </button>
+        <div class="auth-box" id="welcomeBoxUI" style="display: none; text-align: center; padding: 50px 30px;">
+            <div style="font-size: 4rem; margin-bottom: 15px; line-height:1;">👋</div>
+            <h3 style="margin-top:0; color:var(--text-dark); font-size: 1.8rem; font-weight: 900;">Welcome Back,<br><span id="welcomeNameDisplay" style="color:var(--primary);"></span>!</h3>
+            <p style="color:var(--text-light); margin-bottom: 30px; font-size: 1.05rem;">
+                You are securely logged in as:<br>
+                <strong id="loggedInEmailDisplay" style="color:#0f172a;">...</strong>
+            </p>
+            <button class="btn-auth btn-signin" id="fastTravelBtn" style="width: 100%; padding: 18px; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(37,99,235,0.3);">
+                Enter My Portal ➔
+            </button>
+        </div>
     </div>
   </div>
 </div>
@@ -574,7 +565,6 @@ We provide professional online career counselling and psychometric assessments f
     async function processUserRouting(user) {
         const email = user.email.toLowerCase();
         try {
-            // Check Database Permissions dynamically for ALL staff (including you)
             const permsRef = doc(db, "permissions", email);
             const permsSnap = await getDoc(permsRef);
 
@@ -583,7 +573,6 @@ We provide professional online career counselling and psychometric assessments f
                 if(status) status.innerText = `Authorized as ${role.replace('_', ' ')}. Connecting...`;
                 
                 setTimeout(() => {
-                    // The system now dynamically routes based on the role in your database
                     if (role === "super_admin") window.location.href = "admin.html";
                     else if (role === "school_admin") window.location.href = "school_dashboard.html";
                     else if (role === "counsellor") window.location.href = "counsellor_dashboard.html";
@@ -592,7 +581,6 @@ We provide professional online career counselling and psychometric assessments f
                 return;
             }
 
-            // Fallback to normal student flow if they aren't in the permissions collection
             const studentRef = doc(db, "students", user.uid);
             const studentSnap = await getDoc(studentRef);
 
