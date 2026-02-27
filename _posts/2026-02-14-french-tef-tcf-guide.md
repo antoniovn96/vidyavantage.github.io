@@ -2,9 +2,10 @@
 layout: default
 title: "The 'Golden Ticket' to Canada PR: TEF vs TCF (2026 Guide)"
 date: 2026-02-14
+permalink: /tef-vs-tcf-canada-pr-2026/
 category: study-abroad
 category_label: "Languages"
-image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?w=1000&auto=format&fit=crop"
+image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=1000&auto=format&fit=crop"
 excerpt: "Stuck at 440 CRS score? Learning French is the only way to jump to 490+. We compare TEF Canada vs TCF Canada and how to hit CLB 7."
 description: "TEF vs TCF Canada 2026: A guide to French language tests for Canada PR. Learn about CLB 7 requirements, exam fees in India, and DELF vs TEF differences."
 keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr french points 2026, tef exam fees in india, learn french for express entry"
@@ -18,9 +19,10 @@ keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr f
     padding: 40px 20px;
   }
 
+  /* Visibilty Fix: Darkened the RGBA overlay and added text-shadow to H1/P */
   .blog-hero {
-    background: linear-gradient(rgba(10,35,66,0.7), rgba(10,35,66,0.85)),
-                url('https://images.unsplash.com/photo-1517935706615-2717063c2225?w=1000&auto=format&fit=crop');
+    background: linear-gradient(rgba(10,35,66,0.85), rgba(10,35,66,0.95)),
+                url('https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=1000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     padding: 120px 20px;
@@ -29,9 +31,14 @@ keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr f
   }
 
   .blog-hero h1 {
-    font-size: 3rem;
+    font-size: 3.2rem;
     margin-bottom: 10px;
     line-height: 1.2;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  }
+  
+  .blog-hero p {
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
   }
 
   .hero-badge {
@@ -45,6 +52,7 @@ keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr f
     letter-spacing: 0.5px;
     text-transform: uppercase;
     font-size: 0.85rem;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
   }
 
   .blog-container h2 {
@@ -64,10 +72,12 @@ keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr f
     margin-bottom: 50px;
   }
 
-  img {
+  img.content-img {
     max-width: 100%;
     height: auto;
     border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   }
 
   /* Custom Content Blocks */
@@ -204,6 +214,8 @@ keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr f
   <p>If you are applying for Canada PR (Express Entry) in 2026, you know the pain. The cutoff scores are historically high, often hovering above 480+. Even with a Master's degree and 3 years of work experience, you might fall short.</p>
   
   <p><strong>Enter the "Golden Ticket": French.</strong> Canada is desperate to attract Francophones outside of Quebec, and they reward candidates heavily for proving bilingual proficiency.</p>
+
+  <img src="https://images.unsplash.com/photo-1517722014278-c256a91a6fba?w=1000&auto=format&fit=crop" alt="Canadian flag in nature representing Canada PR Express Entry and French language points" class="content-img">
 
   <div class="magic-box">
     <h2 style="margin-top:0; color: #065f46; font-size: 3.5rem; line-height: 1;">+50 Points</h2>
