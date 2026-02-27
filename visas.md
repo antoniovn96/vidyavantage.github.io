@@ -6,6 +6,10 @@ image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.
 description: "Study abroad from India. Expert student visa process for Canada SDS, F1 visa, UK Student Route, and Germany blocked account. SOP & Interview Support."
 ---
 
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" media="(max-width: 900px)">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" media="(min-width: 901px)">
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -54,10 +58,10 @@ description: "Study abroad from India. Expert student visa process for Canada SD
   /* --- VARIABLES & RESET --- */
   :root {
     --primary: #0A2342; 
-    --accent: #F59E0B; /* Optimized for contrast */
+    --accent: #D97706; /* Darkened for perfect WCAG contrast */
     --bg-light: #F9FAFB;
     --text-dark: #1F2937;
-    --text-muted: #4B5563; /* Darkened for better readability */
+    --text-muted: #374151; /* Darkened for accessibility */
     --card-shadow: 0 10px 30px rgba(0,0,0,0.06);
     --hover-shadow: 0 20px 40px rgba(0,0,0,0.12);
     --success: #059669; /* Darkened for contrast */
@@ -82,7 +86,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
     color: #1E3A8A;
     font-weight: 600;
   }
-  .ecosystem-banner a { color: #2563EB; font-weight: 800; text-decoration: underline; margin-left: 10px; touch-action: manipulation; min-height: 48px; display: inline-block;}
+  .ecosystem-banner a { color: #1D4ED8; font-weight: 800; text-decoration: underline; margin-left: 10px; touch-action: manipulation; padding: 10px; display: inline-block;}
 
   /* --- HERO SECTION --- */
   .visa-hero {
@@ -105,19 +109,19 @@ description: "Study abroad from India. Expert student visa process for Canada SD
     padding: 8px 20px;
     border-radius: 50px;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 20px;
-    color: #fbbf24;
+    color: #FBBF24; /* Accessible yellow on dark blue */
   }
 
   .visa-hero h1 { font-size: 3.5rem; margin: 0 0 15px; font-weight: 900; letter-spacing: -1px; color: #ffffff !important; }
-  .visa-hero p { font-size: 1.25rem; max-width: 750px; margin: 0 auto; color: #E5E7EB; line-height: 1.6; }
+  .visa-hero p { font-size: 1.25rem; max-width: 750px; margin: 0 auto; color: #F3F4F6; line-height: 1.6; }
 
   /* --- TRUST ANCHORS --- */
   .trust-anchors { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px;}
-  .t-anchor { background: rgba(0,0,0,0.3); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; color: #E5E7EB; border: 1px solid rgba(255,255,255,0.1);}
+  .t-anchor { background: rgba(0,0,0,0.3); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; color: #F3F4F6; border: 1px solid rgba(255,255,255,0.1);}
   .t-anchor span { color: #34d399; font-weight: bold; margin-right: 5px;}
 
   /* --- GLOBAL SHARED STYLES --- */
@@ -139,10 +143,10 @@ description: "Study abroad from India. Expert student visa process for Canada SD
 
   /* --- LEAD CAPTURE FORM --- */
   .lead-container { max-width: 800px; margin: 0 auto; background: white; border-radius: 20px; padding: 40px; box-shadow: var(--card-shadow); border-top: 5px solid var(--accent); }
-  .urgency-block { background: #FFFBEB; border: 1px solid #FDE68A; color: #B45309; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.95rem; margin-bottom: 20px;}
+  .urgency-block { background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.95rem; margin-bottom: 20px;}
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;}
-  .form-input, .form-select { width: 100%; padding: 14px; border: 2px solid #E5E7EB; border-radius: 8px; font-size: 1rem; box-sizing: border-box; font-family: inherit; transition: 0.3s; min-height: 48px;}
-  .form-input:focus, .form-select:focus { border-color: var(--primary); outline: none;}
+  .form-input, .form-select { width: 100%; padding: 14px; border: 2px solid #E5E7EB; border-radius: 8px; font-size: 1rem; box-sizing: border-box; font-family: inherit; transition: 0.3s; min-height: 48px; color: var(--text-dark);}
+  .form-input:focus, .form-select:focus { border-color: var(--primary); outline: 2px solid var(--primary); outline-offset: 2px;}
   .btn-submit { background: var(--primary); color: white; border: none; width: 100%; padding: 16px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; touch-action: manipulation; min-height: 48px;}
   .btn-submit:hover { background: #07182e; transform: translateY(-2px);}
 
@@ -150,7 +154,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
   .disqualifier-box { max-width: 800px; margin: 40px auto 0; background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 16px; padding: 30px; text-align: center; border-left: 6px solid var(--danger);}
   .disqualifier-box h3 { color: #991B1B; font-size: 1.2rem; margin: 0 0 15px 0;}
   .disqualifier-box ul { list-style: none; padding: 0; margin: 0; color: #7F1D1D; text-align: left; max-width: 600px; margin: 0 auto;}
-  .disqualifier-box li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-weight: 500;}
+  .disqualifier-box li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; font-weight: 600;}
 
   /* --- VISA SUCCESS FACTORS --- */
   .success-factors { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;}
@@ -160,7 +164,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
 
   /* --- 100% FREE PACKAGE --- */
   .free-package-box { background: linear-gradient(135deg, var(--primary), #1a365d); color: white; max-width: 1000px; margin: 0 auto; border-radius: 20px; padding: 50px 30px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(10, 35, 66, 0.2);}
-  .free-badge { background: var(--success); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 20px; display: inline-block; letter-spacing: 1px;}
+  .free-badge { background: #059669; color: white; padding: 8px 20px; border-radius: 50px; font-weight: 900; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 20px; display: inline-block; letter-spacing: 1px;}
   .package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;}
   .pkg-item { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s;}
   .pkg-item:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1);}
@@ -169,7 +173,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
   .timeline-visual { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; position: relative; gap: 15px;}
   .timeline-visual::before { content: ''; position: absolute; top: 25px; left: 5%; width: 90%; height: 4px; background: #E5E7EB; z-index: 0; }
   .time-node { text-align: center; position: relative; z-index: 1; flex: 1; }
-  .node-circle { width: 50px; height: 50px; background: white; border: 4px solid var(--accent); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary); box-shadow: 0 5px 15px rgba(243, 156, 18, 0.2);}
+  .node-circle { width: 50px; height: 50px; background: white; border: 4px solid var(--accent); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary); box-shadow: 0 5px 15px rgba(217, 119, 6, 0.2);}
   .time-node h3 { margin: 0 0 5px; color: var(--text-dark); font-size: 1rem; font-weight: 800;}
   .time-node p { margin: 0; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: bold;}
 
@@ -191,16 +195,16 @@ description: "Study abroad from India. Expert student visa process for Canada SD
   .country-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
   .country-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow); transition: all 0.4s ease; text-decoration: none; display: flex; flex-direction: column; position: relative; border: 1px solid #f0f0f0; touch-action: manipulation; }
   .country-card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); border-color: #e0e0e0; }
-  .card-img-wrapper { height: 200px; overflow: hidden; position: relative; }
+  .card-img-wrapper { height: 200px; overflow: hidden; position: relative; aspect-ratio: 2/1; /* Prevents CLS Layout Jumps */ }
   .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
   .country-card:hover .card-img { transform: scale(1.1); }
   .flag-badge { position: absolute; bottom: -25px; right: 25px; width: 50px; height: 50px; border-radius: 50%; border: 4px solid white; background: white; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.15); z-index: 2; }
   .card-body { padding: 30px 25px 25px; position: relative; }
   .card-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); margin: 0 0 10px; display: flex; align-items: center; justify-content: space-between; }
   .visa-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
-  .v-tag { font-size: 0.75rem; padding: 4px 10px; background: #F3F4F6; color: #555; border-radius: 4px; font-weight: 600; }
+  .v-tag { font-size: 0.75rem; padding: 4px 10px; background: #F3F4F6; color: #4B5563; border-radius: 4px; font-weight: 700; }
   .card-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
-  .card-btn { display: block; text-align: center; padding: 12px; border: 1px solid #E5E7EB; border-radius: 8px; color: var(--text-dark); font-weight: 600; transition: 0.2s; font-size: 0.9rem; min-height: 48px; box-sizing: border-box;}
+  .card-btn { display: block; text-align: center; padding: 12px; border: 1px solid #E5E7EB; border-radius: 8px; color: var(--text-dark); font-weight: 700; transition: 0.2s; font-size: 0.9rem; min-height: 48px; box-sizing: border-box;}
   .country-card:hover .card-btn { background: var(--primary); color: white; border-color: var(--primary); }
 
   /* --- CASE STUDY BLOCK --- */
@@ -208,9 +212,9 @@ description: "Study abroad from India. Expert student visa process for Canada SD
   .cs-visual { background: var(--bg-light); padding: 40px; flex: 0.8; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-right: 1px solid #E5E7EB;}
   .cs-visual h3 { color: var(--primary); font-size: 1.5rem; margin: 10px 0;}
   .cs-content { padding: 40px; flex: 1.2;}
-  .cs-tag { display: inline-block; background: #dbeafe; color: var(--secondary); padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; text-transform: uppercase;}
+  .cs-tag { display: inline-block; background: #DBEAFE; color: #1E3A8A; padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; margin-bottom: 15px; text-transform: uppercase;}
   .cs-flow { border-left: 2px solid var(--accent); padding-left: 20px; margin-top: 20px;}
-  .cs-step { margin-bottom: 15px; position: relative;}
+  .cs-step { margin-bottom: 15px; position: relative; color: var(--text-muted);}
   .cs-step::before { content: ''; position: absolute; left: -26px; top: 5px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%;}
 
   /* --- PARENT FAQ (NATIVELY ACCESSIBLE) --- */
@@ -228,7 +232,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
 
   /* --- RESPONSIVE FIXES --- */
   @media (max-width: 900px) {
-    /* Responsive LCP Image for Mobile */
+    /* Optimizing LCP Image for Mobile */
     .visa-hero { 
         background: linear-gradient(135deg, rgba(10, 35, 66, 0.95), rgba(10, 35, 66, 0.8)), 
                     url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
@@ -250,7 +254,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
 
 <main>
     <div class="ecosystem-banner">
-      🔁 Already completed your Psychometric Assessment? <a href="{{ '/student_portal.html' | relative_url }}">Continue your global pathway planning inside your dashboard ➔</a>
+      🔁 Already completed your Psychometric Assessment? <a href="{{ '/student_portal.html' | relative_url }}" aria-label="Go to your student portal dashboard">Continue your global pathway planning inside your dashboard ➔</a>
     </div>
 
     <div class="visa-hero">
@@ -259,9 +263,9 @@ description: "Study abroad from India. Expert student visa process for Canada SD
       <p>Seamlessly transition from psychometric career mapping to securing your international study visa. Built exclusively for ambitious Indian students.</p>
       
       <div class="trust-anchors">
-          <div class="t-anchor"><span>✔</span> Guided across 6+ countries</div>
-          <div class="t-anchor"><span>✔</span> Structured document review</div>
-          <div class="t-anchor"><span>✔</span> Ethical advisory model</div>
+          <div class="t-anchor"><span aria-hidden="true">✔</span> Guided across 6+ countries</div>
+          <div class="t-anchor"><span aria-hidden="true">✔</span> Structured document review</div>
+          <div class="t-anchor"><span aria-hidden="true">✔</span> Ethical advisory model</div>
       </div>
     </div>
 
@@ -395,27 +399,27 @@ description: "Study abroad from India. Expert student visa process for Canada SD
         
         <div class="timeline-visual" style="margin-bottom: 80px;">
             <div class="time-node">
-                <div class="node-circle">1</div>
+                <div class="node-circle" aria-hidden="true">1</div>
                 <h3>Psychometrics</h3>
                 <p>Month 1</p>
             </div>
             <div class="time-node">
-                <div class="node-circle">2</div>
+                <div class="node-circle" aria-hidden="true">2</div>
                 <h3>Uni Applications</h3>
                 <p>Month 2</p>
             </div>
             <div class="time-node">
-                <div class="node-circle">3</div>
+                <div class="node-circle" aria-hidden="true">3</div>
                 <h3>Offer & Financials</h3>
                 <p>Month 3</p>
             </div>
             <div class="time-node">
-                <div class="node-circle">4</div>
+                <div class="node-circle" aria-hidden="true">4</div>
                 <h3>Visa Filing</h3>
                 <p>Month 4</p>
             </div>
             <div class="time-node">
-                <div class="node-circle">5</div>
+                <div class="node-circle" aria-hidden="true">5</div>
                 <h3>Pre-Departure</h3>
                 <p>Month 5</p>
             </div>
@@ -496,10 +500,10 @@ description: "Study abroad from India. Expert student visa process for Canada SD
         <p class="section-subtitle">Click to view detailed requirements and top courses for each specific region.</p>
 
         <div class="country-grid">
-          <a href="{{ '/visa/usa/' | relative_url }}" class="country-card">
+          <a href="{{ '/visa/usa/' | relative_url }}" class="country-card" aria-label="View Student Visa Details for USA">
             <div class="card-img-wrapper">
-              <img src="https://cdn.pixabay.com/photo/2014/11/22/00/03/new-york-540807_1280.jpg" class="card-img" alt="Landscape of USA" width="400" height="200" loading="lazy">
-              <img src="https://flagcdn.com/w80/us.png" class="flag-badge" alt="USA Flag" width="50" height="50" loading="lazy">
+              <img src="https://cdn.pixabay.com/photo/2014/11/22/00/03/new-york-540807_1280.jpg" class="card-img" alt="Landscape of USA" width="400" height="200" loading="lazy" decoding="async">
+              <img src="https://flagcdn.com/w80/us.png" class="flag-badge" alt="USA Flag" width="50" height="50" loading="lazy" decoding="async">
             </div>
             <div class="card-body">
               <h3 class="card-title">United States</h3>
@@ -508,14 +512,14 @@ description: "Study abroad from India. Expert student visa process for Canada SD
                 <span class="v-tag">H1B Work</span>
               </div>
               <p class="card-text">Navigate the complex US immigration system with expert DS-160 filing and specialized F1 mock interviews.</p>
-              <span class="card-btn">View USA Details</span>
+              <span class="card-btn" aria-hidden="true">View USA Details</span>
             </div>
           </a>
 
-          <a href="{{ '/visa/uk/' | relative_url }}" class="country-card">
+          <a href="{{ '/visa/uk/' | relative_url }}" class="country-card" aria-label="View Student Visa Details for UK">
             <div class="card-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Landscape of UK" width="400" height="200" loading="lazy">
-              <img src="https://flagcdn.com/w80/gb.png" class="flag-badge" alt="UK Flag" width="50" height="50" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Landscape of UK" width="400" height="200" loading="lazy" decoding="async">
+              <img src="https://flagcdn.com/w80/gb.png" class="flag-badge" alt="UK Flag" width="50" height="50" loading="lazy" decoding="async">
             </div>
             <div class="card-body">
               <h3 class="card-title">United Kingdom</h3>
@@ -524,14 +528,14 @@ description: "Study abroad from India. Expert student visa process for Canada SD
                 <span class="v-tag">Post-Study Work</span>
               </div>
               <p class="card-text">Study at prestigious universities with streamlined assistance for your CAS letter and NHS surcharge.</p>
-              <span class="card-btn">View UK Details</span>
+              <span class="card-btn" aria-hidden="true">View UK Details</span>
             </div>
           </a>
 
-          <a href="{{ '/visa/canada/' | relative_url }}" class="country-card">
+          <a href="{{ '/visa/canada/' | relative_url }}" class="country-card" aria-label="View Student Visa Details for Canada">
             <div class="card-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1503614472-8c93d56e92ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Landscape of Canada" width="400" height="200" loading="lazy">
-              <img src="https://flagcdn.com/w80/ca.png" class="flag-badge" alt="Canada Flag" width="50" height="50" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1503614472-8c93d56e92ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Landscape of Canada" width="400" height="200" loading="lazy" decoding="async">
+              <img src="https://flagcdn.com/w80/ca.png" class="flag-badge" alt="Canada Flag" width="50" height="50" loading="lazy" decoding="async">
             </div>
             <div class="card-body">
               <h3 class="card-title">Canada</h3>
@@ -540,14 +544,14 @@ description: "Study abroad from India. Expert student visa process for Canada SD
                 <span class="v-tag">PGWP</span>
               </div>
               <p class="card-text">Expert guidance on navigating SDS requirements, GIC setup, and Provincial Attestation Letters (PAL).</p>
-              <span class="card-btn">View Canada Details</span>
+              <span class="card-btn" aria-hidden="true">View Canada Details</span>
             </div>
           </a>
 
-          <a href="{{ '/visa/germany/' | relative_url }}" class="country-card">
+          <a href="{{ '/visa/germany/' | relative_url }}" class="country-card" aria-label="View Student Visa Details for Germany">
             <div class="card-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Landscape of Germany" width="400" height="200" loading="lazy">
-              <img src="https://flagcdn.com/w80/de.png" class="flag-badge" alt="Germany Flag" width="50" height="50" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Landscape of Germany" width="400" height="200" loading="lazy" decoding="async">
+              <img src="https://flagcdn.com/w80/de.png" class="flag-badge" alt="Germany Flag" width="50" height="50" loading="lazy" decoding="async">
             </div>
             <div class="card-body">
               <h3 class="card-title">Germany</h3>
@@ -556,7 +560,7 @@ description: "Study abroad from India. Expert student visa process for Canada SD
                 <span class="v-tag">Job Seeker</span>
               </div>
               <p class="card-text">Unlock free public education. Get assistance with APS certification and Blocked Account setup.</p>
-              <span class="card-btn">View Germany Details</span>
+              <span class="card-btn" aria-hidden="true">View Germany Details</span>
             </div>
           </a>
         </div>
@@ -646,5 +650,5 @@ setTimeout(function() {
     s1.charset='UTF-8';
     s1.setAttribute('crossorigin','*');
     s0.parentNode.insertBefore(s1,s0);
-}, 3500); // Loads 3.5 seconds after page starts, saving your PageSpeed score!
+}, 5000); 
 </script>
