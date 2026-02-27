@@ -190,7 +190,7 @@ keywords: "what to do after 10th, science vs commerce vs arts, career guidance a
   details.faq-item { background: white; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: 0.3s; }
   details.faq-item summary { padding: 20px 25px; font-weight: 800; color: #0f172a; font-size: 1.1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; touch-action: manipulation; min-height: 48px; }
   details.faq-item summary::-webkit-details-marker { display: none; }
-  details.faq-item summary::after { content: '+'; color: #2563EB; font-size: 1.5rem; font-weight: normal; transition: transform 0.3s; }
+  details.faq-item summary::after { content: '+'; color: #1D4ED8; font-size: 1.5rem; font-weight: normal; transition: transform 0.3s; }
   details[open].faq-item summary::after { content: '×'; transform: rotate(45deg); }
   details[open].faq-item { border-color: #2563EB; box-shadow: 0 10px 20px rgba(37,99,235,0.05); }
   .faq-answer { padding: 0 25px 24px; color: #4B5563; line-height: 1.6; }
@@ -276,7 +276,7 @@ keywords: "what to do after 10th, science vs commerce vs arts, career guidance a
   <p>This complete career guide will help you clearly understand all available options after 10th in India so you can confidently choose the stream that matches your interests, strengths, and future goals.</p>
 
   <div class="magic-box">
-    <h3 style="margin-top:0; color: #065f46; font-size: 1.5rem;"><span aria-hidden="true">📌</span> Quick Summary: What You'll Learn</h3>
+    <h2 style="margin-top:0; color: #065f46; font-size: 1.5rem; letter-spacing: normal;"><span aria-hidden="true">📌</span> Quick Summary: What You'll Learn</h2>
     <ul style="color: #064e3b; text-align: left; font-weight: 500; font-size: 1.05rem; line-height: 1.8; padding-left: 20px; margin-bottom: 0;">
       <li>Available streams after 10th in India</li>
       <li>Subjects and career scope in Science, Commerce & Arts</li>
@@ -403,104 +403,4 @@ keywords: "what to do after 10th, science vs commerce vs arts, career guidance a
   <h3>👤 Who Should Choose Arts?</h3>
   <p>Creative thinkers with strong communication skills. Perfect for students interested in law, government administration, mental health, design, or writing.</p>
 
-  <div class="warning-box" style="border-color: #059669; background: #ecfdf5;">
-    <h3 style="margin-top: 0; color: #065f46;"><span aria-hidden="true">💰</span> Salary Range & Verdict</h3>
-    <p style="margin-bottom: 5px; color: #064e3b;"><strong>Entry Level:</strong> ₹2.5–5 LPA | <strong>Civil/Law Pros:</strong> ₹8–15+ LPA</p>
-    <p style="margin-bottom: 0; color: #064e3b;"><strong>Pros:</strong> Ideal for creative minds with less rote-learning pressure. <strong>Cons:</strong> Requires strict specialization in college to maximize earnings.</p>
-  </div>
-</section>
-
-<section>
-  <h2>📊 Science vs Commerce vs Arts — Comparison</h2>
-  <div class="table-wrapper">
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>Stream</th>
-          <th>Best For</th>
-          <th>Academic Difficulty</th>
-          <th>Career Scope</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Science</strong></td>
-          <td>Technical & Medical careers</td>
-          <td><span style="color: #dc2626; font-weight: bold;">High</span></td>
-          <td>Very High</td>
-        </tr>
-        <tr>
-          <td><strong>Commerce</strong></td>
-          <td>Business & Finance careers</td>
-          <td><span style="color: #d97706; font-weight: bold;">Moderate</span></td>
-          <td>High</td>
-        </tr>
-        <tr>
-          <td><strong>Arts</strong></td>
-          <td>Creative & Administrative roles</td>
-          <td><span style="color: #059669; font-weight: bold;">Moderate</span></td>
-          <td>Growing rapidly</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section>
-  <h2>🎯 How to Choose the Right Stream After 10th</h2>
-  <p>Follow this expert framework to make an informed decision:</p>
-  
-  <ol style="line-height: 1.8; font-size: 1.05rem; color: #374151;">
-    <li><strong>Interest Check:</strong> Which subjects do you genuinely enjoy studying even when there is no exam?</li>
-    <li><strong>Skill Check:</strong> Are you naturally good at logical reasoning? Creativity? Communication? Numerical ability?</li>
-    <li><strong>Academic Performance:</strong> Use your 10th marks to indicate readiness, but remember they do not dictate your overall intelligence.</li>
-    <li><strong>Long-Term Goals:</strong> Think about the professionals and careers you admire.</li>
-    <li><strong>Take a Career Aptitude Test:</strong> Scientific psychometric assessments help identify your natural strengths, personality traits, and career compatibility to eliminate guesswork entirely.</li>
-  </ol>
-</section>
-
-<section>
-  <h2>❌ Common Mistakes Students Make</h2>
-  <div class="warning-box" style="border-color: #dc2626; background: #FEF2F2;">
-    <ul style="list-style: none; padding-left: 0; margin: 0; color: #991B1B;">
-      <li style="margin-bottom: 10px;"><span aria-hidden="true">❌</span> Choosing the same stream as your best friends.</li>
-      <li style="margin-bottom: 10px;"><span aria-hidden="true">❌</span> Selecting Science only for "status" or societal prestige.</li>
-      <li style="margin-bottom: 10px;"><span aria-hidden="true">❌</span> Following parental pressure blindly without evaluating your own abilities.</li>
-      <li><span aria-hidden="true">❌</span> Not seeking professional career counselling before deciding.</li>
-    </ul>
-    <p style="margin-top: 15px; font-weight: bold; color: #7F1D1D;">Remember: The right decision is personal, not popular.</p>
-  </div>
-</section>
-
-<section>
-  <h2>❓ Frequently Asked Questions (FAQs)</h2>
-  <div class="faq-container">
-    <details class="faq-item" aria-label="FAQ: Can I change my stream after 11th?">
-        <summary>Can I change my stream after 11th?</summary>
-        <div class="faq-answer">It is possible in some schools, but difficult academically since you will have missed foundational concepts. It is highly recommended to finalize your stream before 11th begins.</div>
-    </details>
-    <details class="faq-item" aria-label="FAQ: Is Arts a bad career option?">
-        <summary>Is Arts a bad career option?</summary>
-        <div class="faq-answer">No. Many top IAS officers, corporate lawyers, designers, and psychologists come from Arts backgrounds. It has massive growth potential.</div>
-    </details>
-    <details class="faq-item" aria-label="FAQ: What if I scored less than 60% in 10th?">
-        <summary>What if I scored less than 60% in 10th?</summary>
-        <div class="faq-answer">Marks indicate academic performance, not pure intelligence or capability. You still have excellent high-paying career options through Commerce, Arts, or skill-based diploma programs.</div>
-    </details>
-    <details class="faq-item" aria-label="FAQ: Is Commerce without Maths good?">
-        <summary>Is Commerce without Maths good?</summary>
-        <div class="faq-answer">Yes, there are many successful careers without Maths (like HR, Marketing, Law). However, having Maths keeps doors open for advanced finance degrees and top-tier university admissions.</div>
-    </details>
-  </div>
-</section>
-
-<section class="cta-section">
-  <h2 style="color: white; margin-top: 0;">Still Confused About What to Do After 10th?</h2>
-  <p style="color: #cbd5e1; margin-bottom: 30px; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto;">Choosing the right stream should never be a guess. Professional career guidance helps students make confident, informed decisions based on scientific assessment — not assumptions.</p>
-  <div class="cta-btn-wrap">
-      <a href="{{ '/book-expert/' | relative_url }}" class="cta-btn">Take Our Career Aptitude Test</a>
-  </div>
-</section>
-
-</div>
-</main>
+  <div class="warning-box" style="border-color: #059669; background: #
