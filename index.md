@@ -6,6 +6,13 @@ title: Home
 <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 
 <style>
+  /* --- FIX FOR TOP-RIGHT DROPDOWN MENU DISAPPEARING --- */
+  /* This forces your master layout header to sit above the homepage hero section */
+  header, nav, .navbar, .site-header {
+    position: relative;
+    z-index: 9999 !important;
+  }
+
   /* --- VARIABLES & RESET --- */
   :root {
     --primary: #2563EB; 
@@ -33,9 +40,9 @@ title: Home
   /* ==========================================
      1. HERO SECTION (VALUE PROP)
      ========================================== */
-  .hero-wrapper { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 80px 20px; min-height: 80vh; gap: 40px;}
+  .hero-wrapper { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 80px 20px; min-height: 80vh; gap: 40px; position: relative; z-index: 1;}
   .hero-text { flex: 1.2; animation: slideInLeft 0.8s ease-out; }
-  .hero-visual { flex: 0.8; position: relative; animation: slideInRight 0.8s ease-out; min-height: 450px; }
+  .hero-visual { flex: 0.8; position: relative; animation: slideInRight 0.8s ease-out; min-height: 450px; z-index: 2; }
 
   .hero-badge { display: inline-block; background: var(--success); color: white; padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
   h1.hero-headline { font-size: 3.5rem; line-height: 1.15; font-weight: 900; color: #0f172a; margin-bottom: 20px; letter-spacing: -1px;}
@@ -86,7 +93,7 @@ title: Home
      ========================================== */
   .stats-container { background: var(--secondary); color: white; padding: 60px 20px 40px; position: relative; z-index: 2; }
   .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); text-align: center; gap: 30px; }
-  .stat-number { font-size: 3.5rem; font-weight: 900; margin-bottom: 5px; color: #fbbf24; } /* Lighter yellow for dark background contrast */
+  .stat-number { font-size: 3.5rem; font-weight: 900; margin-bottom: 5px; color: #fbbf24; } 
   .stat-label { font-size: 1.1rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold;}
   .live-pulse { display: inline-block; width: 12px; height: 12px; background: #34d399; border-radius: 50%; margin-right: 8px; animation: pulse 2s infinite;}
   .urgency-trigger { text-align: center; margin-top: 30px; font-size: 0.95rem; font-weight: bold; color: #a7f3d0; letter-spacing: 0.5px;}
@@ -186,9 +193,6 @@ title: Home
     .founder-stats { justify-content: center; }
     .process-timeline::before { display: none; }
   }
-  @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(5, 150, 105, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); } }
 </style>
 
 <script type="application/ld+json">
@@ -250,15 +254,18 @@ title: Home
                 <p id="statusMsg"></p>
             </div>
 
-            <div class="auth-box" id="welcomeBoxUI" style="display: none; text-align: center; padding: 50px 30px;">
+            <div class="auth-box" id="welcomeBoxUI" style="display: none; text-align: center; padding: 40px 30px;">
                 <div style="font-size: 4rem; margin-bottom: 15px; line-height:1;" aria-hidden="true">👋</div>
                 <h2 style="margin-top:0; color:var(--text-dark); font-size: 1.8rem; font-weight: 900;">Welcome Back,<br><span id="welcomeNameDisplay" style="color:var(--primary);"></span>!</h2>
-                <p style="color:var(--text-light); margin-bottom: 30px; font-size: 1.05rem;">
+                <p style="color:var(--text-light); margin-bottom: 25px; font-size: 1.05rem;">
                     You are securely logged in as:<br>
                     <strong id="loggedInEmailDisplay" style="color:#0f172a;">...</strong>
                 </p>
-                <button class="btn-auth btn-signin" id="fastTravelBtn" style="width: 100%; padding: 18px; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(37,99,235,0.3);">
+                <button class="btn-auth btn-signin" id="fastTravelBtn" style="width: 100%; padding: 18px; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(37,99,235,0.3); margin-bottom: 15px;">
                     Enter My Portal ➔
+                </button>
+                <button class="btn-outline" id="homeLogoutBtn" style="width: 100%; padding: 14px; border-radius: 10px; font-size: 1rem; display: block; box-sizing: border-box;">
+                    Log Out Securely
                 </button>
             </div>
         </div>
@@ -534,7 +541,8 @@ title: Home
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    /* 🔥 ADDED signOut TO FIREBASE IMPORTS 🔥 */
+    import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
@@ -556,6 +564,9 @@ title: Home
     const loggedInEmailDisplay = document.getElementById('loggedInEmailDisplay');
     const welcomeNameDisplay = document.getElementById('welcomeNameDisplay');
     const fastTravelBtn = document.getElementById('fastTravelBtn');
+    
+    /* 🔥 CAPTURE THE NEW LOGOUT BUTTON 🔥 */
+    const homeLogoutBtn = document.getElementById('homeLogoutBtn');
     
     let activeUser = null;
 
@@ -614,6 +625,20 @@ title: Home
         fastTravelBtn.innerText = "Routing... ⏳";
         if(activeUser) processUserRouting(activeUser);
     });
+
+    /* 🔥 LOGOUT BUTTON CLICK EVENT 🔥 */
+    if (homeLogoutBtn) {
+        homeLogoutBtn.addEventListener('click', async () => {
+            homeLogoutBtn.innerText = "Logging out...";
+            try {
+                await signOut(auth);
+                // The onAuthStateChanged listener above will automatically swap the UI back to the login box!
+            } catch (error) {
+                console.error("Logout Error:", error);
+                homeLogoutBtn.innerText = "Log Out Securely";
+            }
+        });
+    }
 
     document.getElementById('googleLoginBtn').addEventListener('click', async () => {
         status.innerText = "Authenticating securely... ⏳";
