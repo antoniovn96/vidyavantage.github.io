@@ -4,7 +4,7 @@ title: "The 'Golden Ticket' to Canada PR: TEF vs TCF (2026 Guide)"
 date: 2026-02-14
 category: study-abroad
 category_label: "Languages"
-image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1000&auto=format&fit=crop"
+image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?w=1000&auto=format&fit=crop"
 excerpt: "Stuck at 440 CRS score? Learning French is the only way to jump to 490+. We compare TEF Canada vs TCF Canada and how to hit CLB 7."
 description: "TEF vs TCF Canada 2026: A guide to French language tests for Canada PR. Learn about CLB 7 requirements, exam fees in India, and DELF vs TEF differences."
 keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr french points 2026, tef exam fees in india, learn french for express entry"
@@ -20,7 +20,7 @@ keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr f
 
   .blog-hero {
     background: linear-gradient(rgba(10,35,66,0.7), rgba(10,35,66,0.85)),
-                url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1000&auto=format&fit=crop');
+                url('https://images.unsplash.com/photo-1517935706615-2717063c2225?w=1000&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     padding: 120px 20px;
