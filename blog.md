@@ -7,8 +7,11 @@ permalink: /blog/
 <style>
   /* --- GLOBAL RESETS & BACKGROUND --- */
   body {
-    background-color: #f8fafc; /* Very light cool gray for depth */
-    font-family: 'Nunito', 'Inter', sans-serif;
+    background-color: #f8fafc; 
+    font-family: 'Inter', 'Nunito', system-ui, -apple-system, sans-serif;
+    text-rendering: optimizeLegibility;
+    color: #1F2937;
+    margin: 0;
   }
 
   /* --- PREMIUM PAGE HEADER --- */
@@ -24,7 +27,6 @@ permalink: /blog/
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   }
   
-  /* Adding a subtle background pattern to make it less boring */
   .blog-header::before {
     content: '';
     position: absolute;
@@ -35,7 +37,6 @@ permalink: /blog/
     pointer-events: none;
   }
 
-  /* FORCED BRIGHT TEXT to fix visibility issue */
   .blog-header h1 { 
     font-size: 3.5rem; 
     font-weight: 900; 
@@ -46,6 +47,7 @@ permalink: /blog/
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     color: white; /* Fallback */
+    letter-spacing: -1px;
   }
   
   .blog-header p { 
@@ -81,11 +83,12 @@ permalink: /blog/
   }
   
   .sidebar-section-title { 
-    font-size: 0.9rem; 
-    color: #64748b; 
+    font-size: 0.95rem; 
+    color: #4B5563; /* Darkened for Contrast */
     font-weight: 800; 
     text-transform: uppercase; 
     letter-spacing: 1px;
+    margin-top: 0;
     margin-bottom: 15px;
   }
 
@@ -95,11 +98,13 @@ permalink: /blog/
     width: 100%; 
     padding: 15px 20px 15px 45px; 
     border: 2px solid #e2e8f0; 
-    border-radius: 50px; /* Pill shape */
+    border-radius: 50px; 
     font-size: 1rem; 
     box-sizing: border-box; 
     transition: all 0.3s ease; 
     background: #f8fafc;
+    min-height: 48px; /* Touch Target Fix */
+    color: #1F2937;
   }
   .search-input:focus { 
     background: white;
@@ -107,14 +112,14 @@ permalink: /blog/
     outline: none; 
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); 
   }
-  .search-icon { position: absolute; left: 18px; top: 16px; color: #94a3b8; font-size: 1.2rem; }
+  .search-icon { position: absolute; left: 18px; top: 16px; color: #64748b; font-size: 1.2rem; }
 
   /* Premium Filter Buttons */
   .filter-list { display: flex; flex-direction: column; gap: 8px; }
   .filter-btn { 
     background: transparent; 
     border: none; 
-    color: #475569; 
+    color: #374151; /* Perfect Contrast */
     padding: 12px 20px; 
     cursor: pointer; 
     border-radius: 12px; 
@@ -124,16 +129,19 @@ permalink: /blog/
     font-size: 1rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    min-height: 48px; /* Touch Target Fix */
+    touch-action: manipulation;
   }
-  .filter-btn:hover { background: #f1f5f9; color: #0f172a; transform: translateX(5px); }
+  .filter-btn:hover, .filter-btn:focus { background: #f1f5f9; color: #0f172a; transform: translateX(5px); outline: none;}
   
   .filter-btn.active { 
     background: #eff6ff; 
-    color: #2563eb; 
+    color: #1d4ed8; /* Darker blue for contrast */
   }
   .filter-btn.active::after { 
     content: '●'; 
-    color: #3b82f6; 
+    color: #2563eb; 
     font-size: 0.8rem;
   }
 
@@ -147,15 +155,16 @@ permalink: /blog/
   
   .blog-card { 
     display: flex; flex-direction: column;
-    border: 1px solid #f1f5f9; 
+    border: 1px solid #e2e8f0; 
     border-radius: 20px; 
     overflow: hidden; 
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
     background: white; 
     text-decoration: none !important; 
     color: inherit; 
     height: 100%;
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    content-visibility: auto; /* Performance Optimization */
   }
   
   .blog-card:hover { 
@@ -164,16 +173,21 @@ permalink: /blog/
     border-color: #cbd5e1;
   }
   
-  .card-img-wrapper { overflow: hidden; height: 220px; }
+  /* CLS Fix: Strict Aspect Ratio */
+  .card-img-wrapper { 
+    overflow: hidden; 
+    aspect-ratio: 3/2; 
+    background: #f1f5f9; /* Skeleton load color */
+  }
   .blog-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-  .blog-card:hover .blog-img { transform: scale(1.08); } /* Image zoom on hover */
+  .blog-card:hover .blog-img { transform: scale(1.08); }
 
   .blog-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1;}
   
   .blog-tag { 
     align-self: flex-start; 
     background: rgba(59, 130, 246, 0.1); 
-    color: #2563eb; 
+    color: #1d4ed8; /* Contrast Fix */
     padding: 6px 14px; 
     border-radius: 50px; 
     font-size: 0.75rem; 
@@ -183,10 +197,10 @@ permalink: /blog/
   }
   
   .blog-title { margin: 0 0 15px 0; color: #0f172a; font-size: 1.3rem; font-weight: 900; line-height: 1.4;}
-  .blog-excerpt { color: #64748b; font-size: 1rem; line-height: 1.6; flex-grow: 1; margin: 0 0 25px 0;}
+  .blog-excerpt { color: #4B5563; font-size: 1rem; line-height: 1.6; flex-grow: 1; margin: 0 0 25px 0;} /* Contrast Fix */
   
   .read-more { 
-    color: #f59e0b; /* Amber accent */
+    color: #D97706; /* Accessible Amber */
     font-weight: 800; 
     display: inline-flex; 
     align-items: center; 
@@ -194,90 +208,94 @@ permalink: /blog/
     font-size: 0.95rem;
     transition: 0.2s;
   }
-  .blog-card:hover .read-more { gap: 10px; color: #d97706;}
+  .blog-card:hover .read-more { gap: 10px; color: #b45309;}
 
   /* Empty State */
   .no-results { 
     grid-column: 1 / -1; 
     text-align: center; 
     padding: 60px 20px; 
-    color: #64748b; 
+    color: #4B5563; 
     font-size: 1.2rem; 
     display: none; 
     background: white; 
     border-radius: 20px; 
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
   }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .blog-layout { grid-template-columns: 1fr; }
-    .blog-sidebar { position: static; margin-bottom: 20px; }
+    .blog-sidebar { position: static; margin-bottom: 20px; z-index: 10;}
     .filter-list { flex-direction: row; flex-wrap: wrap; }
     .filter-btn { flex: 1 1 calc(50% - 10px); justify-content: center;}
   }
   @media (max-width: 500px) {
     .filter-btn { flex: 1 1 100%; }
+    .blog-header h1 { font-size: 2.5rem; }
   }
 </style>
 
-<div class="blog-header">
-  <h1>The Career Intel Blog</h1>
-  <p>Verified clinical insights on career paths, institutional data, and the psychology of student success.</p>
-</div>
+<main>
+  <header class="blog-header">
+    <h1>The Career Intel Blog</h1>
+    <p>Verified clinical insights on career paths, institutional data, and the psychology of student success.</p>
+  </header>
 
-<div class="blog-layout">
-  
-  <aside class="blog-sidebar">
-    <div class="search-container">
-      <h3 class="sidebar-section-title">Search Library</h3>
-      <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" class="search-input" placeholder="Keywords, topics...">
-    </div>
-
-    <div class="filter-container">
-      <h3 class="sidebar-section-title">Categories</h3>
-      <div class="filter-list">
-        <button class="filter-btn active" onclick="setCategory('all', this)">All Research</button>
-        <button class="filter-btn" onclick="setCategory('study-abroad', this)">Study Abroad & Visas</button>
-        <button class="filter-btn" onclick="setCategory('psychology', this)">Student Psychology</button>
-        <button class="filter-btn" onclick="setCategory('admissions', this)">Admissions & Exams</button>
-      </div>
-    </div>
-  </aside>
-
-  <main class="blog-main">
-    <div class="blog-grid" id="blogGrid">
-      
-      {% for post in site.posts %}
-      <a href="{{ post.url | relative_url }}" class="blog-card" data-category="{{ post.category }}">
-        
-        <div class="card-img-wrapper">
-            {% if post.image %}
-            <img src="{{ post.image }}" class="blog-img" alt="{{ post.title }}">
-            {% else %}
-            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" class="blog-img" alt="Blog Image">
-            {% endif %}
-        </div>
-        
-        <div class="blog-content">
-          <span class="blog-tag">{{ post.category_label | default: post.category }}</span>
-          <h3 class="blog-title">{{ post.title }}</h3>
-          <p class="blog-excerpt">{{ post.excerpt | strip_html | truncatewords: 18 }}</p>
-          <span class="read-more">Read Full Article <span style="font-size:1.2em;">→</span></span>
-        </div>
-      </a>
-      {% endfor %}
-
-      <div class="no-results" id="noResultsMsg">
-        <div style="font-size: 3rem; margin-bottom: 15px;">🕵️‍♂️</div>
-        <strong>No articles found.</strong><br>Try adjusting your search terms or selecting a different category.
+  <div class="blog-layout">
+    
+    <aside class="blog-sidebar">
+      <div class="search-container">
+        <h2 class="sidebar-section-title">Search Library</h2>
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Keywords, topics..." aria-label="Search blog posts">
       </div>
 
-    </div>
-  </main>
+      <div class="filter-container">
+        <h2 class="sidebar-section-title">Categories</h2>
+        <div class="filter-list" role="tablist">
+          <button class="filter-btn active" onclick="setCategory('all', this)" role="tab" aria-selected="true">All Research</button>
+          <button class="filter-btn" onclick="setCategory('study-abroad', this)" role="tab" aria-selected="false">Study Abroad & Visas</button>
+          <button class="filter-btn" onclick="setCategory('psychology', this)" role="tab" aria-selected="false">Student Psychology</button>
+          <button class="filter-btn" onclick="setCategory('admissions', this)" role="tab" aria-selected="false">Admissions & Exams</button>
+        </div>
+      </div>
+    </aside>
 
-</div>
+    <section class="blog-main">
+      <div class="blog-grid" id="blogGrid">
+        
+        {% for post in site.posts %}
+        <a href="{{ post.url | relative_url }}" class="blog-card" data-category="{{ post.category }}" aria-label="Read article: {{ post.title }}">
+          
+          <div class="card-img-wrapper">
+              {% if post.image %}
+              <img src="{{ post.image }}" class="blog-img" alt="{{ post.title }}" width="600" height="400" loading="lazy" decoding="async">
+              {% else %}
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" class="blog-img" alt="Blog Image" width="600" height="400" loading="lazy" decoding="async">
+              {% endif %}
+          </div>
+          
+          <div class="blog-content">
+            <span class="blog-tag">{{ post.category_label | default: post.category }}</span>
+            <h3 class="blog-title">{{ post.title }}</h3>
+            <p class="blog-excerpt">{{ post.excerpt | strip_html | truncatewords: 18 }}</p>
+            <span class="read-more" aria-hidden="true">Read Full Article <span style="font-size:1.2em;">→</span></span>
+          </div>
+        </a>
+        {% endfor %}
+
+        <div class="no-results" id="noResultsMsg" aria-live="polite">
+          <div style="font-size: 3rem; margin-bottom: 15px;" aria-hidden="true">🕵️‍♂️</div>
+          <strong>No articles found.</strong><br>Try adjusting your search terms or selecting a different category.
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
 
 <script>
   // State variables to track both search and category
@@ -288,9 +306,13 @@ permalink: /blog/
   function setCategory(cat, btnElement) {
     currentCategory = cat;
     
-    // Update active button styles
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    // Update active button styles and ARIA states
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
     btnElement.classList.add('active');
+    btnElement.setAttribute('aria-selected', 'true');
     
     applyFilters();
   }
