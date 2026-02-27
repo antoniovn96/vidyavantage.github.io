@@ -3,6 +3,9 @@ layout: default
 title: Home
 ---
 
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
 <style>
   /* --- VARIABLES & RESET --- */
   :root {
@@ -152,7 +155,7 @@ title: Home
   .faq-item.active .faq-icon { transform: rotate(45deg); color: var(--primary);}
 
   .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;}
-  .blog-card { background: white; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: 0.3s; cursor: pointer;}
+  .blog-card { background: white; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: 0.3s; cursor: pointer; display: block;}
   .blog-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08);}
   .blog-img { height: 200px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; font-size: 3rem;}
   .blog-content { padding: 25px; }
@@ -165,7 +168,9 @@ title: Home
   .trust-badges { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;}
   .t-badge { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 0.9rem;}
 
-  /* RESPONSIVE */
+  /* RESPONSIVE & IMAGE OPTIMIZATIONS */
+  img.responsive-img { max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 12px; }
+
   @media (max-width: 900px) {
     .hero-wrapper { flex-direction: column; text-align: center; padding-top: 40px; }
     .hero-text { padding-right: 0; margin-bottom: 40px; }
@@ -409,7 +414,7 @@ We provide professional online career counselling and psychometric assessments f
                 As a professional School Counsellor with an MSW specialized in Medical and Psychiatric Social Work, Antonio has witnessed firsthand the anxiety students face when making blind career choices. He built Career Intelligence to replace dinner-table arguments with clinical precision.
             </p>
             <div class="founder-stats">
-                <div class="f-stat"><strong>MSW</strong><span>Psychiatric Social Work</span></div>
+                <div class="f-stat"><strong>MSW</strong><span>Psychiatric SW</span></div>
                 <div class="f-stat"><strong>5k+</strong><span>Students Guided</span></div>
             </div>
         </div>
