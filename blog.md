@@ -98,7 +98,7 @@ permalink: /blog/
     width: 100%; 
     padding: 15px 20px 15px 45px; 
     border: 2px solid #e2e8f0; 
-    border-radius: 50px; 
+    border-radius: 50px; /* Pill shape */
     font-size: 1rem; 
     box-sizing: border-box; 
     transition: all 0.3s ease; 
@@ -158,7 +158,7 @@ permalink: /blog/
     border: 1px solid #e2e8f0; 
     border-radius: 20px; 
     overflow: hidden; 
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
     background: white; 
     text-decoration: none !important; 
     color: inherit; 
@@ -180,7 +180,7 @@ permalink: /blog/
     background: #f1f5f9; /* Skeleton load color */
   }
   .blog-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-  .blog-card:hover .blog-img { transform: scale(1.08); }
+  .blog-card:hover .blog-img { transform: scale(1.08); } /* Image zoom on hover */
 
   .blog-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1;}
   
@@ -256,6 +256,9 @@ permalink: /blog/
         <h2 class="sidebar-section-title">Categories</h2>
         <div class="filter-list" role="tablist">
           <button class="filter-btn active" onclick="setCategory('all', this)" role="tab" aria-selected="true">All Research</button>
+          
+          <button class="filter-btn" onclick="setCategory('career-guidance', this)" role="tab" aria-selected="false">Career Guidance</button>
+          
           <button class="filter-btn" onclick="setCategory('study-abroad', this)" role="tab" aria-selected="false">Study Abroad & Visas</button>
           <button class="filter-btn" onclick="setCategory('psychology', this)" role="tab" aria-selected="false">Student Psychology</button>
           <button class="filter-btn" onclick="setCategory('admissions', this)" role="tab" aria-selected="false">Admissions & Exams</button>
