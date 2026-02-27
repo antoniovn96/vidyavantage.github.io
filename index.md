@@ -183,12 +183,39 @@ title: Home
   @keyframes pulse { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 </style>
 
+<p style="display:none;">
+We provide professional career counselling and psychometric assessments for students of Class 8, 9, 10, 11 and 12 across Bangalore, Karnataka and Pan-India. Our services help students choose the right stream after 10th and the best career options after 12th using scientific aptitude testing.
+</p>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Vidyavantage Career Intelligence",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bangalore",
+    "addressRegion": "Karnataka",
+    "addressCountry": "India"
+  },
+  "areaServed": "India",
+  "description": "Professional career counselling and psychometric assessments for students of Class 8 to 12.",
+  "founder": {
+    "@type": "Person",
+    "name": "Antonio Vian Noronha",
+    "jobTitle": "Lead School Counsellor"
+  }
+}
+</script>
+
 <div class="hero-wrapper">
   <div class="hero-text">
     <span class="hero-badge">Verified Career Intelligence</span>
-    <h1 class="hero-headline">End the Confusion. <br>Map Your Future with <span>Clinical Precision.</span></h1>
+    
+    <h1 class="hero-headline">Career Guidance & Psychometric Assessment for Class 8–12 Students in <span>Bangalore & India</span></h1>
+    
     <p class="hero-subhead">
-      We replace guesswork with science. Get personalized career roadmaps powered by clinical psychometrics and expert 1-on-1 counseling for students in Class 8 to 12.
+      End the Confusion. Map Your Future with Clinical Precision. We replace guesswork with science. Get personalized career roadmaps powered by clinical psychometrics and expert 1-on-1 counseling.
     </p>
     <div class="hero-location">
       <span style="font-size: 1.2rem;">📍</span> Serving students across Karnataka, Bangalore, and Pan-India.
@@ -262,30 +289,29 @@ title: Home
   </div>
 </div>
 
-<div class="section-wrap" style="padding-top: 40px;">
+<div class="section-wrap">
   <div class="section-header">
-    <span class="section-tag">The Problem</span>
-    <h2 class="section-title">Why traditional guesswork fails.</h2>
+    <span class="section-tag">Our Career Guidance Services</span>
+    <h2 class="section-title">Career Counselling in Bangalore & Karnataka</h2>
     <p style="color:var(--text-light); font-size:1.15rem;">Choosing a career based on marks or peer pressure leads to burnout.</p>
   </div>
 
   <div class="comparison-grid">
-      <div class="comp-card comp-bad">
-          <h3 style="color:var(--danger); font-size: 1.5rem; margin-top:0;">❌ The Old Way</h3>
-          <ul class="comp-list">
-              <li><span style="font-size:1.5rem;">🤷‍♂️</span> Friends choose PCM, so you follow.</li>
-              <li><span style="font-size:1.5rem;">👨‍👩‍👦</span> Parents decide based on market trends.</li>
-              <li><span style="font-size:1.5rem;">📱</span> You rely on 5-minute online quizzes.</li>
-              <li><span style="font-size:1.5rem;">📉</span> Result: Course changes and mid-career burnout.</li>
-          </ul>
+      <div class="comp-card">
+          <h3 style="color:var(--primary); font-size: 1.5rem; margin-top:0;">Career Counselling After 10th</h3>
+          <p style="color: var(--text-light); font-size: 1.05rem;">Stream selection guidance (Science, Commerce, Arts) tailored for CBSE and ICSE students to set the right foundation.</p>
       </div>
-      <div class="comp-card comp-good">
-          <h3 style="color:var(--success); font-size: 1.5rem; margin-top:0;">✅ The Career Intel Way</h3>
-          <ul class="comp-list">
-              <li><span style="font-size:1.5rem;">🧠</span> <strong>Clinical-grade psychometrics.</strong> Deep data mapping.</li>
-              <li><span style="font-size:1.5rem;">🤝</span> <strong>Parent-student alignment framework.</strong> Resolves friction.</li>
-              <li><span style="font-size:1.5rem;">🗺️</span> <strong>Execution roadmap.</strong> Not just a report, a 1-year plan.</li>
-          </ul>
+      <div class="comp-card">
+          <h3 style="color:var(--primary); font-size: 1.5rem; margin-top:0;">Career Counselling After 12th</h3>
+          <p style="color: var(--text-light); font-size: 1.05rem;">College planning, entrance exam strategy, and course selection to lock in your professional future.</p>
+      </div>
+      <div class="comp-card">
+          <h3 style="color:var(--primary); font-size: 1.5rem; margin-top:0;">Psychometric Career Assessment</h3>
+          <p style="color: var(--text-light); font-size: 1.05rem;">RIASEC-based aptitude and personality testing to discover your natural strengths and vulnerability zones.</p>
+      </div>
+      <div class="comp-card">
+          <h3 style="color:var(--primary); font-size: 1.5rem; margin-top:0;">Parent-Student Alignment Sessions</h3>
+          <p style="color: var(--text-light); font-size: 1.05rem;">Conflict resolution and a structured career clarity framework to bring families onto the same strategic page.</p>
       </div>
   </div>
 </div>
@@ -452,27 +478,33 @@ title: Home
   </div>
 
   <div class="blog-grid">
-      <div class="blog-card">
-          <div class="blog-img">📈</div>
-          <div class="blog-content">
-              <h4>The 5 Best Careers Without Mathematics</h4>
-              <p style="color:var(--text-light); font-size:0.95rem;">High-growth pathways that rely on strategy and creativity rather than calculus.</p>
+      <a href="/career-guidance-after-10th" style="text-decoration: none; color: inherit;">
+          <div class="blog-card">
+              <div class="blog-img">📈</div>
+              <div class="blog-content">
+                  <h4>What to Do After 10th? Complete Guide</h4>
+                  <p style="color:var(--text-light); font-size:0.95rem;">Stream selection strategy for CBSE & ICSE students facing the Science vs Commerce dilemma.</p>
+              </div>
           </div>
-      </div>
-      <div class="blog-card">
-          <div class="blog-img">🤖</div>
-          <div class="blog-content">
-              <h4>AI-Proof Degrees for 2030</h4>
-              <p style="color:var(--text-light); font-size:0.95rem;">Which university majors will survive the automation wave? A clinical breakdown.</p>
+      </a>
+      <a href="/best-career-options-after-12th" style="text-decoration: none; color: inherit;">
+          <div class="blog-card">
+              <div class="blog-img">🤖</div>
+              <div class="blog-content">
+                  <h4>Best Career Options After 12th Science</h4>
+                  <p style="color:var(--text-light); font-size:0.95rem;">Which university majors will survive the automation wave? A clinical breakdown of future-proof degrees.</p>
+              </div>
           </div>
-      </div>
-      <div class="blog-card">
-          <div class="blog-img">⚖️</div>
-          <div class="blog-content">
-              <h4>Science vs. Commerce: The Ultimate Guide</h4>
-              <p style="color:var(--text-light); font-size:0.95rem;">How to finally make the right decision without succumbing to peer pressure.</p>
+      </a>
+      <a href="/tef-vs-tcf-canada-pr-2026" style="text-decoration: none; color: inherit;">
+          <div class="blog-card">
+              <div class="blog-img">🇨🇦</div>
+              <div class="blog-content">
+                  <h4>TEF vs TCF Canada 2026</h4>
+                  <p style="color:var(--text-light); font-size:0.95rem;">The 'Golden Ticket' to Canada PR. How to hit CLB 7 and claim your 50 CRS points.</p>
+              </div>
           </div>
-      </div>
+      </a>
   </div>
 </div>
 
@@ -483,6 +515,11 @@ title: Home
         <div class="t-badge">🛡️ Data Never Sold to 3rd Parties</div>
         <div class="t-badge" style="color: var(--accent);">🏆 CBSE & ICSE Aligned</div>
     </div>
+    
+    <div style="margin: 30px 0; font-size: 0.85rem; color: #94a3b8; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        <strong>Our Focus Areas:</strong> Career Counsellor in Bangalore | Best Career Guidance Centre in Karnataka | Career Counselling After 10th | Career Counselling After 12th | Psychometric Career Assessment Near Me | Online Career Counselling in India
+    </div>
+
     <p style="font-size: 0.85rem; opacity: 0.7;">© 2026 Vidyavantage Career Intelligence System. Built by Professional School Counsellors.</p>
 </footer>
 
