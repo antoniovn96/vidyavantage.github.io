@@ -163,23 +163,18 @@ title: Home
   details.faq-item summary { padding: 24px 25px; font-weight: 800; color: #0f172a; font-size: 1.1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; touch-action: manipulation; min-height: 48px; }
   details.faq-item summary::-webkit-details-marker { display: none; }
   details.faq-item summary::after { content: '+'; color: var(--primary); font-size: 1.5rem; font-weight: normal; transition: transform 0.3s; }
-  details[open].faq-item summary::after { content: '×'; transform: rotate(45deg); }
+  details[open].faq-item summary::after { content: '×'; transform: rotate(45deg); color: var(--danger);}
   details[open].faq-item { border-color: var(--primary); box-shadow: 0 10px 20px rgba(37,99,235,0.05); }
   .faq-answer { padding: 0 25px 24px; color: var(--text-light); line-height: 1.6; }
-  
+
+  /* DYNAMIC BLOG GRID CLASSES */
   .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;}
-  .blog-card { background: white; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: 0.3s; cursor: pointer; display: block;}
+  .blog-card { background: white; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; transition: 0.3s; cursor: pointer; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.03);}
   .blog-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08);}
-  .blog-img { height: 200px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; font-size: 3rem;}
+  .blog-img { height: 200px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; font-size: 3rem; overflow: hidden; position: relative;}
+  .blog-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .blog-card:hover .blog-img img { transform: scale(1.05); }
   .blog-content { padding: 25px; }
-  .blog-content h3 { margin: 0 0 10px 0; font-size: 1.25rem; color: #0f172a;}
-  
-  /* ==========================================
-     10. FOOTER
-     ========================================== */
-  .trust-footer { background: #0f172a; color: #cbd5e1; padding: 40px 20px; text-align: center; border-top: 1px solid #334155; content-visibility: auto;}
-  .trust-badges { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;}
-  .t-badge { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 0.9rem;}
 
   @media (max-width: 900px) {
     .hero-wrapper { flex-direction: column; text-align: center; padding-top: 40px; }
@@ -237,13 +232,15 @@ title: Home
                 <h2 style="margin-top:0; color:var(--text-dark); font-size: 1.4rem; font-weight: 900;">Access Your Dashboard</h2>
                 <p style="color:var(--text-light); font-size:0.9rem; margin-bottom:20px;">Parents, Students, and Counsellors login here.</p>
                 
-                <input type="email" id="emailInput" class="auth-input" placeholder="Email Address" aria-label="Email Address" autocomplete="username">
-                <input type="password" id="passwordInput" class="auth-input" placeholder="Password" aria-label="Password" autocomplete="current-password">
-                
-                <div class="auth-buttons">
-                    <button class="btn-auth btn-signin" id="emailLoginBtn">Sign In</button>
-                    <button class="btn-auth btn-signup" id="emailSignUpBtn">Register</button>
-                </div>
+                <form id="loginForm" onsubmit="event.preventDefault();">
+                    <input type="email" id="emailInput" class="auth-input" placeholder="Email Address" aria-label="Email Address" autocomplete="username">
+                    <input type="password" id="passwordInput" class="auth-input" placeholder="Password" aria-label="Password" autocomplete="current-password">
+                    
+                    <div class="auth-buttons">
+                        <button type="button" class="btn-auth btn-signin" id="emailLoginBtn">Sign In</button>
+                        <button type="button" class="btn-auth btn-signup" id="emailSignUpBtn">Register</button>
+                    </div>
+                </form>
                 
                 <div class="divider">OR SECURE LOGIN WITH</div>
                 
@@ -491,57 +488,34 @@ title: Home
       </div>
 
       <div class="blog-grid">
-          <a href="/career-guidance-after-10th" style="text-decoration: none; color: inherit; display: block;" aria-label="Read our guide on what to do after 10th grade">
+          {% for post in site.posts limit:3 %}
+          <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: inherit; display: block;" aria-label="Read article: {{ post.title }}">
               <div class="blog-card">
-                  <div class="blog-img" aria-hidden="true">📈</div>
+                  <div class="blog-img" aria-hidden="true" style="overflow: hidden; padding: 0;">
+                      {% if post.image %}
+                      <img src="{{ post.image }}" alt="{{ post.title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
+                      {% else %}
+                      <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; background: var(--bg-light);">📰</div>
+                      {% endif %}
+                  </div>
                   <div class="blog-content">
-                      <h3>What to Do After 10th? Complete Guide</h3>
-                      <p style="color:var(--text-light); font-size:0.95rem;">Stream selection strategy for CBSE & ICSE students facing the Science vs Commerce dilemma.</p>
+                      <h3 style="margin: 0 0 10px 0; font-size: 1.25rem; color: #0f172a;">{{ post.title }}</h3>
+                      <p style="color:var(--text-light); font-size:0.95rem; line-height: 1.6;">{{ post.excerpt | strip_html | truncatewords: 18 }}</p>
                   </div>
               </div>
           </a>
-          <a href="/best-career-options-after-12th" style="text-decoration: none; color: inherit; display: block;" aria-label="Read about the best career options after 12th science">
-              <div class="blog-card">
-                  <div class="blog-img" aria-hidden="true">🤖</div>
-                  <div class="blog-content">
-                      <h3>Best Career Options After 12th Science</h3>
-                      <p style="color:var(--text-light); font-size:0.95rem;">Which university majors will survive the automation wave? A clinical breakdown of future-proof degrees.</p>
-                  </div>
-              </div>
-          </a>
-          <a href="/tef-vs-tcf-canada-pr-2026" style="text-decoration: none; color: inherit; display: block;" aria-label="Read about TEF vs TCF for Canada PR">
-              <div class="blog-card">
-                  <div class="blog-img" aria-hidden="true">🇨🇦</div>
-                  <div class="blog-content">
-                      <h3>TEF vs TCF Canada 2026</h3>
-                      <p style="color:var(--text-light); font-size:0.95rem;">The 'Golden Ticket' to Canada PR. How to hit CLB 7 and claim your 50 CRS points.</p>
-                  </div>
-              </div>
-          </a>
+          {% endfor %}
+      </div>
+      
+      <div style="text-align: center; margin-top: 40px;">
+          <a href="{{ '/blog/' | relative_url }}" class="btn-outline" style="display:inline-block; padding: 14px 35px; border-radius: 8px; font-weight: 800; text-decoration: none;">View All Research Articles ➔</a>
       </div>
     </div>
 </main>
 
-<footer class="trust-footer">
-    <div class="trust-badges">
-        <div class="t-badge"><span aria-hidden="true">🔒</span> 256-Bit Data Encryption</div>
-        <div class="t-badge"><span aria-hidden="true">🧠</span> Clinical-Grade Psychometrics</div>
-        <div class="t-badge"><span aria-hidden="true">🛡️</span> Data Never Sold to 3rd Parties</div>
-        <div class="t-badge" style="color: var(--accent);"><span aria-hidden="true">🏆</span> CBSE & ICSE Aligned</div>
-    </div>
-    
-    <div style="margin: 30px 0; font-size: 0.85rem; color: #94a3b8; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-        <p style="margin-bottom: 10px; color: #cbd5e1;">We provide professional online career counselling and psychometric assessments for students of Class 8, 9, 10, 11 and 12 across India. Headquartered in Bangalore, our services help students choose the right stream after 10th and the best career options after 12th using scientific aptitude testing.</p>
-        <strong>Our Focus Areas:</strong> Online Career Counselling in India | Best Career Guidance Pan-India | Career Counsellor in Bangalore | Psychometric Career Assessment For Students | Stream Selection After 10th | Career Planning After 12th
-    </div>
-
-    <p style="font-size: 0.85rem; opacity: 0.7;">© 2026 Vidyavantage Career Intelligence System. Built by Professional School Counsellors.</p>
-</footer>
-
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-    /* 🔥 ADDED signOut TO FIREBASE IMPORTS 🔥 */
     import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     const firebaseConfig = {
@@ -565,7 +539,6 @@ title: Home
     const welcomeNameDisplay = document.getElementById('welcomeNameDisplay');
     const fastTravelBtn = document.getElementById('fastTravelBtn');
     
-    /* 🔥 CAPTURE THE NEW LOGOUT BUTTON 🔥 */
     const homeLogoutBtn = document.getElementById('homeLogoutBtn');
     
     let activeUser = null;
@@ -626,13 +599,11 @@ title: Home
         if(activeUser) processUserRouting(activeUser);
     });
 
-    /* 🔥 LOGOUT BUTTON CLICK EVENT 🔥 */
     if (homeLogoutBtn) {
         homeLogoutBtn.addEventListener('click', async () => {
             homeLogoutBtn.innerText = "Logging out...";
             try {
                 await signOut(auth);
-                // The onAuthStateChanged listener above will automatically swap the UI back to the login box!
             } catch (error) {
                 console.error("Logout Error:", error);
                 homeLogoutBtn.innerText = "Log Out Securely";
