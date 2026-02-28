@@ -1,0 +1,412 @@
+---
+layout: default
+---
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}{{ '/' | relative_url }}"
+  },{
+    "@type": "ListItem", "position": 2, "name": "Blog", "item": "{{ site.url }}{{ '/blog/' | relative_url }}"
+  },{
+    "@type": "ListItem", "position": 3, "name": "{{ page.category_label | default: page.category | capitalize }}", "item": "{{ site.url }}{{ '/blog/' | relative_url }}#{{ page.category }}"
+  }]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ page.title | escape }}",
+  "description": "{{ page.description | default: page.excerpt | strip_html | escape }}",
+  "image": "{{ page.image | default: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80' }}",
+  "author": {
+    "@type": "Person",
+    "name": "Antonio Vian Noronha",
+    "jobTitle": "School Counsellor & Career Guidance Specialist"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Vidyavantage Career Intelligence",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}{{ '/assets/images/favicon.ico' | relative_url }}"
+    }
+  },
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}"
+}
+</script>
+
+{% if page.image %}
+<img src="{{ page.image }}" style="display:none;" alt="{{ page.title }}" aria-hidden="true" decoding="async" fetchpriority="high">
+{% endif %}
+
+<div class="progress-container">
+  <div class="progress-bar" id="myBar"></div>
+</div>
+
+<style>
+  /* --- STICKY PROGRESS BAR --- */
+  .progress-container { position: fixed; top: 0; left: 0; z-index: 10000; width: 100%; height: 5px; background: transparent; }
+  .progress-bar { height: 100%; background: #F59E0B; width: 0%; transition: width 0.1s ease-out; }
+
+  /* --- POST HERO --- */
+  .post-hero {
+    background: linear-gradient(135deg, rgba(10,35,66,0.95), rgba(10,35,66,0.85)),
+                url('{{ page.image | default: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80" }}');
+    background-size: cover; background-position: center;
+    padding: 120px 20px 100px; text-align: center; color: white;
+  }
+  .post-hero-content { max-width: 900px; margin: 0 auto; }
+
+  .breadcrumbs { font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+  .breadcrumbs a { color: #cbd5e1; text-decoration: none; transition: 0.2s;}
+  .breadcrumbs a:hover { color: #F59E0B; }
+
+  /* Audience & Difficulty Pills */
+  .hero-pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
+  .h-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; color: #e2e8f0; }
+
+  .post-hero h1 { font-size: 3.5rem; font-weight: 900; margin: 0 0 15px 0; line-height: 1.2; letter-spacing: -1px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+
+  /* Search Intent Hook */
+  .hero-intent { font-size: 1.25rem; color: #e2e8f0; max-width: 750px; margin: 0 auto 25px; font-weight: 500; line-height: 1.6; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+
+  .post-meta { font-size: 1.05rem; color: #cbd5e1; margin-bottom: 20px; font-weight: 500; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; align-items: center; }
+  .post-meta span.highlight { color: #F59E0B; font-weight: 700; }
+  
+  .read-time-pill { background: rgba(5, 150, 105, 0.8); border: 1px solid #10b981; padding: 5px 12px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; color: white; display: flex; align-items: center; gap: 6px; }
+
+  /* Article Trust Signals */
+  .trust-signals { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; font-size: 0.9rem; color: #94a3b8; font-weight: 600; }
+  .trust-signals span { display: flex; align-items: center; gap: 5px; }
+
+  .share-box { margin-top: 10px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .share-prompt { font-size: 0.95rem; color: #e2e8f0; margin-bottom: 12px; font-weight: bold; }
+  .share-buttons { display: flex; justify-content: center; gap: 15px; }
+  .share-btn { display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+  .share-btn:hover { background: #D4AF37; color: #0A2342; transform: translateY(-3px); }
+
+  /* --- 2-COLUMN GRID (STICKY TOC + CONTENT) --- */
+  .post-layout-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    max-width: 1100px;
+    margin: -50px auto 60px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 5;
+    align-items: start;
+  }
+
+  /* Sticky Table of Contents */
+  .toc-box {
+    position: sticky;
+    top: 100px; 
+    background: white; padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0;
+  }
+  .toc-box h3 { margin-top: 0; color: #0A2342; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; margin-bottom: 15px;}
+  .toc-box ul { list-style: none; padding-left: 0; margin: 0; }
+  .toc-box li { margin-bottom: 12px; font-size: 0.95rem; font-weight: 600;}
+  .toc-box a { color: #64748b; text-decoration: none; transition: all 0.3s ease; display: block; border-left: 2px solid transparent; padding-left: 10px; margin-left: -12px;}
+  
+  .toc-box a:hover { color: #2563EB; }
+  .toc-box a.active { color: #D97706; font-weight: 800; border-left-color: #F59E0B; background: #fffbeb; border-radius: 0 6px 6px 0; padding-top: 4px; padding-bottom: 4px;}
+
+  /* Main Article Formatting */
+  .post-body { background: white; padding: 40px 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; font-size: 1.15rem; line-height: 1.8; color: #374151; }
+  .post-body h2 { color: #0A2342; margin-top: 50px; margin-bottom: 20px; font-weight: 900; font-size: 2.2rem; letter-spacing: -0.5px; scroll-margin-top: 100px; }
+  .post-body h3 { color: #1E40AF; margin-top: 35px; font-weight: 800; font-size: 1.5rem; scroll-margin-top: 100px; }
+  .post-body img { max-width: 100%; height: auto; border-radius: 12px; margin: 30px 0; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+  .post-body a { color: #2563EB; font-weight: bold; text-decoration: underline; text-underline-offset: 3px;}
+  .post-body ul, .post-body ol { margin-bottom: 25px; padding-left: 20px; }
+  .post-body li { margin-bottom: 10px; }
+
+  /* Auto-Injected Mid-Scroll Trigger */
+  .mid-scroll-trigger { background: #fffbeb; border-left: 5px solid #F59E0B; padding: 25px; border-radius: 8px; margin: 35px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+  .mid-scroll-trigger h4 { margin: 0 0 10px 0; color: #b45309; font-size: 1.3rem;}
+  .mid-scroll-trigger p { margin: 0 0 15px 0; color: #78350f; font-size: 1rem;}
+
+  /* Inline CTA Funnel Box */
+  .inline-cta { background: #ecfdf5; border: 2px solid #10b981; padding: 35px; border-radius: 16px; margin: 40px 0; text-align: center; box-shadow: 0 10px 25px rgba(16,185,129,0.1); }
+  .inline-cta h3 { margin-top: 0 !important; color: #065f46; font-size: 1.6rem !important;}
+  .inline-cta p { color: #064e3b; margin-bottom: 20px; font-weight: 500;}
+  .btn-cta { display: inline-block; background: #059669; color: white !important; padding: 14px 30px; border-radius: 8px; font-weight: 900; text-decoration: none !important; transition: 0.2s; box-shadow: 0 4px 10px rgba(5,150,105,0.3);}
+  .btn-cta:hover { transform: translateY(-3px); background: #047857; box-shadow: 0 10px 20px rgba(5,150,105,0.4);}
+
+  /* E-E-A-T Author Block */
+  .author-box { display: flex; align-items: center; gap: 25px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 30px; border-radius: 16px; margin-top: 50px; }
+  .author-avatar { width: 80px; height: 80px; border-radius: 50%; background: #0A2342; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; flex-shrink: 0;}
+  .author-info h4 { margin: 0 0 5px 0; color: #0f172a; font-size: 1.2rem;}
+  .author-title { color: #2563EB; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 8px; display: block;}
+  .author-info p { margin: 0; font-size: 0.95rem; color: #4B5563; line-height: 1.5;}
+
+  /* Clickable Keywords Clusters */
+  .post-keywords { margin-top: 40px; padding-top: 30px; border-top: 1px solid #e2e8f0; }
+  .keyword-tag { display: inline-block; background: #f1f5f9; color: #4B5563 !important; padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin: 5px 5px 5px 0; border: 1px solid #e2e8f0; text-decoration: none !important; transition: 0.2s;}
+  .keyword-tag:hover { background: #e0f2fe; color: #2563EB !important; border-color: #93c5fd; transform: translateY(-2px);}
+
+  /* Final Conversion Block */
+  .final-conversion { background: #0A2342; color: white; padding: 50px 30px; border-radius: 20px; text-align: center; margin-top: 60px; box-shadow: 0 20px 40px rgba(10,35,66,0.2);}
+  .final-conversion h2 { margin-top: 0; color: white; font-size: 2rem;}
+  .final-conversion p { color: #cbd5e1; font-size: 1.1rem; margin-bottom: 30px;}
+  .fc-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;}
+  .btn-outline-gold { border: 2px solid #D4AF37; color: #D4AF37 !important; padding: 14px 25px; border-radius: 8px; font-weight: bold; text-decoration: none !important; transition: 0.2s;}
+  .btn-outline-gold:hover { background: #D4AF37; color: #0A2342 !important;}
+
+  /* Related Posts Grid */
+  .related-wrapper { background: #f8fafc; padding: 80px 20px; border-top: 1px solid #e2e8f0; }
+  .related-container { max-width: 1200px; margin: 0 auto; }
+  .related-title { text-align: center; font-size: 2.2rem; color: #0A2342; font-weight: 900; margin-bottom: 40px; }
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+  .blog-card { display: flex; flex-direction: column; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); background: white; text-decoration: none !important; color: inherit; height: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+  .blog-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); border-color: #cbd5e1; }
+  .card-img-wrapper { overflow: hidden; aspect-ratio: 3/2; background: #f1f5f9; }
+  .blog-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .blog-card:hover .blog-img { transform: scale(1.08); } 
+  .blog-content-box { padding: 30px; display: flex; flex-direction: column; flex-grow: 1;}
+  .blog-tag { align-self: flex-start; background: rgba(59, 130, 246, 0.1); color: #1d4ed8; padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; }
+  .blog-card-title { margin: 0 0 15px 0; color: #0f172a; font-size: 1.3rem; font-weight: 900; line-height: 1.4;}
+
+  /* --- MOBILE STICKY CTA --- */
+  .mobile-sticky-cta { display: none; }
+
+  @media (max-width: 900px) {
+    .post-layout-grid { grid-template-columns: 1fr; margin-top: -30px; gap: 20px;}
+    .toc-box { position: static; margin-bottom: 0;}
+    .post-hero { padding: 100px 20px 60px; }
+    .post-hero h1 { font-size: 2.2rem; }
+    .post-body { padding: 30px 20px; font-size: 1.05rem; }
+    .author-box { flex-direction: column; text-align: center; }
+    
+    /* Reveal Mobile CTA */
+    .mobile-sticky-cta {
+      display: block;
+      position: fixed;
+      bottom: 0; left: 0; width: 100%;
+      background: white;
+      padding: 15px 20px;
+      box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+      z-index: 9999;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+      box-sizing: border-box;
+    }
+    body { padding-bottom: 80px; /* Prevent footer from hiding behind CTA */ }
+  }
+</style>
+
+<main>
+  <header class="post-hero">
+    <div class="post-hero-content">
+      
+      <div class="breadcrumbs">
+        <a href="{{ '/' | relative_url }}">Home</a> > 
+        <a href="{{ '/blog/' | relative_url }}">Blog</a> > 
+        {{ page.category_label | default: page.category | capitalize }}
+      </div>
+
+      <div class="hero-pills">
+        <span class="h-pill">🎓 {{ page.category_label | default: 'Career Guidance' }}</span>
+        <span class="h-pill">⏱ {{ page.difficulty | default: 'Comprehensive Guide' }}</span>
+        <span class="h-pill">📍 {{ page.audience | default: 'Class 8-12 Students' }}</span>
+      </div>
+
+      <h1>{{ page.title }}</h1>
+      
+      <p class="hero-intent">
+        {{ page.description | default: page.excerpt | strip_html | truncatewords: 30 }}
+      </p>
+      
+      <div class="post-meta">
+        <div>Published: {{ page.date | date: "%B %Y" }}</div>
+        <div style="opacity: 0.5;">•</div>
+        <div>Updated: <span class="highlight">{{ page.last_modified_at | default: page.date | date: "%B %Y" }}</span></div>
+        <div style="opacity: 0.5;">•</div>
+        <div>by <span style="color: white; font-weight: bold;">Antonio Vian Noronha</span></div>
+        
+        {% assign words = content | number_of_words %}
+        {% assign read_time = words | divided_by: 200 %}
+        {% if read_time == 0 %}{% assign read_time = 1 %}{% endif %}
+        <div class="read-time-pill" aria-label="Estimated reading time">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          {{ read_time }} min read
+        </div>
+      </div>
+
+      <div class="trust-signals">
+        <span><svg width="16" height="16" fill="#10b981" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Reviewed by Career Counsellor</span>
+        <span><svg width="16" height="16" fill="#10b981" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Updated for {{ 'now' | date: "%Y" }} Admissions</span>
+        <span><svg width="16" height="16" fill="#10b981" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Data-Driven Insights</span>
+      </div>
+
+      <div class="share-box">
+        <div class="share-prompt">👉 Found this helpful? Share with a friend planning their future.</div>
+        <div class="share-buttons">
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on LinkedIn">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on X">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+          </a>
+          <a href="https://api.whatsapp.com/send?text={{ page.title | url_encode }}%20{{ site.url }}{{ page.url }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on WhatsApp">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.322-.297-.124-1.759-.867-2.033-.966-.272-.099-.47-.149-.669.149-.198.297-.768.966-.941 1.164-.173.199-.347.223-.644.099-.297-.124-1.255-.462-2.39-1.44-.881-.764-1.475-1.708-1.648-2.006-.173-.298-.018-.458.13-.582.134-.111.297-.347.446-.52.151-.172.2-.296.298-.495.099-.198.05-.371-.025-.52-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.759-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="post-layout-grid">
+    
+    <aside>
+      <div class="toc-box">
+        <h3><span aria-hidden="true">📑</span> In This Guide</h3>
+        <ul id="dynamic-toc">
+          <li><a href="#overview">Overview & Context</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <article class="post-body" id="article-content">
+      {{ content }}
+
+      <div class="inline-cta">
+        <h3>🎯 Confused about your career path?</h3>
+        <p>Stop relying on guesswork. Take our clinical psychometric assessment and get a customized 1-year execution roadmap.</p>
+        <a href="{{ '/book-expert/' | relative_url }}" class="btn-cta">Take the Career Clarity Assessment →</a>
+      </div>
+
+      <div class="author-box">
+        <div class="author-avatar">AN</div>
+        <div class="author-info">
+          <h4>Antonio Vian Noronha</h4>
+          <span class="author-title">School Counsellor | Career Guidance Specialist</span>
+          <p>Antonio holds a Master of Social Work (MSW) specializing in Medical and Psychiatric Social Work. He helps students across India replace dinner-table arguments with clinical precision to make structured career decisions.</p>
+        </div>
+      </div>
+
+      {% if page.keywords %}
+      <div class="post-keywords">
+        <h4 style="margin-top: 0; color: #0A2342; font-size: 1.1rem;">Explore Related Topics:</h4>
+        {% assign keyword_array = page.keywords | split: "," %}
+        {% for word in keyword_array %}
+          <a href="{{ '/blog/' | relative_url }}?topic={{ word | strip | url_encode }}" class="keyword-tag">{{ word | strip }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </article>
+  </div>
+
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+    <div class="final-conversion">
+      <h2>🚀 Ready to Move From Confusion to Clarity?</h2>
+      <p>Reading is just the first step. Execution is what builds futures. What would you like to do next?</p>
+      <div class="fc-buttons">
+        <a href="{{ '/book-expert/' | relative_url }}" class="btn-cta" style="background: white; color: #0A2342 !important;">Take Aptitude Test</a>
+        <a href="https://github.com/antoniovn96" target="_blank" class="btn-outline-gold">Talk to a Counsellor</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-wrapper">
+    <div class="related-container">
+      <h2 class="related-title">Next Step: Recommended Reading</h2>
+      <div class="blog-grid">
+        {% assign related_count = 0 %}
+        {% for post in site.posts %}
+          {% if post.category == page.category and post.url != page.url %}
+            {% if related_count < 3 %}
+              <a href="{{ post.url | relative_url }}" class="blog-card" aria-label="Read article: {{ post.title }}">
+                <div class="card-img-wrapper">
+                    {% if post.image %}
+                    <img src="{{ post.image }}" class="blog-img" alt="{{ post.title }}" width="400" height="266" loading="lazy" decoding="async">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" class="blog-img" alt="Blog Image" width="400" height="266" loading="lazy" decoding="async">
+                    {% endif %}
+                </div>
+                <div class="blog-content-box">
+                  <span class="blog-tag">{{ post.category_label | default: post.category }}</span>
+                  <h3 class="blog-card-title">{{ post.title }}</h3>
+                </div>
+              </a>
+              {% assign related_count = related_count | plus: 1 %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div style="text-align: center; margin-top: 40px;">
+        <a href="{{ '/blog/' | relative_url }}" style="display:inline-block; padding: 14px 35px; background: #0A2342; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.2s;">Browse All Articles</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-sticky-cta">
+    <a href="{{ '/book-expert/' | relative_url }}" class="btn-cta" style="width: 100%; box-sizing: border-box; display: block; font-size: 1.1rem; padding: 16px;">Take Career Test ➔</a>
+  </div>
+</main>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. DYNAMIC MID-SCROLL TRIGGER INJECTION
+    const paragraphs = document.querySelectorAll('#article-content > p');
+    if(paragraphs.length >= 3) {
+      const triggerHtml = `
+        <div class="mid-scroll-trigger">
+          <h4>📌 Quick Check: Are you on the right path?</h4>
+          <p>Most students choose streams based on marks, not natural aptitude. Don't leave your future to chance.</p>
+          <a href="{{ '/book-expert/' | relative_url }}" style="color: #b45309; font-weight: bold; text-decoration: none;">Evaluate My Profile ➔</a>
+        </div>
+      `;
+      paragraphs[2].insertAdjacentHTML('afterend', triggerHtml);
+    }
+
+    // 2. AUTO-GENERATE TABLE OF CONTENTS & SCROLL HIGHLIGHTING
+    const headings = document.querySelectorAll('#article-content h2');
+    const tocContainer = document.getElementById('dynamic-toc');
+    
+    if(headings.length > 0) {
+      tocContainer.innerHTML = ''; 
+      headings.forEach((heading, index) => {
+        let id = heading.getAttribute('id');
+        if(!id) {
+          id = 'section-' + index;
+          heading.setAttribute('id', id);
+        }
+        tocContainer.innerHTML += `<li><a href="#${id}" class="toc-link">${heading.innerText}</a></li>`;
+      });
+    }
+
+    // 3. SCROLL EVENT LISTENER (Progress bar & TOC highlighting)
+    window.addEventListener('scroll', () => {
+      let scrollPos = window.scrollY || document.documentElement.scrollTop;
+      let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      
+      // Progress Bar
+      document.getElementById("myBar").style.width = (scrollPos / height) * 100 + "%";
+
+      // TOC Highlighting with Fade Effect
+      let currentId = "";
+      headings.forEach(heading => {
+        if (heading.offsetTop - 150 <= scrollPos) {
+          currentId = heading.getAttribute('id');
+        }
+      });
+
+      const tocLinks = document.querySelectorAll('.toc-link');
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (currentId && link.getAttribute('href') === '#' + currentId) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+  });
+</script>
