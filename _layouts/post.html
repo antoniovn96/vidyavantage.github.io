@@ -56,65 +56,57 @@ layout: default
 
   /* --- POST HERO --- */
   .post-hero {
-    background: linear-gradient(135deg, rgba(10,35,66,0.95), rgba(10,35,66,0.85)),
+    /* Bulletproof Fallback Background */
+    background-color: #0A2342; 
+    background-image: linear-gradient(135deg, rgba(10,35,66,0.95), rgba(10,35,66,0.85)),
                 url('{{ page.image | default: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80" }}');
     background-size: cover; background-position: center;
     padding: 120px 20px 100px; text-align: center; color: white;
   }
   .post-hero-content { max-width: 900px; margin: 0 auto; }
 
-  .breadcrumbs { font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-  .breadcrumbs a { color: #cbd5e1; text-decoration: none; transition: 0.2s;}
-  .breadcrumbs a:hover { color: #F59E0B; }
+  /* Forced White Text to override master CSS */
+  .post-hero h1, .post-hero p, .post-hero div, .post-hero span {
+    color: #ffffff !important;
+  }
+
+  .breadcrumbs { font-size: 0.9rem; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+  .breadcrumbs a { color: #ffffff !important; text-decoration: none; transition: 0.2s;}
+  .breadcrumbs a:hover { color: #F59E0B !important; }
 
   /* Audience & Difficulty Pills */
   .hero-pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
-  .h-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; color: #e2e8f0; }
+  .h-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; font-weight: bold; }
 
-  .post-hero h1 { font-size: 3.5rem; font-weight: 900; margin: 0 0 15px 0; line-height: 1.2; letter-spacing: -1px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+  .post-hero h1 { font-size: 3.5rem !important; font-weight: 900; margin: 0 0 15px 0; line-height: 1.2; letter-spacing: -1px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
 
   /* Search Intent Hook */
-  .hero-intent { font-size: 1.25rem; color: #e2e8f0; max-width: 750px; margin: 0 auto 25px; font-weight: 500; line-height: 1.6; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+  .hero-intent { font-size: 1.25rem; max-width: 750px; margin: 0 auto 25px; font-weight: 500; line-height: 1.6; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 
-  .post-meta { font-size: 1.05rem; color: #cbd5e1; margin-bottom: 20px; font-weight: 500; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; align-items: center; }
-  .post-meta span.highlight { color: #F59E0B; font-weight: 700; }
+  .post-meta { font-size: 1.05rem; margin-bottom: 20px; font-weight: 500; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; align-items: center; opacity: 0.9; }
+  .post-meta span.highlight { color: #F59E0B !important; font-weight: 800; opacity: 1 !important;}
   
-  .read-time-pill { background: rgba(5, 150, 105, 0.8); border: 1px solid #10b981; padding: 5px 12px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; color: white; display: flex; align-items: center; gap: 6px; }
+  .read-time-pill { background: rgba(5, 150, 105, 0.8); border: 1px solid #10b981; padding: 5px 12px; border-radius: 50px; font-size: 0.9rem; font-weight: bold; display: flex; align-items: center; gap: 6px; }
 
   /* Article Trust Signals */
-  .trust-signals { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; font-size: 0.9rem; color: #94a3b8; font-weight: 600; }
+  .trust-signals { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; font-size: 0.9rem; font-weight: 600; opacity: 0.8;}
   .trust-signals span { display: flex; align-items: center; gap: 5px; }
 
   .share-box { margin-top: 10px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); }
-  .share-prompt { font-size: 0.95rem; color: #e2e8f0; margin-bottom: 12px; font-weight: bold; }
+  .share-prompt { font-size: 0.95rem; margin-bottom: 12px; font-weight: bold; }
   .share-buttons { display: flex; justify-content: center; gap: 15px; }
-  .share-btn { display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.1); color: white; text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
-  .share-btn:hover { background: #D4AF37; color: #0A2342; transform: translateY(-3px); }
+  .share-btn { display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.1); text-decoration: none; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
+  .share-btn:hover { background: #D4AF37; color: #0A2342 !important; transform: translateY(-3px); }
 
   /* --- 2-COLUMN GRID (STICKY TOC + CONTENT) --- */
-  .post-layout-grid {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 40px;
-    max-width: 1100px;
-    margin: -50px auto 60px;
-    padding: 0 20px;
-    position: relative;
-    z-index: 5;
-    align-items: start;
-  }
+  .post-layout-grid { display: grid; grid-template-columns: 280px 1fr; gap: 40px; max-width: 1100px; margin: -50px auto 60px; padding: 0 20px; position: relative; z-index: 5; align-items: start; }
 
   /* Sticky Table of Contents */
-  .toc-box {
-    position: sticky;
-    top: 100px; 
-    background: white; padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0;
-  }
+  .toc-box { position: sticky; top: 100px; background: white; padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
   .toc-box h3 { margin-top: 0; color: #0A2342; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; margin-bottom: 15px;}
   .toc-box ul { list-style: none; padding-left: 0; margin: 0; }
   .toc-box li { margin-bottom: 12px; font-size: 0.95rem; font-weight: 600;}
   .toc-box a { color: #64748b; text-decoration: none; transition: all 0.3s ease; display: block; border-left: 2px solid transparent; padding-left: 10px; margin-left: -12px;}
-  
   .toc-box a:hover { color: #2563EB; }
   .toc-box a.active { color: #D97706; font-weight: 800; border-left-color: #F59E0B; background: #fffbeb; border-radius: 0 6px 6px 0; padding-top: 4px; padding-bottom: 4px;}
 
@@ -153,8 +145,8 @@ layout: default
 
   /* Final Conversion Block */
   .final-conversion { background: #0A2342; color: white; padding: 50px 30px; border-radius: 20px; text-align: center; margin-top: 60px; box-shadow: 0 20px 40px rgba(10,35,66,0.2);}
-  .final-conversion h2 { margin-top: 0; color: white; font-size: 2rem;}
-  .final-conversion p { color: #cbd5e1; font-size: 1.1rem; margin-bottom: 30px;}
+  .final-conversion h2 { margin-top: 0; color: white !important; font-size: 2rem;}
+  .final-conversion p { color: #cbd5e1 !important; font-size: 1.1rem; margin-bottom: 30px;}
   .fc-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;}
   .btn-outline-gold { border: 2px solid #D4AF37; color: #D4AF37 !important; padding: 14px 25px; border-radius: 8px; font-weight: bold; text-decoration: none !important; transition: 0.2s;}
   .btn-outline-gold:hover { background: #D4AF37; color: #0A2342 !important;}
@@ -180,24 +172,16 @@ layout: default
     .post-layout-grid { grid-template-columns: 1fr; margin-top: -30px; gap: 20px;}
     .toc-box { position: static; margin-bottom: 0;}
     .post-hero { padding: 100px 20px 60px; }
-    .post-hero h1 { font-size: 2.2rem; }
+    .post-hero h1 { font-size: 2.2rem !important; }
     .post-body { padding: 30px 20px; font-size: 1.05rem; }
     .author-box { flex-direction: column; text-align: center; }
     
-    /* Reveal Mobile CTA */
     .mobile-sticky-cta {
-      display: block;
-      position: fixed;
-      bottom: 0; left: 0; width: 100%;
-      background: white;
-      padding: 15px 20px;
-      box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
-      z-index: 9999;
-      text-align: center;
-      border-top: 1px solid #e2e8f0;
-      box-sizing: border-box;
+      display: block; position: fixed; bottom: 0; left: 0; width: 100%; background: white;
+      padding: 15px 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); z-index: 9999;
+      text-align: center; border-top: 1px solid #e2e8f0; box-sizing: border-box;
     }
-    body { padding-bottom: 80px; /* Prevent footer from hiding behind CTA */ }
+    body { padding-bottom: 80px; }
   }
 </style>
 
@@ -225,10 +209,10 @@ layout: default
       
       <div class="post-meta">
         <div>Published: {{ page.date | date: "%B %Y" }}</div>
-        <div style="opacity: 0.5;">•</div>
+        <div>•</div>
         <div>Updated: <span class="highlight">{{ page.last_modified_at | default: page.date | date: "%B %Y" }}</span></div>
-        <div style="opacity: 0.5;">•</div>
-        <div>by <span style="color: white; font-weight: bold;">Antonio Vian Noronha</span></div>
+        <div>•</div>
+        <div>by <span>Antonio Vian Noronha</span></div>
         
         {% assign words = content | number_of_words %}
         {% assign read_time = words | divided_by: 200 %}
