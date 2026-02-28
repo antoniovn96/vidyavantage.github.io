@@ -42,33 +42,36 @@ keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr f
     box-shadow: 0 4px 10px rgba(0,0,0,0.03);
   }
 
+  /* Mobile-Responsive Table Wrapper */
   .table-wrapper {
     width: 100%;
     overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch; /* Smooth swipe scrolling on iOS */
+    margin-bottom: 30px;
+    border-radius: 8px;
   }
   
-  table.comp-table, table.fee-table { 
+  table.comp-table { 
     width: 100%; 
     border-collapse: collapse; 
-    margin: 25px 0; 
-    font-size: 1rem; 
+    margin: 0; 
+    font-size: 1rem;
+    min-width: 600px; /* Prevents columns from squishing on phones */
   }
-  table th { 
+  table.comp-table th { 
     background: #f8fafc;
     color: #0f172a;
     border-bottom: 2px solid #e2e8f0;
     padding: 15px; 
     text-align: left; 
   }
-  table td { 
+  table.comp-table td { 
     padding: 15px; 
     border-bottom: 1px solid #e2e8f0; 
     color: #334155;
   }
 
+  /* Score Grid */
   .score-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -89,6 +92,17 @@ keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr f
     font-size: 0.85rem;
     letter-spacing: 1px;
   }
+
+  /* --- MOBILE SPECIFIC FIXES --- */
+  @media (max-width: 768px) {
+    table.comp-table th, table.comp-table td {
+      padding: 12px 10px;
+      font-size: 0.9rem;
+    }
+    .score-grid {
+      grid-template-columns: 1fr 1fr; /* Forces a perfect 2x2 grid on mobile */
+    }
+  }
 </style>
 
 <h2 id="crs-stagnation">Stuck at 440 CRS? You need French.</h2>
@@ -96,7 +110,7 @@ keywords: "tef canada vs tcf canada, french clb 7 points calculator, canada pr f
   
 <p><strong>Enter the "Golden Ticket": French.</strong> Canada is desperate to attract Francophones outside of Quebec, and they reward candidates heavily for proving bilingual proficiency.</p>
 
-<img src="https://images.unsplash.com/photo-1517722014278-c256a91a6fba?w=1000&auto=format&fit=crop" alt="Canadian flag in nature representing Canada PR Express Entry and French language points" class="content-img">
+<img src="https://images.unsplash.com/photo-1517722014278-c256a91a6fba?w=1000&auto=format&fit=crop" alt="Canadian flag in nature representing Canada PR Express Entry and French language points" class="content-img" loading="lazy" decoding="async">
 
 <div class="magic-box">
   <h2 style="margin-top:0; color: #065f46; font-size: 3.5rem; line-height: 1; border: none;">+50 Points</h2>
