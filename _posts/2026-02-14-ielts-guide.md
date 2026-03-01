@@ -13,6 +13,25 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
 ---
 
 <style>
+  /* --- CRITICAL MOBILE FIX FOR TOC OVERLAP --- */
+  @media (max-width: 900px) {
+    .post-layout-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      margin-top: 0 !important;
+    }
+    aside {
+      width: 100% !important;
+      display: block !important;
+    }
+    .toc-box {
+      position: relative !important;
+      top: auto !important;
+      margin-bottom: 30px !important;
+      z-index: 1 !important;
+    }
+  }
+
   /* Article-Specific Styles (Tables, Grid Cards, Callouts) */
   img.content-img {
     width: 100%;
