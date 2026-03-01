@@ -168,9 +168,32 @@ layout: default
   /* --- MOBILE STICKY CTA --- */
   .mobile-sticky-cta { display: none; }
 
+  /* ==============================================================
+     🔥 CRITICAL MOBILE FIX FOR TOC AND OVERLAP BUG 🔥
+     ============================================================== */
   @media (max-width: 900px) {
-    .post-layout-grid { grid-template-columns: 1fr; margin-top: -30px; gap: 20px;}
-    .toc-box { position: static; margin-bottom: 0;}
+    /* 1. Force Flex Column over Grid to prevent overlapping */
+    .post-layout-grid { 
+      display: flex !important; 
+      flex-direction: column !important; 
+      margin-top: -30px !important; 
+      gap: 20px;
+    }
+    
+    /* 2. Force aside container to full width */
+    aside { 
+      width: 100% !important; 
+      display: block !important; 
+    }
+    
+    /* 3. Strip sticky positioning off the TOC on mobile */
+    .toc-box { 
+      position: relative !important; 
+      top: auto !important; 
+      margin-bottom: 20px !important; 
+      box-sizing: border-box;
+    }
+    
     .post-hero { padding: 100px 20px 60px; }
     .post-hero h1 { font-size: 2.2rem !important; }
     .post-body { padding: 30px 20px; font-size: 1.05rem; }
