@@ -15,11 +15,13 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
 <style>
   /* Article-Specific Styles (Tables, Grid Cards, Callouts) */
   img.content-img {
+    width: 100%;
     max-width: 100%;
     height: auto;
     border-radius: 12px;
     margin: 20px 0;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: block;
   }
 
   .tip-box {
@@ -29,6 +31,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     margin: 30px 0;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    box-sizing: border-box;
   }
   
   .warning-box {
@@ -38,6 +41,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     margin: 30px 0;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    box-sizing: border-box;
   }
 
   .module-grid {
@@ -54,6 +58,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     background: #fff;
     box-shadow: 0 8px 20px rgba(0,0,0,0.04);
     transition: transform 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
   }
   
   .module-card:hover {
@@ -77,6 +82,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     -webkit-overflow-scrolling: touch; /* Smooth swipe scrolling on iOS */
     margin-bottom: 30px;
     border-radius: 8px;
+    box-sizing: border-box;
   }
   
   table.comp-table { 
@@ -84,7 +90,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     border-collapse: collapse; 
     margin: 0; 
     font-size: 1rem;
-    min-width: 550px; /* Prevents columns from squishing on phones */
+    min-width: 500px; /* Prevents columns from squishing on phones */
   }
   table.comp-table th { 
     background: #f8fafc;
@@ -117,6 +123,9 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     .band-score {
       font-size: 1.7rem; /* Shrinks the massive emoji text slightly */
     }
+    ol, ul {
+      padding-left: 20px; /* Prevents bullets from overflowing on small screens */
+    }
   }
 </style>
 
@@ -127,7 +136,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
 <p>If you watch Netflix without subtitles and can write a decent email, you can score Band 8 <strong>on your own</strong>. You just need a strategy.</p>
 
 <img src="https://images.unsplash.com/photo-1517673132405-a56a62b18caf?w=800&auto=format&fit=crop" alt="IELTS exam paper and pencil" class="content-img" loading="lazy" decoding="async">
-
 
 <h2 id="logistics">💰 The Logistics (2026 Update)</h2>
 <p>First, let's look at the wallet damage.</p>
@@ -142,7 +150,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
   <h3 style="margin-top:0; color: #1E40AF; font-size: 1.1rem; border: none;">💡 Pro Tip</h3>
   <p style="margin:0; color: #1e3a8a;">Choose the <strong>Computer-delivered</strong> test. Typing is faster than writing, and editing your essay is much easier!</p>
 </div>
-
 
 <h2 id="academic-vs-general">🎯 Academic vs. General Training: Which one?</h2>
 <p>Don't book the wrong exam!</p>
@@ -181,7 +188,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
   </table>
 </div>
 
-
 <h2 id="4-week-plan">🚀 The 4-Week Battle Plan (Module by Module)</h2>
 <p>To get an overall Band 8, you need to master all 4 sections.</p>
 
@@ -211,7 +217,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
   </div>
 </div>
 
-
 <h2 id="common-mistakes">⚠️ Common Mistakes that Kill Your Score</h2>
 <ol>
   <li><strong>Leaving blanks empty:</strong> There is NO negative marking in IELTS. Guess if you don't know!</li>
@@ -223,7 +228,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
   <h3 style="margin-top:0; color: #b45309; font-size: 1.1rem; border: none;">🚨 Reality Check</h3>
   <p style="margin: 0; color: #78350f; font-size: 0.95rem;">Most top universities (Oxford, Ivy League) require a minimum <strong>Band 7.5 overall</strong> with no band less than 7.0.</p>
 </div>
-
 
 <h2 id="final-verdict">🏁 Final Verdict</h2>
 <p>You don't need a ₹20,000 coaching class. You need <strong>Mock Tests</strong>. Take a full-length mock test this Saturday. If you score above 6.5, you can self-study to an 8.0. If you score below 6.0, then consider a professional tutor.</p>
