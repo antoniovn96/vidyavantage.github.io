@@ -13,26 +13,13 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
 ---
 
 <style>
-  /* --- CRITICAL MOBILE FIX FOR TOC OVERLAP --- */
-  @media (max-width: 900px) {
-    .post-layout-grid {
-      display: flex !important;
-      flex-direction: column !important;
-      margin-top: 0 !important;
-    }
-    aside {
-      width: 100% !important;
-      display: block !important;
-    }
-    .toc-box {
-      position: relative !important;
-      top: auto !important;
-      margin-bottom: 30px !important;
-      z-index: 1 !important;
-    }
+  /* --- CRITICAL FAILSAFE: Prevent entire page from scrolling right --- */
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden !important;
   }
 
-  /* Article-Specific Styles (Tables, Grid Cards, Callouts) */
+  /* Article-Specific Styles */
   img.content-img {
     width: 100%;
     max-width: 100%;
@@ -41,6 +28,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     margin: 20px 0;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     display: block;
+    box-sizing: border-box;
   }
 
   .tip-box {
@@ -68,6 +56,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     margin: 30px 0;
+    width: 100%;
   }
   
   .module-card {
@@ -78,6 +67,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     box-shadow: 0 8px 20px rgba(0,0,0,0.04);
     transition: transform 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
+    width: 100%;
   }
   
   .module-card:hover {
@@ -94,9 +84,11 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     line-height: 1;
   }
 
-  /* Mobile-Responsive Table Wrapper */
+  /* Mobile-Responsive Table Wrapper (STRICTLY LOCKED) */
   .table-wrapper {
     width: 100%;
+    max-width: 100%;
+    display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* Smooth swipe scrolling on iOS */
     margin-bottom: 30px;
@@ -109,7 +101,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     border-collapse: collapse; 
     margin: 0; 
     font-size: 1rem;
-    min-width: 500px; /* Prevents columns from squishing on phones */
+    min-width: 450px; /* Allows internal scroll but prevents breaking page */
   }
   table.comp-table th { 
     background: #f8fafc;
@@ -144,6 +136,9 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     }
     ol, ul {
       padding-left: 20px; /* Prevents bullets from overflowing on small screens */
+    }
+    p {
+      word-break: break-word; /* Prevents long URLs from pushing screen wide */
     }
   }
 </style>
