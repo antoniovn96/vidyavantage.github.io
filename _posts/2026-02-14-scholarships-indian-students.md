@@ -1,9 +1,11 @@
 ---
-layout: default
+layout: post
 title: "The 'Secret' Scholarships Nobody Tells You About"
 date: 2026-02-14
 category: money
 category_label: "Scholarships"
+difficulty: "Funding Guide"
+audience: "Study Abroad Aspirants"
 image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1000&auto=format&fit=crop"
 excerpt: "Stop Googling 'Fulbright'. Discover the J.N. Tata, Narotam Sekhsaria, and other hidden funding sources for Indian students."
 description: "Scholarships for Indian students 2026: A list of lesser-known but high-value scholarships like J.N. Tata Endowment and Narotam Sekhsaria for study abroad."
@@ -11,107 +13,126 @@ keywords: "scholarships for indian students to study abroad, jn tata endowment l
 ---
 
 <style>
-  /* Scholarship Card Styling */
+  /* Premium Scholarship Card Styling */
+  img.content-img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 20px 0 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: block;
+  }
+
   .scholarship-card {
     background: #fff;
-    border: 1px solid #c8e6c9; /* Light Green Border */
-    border-radius: 10px;
-    padding: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border-top: 5px solid #2e7d32; /* Deep Green Top */
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+    border-top: 5px solid #10b981; /* Deep Green Accent */
     position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   
-  .scholarship-name { margin-top: 0; color: #0A2342; font-size: 1.4rem; font-weight: bold; }
+  .scholarship-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  }
   
   .amount-tag {
-    background: #e8f5e9;
-    color: #1b5e20;
-    padding: 5px 15px;
-    border-radius: 4px;
-    font-weight: bold;
+    background: #ecfdf5;
+    color: #059669;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: 800;
     display: inline-block;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    border: 1px solid #10b981;
   }
   
   .deadline-tag {
     position: absolute;
-    top: 25px;
-    right: 25px;
-    background: #ffebee;
-    color: #c62828; /* Red for urgency */
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
+    top: 30px;
+    right: 30px;
+    background: #fef2f2;
+    color: #dc2626; /* Red for urgency */
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    border: 1px solid #f87171;
   }
 
-  /* Mobile adjustment for deadline */
-  @media (max-width: 600px) {
-    .deadline-tag { position: static; display: inline-block; margin-bottom: 10px; }
+  .tip-box {
+    background: #fffbeb;
+    border-left: 5px solid #f59e0b;
+    padding: 25px;
+    margin: 40px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
   }
 
-  .apply-link { text-decoration: none; color: #0A2342; font-weight: bold; border-bottom: 2px solid #D4AF37; }
-  .apply-link:hover { background: #D4AF37; color: black; border: none; }
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .scholarship-card { padding: 20px; }
+    .deadline-tag { 
+      position: static; 
+      display: inline-block; 
+      margin-bottom: 15px; 
+    }
+    .amount-tag { margin-bottom: 15px; }
+  }
 </style>
 
-# Stop Googling "Fulbright".
+<h2 id="intro">Stop Googling "Fulbright"</h2>
 
-Everyone applies for the Fulbright or Chevening. The competition is insane (0.1% acceptance rate).
+<p>Everyone applies for the Fulbright or Chevening. The competition is insane (0.1% acceptance rate).</p>
+<p>But did you know there are massive <strong>Indian Trust Funds</strong> that specifically want to fund <em>Indian</em> students? They don't advertise heavily, so the competition is lower.</p>
+<p>Here are the top 4 "Hidden Gems" for 2026.</p>
 
-But did you know there are massive **Indian Trust Funds** that specifically want to fund *Indian* students? They don't advertise heavily, so the competition is lower.
+<img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&auto=format&fit=crop" alt="Counting money and calculator" class="content-img" loading="lazy" decoding="async">
 
-Here are the top 4 "Hidden Gems" for 2026.
 
-![Counting money and calculator](https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&auto=format&fit=crop)
-
----
-
+<h2 id="jn-tata">1. J.N. Tata Endowment</h2>
 <div class="scholarship-card">
   <span class="deadline-tag">📅 Deadline: Mid-March 2026</span>
-  <h2 class="scholarship-name">1. J.N. Tata Endowment</h2>
   <div class="amount-tag">💰 Amount: ₹1 Lakh to ₹10 Lakhs</div>
   <p><strong>The Deal:</strong> This is a "Loan Scholarship." They lend you money at a very low (sometimes 2%) interest rate. If you repay it on time, they often waive the interest entirely.</p>
-  <p><strong>Why it's great:</strong> It is prestigious. Having "Tata Scholar" on your CV helps you get *other* scholarships.</p>
+  <p><strong>Why it's great:</strong> It is prestigious. Having "Tata Scholar" on your CV helps you get <em>other</em> scholarships.</p>
   <p><strong>Eligibility:</strong> Indians under 45 years with a graduate degree.</p>
 </div>
 
+<h2 id="narotam-sekhsaria">2. Narotam Sekhsaria Scholarship</h2>
 <div class="scholarship-card">
-  <span class="deadline-tag">📅 Deadline: January - March</span>
-  <h2 class="scholarship-name">2. Narotam Sekhsaria Scholarship</h2>
+  <span class="deadline-tag">📅 Deadline: Jan - March</span>
   <div class="amount-tag">💰 Amount: Up to ₹20 Lakhs</div>
   <p><strong>The Deal:</strong> An interest-free loan scholarship for bright students pursuing PG studies at top-ranked global universities.</p>
   <p><strong>Why it's great:</strong> They have a rigorous interview process, but if you get in, you also get mentorship from industry leaders.</p>
   <p><strong>Eligibility:</strong> Indian graduates with high academic distinction.</p>
 </div>
 
+<h2 id="kc-mahindra">3. K.C. Mahindra Scholarship</h2>
 <div class="scholarship-card">
   <span class="deadline-tag">📅 Deadline: March 31, 2026</span>
-  <h2 class="scholarship-name">3. K.C. Mahindra Scholarship</h2>
   <div class="amount-tag">💰 Amount: ₹4 Lakhs - ₹8 Lakhs</div>
   <p><strong>The Deal:</strong> An interest-free loan scholarship for post-graduate studies abroad in various fields.</p>
   <p><strong>Why it's great:</strong> They select the top 3 students (K.C. Mahindra Fellows) to receive the max amount (₹8L), while others receive ₹4L.</p>
   <p><strong>Eligibility:</strong> First-class degree holders.</p>
 </div>
 
+<h2 id="tata-women">4. Lady Meherbai D. Tata Education Trust</h2>
 <div class="scholarship-card">
   <span class="deadline-tag">📅 Deadline: April 2026</span>
-  <h2 class="scholarship-name">4. Lady Meherbai D. Tata Education Trust</h2>
-  <div class="amount-tag">💰 Amount: Varies (Grant, not Loan)</div>
+  <div class="amount-tag">💰 Amount: Varies (Grant)</div>
   <p><strong>The Deal:</strong> This is a GRANT (you don't pay it back!). It is exclusively for women graduates working in social sciences (Public Health, Rural Development, Education).</p>
   <p><strong>Why it's great:</strong> Free money for women changing the world.</p>
   <p><strong>Eligibility:</strong> Indian women graduates from recognized universities.</p>
 </div>
 
----
-
-## 💡 Pro Tip: Mix & Match
-
-You can (and should) apply for all of these. Getting ₹5 Lakhs from Tata and ₹5 Lakhs from Mahindra covers ₹10 Lakhs of your tuition!
-
-**Need help with your application essays?**
-Our experts include former scholarship winners.
-
-<a href="{{ '/book-expert/' | relative_url }}" class="btn">Book a Scholarship Strategy Session</a>
+<div class="tip-box">
+  <h3 style="margin-top:0; color: #b45309; font-size: 1.2rem; border: none;">💡 Pro Tip: Mix & Match</h3>
+  <p style="margin: 0; color: #78350f; font-size: 1.05rem;">You can (and should) apply for all of these. Getting ₹5 Lakhs from Tata and ₹5 Lakhs from Mahindra covers ₹10 Lakhs of your tuition!</p>
+</div>
