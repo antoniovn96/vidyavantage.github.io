@@ -13,10 +13,10 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
 ---
 
 <style>
-  /* --- CRITICAL FAILSAFE: Prevent entire page from scrolling right --- */
-  html, body {
-    max-width: 100vw;
-    overflow-x: hidden !important;
+  /* --- CRITICAL MOBILE FIX: The Box Model --- */
+  /* This prevents padding from stretching elements wider than the phone screen */
+  *, *::before, *::after {
+    box-sizing: border-box !important;
   }
 
   /* Article-Specific Styles */
@@ -28,7 +28,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     margin: 20px 0;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     display: block;
-    box-sizing: border-box;
   }
 
   .tip-box {
@@ -38,7 +37,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     margin: 30px 0;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    box-sizing: border-box;
   }
   
   .warning-box {
@@ -48,7 +46,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     margin: 30px 0;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    box-sizing: border-box;
   }
 
   .module-grid {
@@ -66,7 +63,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     background: #fff;
     box-shadow: 0 8px 20px rgba(0,0,0,0.04);
     transition: transform 0.2s, box-shadow 0.2s;
-    box-sizing: border-box;
     width: 100%;
   }
   
@@ -84,7 +80,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     line-height: 1;
   }
 
-  /* Mobile-Responsive Table Wrapper (STRICTLY LOCKED) */
+  /* Mobile-Responsive Table Wrapper */
   .table-wrapper {
     width: 100%;
     max-width: 100%;
@@ -93,7 +89,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     -webkit-overflow-scrolling: touch; /* Smooth swipe scrolling on iOS */
     margin-bottom: 30px;
     border-radius: 8px;
-    box-sizing: border-box;
   }
   
   table.comp-table { 
@@ -101,7 +96,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     border-collapse: collapse; 
     margin: 0; 
     font-size: 1rem;
-    min-width: 450px; /* Allows internal scroll but prevents breaking page */
+    min-width: 500px; /* Allows internal scroll but prevents breaking page */
   }
   table.comp-table th { 
     background: #f8fafc;
