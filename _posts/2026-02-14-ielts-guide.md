@@ -13,23 +13,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
 ---
 
 <style>
-  /* --- CRITICAL MOBILE FIX: The Box Model --- */
-  /* This prevents padding from stretching elements wider than the phone screen */
-  *, *::before, *::after {
-    box-sizing: border-box !important;
-  }
-
-  /* Article-Specific Styles */
-  img.content-img {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    margin: 20px 0;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    display: block;
-  }
-
+  /* Article-Specific Component Styles */
   .tip-box {
     background: #e0f2fe;
     border-left: 5px solid #2563EB;
@@ -53,7 +37,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     margin: 30px 0;
-    width: 100%;
   }
   
   .module-card {
@@ -63,7 +46,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     background: #fff;
     box-shadow: 0 8px 20px rgba(0,0,0,0.04);
     transition: transform 0.2s, box-shadow 0.2s;
-    width: 100%;
   }
   
   .module-card:hover {
@@ -83,8 +65,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
   /* Mobile-Responsive Table Wrapper */
   .table-wrapper {
     width: 100%;
-    max-width: 100%;
-    display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* Smooth swipe scrolling on iOS */
     margin-bottom: 30px;
@@ -96,7 +76,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     border-collapse: collapse; 
     margin: 0; 
     font-size: 1rem;
-    min-width: 500px; /* Allows internal scroll but prevents breaking page */
+    min-width: 500px; /* Prevents columns from squishing on phones */
   }
   table.comp-table th { 
     background: #f8fafc;
@@ -132,9 +112,6 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
     ol, ul {
       padding-left: 20px; /* Prevents bullets from overflowing on small screens */
     }
-    p {
-      word-break: break-word; /* Prevents long URLs from pushing screen wide */
-    }
   }
 </style>
 
@@ -144,7 +121,7 @@ keywords: "ielts exam fees india 2026, how to score band 8 in ielts, ielts acade
 
 <p>If you watch Netflix without subtitles and can write a decent email, you can score Band 8 <strong>on your own</strong>. You just need a strategy.</p>
 
-<img src="https://images.unsplash.com/photo-1517673132405-a56a62b18caf?w=800&auto=format&fit=crop" alt="IELTS exam paper and pencil" class="content-img" loading="lazy" decoding="async">
+<img src="https://images.unsplash.com/photo-1517673132405-a56a62b18caf?w=800&auto=format&fit=crop" alt="IELTS exam paper and pencil" loading="lazy" decoding="async">
 
 <h2 id="logistics">💰 The Logistics (2026 Update)</h2>
 <p>First, let's look at the wallet damage.</p>
