@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Career Options After 10th for Average Students"
-date: 2026-03-03
+date: 2026-03-02  <--- CHANGE THIS TO 02
 permalink: /career-options-after-10th-for-average-students/
 category: class-10-12
 category_label: "Class 10-12"
