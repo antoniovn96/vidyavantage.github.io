@@ -452,7 +452,7 @@ title: Home
             <p style="font-size: 1.2rem; color: #cbd5e1; max-width: 700px; margin: 0 auto 30px;">
                 Empower your institution with a white-labeled career dashboard. Track student clarity metrics, identify high-risk students, and host expert parent workshops.
             </p>
-            <a href="mailto:antonio.antonio.noronha@gmail.com?subject=School Partnership Inquiry" class="btn" style="background: white; color: #0f172a; padding: 16px 40px; font-size: 1.1rem; display: inline-block; text-decoration: none;">Request Institutional Demo</a>
+            <a href="mailto:vidyavantage@yahoo.com?subject=School Partnership Inquiry" class="btn" style="background: white; color: #0f172a; padding: 16px 40px; font-size: 1.1rem; display: inline-block; text-decoration: none;">Request Institutional Demo</a>
         </div>
     </div>
 
