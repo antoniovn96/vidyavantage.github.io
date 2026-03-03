@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "Career Options Without NEET or JEE After 12th"
-date: 2026-03-03
+date: 2026-03-02 08:00:00 +0530
 permalink: /career-options-without-neet-or-jee/
 category: class-10-12
 category_label: "Class 10-12"
 difficulty: "Comprehensive Guide"
 audience: "Class 12 Students & Parents"
-image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1000&auto=format&fit=crop"
+image: "/assets/image/Gemini_Generated_Image_smlkpfsmlkpfsmlk.png"
 excerpt: "Explore the best career options after 12th without NEET or JEE. Discover high-paying courses in IT, management, law, design and healthcare."
 description: "Explore the best career options after 12th without NEET or JEE. Discover high-paying courses in IT, management, law, design and healthcare."
 keywords: "career options without neet or jee, courses without neet or jee, career after 12th without neet or jee, alternatives to neet and jee, best careers after 12th India"
@@ -112,6 +112,7 @@ keywords: "career options without neet or jee, courses without neet or jee, care
 
 <p>Today’s industry offers diverse opportunities in business, technology, design, psychology, media, allied healthcare, and emerging digital spaces — all without these hyper-competitive entrance exams.</p>
 
+<img src="{{ '/assets/image/Gemini_Generated_Image_smlkpfsmlkpfsmlk.png' | relative_url }}" alt="Student exploring diverse career paths like IT, Commerce, Arts, Aviation, and Law after 12th grade instead of NEET or JEE" class="content-img" loading="lazy" decoding="async">
 
 <div class="mistake-box">
   <h3>🚨 The "Rat Race" Trap</h3>
@@ -385,5 +386,3 @@ keywords: "career options without neet or jee, courses without neet or jee, care
  }]
 }
 </script>
-
-<img src="career-options-without-neet-jee-india.jpg" style="display:none;" alt="Best career options after 12th without NEET or JEE in India">
