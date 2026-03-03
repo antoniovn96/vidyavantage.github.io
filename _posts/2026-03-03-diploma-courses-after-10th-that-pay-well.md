@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Diploma Courses After 10th That Pay Well in India"
-date: 2026-03-04
+date: 2026-03-03
 permalink: /diploma-courses-after-10th-that-pay-well/
 category: class-10-12
 category_label: "Class 10-12"
