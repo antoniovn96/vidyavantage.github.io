@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Career Options Without NEET or JEE After 12th"
-date: 2026-03-03
+date: 2026-03-02
 permalink: /career-options-without-neet-or-jee/
 category: class-10-12
 category_label: "Class 10-12"
