@@ -7,7 +7,8 @@ category: class-10-12
 category_label: "Class 10-12"
 difficulty: "Comprehensive Guide"
 audience: "Class 10 Students & Parents"
-image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1000&auto=format&fit=crop"
+image: "<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/1774997f-4998-4dce-a4d0-480cadb36b6c" />
+"
 excerpt: "Confused between Polytechnic and PU after 10th? Compare career scope, salary, job opportunities and choose the best option for your future."
 description: "Confused between Polytechnic and PU after 10th? Compare career scope, salary, job opportunities and choose the best option for your future."
 keywords: "polytechnic vs pu, polytechnic or pu after 10th, diploma vs pu college, what to choose after 10th, polytechnic vs puc India, diploma after 10th vs 11th science"
