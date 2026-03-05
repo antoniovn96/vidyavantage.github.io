@@ -78,10 +78,21 @@
       .gamify-badge.unlocked-primary { opacity: 1; filter: grayscale(0%); background: #eff6ff; color: #1e40af;}
       .gamify-badge.unlocked-success { opacity: 1; filter: grayscale(0%); background: #d1fae5; color: #059669;}
       
+      /* Top Header XP Display & Animations */
+      .top-xp-display { display: flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 6px 12px; border-radius: 50px; transition: 0.3s; }
+      .top-xp-display span.lvl { color: #b45309; font-weight: 900; font-size: 0.85rem;}
+      .top-xp-display span.xp { color: var(--accent); font-weight: bold; font-size: 0.85rem;}
+      @keyframes xpBumpAnim {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.15); background: rgba(245, 158, 11, 0.3); box-shadow: 0 0 15px rgba(245, 158, 11, 0.5); }
+          100% { transform: scale(1); }
+      }
+      .xp-bump { animation: xpBumpAnim 0.6s ease-out; }
+
       .xp-pill { background: rgba(255,255,255,0.18); padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; color: #fbbf24; }
       .streak-pill { background: rgba(255,255,255,0.18); padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; color: #f87171; }
 
-      /* --- CLARITY METER (Premium Edit) --- */
+      /* --- CLARITY METER --- */
       .clarity-meter-wrap { background: radial-gradient(circle at top right, #1e1b4b, #0f172a); color: white; padding: 45px; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.08); display: flex; flex-direction: column;}
       .clarity-score { font-size: 3.2rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 5px; background: -webkit-linear-gradient(45deg, #fcd34d, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
       .meter-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 25px; overflow: hidden;}
@@ -238,7 +249,13 @@
     <div class="top-header">
         <h2 style="margin:0; font-size:1.15rem; color:var(--text-muted); font-weight:800;" id="headerTitle">Dashboard Home</h2>
         <div class="header-actions">
-            <a href="index.html" class="site-link">🌐 Live Site</a>
+            
+            <div class="top-xp-display" id="topXpContainer" title="Your Experience Points">
+                <span class="lvl" id="topLevelDisplay">Lvl 1</span>
+                <span class="xp">✨ <span id="topXpDisplay">10</span> XP</span>
+            </div>
+
+            <a href="index.html" class="site-link hide-from-parent">🌐 Live Site</a>
             <div class="notif-bell hide-from-parent" onclick="switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5])">
                 🔔 <span class="notif-badge" id="notifBadge">0</span>
             </div>
@@ -490,11 +507,11 @@
             </details>
 
             <details class="profile-acc">
-                <summary>💼 Work & Volunteer Experience</summary>
+                <summary>🤝 Volunteer Experience & Internships</summary>
                 <div class="acc-body">
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add any internships, part-time jobs, or volunteer work.</p>
-                    <div id="workContainer"></div>
-                    <button class="btn btn-outline" onclick="addWorkEntry()">+ Add Experience</button>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add any internships, part-time roles, social work, or volunteer experiences.</p>
+                    <div id="volunteerContainer"></div>
+                    <button class="btn btn-outline" onclick="addVolunteerEntry()">+ Add Experience</button>
                 </div>
             </details>
 
@@ -654,8 +671,9 @@
     
     let hobbiesArray = [];
     let uploadedImageBase64 = "";
+    let currentGlobalXP = 0; // Used for animation tracking
 
-    // --- INDIAN STATES & DISTRICTS MAPPING (Re-added from admin) ---
+    // --- INDIAN STATES & DISTRICTS MAPPING ---
     const indiaData = {
         "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool"],
         "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi"],
@@ -669,7 +687,7 @@
         "Other State / UT": ["Capital City", "Other District"]
     };
 
-    // --- AUTO SUGGESTION DATABASES (Re-added from admin) ---
+    // --- AUTO SUGGESTION DATABASES ---
     const dbHobbies = ["Reading", "Writing", "Journaling", "Blogging", "Creative writing", "Poetry writing", "Storytelling", "Public speaking", "Debate practice", "Language learning", "Calligraphy", "Hand lettering", "Sketching", "Drawing", "Painting", "Watercolor painting", "Oil painting", "Acrylic painting", "Digital art", "Cartooning", "Caricature drawing", "Graphic design", "Photography", "Portrait photography", "Landscape photography", "Wildlife photography", "Street photography", "Videography", "Video editing", "Filmmaking", "Animation", "Origami", "Paper crafting", "Scrapbooking", "Card making", "DIY crafts", "Candle making", "Soap making", "Pottery", "Clay modeling", "Wood carving", "Woodworking", "Furniture making", "Metal crafting", "Jewelry making", "Beadwork", "Embroidery", "Knitting", "Crocheting", "Sewing", "Fashion designing", "Textile designing", "Tie-dye art", "Gardening", "Indoor gardening", "Bonsai growing", "Organic farming", "Hydroponic gardening", "Flower arranging", "Bird watching", "Nature walking", "Hiking", "Trekking", "Camping", "Rock climbing", "Mountaineering", "Cycling", "Mountain biking", "Running", "Jogging", "Marathon training", "Swimming", "Yoga", "Meditation", "Pilates", "Zumba", "Aerobics", "Gym workouts", "Bodybuilding", "CrossFit training", "Martial arts", "Karate", "Taekwondo", "Judo", "Boxing", "Kickboxing", "Archery", "Shooting sports", "Horse riding", "Skateboarding", "Roller skating", "Ice skating", "Surfing", "Scuba diving", "Snorkeling", "Fishing", "Kayaking", "Canoeing", "Sailing", "Rowing", "Stand-up paddling", "Traveling", "Backpacking", "Road trips", "Travel blogging", "Cultural exploration", "Food tasting", "Cooking", "Baking", "Cake decorating", "Bread making", "Chocolate making", "Barbecue cooking", "Mixology", "Coffee brewing", "Tea tasting", "Wine appreciation", "Home brewing", "Food photography", "Recipe creation", "Nutrition study", "Puzzle solving", "Sudoku", "Crossword puzzles", "Chess", "Checkers", "Board games", "Card games", "Magic tricks", "Rubik’s cube solving", "Strategy gaming", "Video gaming", "Mobile gaming", "PC gaming", "Game streaming", "Game design", "Coding", "Programming", "Web development", "App development", "Robotics", "Electronics projects", "Arduino projects", "Drone flying", "3D printing", "Model building", "Lego building", "Astronomy", "Stargazing", "Telescope observation", "Meteor watching", "Science experiments", "DIY electronics", "Mechanical tinkering", "Car restoration", "Bike maintenance", "Model railways", "Collecting stamps", "Coin collecting", "Antique collecting", "Toy collecting", "Comic collecting", "Book collecting", "Vinyl record collecting", "Postcard collecting", "Action figure collecting", "Memorabilia collecting", "Blogging about hobbies", "Podcasting", "Vlogging", "Social media content creation", "Meme creation", "Online teaching", "Tutoring", "Volunteering", "Community service", "Animal rescue volunteering", "Teaching skills online", "Mentoring students", "Event organizing", "Fundraising", "Debate clubs", "Theatre acting", "Drama performance", "Stand-up comedy", "Singing", "Karaoke", "Songwriting", "Music composition", "Guitar playing", "Piano playing", "Violin playing", "Drumming", "Flute playing", "Keyboard playing", "DJ mixing", "Music production", "Beatboxing", "Dance", "Classical dance", "Hip-hop dance", "Salsa dancing", "Ballroom dancing", "Folk dancing", "Contemporary dance", "Breakdancing", "Choreography", "Fitness dancing", "Acting workshops", "Improvisation theatre", "Costume designing", "Makeup artistry", "Face painting", "Nail art", "Hairstyling", "Personal styling", "Fashion blogging", "Interior decorating", "Home organization", "Minimalism practice", "Feng shui arranging", "Home DIY projects", "Upcycling", "Recycling crafts", "Sustainable living", "Zero-waste living", "Bird feeding", "Aquarium keeping", "Fish breeding", "Pet training", "Dog agility training", "Cat care", "Reptile keeping", "Beekeeping", "Butterfly gardening", "Wildlife conservation", "Environmental activism", "Map reading", "Geocaching", "Orienteering", "Survival skills", "Bushcraft", "Fire making", "Knot tying", "Navigation skills", "Photography editing", "Photo restoration", "Digital illustration", "NFT art creation", "Online selling", "Dropshipping practice", "Handicraft selling", "Etsy shop management", "Market research", "Stock trading simulation", "Investing study", "Personal finance planning", "Budgeting", "Goal setting", "Vision boarding", "Journaling for gratitude", "Mindfulness practice", "Speed reading", "Memory training", "Brain games", "Trivia quizzes", "Language exchange", "Cultural cooking", "Historical research", "Genealogy research", "Museum visiting", "Art gallery touring", "Architecture study", "Urban exploration", "Train spotting", "Plane spotting", "Ship spotting", "Weather watching", "Storm chasing", "Kite flying", "RC car racing", "RC plane flying", "Model rockets", "Astronomy photography", "Macro photography", "Time-lapse photography", "Stop motion animation", "Podcast listening", "Audiobook listening", "Story narration", "Voice acting", "Script writing", "Screenwriting", "Film reviewing", "Book reviewing", "Music reviewing", "Blogging reviews", "Travel planning", "Itinerary designing", "Event photography", "Wedding planning practice", "Floral design", "Landscape design", "Digital marketing learning", "SEO practice", "Copywriting", "Content writing", "Resume writing", "Career coaching practice", "Teaching workshops", "Leadership training", "Negotiation practice", "Entrepreneurship learning", "Business planning", "Startup ideation", "Networking", "Public relations practice", "Presentation design", "Data visualization", "Spreadsheet designing", "Research writing", "Academic tutoring", "Online course creation", "Educational video creation", "Parenting blogging", "Lifestyle blogging", "Health tracking", "Sleep optimization", "Biohacking", "Cold exposure practice", "Breathwork", "Affirmation practice", "Spiritual reading", "Tarot reading", "Astrology study", "Numerology study", "Philosophy reading", "Psychology learning", "Sociology reading", "Political discussions", "Debate analysis", "Ethical discussions", "Creative brainstorming", "Innovation challenges", "Hackathons", "Puzzle design", "Escape room design", "Treasure hunt planning", "Party planning", "Game hosting", "Quiz hosting", "Story gaming", "Role-playing games", "Dungeons & Dragons", "Cosplay", "Costume crafting", "Prop making", "Miniature painting", "Diorama building", "Terrain modeling", "Sand art", "Glass painting", "Mosaic art", "Resin art", "Candle carving", "Soap carving", "Ice carving", "Fruit carving", "Latte art", "Culinary plating", "Food styling", "Fermentation", "Pickling", "Cheesemaking", "Yogurt making", "Spice blending", "Herbal gardening", "Essential oil blending", "Aromatherapy", "Massage techniques", "Reflexology learning", "First aid training", "Disaster preparedness", "Emergency response training", "Self-defense training", "Community gardening", "Tree planting", "Clean-up drives", "Charity knitting", "Blanket making", "Toy making", "Educational volunteering", "Literacy campaigns", "Fundraising campaigns", "Social awareness blogging", "Documentary watching", "Film analysis", "Cultural dancing", "Folk music learning", "Instrument repair", "Sound engineering", "Audio editing", "Podcast production", "Radio hosting practice", "News analysis", "Journalism practice", "Interviewing skills", "Documentary filmmaking", "Photojournalism", "Creative directing", "Advertising concept design", "Brand identity creation", "Logo designing", "UX design", "UI design", "Wireframing", "Prototyping", "App testing", "User research", "Online forums moderation", "Community management", "Forum discussions", "Knowledge sharing", "Mentorship circles", "Study groups", "Language teaching", "Translation practice", "Subtitling", "Caption writing", "Technical writing", "Instructional design", "Educational game design", "Workshop facilitation", "Coaching conversations", "Counseling skill practice", "Emotional intelligence training", "Conflict resolution practice", "Meditation teaching", "Yoga instruction practice", "Fitness coaching", "Nutrition coaching", "Lifestyle coaching", "Habit tracking", "Productivity experimentation", "Time management practice", "Bullet journaling", "Planner decorating", "Digital planning", "Note-taking systems", "Knowledge management", "Mind mapping", "Brainstorm mapping", "Idea journaling", "Creativity exercises", "Daily sketch challenge", "Photo-a-day challenge", "Writing prompts practice", "Gratitude challenges", "Kindness challenges", "Personal storytelling", "Life documentation", "Memory keeping", "Scrap journaling", "Family history recording", "Legacy writing", "Letter writing", "Pen pal communication", "Postcard writing", "Creative mailing", "Map drawing", "Travel sketching", "Urban sketching", "Nature sketching", "Scientific illustration", "Botanical drawing", "Wildlife sketching", "Character design", "Comic strip creation", "Manga drawing", "Fan art creation", "Digital painting practice", "Pixel art", "Game asset creation", "Virtual world building", "Simulation gaming", "Strategy analysis", "Speedcubing", "Mathematical puzzles", "Logic games", "Brain teasers", "Riddle solving", "Optical illusion art", "Perspective drawing", "Shadow art", "Light painting photography", "Drone photography", "Adventure blogging", "Exploration journaling", "Cultural exchange programs", "Language immersion practice", "Cooking international cuisines", "Festival participation", "Cultural volunteering", "Heritage conservation", "Story collection", "Oral history recording", "Podcast storytelling", "Audio journaling", "Soundscape recording", "Field recording", "Nature sound recording", "Relaxation music creation", "Ambient music production", "Instrument improvisation", "Jam sessions", "Choir singing", "Music theory study", "Ear training", "Rhythm training", "Dance fitness", "Movement therapy", "Expressive arts therapy", "Creative visualization", "Dream journaling", "Lucid dreaming practice", "Mind games", "Strategic thinking exercises", "Debate coaching", "Speech writing", "Motivational speaking practice", "Workshop leadership", "Seminar organizing", "Conference volunteering", "Networking events participation", "Community storytelling", "Digital archiving", "Photo cataloging", "Personal library organizing", "Bookbinding", "Paper restoration", "Calligraphy practice", "Ink illustration", "Fountain pen collecting", "Stationery collecting", "Planner customization", "Sticker designing", "Printmaking", "Linocut art", "Screen printing", "Fabric painting", "Costume sewing", "Quilt making", "Rug making", "Basket weaving", "Macrame", "Leather crafting", "Shoe customization", "Watch collecting", "Gadget reviewing", "Tech blogging", "Hardware building", "PC assembling", "Keyboard customization", "Smart home automation", "Coding challenges", "Algorithm practice", "Open-source contribution", "Tech tutorials creation", "Online collaboration", "Virtual volunteering", "Remote mentoring", "Knowledge blogging", "Educational outreach"];
     const dbMusicGenres = ["Pop", "Rock", "Classical", "Jazz", "Blues", "Hip Hop", "Rap", "R&B", "Soul", "Electronic", "EDM", "Indie", "Alternative Rock", "Heavy Metal", "K-pop", "Bollywood", "Indian Classical", "Hindustani Classical", "Carnatic Music", "Ghazal", "Folk", "Country", "Lofi"];
     const dbArtists = ["A.R. Rahman", "Arijit Singh", "Shreya Ghoshal", "Taylor Swift", "The Weeknd", "Drake", "BTS", "Kishore Kumar", "Lata Mangeshkar", "Ed Sheeran", "Billie Eilish", "Coldplay", "Imagine Dragons", "Badshah", "Diljit Dosanjh", "Divine"];
@@ -731,33 +749,37 @@
 
     window.toggleToDate = function(checkboxElem) {
         const toDateInput = checkboxElem.parentElement.parentElement.nextElementSibling;
-        if(checkboxElem.checked) toDateInput.style.display = 'none';
-        else toDateInput.style.display = 'block';
+        if(checkboxElem.checked) {
+            toDateInput.style.display = 'none';
+        } else {
+            toDateInput.style.display = 'block';
+        }
     }
 
     window.updateEduLabels = function(selectElem) {
         const level = selectElem.value;
         const block = selectElem.closest('.entry-block');
         const nameInput = block.querySelector('.edu-name-input');
-        const toDateBox = block.querySelector('.edu-to-box');
-        const fromLabel = block.querySelector('.edu-from-label');
+        const fromBox = block.querySelector('.edu-from-box');
+        const toLabel = block.querySelector('.edu-to-label');
         const subjectsBox = block.querySelector('.edu-subjects-box');
 
         if(level === 'School') {
             nameInput.placeholder = "School Name";
-            toDateBox.style.display = 'none'; 
-            fromLabel.innerText = "Date of Completion"; 
+            fromBox.style.display = 'none'; 
+            toLabel.innerText = "Date of Completion"; 
             if(subjectsBox) subjectsBox.style.display = 'none';
         } else {
             nameInput.placeholder = "College / Institute Name";
-            toDateBox.style.display = 'block'; 
-            fromLabel.innerText = "From Date"; 
+            fromBox.style.display = 'block'; 
+            toLabel.innerText = "To Date"; 
             if(subjectsBox) subjectsBox.style.display = 'block';
         }
     }
 
-    window.addWorkEntry = function(data = {}) {
-        const container = document.getElementById('workContainer');
+    // UPDATED: Volunteer Experience Block (Replacing Work Exp)
+    window.addVolunteerEntry = function(data = {}) {
+        const container = document.getElementById('volunteerContainer');
         const id = Date.now() + Math.random();
         let stateOptions = '<option value="" disabled selected>Select State</option>';
         Object.keys(indiaData).forEach(s => { stateOptions += `<option value="${s}" ${data.state===s?'selected':''}>${s}</option>`; });
@@ -765,47 +787,50 @@
         if(data.state && indiaData[data.state]) { indiaData[data.state].forEach(d => { distOptions += `<option value="${d}" ${data.district===d?'selected':''}>${d}</option>`; }); }
 
         const html = `
-        <div class="entry-block" id="work-${id}">
+        <div class="entry-block" id="vol-${id}">
             <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
             <div class="grid-2col">
-                <div class="form-group"><label class="form-label">Company / Organization</label><input type="text" class="form-input work-company" placeholder="e.g. Google" value="${data.company || ''}"></div>
-                <div class="form-group"><label class="form-label">Position / Role</label><input type="text" class="form-input work-position" placeholder="e.g. Intern" value="${data.position || ''}"></div>
-                <div class="form-group"><label class="form-label">From Date</label><input type="date" class="form-input work-from" value="${data.from || ''}"></div>
+                <div class="form-group"><label class="form-label">Organization / NGO / Company</label><input type="text" class="form-input vol-org" placeholder="e.g. Red Cross, Local Tech Startup" value="${data.organization || ''}"></div>
+                <div class="form-group"><label class="form-label">Role / Internship Title</label><input type="text" class="form-input vol-role" placeholder="e.g. Marketing Intern, Volunteer" value="${data.role || ''}"></div>
+                <div class="form-group"><label class="form-label">From Date</label><input type="date" class="form-input vol-from" value="${data.from || ''}"></div>
                 <div class="form-group">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                         <label class="form-label" style="margin:0;">To Date</label>
                         <label style="font-size:0.8rem; color:var(--text-muted); display:flex; align-items:center; gap:5px; cursor:pointer;">
-                            <input type="checkbox" class="work-current" onchange="toggleToDate(this)" ${data.current ? 'checked' : ''}> Currently work here
+                            <input type="checkbox" class="vol-current" onchange="toggleToDate(this)" ${data.current ? 'checked' : ''}> Currently active here
                         </label>
                     </div>
                     <div class="to-date-container" style="display:${data.current ? 'none' : 'block'}">
-                        <input type="date" class="form-input work-to" value="${data.to || ''}">
+                        <input type="date" class="form-input vol-to" value="${data.to || ''}">
                     </div>
                 </div>
-                <div class="form-group"><label class="form-label">Work Type</label>
-                    <select class="form-select work-type">
+                <div class="form-group"><label class="form-label">Engagement Type</label>
+                    <select class="form-select vol-type">
                         <option value="On site" ${data.type==='On site'?'selected':''}>On site</option>
                         <option value="Hybrid" ${data.type==='Hybrid'?'selected':''}>Hybrid</option>
                         <option value="Online" ${data.type==='Online'?'selected':''}>Online / Remote</option>
                     </select>
                 </div>
-                <div class="form-group"><label class="form-label">State</label><select class="form-select work-state" onchange="populateDistricts(this)">${stateOptions}</select></div>
-                <div class="form-group"><label class="form-label">District</label><select class="form-select work-district district-select">${distOptions}</select></div>
-                <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input work-city" placeholder="City name" value="${data.city || ''}"></div>
+                <div class="form-group"><label class="form-label">State</label><select class="form-select vol-state" onchange="populateDistricts(this)">${stateOptions}</select></div>
+                <div class="form-group"><label class="form-label">District</label><select class="form-select vol-district district-select">${distOptions}</select></div>
+                <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input vol-city" placeholder="City name" value="${data.city || ''}"></div>
             </div>
-            <div class="form-group" style="margin-top:10px;"><label class="form-label">Brief Description</label><textarea class="form-textarea work-desc" rows="2" placeholder="Describe your responsibilities...">${data.desc || ''}</textarea></div>
+            <div class="form-group" style="margin-top:10px;"><label class="form-label">Brief Description of Responsibilities</label><textarea class="form-textarea vol-desc" rows="2" placeholder="Describe your responsibilities, skills learned, or impact made...">${data.desc || ''}</textarea></div>
         </div>`;
         container.insertAdjacentHTML('beforeend', html);
     }
 
+    // UPDATED: Education Entry Template to match logic
     window.addEducationEntry = function(data = {}) {
         const container = document.getElementById('educationContainer');
         const id = Date.now() + Math.random();
-        const isSchool = data.level === 'School';
+        
+        // Setup initial display states based on saved level (Default is School)
+        const isSchool = data.level === 'School' || !data.level;
         const nameLabel = isSchool ? 'School Name' : 'College / Institute Name';
-        const displayToDate = isSchool ? 'none' : 'block';
+        const displayFromDate = isSchool ? 'none' : 'block';
         const displaySubjects = isSchool ? 'none' : 'block';
-        const fromLabelTxt = isSchool ? 'Date of Completion' : 'From Date';
+        const toLabelTxt = isSchool ? 'Date of Completion' : 'To Date';
 
         const html = `
         <div class="entry-block" id="edu-${id}">
@@ -821,10 +846,11 @@
                     </select>
                 </div>
                 <div class="form-group"><label class="form-label">Institution Name</label><input type="text" class="form-input edu-name edu-name-input" placeholder="${nameLabel}" value="${data.name || ''}"></div>
-                <div class="form-group"><label class="form-label edu-from-label">${fromLabelTxt}</label><input type="date" class="form-input edu-from" value="${data.from || ''}"></div>
-                <div class="form-group edu-to-box" style="display: ${displayToDate};"><label class="form-label">To Date</label><input type="date" class="form-input edu-to" value="${data.to || ''}"></div>
+                
+                <div class="form-group edu-from-box" style="display: ${displayFromDate};"><label class="form-label">From Date</label><input type="date" class="form-input edu-from" value="${data.from || ''}"></div>
+                <div class="form-group edu-to-box"><label class="form-label edu-to-label">${toLabelTxt}</label><input type="date" class="form-input edu-to" value="${data.to || ''}"></div>
             </div>
-            <div class="form-group edu-subjects-box" style="margin-top:10px; display: ${displaySubjects};"><label class="form-label">Subjects / Field of Study</label><input type="text" class="form-input edu-subjects" placeholder="e.g. Science, Mathematics..." value="${data.subjects || ''}"></div>
+            <div class="form-group edu-subjects-box" style="margin-top:10px; display: ${displaySubjects};"><label class="form-label">Subjects / Field of Study</label><input type="text" class="form-input edu-subjects" placeholder="e.g. Science, Mathematics, Psychology..." value="${data.subjects || ''}"></div>
         </div>`;
         container.insertAdjacentHTML('beforeend', html);
     }
@@ -1135,6 +1161,25 @@
         });
     }
 
+    // --- ENHANCED XP LOGIC ---
+    window.updateTopXP = function(newXp, newLevelName) {
+        const topXpEl = document.getElementById('topXpDisplay');
+        const topLvlEl = document.getElementById('topLevelDisplay');
+        const xpContainer = document.getElementById('topXpContainer');
+
+        if (currentGlobalXP !== newXp) {
+            topLvlEl.innerText = newLevelName.split(' - ')[0].replace('Level', 'Lvl');
+            topXpEl.innerText = newXp;
+            
+            // Trigger bump animation
+            xpContainer.classList.remove('xp-bump');
+            void xpContainer.offsetWidth; // Trigger reflow
+            xpContainer.classList.add('xp-bump');
+            
+            currentGlobalXP = newXp;
+        }
+    }
+
     function unlockBadge(id, primaryClass, xpValue) {
         const el = document.getElementById(id);
         if(!previouslyUnlockedBadges.has(id) && !el.classList.contains(primaryClass)) {
@@ -1155,7 +1200,7 @@
         let percentile = 82; 
         
         let focusTitle = "Complete Baseline Profile";
-        let focusDesc = "Log your academic scores to help the AI contextualize your upcoming assessment.";
+        let focusDesc = "Log your academic scores and extra-curriculars to help the AI contextualize your upcoming assessment.";
         let focusBtnText = "Update Profile ➔";
         let focusAction = "switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])";
 
@@ -1221,6 +1266,7 @@
         else if (score >= 6) { levelName = "Level 3 - Analyst"; levelText = "You've moved from exploration to structured comparison."; percentile = 65;}
         else if (score >= 4) { levelName = "Level 2 - Discoverer"; levelText = "Assessment complete. Analyzing your natural aptitudes."; percentile = 40;}
         
+        // Update DOM elements
         document.getElementById('dynLevelTitle').innerText = levelName;
         document.getElementById('dynClarityText').innerText = levelText;
         document.getElementById('dynPercentile').innerText = percentile;
@@ -1232,6 +1278,9 @@
         const fBtn = document.getElementById('weeklyFocusBtn');
         fBtn.innerText = focusBtnText;
         fBtn.setAttribute('onclick', focusAction);
+
+        // Render top level XP animation 
+        updateTopXP(xp, levelName);
 
         if(data.assessmentCompleted && data.fullReport) {
             document.getElementById('lockedReportUI').style.display = 'none';
@@ -1326,21 +1375,21 @@
             if(n || s) { parsedSubjects.push({ name: n, score: s, grade: g }); }
         });
 
-        // Work Data
-        const workBlocks = document.querySelectorAll('#workContainer .entry-block');
-        let workData = [];
-        workBlocks.forEach(b => {
-            workData.push({
-                company: b.querySelector('.work-company').value,
-                position: b.querySelector('.work-position').value,
-                from: b.querySelector('.work-from').value,
-                current: b.querySelector('.work-current').checked,
-                to: b.querySelector('.work-to').value,
-                type: b.querySelector('.work-type').value,
-                state: b.querySelector('.work-state').value,
-                district: b.querySelector('.work-district').value,
-                city: b.querySelector('.work-city').value,
-                desc: b.querySelector('.work-desc').value
+        // Volunteer / Work Data
+        const volBlocks = document.querySelectorAll('#volunteerContainer .entry-block');
+        let volData = [];
+        volBlocks.forEach(b => {
+            volData.push({
+                organization: b.querySelector('.vol-org').value,
+                role: b.querySelector('.vol-role').value,
+                from: b.querySelector('.vol-from').value,
+                current: b.querySelector('.vol-current').checked,
+                to: b.querySelector('.vol-to').value,
+                type: b.querySelector('.vol-type').value,
+                state: b.querySelector('.vol-state').value,
+                district: b.querySelector('.vol-district').value,
+                city: b.querySelector('.vol-city').value,
+                desc: b.querySelector('.vol-desc').value
             });
         });
 
@@ -1365,7 +1414,7 @@
             stream: document.getElementById('portStream').value,
             subjects: parsedSubjects,
             extraCurriculars: document.getElementById('portExtraCurricular').value.trim(),
-            workHistory: workData,
+            volunteerHistory: volData,
             eduHistory: eduData,
             hobbies: hobbiesArray,
             interests: {
@@ -1375,8 +1424,7 @@
                 movies: document.getElementById('intMovies').value,
                 games: document.getElementById('intGames').value,
                 sports: document.getElementById('intSports').value
-            },
-            photo: uploadedImageBase64 || (studentDataObj ? studentDataObj.photo : null)
+            }
         };
 
         try {
@@ -1460,17 +1508,24 @@
                         document.getElementById('intSports').value = data.academic.interests.sports || '';
                     }
 
-                    // Work & Edu
-                    if(data.academic.workHistory && data.academic.workHistory.length > 0) {
-                        data.academic.workHistory.forEach(w => addWorkEntry(w));
-                    } else addWorkEntry();
+                    // Volunteer/Internships Logic (Maps old workHistory if present)
+                    if(data.academic.volunteerHistory && data.academic.volunteerHistory.length > 0) {
+                        data.academic.volunteerHistory.forEach(v => addVolunteerEntry(v));
+                    } else if (data.academic.workHistory && data.academic.workHistory.length > 0) {
+                        // Migrate old work data to volunteer view automatically
+                        data.academic.workHistory.forEach(v => addVolunteerEntry({
+                            organization: v.company, role: v.position, from: v.from, to: v.to, current: v.current, type: v.type, state: v.state, district: v.district, city: v.city, desc: v.desc
+                        }));
+                    } else {
+                        addVolunteerEntry();
+                    }
 
                     if(data.academic.eduHistory && data.academic.eduHistory.length > 0) {
                         data.academic.eduHistory.forEach(e => addEducationEntry(e));
                     } else addEducationEntry();
 
                 } else {
-                    addSubjectRow(); addWorkEntry(); addEducationEntry();
+                    addSubjectRow(); addVolunteerEntry(); addEducationEntry();
                 }
 
                 calculateDynamicScore(data);
