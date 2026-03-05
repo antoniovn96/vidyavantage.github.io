@@ -99,9 +99,11 @@
       .modal-close:hover { color: var(--danger); transform: scale(1.1); }
       .xp-list-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem;}
       .xp-list-item:last-child { border: none; }
+      
       .prog-task-item { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem; font-weight: 600;}
-      .prog-task-item.done { color: var(--success); }
-      .prog-task-item.pending { color: var(--text-muted); }
+      .prog-task-item:last-child { border: none;}
+      .prog-task-item.done { color: var(--text-main); }
+      .prog-task-item.pending { color: var(--danger); }
 
       /* --- BUTTONS --- */
       .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; font-size: 1rem; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;}
@@ -214,13 +216,17 @@
         <div style="text-align:center; margin-bottom:20px;">
             <div style="font-size:3rem;">🎯</div>
             <h2 style="margin:5px 0 0 0; color:#0f172a;">Profile Completion</h2>
-            <p style="color:var(--text-muted); margin:5px 0;">Complete these steps to feed the AI.</p>
+            <p style="color:var(--text-muted); margin:5px 0;">Feed the AI to generate accurate matches.</p>
         </div>
         <div style="width:100%; height:8px; background:rgba(0,0,0,0.1); border-radius:4px; margin-bottom:20px; overflow:hidden;">
             <div style="width:0%; height:100%; background:var(--success); border-radius:4px; transition: 1s ease;" id="modalProgressBar"></div>
         </div>
-        <div id="progressTaskList">
-            </div>
+        
+        <h4 style="margin:0 0 10px 0; color:#ef4444;">⏳ Pending Tasks</h4>
+        <div id="progressTaskListPending" style="margin-bottom: 20px; background: #fff1f2; padding: 10px 15px; border-radius: 8px;"></div>
+        
+        <h4 style="margin:0 0 10px 0; color:#10b981;">✅ Completed Milestones</h4>
+        <div id="progressTaskListDone" style="background: #ecfdf5; padding: 10px 15px; border-radius: 8px;"></div>
     </div>
 </div>
 
@@ -272,7 +278,7 @@
             </div>
 
             <a href="index.html" class="site-link hide-from-parent">🌐 Live Site</a>
-            <div class="notif-bell hide-from-parent" onclick="switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5])">
+            <div class="notif-bell hide-from-parent" onclick="showNotificationPopup()">
                 🔔 <span class="notif-badge" id="notifBadge">0</span>
             </div>
 
@@ -1104,12 +1110,14 @@
         document.getElementById('sideProfileBar').style.width = percentProgress + "%";
         document.getElementById('sideProfileText').innerText = percentProgress + "%";
 
-        document.getElementById('progressTaskList').innerHTML = profileTasks.map(t => {
-            return `<div class="prog-task-item ${t.done ? 'done' : 'pending'}">
-                <span>${t.done ? '✅' : '⏳'}</span>
-                <span style="flex:1;">${t.name}</span>
-            </div>`;
-        }).join('');
+        // Render distinct Done / Pending lists
+        const pendingTasks = profileTasks.filter(t => !t.done);
+        const doneTasks = profileTasks.filter(t => t.done);
+        
+        document.getElementById('progressTaskListPending').innerHTML = pendingTasks.map(t => `<div class="prog-task-item pending"><span>⏳</span><span style="flex:1;">${t.name}</span></div>`).join('');
+        document.getElementById('progressTaskListDone').innerHTML = doneTasks.map(t => `<div class="prog-task-item done"><span>✅</span><span style="flex:1;">${t.name}</span></div>`).join('');
+        
+        if(pendingTasks.length === 0) { document.getElementById('progressTaskListPending').innerHTML = `<div style="text-align:center; padding:10px; font-weight:bold; color:var(--success);">All tasks complete!</div>`; }
 
         updateTopXP(xp, levelName);
 
@@ -1255,6 +1263,14 @@
 
     // --- RESTORED REQUIRED FUNCTIONS ---
     window.globalCounsellors = {};
+
+    window.showNotificationPopup = function() {
+        if(globalUnreadCount > 0) {
+            showCustomAlert(`You have ${globalUnreadCount} unread message(s) from your counsellor. Please check the Direct Chat tab.`, "New Messages", false);
+        } else {
+            showCustomAlert("You have no new notifications right now.", "No Notifications", false);
+        }
+    }
 
     window.showCounsellorTimes = function(cid) {
         const infoBox = document.getElementById('bookingAvailInfo');
