@@ -483,7 +483,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, collection, getDocs, updateDoc, arrayUnion, query, where, orderBy, onSnapshot, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, getDocs, updateDoc, arrayUnion, query, where, onSnapshot, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     // ⚠️ USE YOUR REAL FIREBASE KEYS HERE
@@ -502,7 +502,7 @@
     
     let activeUserEmail = "";
     window.globalStudentData = {}; 
-    let modalChartInstance = null; // Holds the mini line graph
+    let modalChartInstance = null;
 
     const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
     document.getElementById('currentDateDisplay').innerText = new Date().toLocaleDateString('en-US', options);
@@ -542,8 +542,6 @@
         document.getElementById('modalParentInv').innerText = "Unknown"; // Will update based on notes
 
         if(student.psychIndex) {
-            document.getElementById('modalStuClarity').innerText = student.psychIndex.careerClarity + " / 10";
-            document.getElementById('modalStuTraits').innerText = student.riasecCode || "--";
             
             // Multi-Factor Risk Display
             let riskReason = "Stable";
@@ -551,7 +549,6 @@
             
             if(student.psychIndex.riskCategory === "High") {
                 rClass = "badge-danger";
-                // Logic: Is it academic mismatch or parental pressure?
                 if(student.academic && parseInt(student.academic.marks) < 55) {
                     riskReason = "Academic Mismatch Risk";
                 } else if(student.psychIndex.parentPressure > 70) {
@@ -563,7 +560,7 @@
             document.getElementById('modalStuRisk').innerText = riskReason;
             document.getElementById('modalStuRisk').className = `badge ${rClass}`;
 
-            // Career Alignment Fake Logic (Real logic would compare Stream + RIASEC)
+            // Career Alignment Fake Logic
             let alertMsg = "Strong Alignment.";
             if(student.academic && student.riasecCode) {
                 if(student.academic.stream === "Commerce" && !student.riasecCode.includes('C') && !student.riasecCode.includes('E')) alertMsg = "⚠️ Mismatch Warning: Student in Commerce but lacks C/E traits.";
@@ -610,7 +607,6 @@
         if(!ctx) return;
         if(modalChartInstance) modalChartInstance.destroy();
         
-        // Mocking historical data based on current score
         let s1 = Math.max(1, currentScore - 4);
         let s2 = Math.max(3, currentScore - 2);
         
@@ -814,9 +810,11 @@
         }
     }
 
-    // --- REAL-TIME BOOKING LISTENER ---
+    // --- REAL-TIME BOOKING LISTENER (INDEX FIX APPLIED) ---
     window.listenToBookings = function(counsellorEmail) {
-        const q = query(collection(db, "bookings"), where("counsellorId", "==", counsellorEmail), orderBy("timestamp", "desc"));
+        // REMOVED orderBy("timestamp", "desc") to fix the Firebase Index crash!
+        const q = query(collection(db, "bookings"), where("counsellorId", "==", counsellorEmail));
+        
         onSnapshot(q, (snapshot) => {
             const container = document.getElementById('bookingRequestsContainer');
             let pendingCount = 0; let confirmedCount = 0;
@@ -828,9 +826,13 @@
                 return;
             }
 
+            // Manually sort in JavaScript to bypass Firebase Index requirement
+            let bookings = [];
+            snapshot.forEach(doc => { bookings.push({ id: doc.id, ...doc.data() }); });
+            bookings.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+
             let html = '';
-            snapshot.forEach(doc => {
-                const b = doc.data();
+            bookings.forEach(b => {
                 if(b.status === 'Pending') pendingCount++;
                 if(b.status === 'Confirmed') confirmedCount++;
 
@@ -846,8 +848,8 @@
                         </div>
                         <div style="display:flex; flex-direction:column; gap:8px;">
                             ${b.status === 'Pending' ? `
-                                <button class="btn" style="padding: 6px 12px; font-size: 0.8rem; background:var(--success);" onclick="updateBookingStatus('${doc.id}', 'Confirmed')">Accept</button>
-                                <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; border-color:var(--danger); color:var(--danger);" onclick="updateBookingStatus('${doc.id}', 'Cancelled')">Decline</button>
+                                <button class="btn" style="padding: 6px 12px; font-size: 0.8rem; background:var(--success);" onclick="updateBookingStatus('${b.id}', 'Confirmed')">Accept</button>
+                                <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; border-color:var(--danger); color:var(--danger);" onclick="updateBookingStatus('${b.id}', 'Cancelled')">Decline</button>
                             ` : ''}
                             ${b.status === 'Confirmed' ? `
                                 <button class="btn" style="padding: 6px 12px; font-size: 0.8rem;" onclick="switchTab('tab-chat', document.querySelectorAll('.nav-btn')[3]); openChat('${b.studentId}', '${b.studentName}')">Message Student</button>
@@ -893,7 +895,7 @@
             alert("Structured clinical notes saved to student dossier.");
             document.getElementById('sessionNotesInput').value = "";
             document.getElementById('adminNotesInput').value = "";
-            loadAssignedStudents(); // Refresh modal data secretly
+            loadAssignedStudents(); 
         } catch (e) {
             console.error(e); alert("Failed to save notes. Ensure you have the correct permissions.");
         } finally {
@@ -901,7 +903,7 @@
         }
     }
 
-    // --- REALTIME CHAT SYSTEM ---
+    // --- REALTIME CHAT SYSTEM (WITH INDEX CRASH FIX) ---
     let currentChatStudentId = null;
     let unsubscribeChat = null;
     
@@ -915,7 +917,8 @@
         if(unsubscribeChat) unsubscribeChat();
 
         const chatId = `${studentId}_${activeUserEmail}`;
-        const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
+        // REMOVED orderBy to bypass the index crash. 
+        const q = query(collection(db, "chats", chatId, "messages"));
         
         unsubscribeChat = onSnapshot(q, (snapshot) => {
             let html = `<div style="text-align:center; color:var(--text-muted); margin-bottom: 20px; font-size:0.85rem;">🔒 Secure connection established with ${studentName}.</div>`;
@@ -923,8 +926,12 @@
             if(snapshot.empty) {
                 html += `<div style="text-align:center; color:var(--text-muted);">No messages yet. Send a greeting to start the conversation!</div>`;
             } else {
-                snapshot.forEach(doc => {
-                    const msg = doc.data();
+                // Sort in JavaScript instead of Firebase
+                let msgs = [];
+                snapshot.forEach(doc => msgs.push(doc.data()));
+                msgs.sort((a, b) => (a.timestamp?.seconds || 0) - (b.timestamp?.seconds || 0));
+
+                msgs.forEach(msg => {
                     const isMe = msg.senderId === activeUserEmail;
                     const timeString = msg.timestamp ? new Date(msg.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Sending...';
                     
