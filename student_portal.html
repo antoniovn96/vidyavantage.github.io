@@ -79,7 +79,8 @@
       .gamify-badge.unlocked-success { opacity: 1; filter: grayscale(0%); background: #d1fae5; color: #059669;}
       
       /* Top Header XP Display & Animations */
-      .top-xp-display { display: flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 6px 12px; border-radius: 50px; transition: 0.3s; }
+      .top-xp-display { display: flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 6px 12px; border-radius: 50px; transition: 0.3s; cursor:pointer;}
+      .top-xp-display:hover { background: rgba(245, 158, 11, 0.2); }
       .top-xp-display span.lvl { color: #b45309; font-weight: 900; font-size: 0.85rem;}
       .top-xp-display span.xp { color: var(--accent); font-weight: bold; font-size: 0.85rem;}
       @keyframes xpBumpAnim {
@@ -89,15 +90,18 @@
       }
       .xp-bump { animation: xpBumpAnim 0.6s ease-out; }
 
-      .xp-pill { background: rgba(255,255,255,0.18); padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; color: #fbbf24; }
-      .streak-pill { background: rgba(255,255,255,0.18); padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; color: #f87171; }
-
-      /* --- CLARITY METER --- */
-      .clarity-meter-wrap { background: radial-gradient(circle at top right, #1e1b4b, #0f172a); color: white; padding: 45px; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.08); display: flex; flex-direction: column;}
-      .clarity-score { font-size: 3.2rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 5px; background: -webkit-linear-gradient(45deg, #fcd34d, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
-      .meter-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 25px; overflow: hidden;}
-      .meter-fill { height: 100%; background: linear-gradient(90deg, #fcd34d, #f59e0b); width: 0%; border-radius: 10px; box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
-      .mini-chart-container { height: 50px; margin-top: 20px; width: 100%; opacity: 0.5;}
+      /* --- MODALS FOR XP & PROGRESS --- */
+      .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 10px; box-sizing: border-box; opacity: 0; transition: opacity 0.3s ease;}
+      .modal-overlay.active { display: flex; opacity: 1; }
+      .modal-content { background: var(--card-bg); width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: translateY(20px); transition: 0.3s ease; box-sizing: border-box;}
+      .modal-overlay.active .modal-content { transform: translateY(0); }
+      .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
+      .modal-close:hover { color: var(--danger); transform: scale(1.1); }
+      .xp-list-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem;}
+      .xp-list-item:last-child { border: none; }
+      .prog-task-item { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem; font-weight: 600;}
+      .prog-task-item.done { color: var(--success); }
+      .prog-task-item.pending { color: var(--text-muted); }
 
       /* --- BUTTONS --- */
       .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; font-size: 1rem; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;}
@@ -106,61 +110,14 @@
       .btn-outline { background: transparent; border: 1px solid var(--border); color: #475569; box-shadow: none;}
       .btn-outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: #f8fafc; transform: translateY(-1px);}
 
-      .status-pill { padding: 4px 12px; border-radius: 50px; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;}
-      .status-success { background: #d1fae5; color: #059669; }
-
-      /* --- PARENT TOGGLE --- */
-      .parent-toggle-wrap { display: flex; align-items: center; gap: 8px; background: #fffbeb; border: 1px solid #fde68a; padding: 6px 14px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 0.85rem; color: #d97706; transition: 0.3s;}
-      .parent-toggle-wrap:hover { background: #fef3c7; }
-      .parent-toggle-wrap.active { background: #d97706; color: white; border-color: #d97706;}
-
-      /* --- TIMELINE & PILLS --- */
-      .timeline-container { overflow: hidden; max-height: 0; transition: max-height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-      .timeline-container.expanded { max-height: 500px; }
-      .timeline-wrap { position: relative; margin-top: 10px; padding-left: 30px; border-left: 1px solid #e2e8f0; }
-      .timeline-step { position: relative; margin-bottom: 25px; opacity: 0.6; transition: 0.3s;}
-      .timeline-step::before { content: ''; position: absolute; left: -35px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: white; border: 2px solid #cbd5e1; transition: 0.3s;}
-      .timeline-step.completed { opacity: 1; }
-      .timeline-step.completed::before { background: var(--success); border-color: var(--success); box-shadow: 0 0 8px rgba(16,185,129,0.3);}
-      .timeline-step h4 { margin: 0 0 5px 0; color: #0f172a; font-size: 1rem; font-weight: 700; }
-      .timeline-step p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
-
-      .career-pill { background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: #1e293b; transition: 0.2s;}
-      .career-pill:hover { background: #f1f5f9;}
-      .badge-code { display: inline-block; background: var(--primary); color: white; padding: 6px 20px; border-radius: 50px; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;}
-
-      /* CHAT STYLES */
-      .chat-message { padding: 12px 18px; border-radius: 12px; margin-bottom: 12px; font-size: 0.95rem; max-width: 85%; line-height: 1.5;}
-      .chat-student { background: var(--primary); color: white; margin-left: auto; border-bottom-right-radius: 0; box-shadow: 0 4px 10px rgba(59,130,246,0.15);}
-      .chat-counsellor { background: #f1f5f9; color: #1e293b; margin-right: auto; border-bottom-left-radius: 0; border: 1px solid var(--border);}
-      .chat-time { font-size: 0.75rem; opacity: 0.7; margin-top: 6px; text-align: right; display: block;}
-
-      /* --- ENHANCED FORM ELEMENTS & ACCORDIONS (FROM ADMIN) --- */
+      /* --- ENHANCED FORM ELEMENTS & ACCORDIONS --- */
       .form-group { margin-bottom: 20px; }
       .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;}
       .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); background: #f8fafc; color: #0f172a; box-sizing: border-box; font-family: inherit; font-size: 0.95rem; transition: 0.3s;}
       .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #93c5fd; outline: none; background: white; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);}
       
-      details.profile-acc {
-          background: #f8fafc;
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          margin-bottom: 15px;
-          overflow: hidden;
-      }
-      details.profile-acc summary {
-          padding: 18px 20px;
-          font-weight: 800;
-          font-size: 1.05rem;
-          color: #0f172a;
-          cursor: pointer;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          list-style: none;
-          outline: none;
-          background: white;
-      }
+      details.profile-acc { background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; }
+      details.profile-acc summary { padding: 18px 20px; font-weight: 800; font-size: 1.05rem; color: #0f172a; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; outline: none; background: white; }
       details.profile-acc summary::-webkit-details-marker { display: none; }
       details.profile-acc summary::after { content: '+'; color: var(--primary); font-size: 1.5rem; transition: 0.3s;}
       details.profile-acc[open] summary::after { content: '×'; transform: rotate(45deg); color: var(--danger);}
@@ -168,33 +125,21 @@
       .acc-body { padding: 25px; background: white;}
 
       /* Dynamic Entry Blocks */
-      .entry-block {
-          background: #f8fafc;
-          border: 1px dashed var(--border);
-          padding: 25px;
-          border-radius: 12px;
-          margin-bottom: 20px;
-          position: relative;
-      }
-      .remove-entry-btn {
-          position: absolute;
-          top: 15px; right: 15px;
-          background: transparent;
-          border: none;
-          color: var(--danger);
-          cursor: pointer;
-          font-weight: bold;
-      }
+      .entry-block { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 25px; border-radius: 12px; margin-bottom: 20px; position: relative; }
+      .remove-entry-btn { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--danger); cursor: pointer; font-weight: bold; }
       
+      /* Subject Rows inside Education */
+      .subject-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+      .btn-remove-sub { background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; font-size: 1.2rem;}
+      .btn-remove-sub:hover { background: #fca5a5; color: white; }
+
       /* Hobby Tags */
       .hobby-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;}
       .hobby-tag { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;}
       .hobby-tag span { cursor: pointer; color: var(--danger); font-weight: bold;}
 
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-      @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
       @keyframes badgePop { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
-      @keyframes lockSuccessPop { 0% { transform: scale(0.95); opacity: 0; } 50% { transform: scale(1.02); } 100% { transform: scale(1); opacity: 1; } }
       @keyframes fadeOut { to { opacity: 0; } }
     </style>
 </head>
@@ -208,6 +153,39 @@
 <datalist id="gameSuggestions"></datalist>
 <datalist id="sportSuggestions"></datalist>
 
+<div class="modal-overlay" id="xpModal">
+    <div class="modal-content" style="position:relative;">
+        <button class="modal-close" onclick="closeModal('xpModal')">&times;</button>
+        <div style="text-align:center; margin-bottom:20px;">
+            <div style="font-size:3rem;">✨</div>
+            <h2 style="margin:5px 0 0 0; color:#0f172a;">Experience Points</h2>
+            <p style="color:var(--text-muted); margin:5px 0;">Here is exactly how you earned your XP.</p>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 20px;" id="xpBreakdownList">
+            </div>
+        <div style="display:flex; justify-content:space-between; font-size: 1.2rem; font-weight:900; color:var(--accent); padding: 0 10px;">
+            <span>Total XP</span>
+            <span id="xpModalTotal">0 XP</span>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="progressModal">
+    <div class="modal-content" style="position:relative;">
+        <button class="modal-close" onclick="closeModal('progressModal')">&times;</button>
+        <div style="text-align:center; margin-bottom:20px;">
+            <div style="font-size:3rem;">🎯</div>
+            <h2 style="margin:5px 0 0 0; color:#0f172a;">Profile Completion</h2>
+            <p style="color:var(--text-muted); margin:5px 0;">Complete these steps to feed the AI.</p>
+        </div>
+        <div style="width:100%; height:8px; background:rgba(0,0,0,0.1); border-radius:4px; margin-bottom:20px; overflow:hidden;">
+            <div style="width:0%; height:100%; background:var(--success); border-radius:4px; transition: 1s ease;" id="modalProgressBar"></div>
+        </div>
+        <div id="progressTaskList">
+            </div>
+    </div>
+</div>
+
 <div class="sidebar">
     <div class="profile-info">
         <div class="avatar-wrapper" onclick="document.getElementById('photoUpload').click()" title="Change Profile Picture">
@@ -219,9 +197,9 @@
         <h3 id="stuName" style="margin: 0 0 5px 0; font-size: 1.1rem; font-weight:800;">Loading Profile...</h3>
         <p id="stuInst" style="font-size:0.8rem; color:#94a3b8; margin:0;">...</p>
         
-        <div style="margin-top: 20px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 10px;">
+        <div style="margin-top: 20px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 10px; cursor:pointer;" onclick="openModal('progressModal')" title="View Completion Details">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.7rem; color: #cbd5e1; text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Setup Progress</span>
+                <span style="font-size:0.7rem; color: #cbd5e1; text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Profile Setup</span>
                 <span style="font-size:0.7rem; color: var(--success); font-weight:bold;" id="sideProfileText">10%</span>
             </div>
             <div style="width:100%; height:6px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:6px; overflow:hidden;">
@@ -250,7 +228,7 @@
         <h2 style="margin:0; font-size:1.15rem; color:var(--text-muted); font-weight:800;" id="headerTitle">Dashboard Home</h2>
         <div class="header-actions">
             
-            <div class="top-xp-display" id="topXpContainer" title="Your Experience Points">
+            <div class="top-xp-display" id="topXpContainer" title="View XP Breakdown" onclick="openModal('xpModal')">
                 <span class="lvl" id="topLevelDisplay">Lvl 1</span>
                 <span class="xp">✨ <span id="topXpDisplay">10</span> XP</span>
             </div>
@@ -278,38 +256,23 @@
                 </div>
             </div>
 
-            <div class="card" id="riskAlertBanner" style="display:none; margin-bottom: 25px; padding: 20px; border-left: 4px solid var(--warning);">
-                <h3 id="riskAlertTitle" style="border-bottom: none; padding-bottom: 0; font-size: 1rem; margin-bottom: 5px;">⚠️ Academic Alignment</h3>
-                <p id="riskAlertText" style="margin-bottom: 0; font-size: 0.9rem; color: var(--text-muted);"></p>
-            </div>
-
             <div class="grid-2" style="grid-template-columns: 1.2fr 1fr; margin-bottom: 30px;">
-                
-                <div class="clarity-meter-wrap">
+                <div class="clarity-meter-wrap" style="cursor:pointer;" onclick="openModal('progressModal')">
                     <h3 style="margin-top:0; color:white; border:none; opacity:0.6; font-size:0.85rem; text-transform:uppercase; letter-spacing: 1.5px; margin-bottom: 15px;">Your Decision Readiness</h3>
-                    
                     <div style="margin-bottom: 15px;">
                         <span id="dynLevelTitle" style="font-size: 1.2rem; font-weight: 800; display:block; color:#cbd5e1; margin-bottom: 5px;">Level 1 - Explorer</span>
                         <div class="clarity-score"><span id="dynClarityScore">1</span><span style="font-size:1.8rem; color:rgba(255,255,255,0.3);">/10</span></div>
                     </div>
-
                     <p style="color:#f8fafc; font-size:1.05rem; line-height: 1.5; margin-bottom:5px; font-weight: 600;" id="dynClarityText">You are beginning your career discovery journey.</p>
-                    <p style="font-size: 0.8rem; color: #94a3b8; margin:0; margin-bottom: 20px;">Ahead of <span id="dynPercentile">18</span>% of students at your stage.</p>
                     
-                    <div style="display:flex; gap: 10px; margin-bottom: 15px;">
-                        <div class="xp-pill">✨ <span id="dynXp">10</span> XP</div>
-                        <div class="streak-pill">🔥 3 Day Streak</div>
-                    </div>
-
                     <div class="meter-bg"><div class="meter-fill" id="dynClarityBar"></div></div>
-                    <div class="mini-chart-container"><canvas id="miniClarityChart"></canvas></div>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 20px;">
                     <div class="card" style="margin: 0; flex: 1; border-top: 4px solid var(--accent); display: flex; flex-direction: column; justify-content: center;">
                         <h4 style="color:var(--accent); text-transform:uppercase; font-size:0.75rem; letter-spacing: 1px; margin: 0 0 10px 0;">🎯 Current Focus</h4>
-                        <h2 id="weeklyFocusTitle" style="margin:0 0 10px 0; font-size: 1.4rem; color: #0f172a;">Complete Baseline Profile</h2>
-                        <p id="weeklyFocusDesc" style="color:var(--text-muted); font-size:0.95rem; line-height: 1.5; margin-bottom: 20px;">Log your academic scores to help the AI contextualize your upcoming assessment.</p>
+                        <h2 id="weeklyFocusTitle" style="margin:0 0 10px 0; font-size: 1.4rem; color: #0f172a;">Complete Profile</h2>
+                        <p id="weeklyFocusDesc" style="color:var(--text-muted); font-size:0.95rem; line-height: 1.5; margin-bottom: 20px;">Log your academic history to help the AI contextualize your assessment.</p>
                         <button id="weeklyFocusBtn" onclick="switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])" class="btn" style="width:100%; padding: 14px;">Update Profile ➔</button>
                     </div>
                 </div>
@@ -324,7 +287,7 @@
             </div>
 
             <div style="margin-top: 20px; text-align: center;">
-                <button onclick="toggleMilestones()" id="milestoneToggleBtn" style="background: none; border: none; color: var(--primary); font-weight: 700; font-size: 0.9rem; cursor: pointer;">View My Progress ⬇</button>
+                <button onclick="toggleMilestones()" id="milestoneToggleBtn" style="background: none; border: none; color: var(--primary); font-weight: 700; font-size: 0.9rem; cursor: pointer;">View Timeline Progress ⬇</button>
             </div>
 
             <div id="milestoneSection" class="timeline-container">
@@ -371,138 +334,45 @@
             </div>
         </div>
 
-        <div id="tab-explore" class="tab-content">
-            <div class="header-bar">
-                <div><h1>Career Exploration Lab</h1><p>Your personalized university and subject recommendations.</p></div>
-                <button class="btn" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Launch Full College GPS ➔</button>
-            </div>
-            
-            <div id="exploreLabDynamicArea">
-                <div class="card" style="text-align:center; padding: 60px 20px; border-top: 4px solid var(--secondary);">
-                    <div style="font-size: 4rem; opacity: 0.5; margin-bottom: 15px;">🔍</div>
-                    <h3 style="justify-content: center; border:none;">Lab Locked</h3>
-                    <p style="color:var(--text-muted);">Complete your Psychometric Assessment to unlock personalized recommendations.</p>
-                    <button class="btn hide-from-parent" onclick="launchAssessment()" style="margin-top: 15px;">Take Assessment</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-report" class="tab-content">
-            <div class="header-bar">
-                <div><h1>My Career Report</h1><p>Your personalized, AI-driven psychometric analysis.</p></div>
-            </div>
-            
-            <div id="lockedReportUI" class="card" style="text-align:center; padding: 80px 20px;">
-                <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.8;">📄</div>
-                <h2 style="color: #0f172a; font-size: 1.8rem; margin-bottom: 15px;">Report Locked</h2>
-                <p style="color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">You need to complete your Psychometric Assessment before the AI can generate your personalized Career Report.</p>
-                <button onclick="launchAssessment()" class="btn hide-from-parent" style="padding: 15px 35px;">Take Assessment Now ➔</button>
-            </div>
-
-            <div id="unlockedReportUI" style="display:none;" class="report-render-area">
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>🧠 Psychometric Profile</h3>
-                        <div style="margin-bottom: 20px;">
-                            <span class="badge-code" id="reportRiasecCode"></span>
-                        </div>
-                        <p id="reportProfileDesc" style="color: #334155; line-height: 1.6; font-size: 0.95rem;"></p>
-                        <div style="height: 250px; width: 100%; margin-top:20px;">
-                            <canvas id="reportRiasecChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>🎯 Recommended Pathways</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:-5px; margin-bottom: 15px;">Fields matching your natural aptitudes.</p>
-                        <div id="reportCareersContainer"></div>
-                        
-                        <h3 style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">🚫 Vulnerability Zones</h3>
-                        <p style="font-size: 0.85rem; color: #475569; margin-top:-5px; margin-bottom: 10px;">Careers leading to higher burnout probability.</p>
-                        <p id="reportAvoid" style="color: var(--danger); font-weight: bold; font-size: 0.95rem;"></p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <h3>📅 1-Year Execution Action Plan</h3>
-                    <div class="grid-2">
-                        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid transparent;">
-                            <h4 style="color: var(--primary); margin-top: 0;">📚 Recommended Courses</h4>
-                            <ul id="reportPlanCourses" style="color: #334155; line-height: 1.6; font-size: 0.9rem;"></ul>
-                        </div>
-                        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid transparent;">
-                            <h4 style="color: var(--primary); margin-top: 0;">🎯 Exams & Focus</h4>
-                            <ul id="reportPlanExams" style="color: #334155; line-height: 1.6; font-size: 0.9rem;"></ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div id="tab-portfolio" class="tab-content" style="padding-bottom: 100px;">
             <div class="header-bar">
                 <div><h1>My Complete Profile</h1><p>Build your professional and academic dossier to feed the AI.</p></div>
             </div>
 
             <details class="profile-acc" open id="academicInputCard">
-                <summary>📊 Core Academic Metrics</summary>
+                <summary>🎯 Current Academic Target</summary>
                 <div class="acc-body">
-                    <div class="grid-2col" style="gap:15px; margin-bottom:20px;">
-                        <div class="form-group">
-                            <label class="form-label">Grading System</label>
-                            <select id="portGradingSystem" class="form-select" onchange="updateGradingInput()">
-                                <option value="Percentage (%)">Percentage (%)</option>
-                                <option value="GPA (Out of 4)">GPA (Out of 4)</option>
-                                <option value="CGPA (Out of 10)">CGPA (Out of 10)</option>
-                                <option value="Percentile">Percentile</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Overall Score</label>
-                            <input type="number" id="portOverallScore" class="form-input" placeholder="e.g. 88" step="0.01" min="0" max="100">
-                        </div>
-                    </div>
-
-                    <div class="grid-2col" style="gap:15px; margin-bottom: 25px;">
-                        <div class="form-group">
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">What are you currently studying or planning to study?</p>
+                    <div class="grid-2col" style="gap:15px;">
+                        <div class="form-group" style="margin:0;">
                             <label class="form-label">Academic Trend</label>
                             <select id="portTrend" class="form-select">
-                                <option value="Stable">Stable</option>
-                                <option value="Improving">Improving</option>
-                                <option value="Declining">Declining</option>
+                                <option value="Stable">Stable Grades</option>
+                                <option value="Improving">Improving Grades</option>
+                                <option value="Declining">Declining Grades</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Target Stream</label>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Target Stream / Discipline</label>
                             <select id="portStream" class="form-select">
                                 <option value="Undecided">Undecided</option>
-                                <option value="PCM">PCM</option>
-                                <option value="PCB">PCB</option>
+                                <option value="PCM">Science (PCM)</option>
+                                <option value="PCB">Science (PCB)</option>
                                 <option value="Commerce">Commerce</option>
-                                <option value="Arts">Arts</option>
+                                <option value="Arts">Arts / Humanities</option>
+                                <option value="Diploma">Technical Diploma</option>
                             </select>
-                        </div>
-                    </div>
-
-                    <div style="border-top: 1px solid var(--border); padding-top: 25px; margin-top:10px;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                            <h3 style="border:none; padding:0; margin:0; color:#0f172a; font-size:1.1rem;">📘 Current Subject Breakdowns</h3>
-                            <button type="button" class="btn btn-outline" onclick="toggleSubjectSection()" id="toggleSubjectBtn" style="padding: 6px 12px; font-size: 0.8rem;">View / Add Subjects ⬇</button>
-                        </div>
-                        
-                        <div id="subjectSectionWrapper" style="display:none;">
-                            <div id="subjectContainer"></div>
-                            <button type="button" class="btn btn-outline" onclick="addSubjectRow()" style="margin-bottom: 10px; font-size: 0.85rem; padding: 8px 15px; width:100%;">➕ Add Another Subject</button>
                         </div>
                     </div>
                 </div>
             </details>
 
             <details class="profile-acc" open>
-                <summary>🎓 Education History</summary>
+                <summary>🎓 Education History & Marks</summary>
                 <div class="acc-body">
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0; margin-bottom:20px;">Add your completed and ongoing education levels. XP is awarded for detailed subject marks.</p>
                     <div id="educationContainer"></div>
-                    <button class="btn btn-outline" onclick="addEducationEntry()">+ Add Education Record</button>
+                    <button class="btn btn-outline" onclick="addEducationEntry()" style="width:100%; border-style:dashed;">+ Add Education Record</button>
                 </div>
             </details>
 
@@ -511,7 +381,7 @@
                 <div class="acc-body">
                     <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add any internships, part-time roles, social work, or volunteer experiences.</p>
                     <div id="volunteerContainer"></div>
-                    <button class="btn btn-outline" onclick="addVolunteerEntry()">+ Add Experience</button>
+                    <button class="btn btn-outline" onclick="addVolunteerEntry()" style="width:100%; border-style:dashed;">+ Add Experience</button>
                 </div>
             </details>
 
@@ -523,7 +393,7 @@
                         <textarea class="form-textarea" rows="3" placeholder="e.g. 1st Place State Science Fair..." id="portExtraCurricular"></textarea>
                     </div>
 
-                    <label class="form-label">Hobbies</label>
+                    <label class="form-label">Hobbies (Earn XP)</label>
                     <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add up to 10 hobbies.</p>
                     <div style="display:flex; gap:10px;">
                         <input type="text" id="hobbyInput" list="hobbySuggestions" autocomplete="off" class="form-input" placeholder="Search or type a hobby..." style="max-width:300px;">
@@ -547,6 +417,49 @@
 
             <button class="btn hide-from-parent" id="saveProfileBtn" onclick="saveAcademicPortfolio()" style="width:100%; padding:18px; font-size:1.1rem; margin-top:20px; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);">💾 Save Complete Profile</button>
         </div>
+        
+        <div id="tab-explore" class="tab-content">
+            <div class="header-bar">
+                <div><h1>Career Exploration Lab</h1><p>Your personalized university and subject recommendations.</p></div>
+                <button class="btn" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Launch Full College GPS ➔</button>
+            </div>
+            <div id="exploreLabDynamicArea">
+                <div class="card" style="text-align:center; padding: 60px 20px; border-top: 4px solid var(--secondary);">
+                    <div style="font-size: 4rem; opacity: 0.5; margin-bottom: 15px;">🔍</div>
+                    <h3 style="justify-content: center; border:none;">Lab Locked</h3>
+                    <p style="color:var(--text-muted);">Complete your Psychometric Assessment to unlock personalized recommendations.</p>
+                    <button class="btn hide-from-parent" onclick="launchAssessment()" style="margin-top: 15px;">Take Assessment</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-report" class="tab-content">
+            <div class="header-bar"><div><h1>My Career Report</h1><p>Your personalized, AI-driven psychometric analysis.</p></div></div>
+            <div id="lockedReportUI" class="card" style="text-align:center; padding: 80px 20px;">
+                <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.8;">📄</div>
+                <h2 style="color: #0f172a; font-size: 1.8rem; margin-bottom: 15px;">Report Locked</h2>
+                <p style="color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">You need to complete your Psychometric Assessment before the AI can generate your personalized Career Report.</p>
+                <button onclick="launchAssessment()" class="btn hide-from-parent" style="padding: 15px 35px;">Take Assessment Now ➔</button>
+            </div>
+            <div id="unlockedReportUI" style="display:none;" class="report-render-area">
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🧠 Psychometric Profile</h3>
+                        <div style="margin-bottom: 20px;"><span class="badge-code" id="reportRiasecCode"></span></div>
+                        <p id="reportProfileDesc" style="color: #334155; line-height: 1.6; font-size: 0.95rem;"></p>
+                        <div style="height: 250px; width: 100%; margin-top:20px;"><canvas id="reportRiasecChart"></canvas></div>
+                    </div>
+                    <div class="card">
+                        <h3>🎯 Recommended Pathways</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:-5px; margin-bottom: 15px;">Fields matching your natural aptitudes.</p>
+                        <div id="reportCareersContainer"></div>
+                        <h3 style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">🚫 Vulnerability Zones</h3>
+                        <p style="font-size: 0.85rem; color: #475569; margin-top:-5px; margin-bottom: 10px;">Careers leading to higher burnout probability.</p>
+                        <p id="reportAvoid" style="color: var(--danger); font-weight: bold; font-size: 0.95rem;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="tab-counselling" class="tab-content">
             <div class="header-bar"><h1>Book Expert Session</h1><p>Get 1-on-1 clarity with a certified professional.</p></div>
@@ -557,28 +470,16 @@
                         <label class="form-label">Select Expert Counsellor</label>
                         <select class="form-select" id="bookCounsellorSelect" onchange="showCounsellorTimes(this.value)"><option value="">-- Loading Experts --</option></select>
                     </div>
-                    
                     <div id="bookingAvailInfo" style="margin-bottom: 25px; padding: 20px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; display:none;">
                         <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Availability</span><span id="bookingTimeText" style="color:#0f172a; font-weight:800;">Mon, Wed, Fri</span></div>
                         <div style="display:flex; justify-content:space-between; border-top: 1px dashed var(--border); padding-top:10px; margin-top:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Consultation Fee</span><span style="color:var(--success); font-weight:800; font-size:1rem;">100% Free</span></div>
-                        
                         <div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">
                             <div class="grid-2col" style="margin-bottom: 15px;">
-                                <div class="form-group" style="margin:0;">
-                                    <label class="form-label">Select Date</label>
-                                    <input type="date" id="bookDate" class="form-input" required>
-                                </div>
-                                <div class="form-group" style="margin:0;">
-                                    <label class="form-label">Select Time</label>
-                                    <input type="time" id="bookTime" class="form-input" required>
-                                </div>
+                                <div class="form-group" style="margin:0;"><label class="form-label">Select Date</label><input type="date" id="bookDate" class="form-input" required></div>
+                                <div class="form-group" style="margin:0;"><label class="form-label">Select Time</label><input type="time" id="bookTime" class="form-input" required></div>
                             </div>
-                            <div class="form-group" style="margin-bottom: 15px;">
-                                <label class="form-label">Contact Number</label>
-                                <input type="tel" id="bookPhone" class="form-input" placeholder="+91 99999 99999" required>
-                            </div>
-                            <div class="form-group" style="margin:0;">
-                                <label class="form-label">Preferred Medium</label>
+                            <div class="form-group" style="margin-bottom: 15px;"><label class="form-label">Contact Number</label><input type="tel" id="bookPhone" class="form-input" placeholder="+91 99999 99999" required></div>
+                            <div class="form-group" style="margin:0;"><label class="form-label">Preferred Medium</label>
                                 <select id="bookMedium" class="form-select">
                                     <option value="Google Meet">Google Meet (Video)</option>
                                     <option value="Phone Call">Direct Phone Call</option>
@@ -586,19 +487,13 @@
                             </div>
                         </div>
                     </div>
-                    
                     <button class="btn hide-from-parent" id="confirmBookingBtn" onclick="submitBooking()" style="width:100%; padding: 14px;">Confirm Booking</button>
                 </div>
             </div>
         </div>
 
         <div id="tab-chat" class="tab-content">
-            <div class="header-bar">
-                <div>
-                    <h1>Direct Chat</h1>
-                    <p>Secure messaging with your assigned expert.</p>
-                </div>
-            </div>
+            <div class="header-bar"><div><h1>Direct Chat</h1><p>Secure messaging with your assigned expert.</p></div></div>
             <div class="grid-3-1">
                 <div class="card" style="padding:0; overflow:hidden; display:flex; flex-direction:column; height:60vh;">
                     <div style="padding: 20px 25px; border-bottom: 1px solid var(--border); background: #f8fafc;">
@@ -671,9 +566,13 @@
     
     let hobbiesArray = [];
     let uploadedImageBase64 = "";
-    let currentGlobalXP = 0; // Used for animation tracking
+    let currentGlobalXP = -1; // Used for animation tracking
 
-    // --- INDIAN STATES & DISTRICTS MAPPING ---
+    // Modals Logic
+    window.openModal = function(id) { document.getElementById(id).classList.add('active'); }
+    window.closeModal = function(id) { document.getElementById(id).classList.remove('active'); }
+
+    // India Data & Datalists remain identical
     const indiaData = {
         "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool"],
         "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi"],
@@ -687,14 +586,13 @@
         "Other State / UT": ["Capital City", "Other District"]
     };
 
-    // --- AUTO SUGGESTION DATABASES ---
-    const dbHobbies = ["Reading", "Writing", "Journaling", "Blogging", "Creative writing", "Poetry writing", "Storytelling", "Public speaking", "Debate practice", "Language learning", "Calligraphy", "Hand lettering", "Sketching", "Drawing", "Painting", "Watercolor painting", "Oil painting", "Acrylic painting", "Digital art", "Cartooning", "Caricature drawing", "Graphic design", "Photography", "Portrait photography", "Landscape photography", "Wildlife photography", "Street photography", "Videography", "Video editing", "Filmmaking", "Animation", "Origami", "Paper crafting", "Scrapbooking", "Card making", "DIY crafts", "Candle making", "Soap making", "Pottery", "Clay modeling", "Wood carving", "Woodworking", "Furniture making", "Metal crafting", "Jewelry making", "Beadwork", "Embroidery", "Knitting", "Crocheting", "Sewing", "Fashion designing", "Textile designing", "Tie-dye art", "Gardening", "Indoor gardening", "Bonsai growing", "Organic farming", "Hydroponic gardening", "Flower arranging", "Bird watching", "Nature walking", "Hiking", "Trekking", "Camping", "Rock climbing", "Mountaineering", "Cycling", "Mountain biking", "Running", "Jogging", "Marathon training", "Swimming", "Yoga", "Meditation", "Pilates", "Zumba", "Aerobics", "Gym workouts", "Bodybuilding", "CrossFit training", "Martial arts", "Karate", "Taekwondo", "Judo", "Boxing", "Kickboxing", "Archery", "Shooting sports", "Horse riding", "Skateboarding", "Roller skating", "Ice skating", "Surfing", "Scuba diving", "Snorkeling", "Fishing", "Kayaking", "Canoeing", "Sailing", "Rowing", "Stand-up paddling", "Traveling", "Backpacking", "Road trips", "Travel blogging", "Cultural exploration", "Food tasting", "Cooking", "Baking", "Cake decorating", "Bread making", "Chocolate making", "Barbecue cooking", "Mixology", "Coffee brewing", "Tea tasting", "Wine appreciation", "Home brewing", "Food photography", "Recipe creation", "Nutrition study", "Puzzle solving", "Sudoku", "Crossword puzzles", "Chess", "Checkers", "Board games", "Card games", "Magic tricks", "Rubik’s cube solving", "Strategy gaming", "Video gaming", "Mobile gaming", "PC gaming", "Game streaming", "Game design", "Coding", "Programming", "Web development", "App development", "Robotics", "Electronics projects", "Arduino projects", "Drone flying", "3D printing", "Model building", "Lego building", "Astronomy", "Stargazing", "Telescope observation", "Meteor watching", "Science experiments", "DIY electronics", "Mechanical tinkering", "Car restoration", "Bike maintenance", "Model railways", "Collecting stamps", "Coin collecting", "Antique collecting", "Toy collecting", "Comic collecting", "Book collecting", "Vinyl record collecting", "Postcard collecting", "Action figure collecting", "Memorabilia collecting", "Blogging about hobbies", "Podcasting", "Vlogging", "Social media content creation", "Meme creation", "Online teaching", "Tutoring", "Volunteering", "Community service", "Animal rescue volunteering", "Teaching skills online", "Mentoring students", "Event organizing", "Fundraising", "Debate clubs", "Theatre acting", "Drama performance", "Stand-up comedy", "Singing", "Karaoke", "Songwriting", "Music composition", "Guitar playing", "Piano playing", "Violin playing", "Drumming", "Flute playing", "Keyboard playing", "DJ mixing", "Music production", "Beatboxing", "Dance", "Classical dance", "Hip-hop dance", "Salsa dancing", "Ballroom dancing", "Folk dancing", "Contemporary dance", "Breakdancing", "Choreography", "Fitness dancing", "Acting workshops", "Improvisation theatre", "Costume designing", "Makeup artistry", "Face painting", "Nail art", "Hairstyling", "Personal styling", "Fashion blogging", "Interior decorating", "Home organization", "Minimalism practice", "Feng shui arranging", "Home DIY projects", "Upcycling", "Recycling crafts", "Sustainable living", "Zero-waste living", "Bird feeding", "Aquarium keeping", "Fish breeding", "Pet training", "Dog agility training", "Cat care", "Reptile keeping", "Beekeeping", "Butterfly gardening", "Wildlife conservation", "Environmental activism", "Map reading", "Geocaching", "Orienteering", "Survival skills", "Bushcraft", "Fire making", "Knot tying", "Navigation skills", "Photography editing", "Photo restoration", "Digital illustration", "NFT art creation", "Online selling", "Dropshipping practice", "Handicraft selling", "Etsy shop management", "Market research", "Stock trading simulation", "Investing study", "Personal finance planning", "Budgeting", "Goal setting", "Vision boarding", "Journaling for gratitude", "Mindfulness practice", "Speed reading", "Memory training", "Brain games", "Trivia quizzes", "Language exchange", "Cultural cooking", "Historical research", "Genealogy research", "Museum visiting", "Art gallery touring", "Architecture study", "Urban exploration", "Train spotting", "Plane spotting", "Ship spotting", "Weather watching", "Storm chasing", "Kite flying", "RC car racing", "RC plane flying", "Model rockets", "Astronomy photography", "Macro photography", "Time-lapse photography", "Stop motion animation", "Podcast listening", "Audiobook listening", "Story narration", "Voice acting", "Script writing", "Screenwriting", "Film reviewing", "Book reviewing", "Music reviewing", "Blogging reviews", "Travel planning", "Itinerary designing", "Event photography", "Wedding planning practice", "Floral design", "Landscape design", "Digital marketing learning", "SEO practice", "Copywriting", "Content writing", "Resume writing", "Career coaching practice", "Teaching workshops", "Leadership training", "Negotiation practice", "Entrepreneurship learning", "Business planning", "Startup ideation", "Networking", "Public relations practice", "Presentation design", "Data visualization", "Spreadsheet designing", "Research writing", "Academic tutoring", "Online course creation", "Educational video creation", "Parenting blogging", "Lifestyle blogging", "Health tracking", "Sleep optimization", "Biohacking", "Cold exposure practice", "Breathwork", "Affirmation practice", "Spiritual reading", "Tarot reading", "Astrology study", "Numerology study", "Philosophy reading", "Psychology learning", "Sociology reading", "Political discussions", "Debate analysis", "Ethical discussions", "Creative brainstorming", "Innovation challenges", "Hackathons", "Puzzle design", "Escape room design", "Treasure hunt planning", "Party planning", "Game hosting", "Quiz hosting", "Story gaming", "Role-playing games", "Dungeons & Dragons", "Cosplay", "Costume crafting", "Prop making", "Miniature painting", "Diorama building", "Terrain modeling", "Sand art", "Glass painting", "Mosaic art", "Resin art", "Candle carving", "Soap carving", "Ice carving", "Fruit carving", "Latte art", "Culinary plating", "Food styling", "Fermentation", "Pickling", "Cheesemaking", "Yogurt making", "Spice blending", "Herbal gardening", "Essential oil blending", "Aromatherapy", "Massage techniques", "Reflexology learning", "First aid training", "Disaster preparedness", "Emergency response training", "Self-defense training", "Community gardening", "Tree planting", "Clean-up drives", "Charity knitting", "Blanket making", "Toy making", "Educational volunteering", "Literacy campaigns", "Fundraising campaigns", "Social awareness blogging", "Documentary watching", "Film analysis", "Cultural dancing", "Folk music learning", "Instrument repair", "Sound engineering", "Audio editing", "Podcast production", "Radio hosting practice", "News analysis", "Journalism practice", "Interviewing skills", "Documentary filmmaking", "Photojournalism", "Creative directing", "Advertising concept design", "Brand identity creation", "Logo designing", "UX design", "UI design", "Wireframing", "Prototyping", "App testing", "User research", "Online forums moderation", "Community management", "Forum discussions", "Knowledge sharing", "Mentorship circles", "Study groups", "Language teaching", "Translation practice", "Subtitling", "Caption writing", "Technical writing", "Instructional design", "Educational game design", "Workshop facilitation", "Coaching conversations", "Counseling skill practice", "Emotional intelligence training", "Conflict resolution practice", "Meditation teaching", "Yoga instruction practice", "Fitness coaching", "Nutrition coaching", "Lifestyle coaching", "Habit tracking", "Productivity experimentation", "Time management practice", "Bullet journaling", "Planner decorating", "Digital planning", "Note-taking systems", "Knowledge management", "Mind mapping", "Brainstorm mapping", "Idea journaling", "Creativity exercises", "Daily sketch challenge", "Photo-a-day challenge", "Writing prompts practice", "Gratitude challenges", "Kindness challenges", "Personal storytelling", "Life documentation", "Memory keeping", "Scrap journaling", "Family history recording", "Legacy writing", "Letter writing", "Pen pal communication", "Postcard writing", "Creative mailing", "Map drawing", "Travel sketching", "Urban sketching", "Nature sketching", "Scientific illustration", "Botanical drawing", "Wildlife sketching", "Character design", "Comic strip creation", "Manga drawing", "Fan art creation", "Digital painting practice", "Pixel art", "Game asset creation", "Virtual world building", "Simulation gaming", "Strategy analysis", "Speedcubing", "Mathematical puzzles", "Logic games", "Brain teasers", "Riddle solving", "Optical illusion art", "Perspective drawing", "Shadow art", "Light painting photography", "Drone photography", "Adventure blogging", "Exploration journaling", "Cultural exchange programs", "Language immersion practice", "Cooking international cuisines", "Festival participation", "Cultural volunteering", "Heritage conservation", "Story collection", "Oral history recording", "Podcast storytelling", "Audio journaling", "Soundscape recording", "Field recording", "Nature sound recording", "Relaxation music creation", "Ambient music production", "Instrument improvisation", "Jam sessions", "Choir singing", "Music theory study", "Ear training", "Rhythm training", "Dance fitness", "Movement therapy", "Expressive arts therapy", "Creative visualization", "Dream journaling", "Lucid dreaming practice", "Mind games", "Strategic thinking exercises", "Debate coaching", "Speech writing", "Motivational speaking practice", "Workshop leadership", "Seminar organizing", "Conference volunteering", "Networking events participation", "Community storytelling", "Digital archiving", "Photo cataloging", "Personal library organizing", "Bookbinding", "Paper restoration", "Calligraphy practice", "Ink illustration", "Fountain pen collecting", "Stationery collecting", "Planner customization", "Sticker designing", "Printmaking", "Linocut art", "Screen printing", "Fabric painting", "Costume sewing", "Quilt making", "Rug making", "Basket weaving", "Macrame", "Leather crafting", "Shoe customization", "Watch collecting", "Gadget reviewing", "Tech blogging", "Hardware building", "PC assembling", "Keyboard customization", "Smart home automation", "Coding challenges", "Algorithm practice", "Open-source contribution", "Tech tutorials creation", "Online collaboration", "Virtual volunteering", "Remote mentoring", "Knowledge blogging", "Educational outreach"];
-    const dbMusicGenres = ["Pop", "Rock", "Classical", "Jazz", "Blues", "Hip Hop", "Rap", "R&B", "Soul", "Electronic", "EDM", "Indie", "Alternative Rock", "Heavy Metal", "K-pop", "Bollywood", "Indian Classical", "Hindustani Classical", "Carnatic Music", "Ghazal", "Folk", "Country", "Lofi"];
-    const dbArtists = ["A.R. Rahman", "Arijit Singh", "Shreya Ghoshal", "Taylor Swift", "The Weeknd", "Drake", "BTS", "Kishore Kumar", "Lata Mangeshkar", "Ed Sheeran", "Billie Eilish", "Coldplay", "Imagine Dragons", "Badshah", "Diljit Dosanjh", "Divine"];
-    const dbTV = ["Breaking Bad", "Game of Thrones", "Stranger Things", "The Office", "Friends", "Peaky Blinders", "Money Heist", "Dark", "Squid Game", "Mirzapur", "Sacred Games", "The Family Man", "Scam 1992", "Panchayat"];
-    const dbMovies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Inception", "Interstellar", "Avatar", "Avengers: Endgame", "Spider-Man", "Harry Potter", "The Lord of the Rings", "Dangal", "3 Idiots", "Baahubali", "RRR", "KGF", "Zindagi Na Milegi Dobara", "Sholay"];
-    const dbGames = ["Minecraft", "GTA V", "Valorant", "Fortnite", "PUBG", "CS:GO", "Dota 2", "League of Legends", "FIFA", "Call of Duty", "Apex Legends", "Elden Ring", "Roblox", "Among Us", "Genshin Impact"];
-    const dbSports = ["Cricket", "Football", "Basketball", "Tennis", "Badminton", "Formula 1", "Virat Kohli", "MS Dhoni", "Rohit Sharma", "Cristiano Ronaldo", "Lionel Messi", "LeBron James", "Roger Federer"];
+    const dbHobbies = ["Reading", "Writing", "Coding", "Robotics", "Painting", "Photography", "Video Editing", "Gaming", "Fitness", "Cooking", "Public Speaking", "Volunteering"];
+    const dbMusicGenres = ["Pop", "Rock", "Classical", "Hip Hop", "EDM", "Indie", "Bollywood", "Indian Classical", "Lofi"];
+    const dbArtists = ["A.R. Rahman", "Arijit Singh", "Shreya Ghoshal", "Taylor Swift", "The Weeknd", "Drake", "BTS", "Ed Sheeran", "Coldplay", "Divine"];
+    const dbTV = ["Breaking Bad", "Game of Thrones", "Stranger Things", "The Office", "Money Heist", "Dark", "Mirzapur", "The Family Man", "Scam 1992"];
+    const dbMovies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Inception", "Interstellar", "Avengers: Endgame", "Dangal", "3 Idiots"];
+    const dbGames = ["Minecraft", "GTA V", "Valorant", "Fortnite", "PUBG", "CS:GO", "Dota 2", "FIFA", "Roblox", "Genshin Impact"];
+    const dbSports = ["Cricket", "Football", "Basketball", "Tennis", "Formula 1", "Virat Kohli", "MS Dhoni", "Cristiano Ronaldo", "Lionel Messi", "Roger Federer"];
 
     function attachDynamicSuggest(inputId, listId, dbArray) {
         const input = document.getElementById(inputId);
@@ -709,7 +607,6 @@
         });
         input.addEventListener('focus', (e) => { if (e.target.value.trim().length === 0) datalist.innerHTML = ''; });
     }
-
     attachDynamicSuggest('hobbyInput', 'hobbySuggestions', dbHobbies);
     attachDynamicSuggest('intMusic', 'musicGenreSuggestions', dbMusicGenres);
     attachDynamicSuggest('intArtist', 'artistSuggestions', dbArtists);
@@ -718,7 +615,6 @@
     attachDynamicSuggest('intGames', 'gameSuggestions', dbGames);
     attachDynamicSuggest('intSports', 'sportSuggestions', dbSports);
 
-    // Profile Photo Upload logic
     document.getElementById('photoUpload').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (!file) return;
@@ -737,7 +633,6 @@
         };
     });
 
-    // --- ACCORDION LOGIC ---
     window.populateDistricts = function(stateSelectElem) {
         const state = stateSelectElem.value;
         const districtSelect = stateSelectElem.parentElement.nextElementSibling.querySelector('.district-select');
@@ -746,38 +641,118 @@
             indiaData[state].forEach(dist => { districtSelect.innerHTML += `<option value="${dist}">${dist}</option>`; });
         }
     }
-
     window.toggleToDate = function(checkboxElem) {
         const toDateInput = checkboxElem.parentElement.parentElement.nextElementSibling;
-        if(checkboxElem.checked) {
-            toDateInput.style.display = 'none';
-        } else {
-            toDateInput.style.display = 'block';
-        }
+        toDateInput.style.display = checkboxElem.checked ? 'none' : 'block';
     }
 
+    // --- OVERHAULED EDUCATION LOGIC ---
     window.updateEduLabels = function(selectElem) {
         const level = selectElem.value;
         const block = selectElem.closest('.entry-block');
         const nameInput = block.querySelector('.edu-name-input');
+        const certNameBox = block.querySelector('.edu-cert-box');
         const fromBox = block.querySelector('.edu-from-box');
         const toLabel = block.querySelector('.edu-to-label');
-        const subjectsBox = block.querySelector('.edu-subjects-box');
 
         if(level === 'School') {
             nameInput.placeholder = "School Name";
+            certNameBox.style.display = 'none';
             fromBox.style.display = 'none'; 
             toLabel.innerText = "Date of Completion"; 
-            if(subjectsBox) subjectsBox.style.display = 'none';
+        } else if (level === 'Certificate') {
+            nameInput.placeholder = "Institution / Platform Name";
+            certNameBox.style.display = 'block';
+            fromBox.style.display = 'block'; 
+            toLabel.innerText = "To Date (Or completion)"; 
         } else {
             nameInput.placeholder = "College / Institute Name";
+            certNameBox.style.display = 'none';
             fromBox.style.display = 'block'; 
             toLabel.innerText = "To Date"; 
-            if(subjectsBox) subjectsBox.style.display = 'block';
         }
     }
 
-    // UPDATED: Volunteer Experience Block (Replacing Work Exp)
+    window.addEducationEntry = function(data = {}) {
+        const container = document.getElementById('educationContainer');
+        const id = Date.now() + Math.random();
+        
+        const isSchool = data.level === 'School' || !data.level;
+        const isCert = data.level === 'Certificate';
+        const nameLabel = isSchool ? 'School Name' : (isCert ? 'Institution / Platform' : 'College / Institute Name');
+        const displayCert = isCert ? 'block' : 'none';
+        const displayFromDate = isSchool ? 'none' : 'block';
+        const toLabelTxt = isSchool ? 'Date of Completion' : 'To Date';
+
+        let sysOptions = `
+            <option value="Percentage (%)" ${data.gradingSystem==='Percentage (%)'?'selected':''}>Percentage (%)</option>
+            <option value="GPA (Out of 4)" ${data.gradingSystem==='GPA (Out of 4)'?'selected':''}>GPA (Out of 4)</option>
+            <option value="CGPA (Out of 10)" ${data.gradingSystem==='CGPA (Out of 10)'?'selected':''}>CGPA (Out of 10)</option>
+            <option value="Grade Letter" ${data.gradingSystem==='Grade Letter'?'selected':''}>Grade Letter (A, B, etc.)</option>
+            <option value="N/A" ${data.gradingSystem==='N/A'?'selected':''}>N/A (Ongoing)</option>
+        `;
+
+        let subjectsHtml = '';
+        if(data.subjects && data.subjects.length > 0) {
+            data.subjects.forEach(sub => {
+                subjectsHtml += `
+                    <div class="subject-row edu-subject-row">
+                        <input type="text" class="form-input edu-sub-name" placeholder="Subject Name (e.g. Physics)" value="${sub.name || ''}" style="flex:2;">
+                        <input type="text" class="form-input edu-sub-score" placeholder="Score/Grade" value="${sub.score || ''}" style="flex:1;">
+                        <button type="button" class="btn-remove-sub" onclick="this.parentElement.remove()">×</button>
+                    </div>`;
+            });
+        }
+
+        const html = `
+        <div class="entry-block edu-block-item" id="edu-${id}">
+            <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
+            <div class="grid-2col">
+                <div class="form-group"><label class="form-label">Education Level</label>
+                    <select class="form-select edu-level" onchange="updateEduLabels(this)">
+                        <option value="School" ${data.level==='School'?'selected':''}>School (10th)</option>
+                        <option value="PUC" ${data.level==='PUC'?'selected':''}>PUC / 12th</option>
+                        <option value="Diploma" ${data.level==='Diploma'?'selected':''}>Diploma</option>
+                        <option value="UG" ${data.level==='UG'?'selected':''}>Undergraduate (UG)</option>
+                        <option value="PG" ${data.level==='PG'?'selected':''}>Postgraduate (PG)</option>
+                        <option value="Certificate" ${data.level==='Certificate'?'selected':''}>Certificate Course</option>
+                    </select>
+                </div>
+                <div class="form-group"><label class="form-label">Institution Name</label><input type="text" class="form-input edu-name edu-name-input" placeholder="${nameLabel}" value="${data.name || ''}"></div>
+                
+                <div class="form-group edu-cert-box" style="display: ${displayCert}; grid-column: 1 / -1;"><label class="form-label">Certificate Course Name</label><input type="text" class="form-input edu-cert-name" placeholder="e.g. Google Data Analytics" value="${data.certName || ''}"></div>
+
+                <div class="form-group edu-from-box" style="display: ${displayFromDate};"><label class="form-label">From Date</label><input type="date" class="form-input edu-from" value="${data.from || ''}"></div>
+                <div class="form-group edu-to-box"><label class="form-label edu-to-label">${toLabelTxt}</label><input type="date" class="form-input edu-to" value="${data.to || ''}"></div>
+                
+                <div class="form-group"><label class="form-label">Grading System</label>
+                    <select class="form-select edu-grading-sys">${sysOptions}</select>
+                </div>
+                <div class="form-group"><label class="form-label">Overall Score / CGPA</label><input type="text" class="form-input edu-overall-score" placeholder="e.g. 85 or 9.2" value="${data.score || ''}"></div>
+            </div>
+
+            <div style="border-top: 1px dashed var(--border); padding-top: 15px; margin-top: 10px;">
+                <label class="form-label">Subject-wise Marks (Optional but adds XP!)</label>
+                <div class="edu-subjects-container">${subjectsHtml}</div>
+                <button type="button" class="btn btn-outline" onclick="addEduSubjectRow(this)" style="padding: 6px 12px; font-size: 0.8rem; margin-top: 10px;">+ Add Subject</button>
+            </div>
+        </div>`;
+        container.insertAdjacentHTML('beforeend', html);
+    }
+
+    window.addEduSubjectRow = function(btnElement) {
+        const container = btnElement.previousElementSibling; 
+        const row = document.createElement('div');
+        row.className = 'subject-row edu-subject-row';
+        row.innerHTML = `
+            <input type="text" class="form-input edu-sub-name" placeholder="Subject Name (e.g. Physics)" style="flex:2;">
+            <input type="text" class="form-input edu-sub-score" placeholder="Score/Grade" style="flex:1;">
+            <button type="button" class="btn-remove-sub" onclick="this.parentElement.remove()">×</button>
+        `;
+        container.appendChild(row);
+    }
+
+    // Volunteer Block
     window.addVolunteerEntry = function(data = {}) {
         const container = document.getElementById('volunteerContainer');
         const id = Date.now() + Math.random();
@@ -790,7 +765,7 @@
         <div class="entry-block" id="vol-${id}">
             <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
             <div class="grid-2col">
-                <div class="form-group"><label class="form-label">Organization / NGO / Company</label><input type="text" class="form-input vol-org" placeholder="e.g. Red Cross, Local Tech Startup" value="${data.organization || ''}"></div>
+                <div class="form-group"><label class="form-label">Organization / NGO / Company</label><input type="text" class="form-input vol-org" placeholder="e.g. Red Cross, Tech Startup" value="${data.organization || ''}"></div>
                 <div class="form-group"><label class="form-label">Role / Internship Title</label><input type="text" class="form-input vol-role" placeholder="e.g. Marketing Intern, Volunteer" value="${data.role || ''}"></div>
                 <div class="form-group"><label class="form-label">From Date</label><input type="date" class="form-input vol-from" value="${data.from || ''}"></div>
                 <div class="form-group">
@@ -812,45 +787,8 @@
                     </select>
                 </div>
                 <div class="form-group"><label class="form-label">State</label><select class="form-select vol-state" onchange="populateDistricts(this)">${stateOptions}</select></div>
-                <div class="form-group"><label class="form-label">District</label><select class="form-select vol-district district-select">${distOptions}</select></div>
-                <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input vol-city" placeholder="City name" value="${data.city || ''}"></div>
             </div>
             <div class="form-group" style="margin-top:10px;"><label class="form-label">Brief Description of Responsibilities</label><textarea class="form-textarea vol-desc" rows="2" placeholder="Describe your responsibilities, skills learned, or impact made...">${data.desc || ''}</textarea></div>
-        </div>`;
-        container.insertAdjacentHTML('beforeend', html);
-    }
-
-    // UPDATED: Education Entry Template to match logic
-    window.addEducationEntry = function(data = {}) {
-        const container = document.getElementById('educationContainer');
-        const id = Date.now() + Math.random();
-        
-        // Setup initial display states based on saved level (Default is School)
-        const isSchool = data.level === 'School' || !data.level;
-        const nameLabel = isSchool ? 'School Name' : 'College / Institute Name';
-        const displayFromDate = isSchool ? 'none' : 'block';
-        const displaySubjects = isSchool ? 'none' : 'block';
-        const toLabelTxt = isSchool ? 'Date of Completion' : 'To Date';
-
-        const html = `
-        <div class="entry-block" id="edu-${id}">
-            <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
-            <div class="grid-2col">
-                <div class="form-group"><label class="form-label">Level</label>
-                    <select class="form-select edu-level" onchange="updateEduLabels(this)">
-                        <option value="School" ${data.level==='School'?'selected':''}>School (10th)</option>
-                        <option value="PUC" ${data.level==='PUC'?'selected':''}>PUC / 12th</option>
-                        <option value="UG" ${data.level==='UG'?'selected':''}>Undergraduate (UG)</option>
-                        <option value="PG" ${data.level==='PG'?'selected':''}>Postgraduate (PG)</option>
-                        <option value="Certificate" ${data.level==='Certificate'?'selected':''}>Certificate</option>
-                    </select>
-                </div>
-                <div class="form-group"><label class="form-label">Institution Name</label><input type="text" class="form-input edu-name edu-name-input" placeholder="${nameLabel}" value="${data.name || ''}"></div>
-                
-                <div class="form-group edu-from-box" style="display: ${displayFromDate};"><label class="form-label">From Date</label><input type="date" class="form-input edu-from" value="${data.from || ''}"></div>
-                <div class="form-group edu-to-box"><label class="form-label edu-to-label">${toLabelTxt}</label><input type="date" class="form-input edu-to" value="${data.to || ''}"></div>
-            </div>
-            <div class="form-group edu-subjects-box" style="margin-top:10px; display: ${displaySubjects};"><label class="form-label">Subjects / Field of Study</label><input type="text" class="form-input edu-subjects" placeholder="e.g. Science, Mathematics, Psychology..." value="${data.subjects || ''}"></div>
         </div>`;
         container.insertAdjacentHTML('beforeend', html);
     }
@@ -871,354 +809,107 @@
         container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="removeHobby(${i})">&times;</span></div>`).join('');
     }
 
-    window.updateGradingInput = function() {
-        const sys = document.getElementById('portGradingSystem').value;
-        const inp = document.getElementById('portOverallScore');
-        if(sys.includes('%') || sys === 'Percentile') { inp.placeholder = 'e.g. 88'; inp.max = 100; }
-        else if(sys.includes('4')) { inp.placeholder = 'e.g. 3.8'; inp.max = 4; }
-        else if(sys.includes('10')) { inp.placeholder = 'e.g. 9.2'; inp.max = 10; }
-    }
-    
-    window.toggleSubjectSection = function() {
-        const wrap = document.getElementById('subjectSectionWrapper');
-        const btn = document.getElementById('toggleSubjectBtn');
-        if(wrap.style.display === 'none') {
-            wrap.style.display = 'block';
-            btn.innerText = 'Hide Subjects ⬆';
-        } else {
-            wrap.style.display = 'none';
-            btn.innerText = 'View / Add Subjects ⬇';
-        }
-    }
-
-    window.addSubjectRow = function(name = "", score = "", grade = "") {
-        const container = document.getElementById('subjectContainer');
-        const row = document.createElement('div');
-        row.className = 'subject-row';
-        row.innerHTML = `
-            <div class="form-group">
-                <label class="form-label" style="${container.children.length > 0 ? 'display:none;' : ''}">Subject Name</label>
-                <input type="text" class="form-input sub-name" placeholder="e.g. Physics" value="${name}">
-            </div>
-            <div class="form-group">
-                <label class="form-label" style="${container.children.length > 0 ? 'display:none;' : ''}">Score/Marks</label>
-                <input type="number" class="form-input sub-score" placeholder="e.g. 85" step="0.01" value="${score}">
-            </div>
-            <div class="form-group">
-                <label class="form-label" style="${container.children.length > 0 ? 'display:none;' : ''}">Grade (Opt)</label>
-                <input type="text" class="form-input sub-grade" placeholder="e.g. A+" value="${grade}">
-            </div>
-            <button type="button" class="btn-remove-sub" onclick="this.parentElement.remove()" style="${container.children.length > 0 ? 'margin-top:0;' : ''}" title="Remove Subject">×</button>
-        `;
-        container.appendChild(row);
-    }
-    
-    // Disallow past dates in calendar
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById("bookDate").setAttribute('min', today);
-
-    window.launchAssessment = function() {
-        const currentUrl = window.location.href;
-        const basePath = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
-        window.location.href = basePath + "/assessment/";
-    };
-
-    window.switchTab = function(tabId, btn) {
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        btn.classList.add('active');
-        document.getElementById('headerTitle').innerText = btn.innerText.replace(/[^\w\s]/gi, '').trim();
-        
-        if(tabId === 'tab-chat') {
-            globalUnreadCount = 0;
-            const badge = document.getElementById('notifBadge');
-            badge.style.display = 'none';
-            badge.innerText = '0';
-        }
-    };
-
-    window.toggleMilestones = function() {
-        const section = document.getElementById('milestoneSection');
-        const btn = document.getElementById('milestoneToggleBtn');
-        if (section.classList.contains('expanded')) {
-            section.classList.remove('expanded');
-            btn.innerText = "View My Progress ⬇";
-        } else {
-            section.classList.add('expanded');
-            btn.innerText = "Hide Progress ⬆";
-        }
-    }
-
-    // --- TOAST NOTIFICATION SYSTEM ---
-    window.showToastNotification = function(title, message) {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerHTML = `<div class="toast-title">🔔 ${title}</div><div class="toast-body">${message}</div>`;
-        
-        toast.onclick = () => {
-            if(title.includes("Achievement") || title.includes("Level") || title.includes("Profile")) {
-                window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
-            } else {
-                window.switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5]);
-            }
-            toast.style.animation = 'fadeOut 0.3s ease forwards';
-            setTimeout(() => toast.remove(), 300);
-        };
-
-        container.appendChild(toast);
-        setTimeout(() => {
-            if(toast.parentElement) {
-                toast.style.animation = 'fadeOut 0.3s ease forwards';
-                setTimeout(() => toast.remove(), 300);
-            }
-        }, 5000);
-    }
-
-    window.toggleParentMode = function() {
-        const btn = document.getElementById('parentToggleBtn');
-        const icon = document.getElementById('parentToggleIcon');
-        const text = document.getElementById('parentToggleText');
-        
-        if(!document.body.classList.contains('parent-mode-active')) {
-            document.body.classList.add('parent-mode-active');
-            btn.classList.add('active');
-            icon.innerText = "🔐";
-            text.innerText = "Exit Parent View";
-            const activeTab = document.querySelector('.tab-content.active').id;
-            if(activeTab === 'tab-chat' || activeTab === 'tab-settings' || activeTab === 'tab-counselling') {
-                window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
-            }
-        } else {
-            document.body.classList.remove('parent-mode-active');
-            btn.classList.remove('active');
-            icon.innerText = "👨‍👩‍👧";
-            text.innerText = "Parent View";
-        }
-    }
-
-    function renderCareerLabActuals(report) {
-        if(!report || !report.topCareers || report.topCareers.length === 0) return;
-        let labHtml = `<div style="margin-bottom: 20px;"><h3 style="color:var(--primary); margin-top:0;">Based on your Psychometric Data:</h3><p style="color:var(--text-muted); margin-top:-5px;">Here are your customized subject combinations and college targets.</p></div>`;
-
-        report.topCareers.slice(0,3).forEach(c => {
-            let subjects = "Check specific college criteria.";
-            let searchString = c.name; 
-            
-            if(c.name.toLowerCase().includes('engineer') || c.name.toLowerCase().includes('tech') || c.name.toLowerCase().includes('data')) { subjects = "Physics, Chemistry, Mathematics (PCM) + Computer Science"; searchString = "engineering"; }
-            else if(c.name.toLowerCase().includes('medic') || c.name.toLowerCase().includes('doctor') || c.name.toLowerCase().includes('clinic')) { subjects = "Physics, Chemistry, Biology (PCB)"; searchString = "medical"; }
-            else if(c.name.toLowerCase().includes('business') || c.name.toLowerCase().includes('financ') || c.name.toLowerCase().includes('account')) { subjects = "Commerce, Accountancy, Economics, Business Studies"; searchString = "commerce"; }
-            else if(c.name.toLowerCase().includes('design') || c.name.toLowerCase().includes('art') || c.name.toLowerCase().includes('media')) { subjects = "Any Stream (Focus heavily on Portfolio & Creativity)"; searchString = "design"; }
-            else if(c.name.toLowerCase().includes('law') || c.name.toLowerCase().includes('policy')) { subjects = "Any Stream (Humanities or Commerce preferred) + Legal Studies"; searchString = "law"; }
-
-            labHtml += `
-            <div class="card" style="border-left: 4px solid var(--primary); margin-bottom: 15px; padding: 25px;">
-                <h4 style="margin: 0 0 10px 0; font-size: 1.15rem; color: #0f172a;">${c.name} <span class="status-pill status-success" style="float:right;">${c.score}% Match</span></h4>
-                <p style="margin: 0 0 15px 0; font-size: 0.9rem; color: var(--text-muted);"><strong>Recommended Subjects:</strong> ${subjects}</p>
-                <a href="https://antoniovn96.github.io/vidyavantage.github.io/colleges/?search=${searchString}" target="_blank" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.85rem; text-decoration: none; display: inline-block;">🏫 View Best Colleges ➔</a>
-            </div>`;
-        });
-        document.getElementById('exploreLabDynamicArea').innerHTML = labHtml;
-    }
-
-    window.showCounsellorTimes = function(cid) {
-        const infoBox = document.getElementById('bookingAvailInfo');
-        if(cid) { infoBox.style.display = 'block'; } else { infoBox.style.display = 'none'; }
-    }
-
-    window.submitBooking = async function() {
-        const cid = document.getElementById('bookCounsellorSelect').value;
-        const date = document.getElementById('bookDate').value;
-        const time = document.getElementById('bookTime').value;
-        const phone = document.getElementById('bookPhone').value;
-        const medium = document.getElementById('bookMedium').value;
-
-        if(!cid || !date || !time || !phone) return alert("Please complete all booking fields.");
-
-        const btn = document.getElementById('confirmBookingBtn');
-        btn.innerText = "Processing Booking... ⏳";
-        btn.disabled = true;
-
-        try {
-            await addDoc(collection(db, "bookings"), {
-                studentId: activeUserUid,
-                studentName: studentDataObj.name,
-                studentEmail: studentDataObj.email,
-                counsellorId: cid,
-                counsellorName: window.globalCounsellors[cid].name,
-                date: date, time: time, phone: phone, medium: medium,
-                status: "Pending", timestamp: serverTimestamp()
-            });
-
-            const currentSessions = studentDataObj.sessionsHad || 0;
-            await updateDoc(doc(db, "students", activeUserUid), { sessionsHad: currentSessions + 1 });
-            studentDataObj.sessionsHad = currentSessions + 1;
-            calculateDynamicScore(studentDataObj);
-
-            showToastNotification("Booking Confirmed! 🎉", `Your session on ${date} at ${time} is locked.`);
-            document.getElementById('bookDate').value = ""; document.getElementById('bookTime').value = ""; document.getElementById('bookPhone').value = ""; document.getElementById('bookCounsellorSelect').value = ""; showCounsellorTimes(""); 
-        } catch (e) { console.error(e); alert("Error connecting to the scheduling system."); } finally { btn.innerText = "Confirm Booking"; btn.disabled = false; }
-    }
-
-    async function loadCounsellors() {
-        const chatSelect = document.getElementById('studentChatSelect');
-        const bookSelect = document.getElementById('bookCounsellorSelect');
-        window.globalCounsellors = {};
-        try {
-            const snap = await getDocs(collection(db, "counsellor_profiles"));
-            if(!snap.empty) {
-                chatSelect.innerHTML = '<option value="">-- Choose your assigned Counsellor --</option>';
-                bookSelect.innerHTML = '<option value="">-- Choose an Expert --</option>';
-                activeChatListeners.forEach(unsub => unsub()); activeChatListeners.length = 0;
-
-                snap.forEach(docSnap => {
-                    const data = docSnap.data();
-                    window.globalCounsellors[docSnap.id] = data;
-                    const optionHtml = `<option value="${docSnap.id}">🟢 ${data.name || docSnap.id} - Online</option>`;
-                    chatSelect.innerHTML += optionHtml; bookSelect.innerHTML += optionHtml;
-
-                    const chatId = `${activeUserUid}_${docSnap.id}`;
-                    const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
-                    let isInitialLoad = true;
-
-                    const unsub = onSnapshot(q, (snapshot) => {
-                        snapshot.docChanges().forEach((change) => {
-                            if (change.type === "added") {
-                                const msg = change.doc.data();
-                                if (!isInitialLoad && msg.senderId !== activeUserUid) {
-                                    const isViewingChat = document.querySelector('.tab-content.active').id === 'tab-chat' && document.getElementById('studentChatSelect').value === docSnap.id;
-                                    if(!isViewingChat) {
-                                        globalUnreadCount++;
-                                        const badge = document.getElementById('notifBadge');
-                                        badge.innerText = globalUnreadCount; badge.style.display = 'flex';
-                                        showToastNotification(data.name || "Counsellor", "Sent you a new message.");
-                                    }
-                                }
-                            }
-                        });
-                        isInitialLoad = false;
-                    });
-                    activeChatListeners.push(unsub);
-                });
-            } else { chatSelect.innerHTML = '<option value="">No counsellors registered.</option>'; bookSelect.innerHTML = '<option value="">No experts registered.</option>'; }
-        } catch(e) { console.error("Error loading counsellors:", e); }
-    }
-
-    window.loadCounsellorChat = function(counsellorId) {
-        if(!counsellorId) { document.getElementById('counsellorProfileCard').innerHTML = "Select a counsellor to view profile."; return; }
-        const c = window.globalCounsellors[counsellorId];
-        if(c) {
-            document.getElementById('counsellorProfileCard').innerHTML = `
-                <img src="${c.photo || 'https://ui-avatars.com/api/?name=Expert&background=3b82f6&color=fff'}" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid var(--success); margin-bottom:15px;">
-                <h4 style="margin:0; color:#0f172a; font-size:1.1rem;">${c.name}</h4>
-                <p style="font-size:0.8rem; margin:5px 0; color:var(--success); font-weight:bold;">🟢 Online Now</p>
-                <p style="font-size:0.85rem; line-height:1.5;">${c.bio || 'Clinical Career Expert'}</p>
-            `;
-        }
-
-        if(unsubscribeChat) unsubscribeChat();
-        const chatBox = document.getElementById('studentChatMessages');
-        chatBox.innerHTML = '<div style="text-align:center; color:var(--text-muted); margin-top:40px;">Loading messages...</div>';
-
-        const chatId = `${activeUserUid}_${counsellorId}`;
-        const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
-
-        unsubscribeChat = onSnapshot(q, (snapshot) => {
-            let html = '<div style="text-align:center; color:var(--text-muted); margin-bottom: 25px; font-size:0.8rem; padding: 5px 15px; background: #f1f5f9; border-radius: 50px; display:inline-block; margin-left: 50%; transform: translateX(-50%);">🔒 Secure connection established.</div>';
-            if(snapshot.empty) { html += `<div class="chat-message chat-counsellor">Hi! I am your career expert. Send a message to start our session.</div>`; } 
-            else {
-                snapshot.forEach(doc => {
-                    const msg = doc.data();
-                    const isStudent = msg.senderId === activeUserUid;
-                    const timeString = msg.timestamp ? new Date(msg.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Sending...';
-                    html += `<div class="chat-message ${isStudent ? 'chat-student' : 'chat-counsellor'}">${msg.text}<span class="chat-time" style="${isStudent ? 'color:rgba(255,255,255,0.7);' : ''}">${timeString}</span></div>`;
-                });
-            }
-            chatBox.innerHTML = html; chatBox.scrollTop = chatBox.scrollHeight;
-        });
-    }
-
-    window.sendStudentChatMessage = async function() {
-        const input = document.getElementById('studentChatInput');
-        const text = input.value.trim();
-        const counsellorId = document.getElementById('studentChatSelect').value;
-        if(!text) return; if(!counsellorId) return alert("Please select a counsellor.");
-        input.value = ""; 
-        try { await addDoc(collection(db, "chats", `${activeUserUid}_${counsellorId}`, "messages"), { text: text, senderId: activeUserUid, senderType: 'student', timestamp: serverTimestamp() }); } 
-        catch(e) { console.error("Failed to send:", e); }
-    }
-
-    function renderMiniChart(score) {
-        if (typeof Chart === 'undefined') return;
-        const ctx = document.getElementById('miniClarityChart');
-        if(!ctx) return;
-        if(miniChartInstance) miniChartInstance.destroy();
-        miniChartInstance = new Chart(ctx.getContext('2d'), {
-            type: 'line',
-            data: { labels: ['Start', 'Academics', 'Assessment', 'Now'], datasets: [{ data: [1, 3, score >= 6 ? 6 : score, score], borderColor: '#fcd34d', borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#ffffff', tension: 0.4 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: {enabled: false} }, scales: { x: { display: false }, y: { display: false, min: 0, max: 10 } }, layout: { padding: 5 } }
-        });
-    }
-
-    // --- ENHANCED XP LOGIC ---
+    // --- ADVANCED XP CALCULATION & MODALS ---
     window.updateTopXP = function(newXp, newLevelName) {
         const topXpEl = document.getElementById('topXpDisplay');
         const topLvlEl = document.getElementById('topLevelDisplay');
         const xpContainer = document.getElementById('topXpContainer');
+        const modalXpTotal = document.getElementById('xpModalTotal');
 
         if (currentGlobalXP !== newXp) {
             topLvlEl.innerText = newLevelName.split(' - ')[0].replace('Level', 'Lvl');
             topXpEl.innerText = newXp;
+            if(modalXpTotal) modalXpTotal.innerText = newXp + " XP";
             
             // Trigger bump animation
-            xpContainer.classList.remove('xp-bump');
-            void xpContainer.offsetWidth; // Trigger reflow
-            xpContainer.classList.add('xp-bump');
-            
+            if (currentGlobalXP !== -1) {
+                xpContainer.classList.remove('xp-bump');
+                void xpContainer.offsetWidth; // Trigger reflow
+                xpContainer.classList.add('xp-bump');
+            }
             currentGlobalXP = newXp;
-        }
-    }
-
-    function unlockBadge(id, primaryClass, xpValue) {
-        const el = document.getElementById(id);
-        if(!previouslyUnlockedBadges.has(id) && !el.classList.contains(primaryClass)) {
-            el.classList.add(primaryClass);
-            el.style.animation = 'none';
-            el.offsetHeight; 
-            el.style.animation = 'badgePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            showToastNotification(`Achievement Unlocked!`, `+${xpValue} XP added to your profile.`);
-            previouslyUnlockedBadges.add(id);
         }
     }
 
     window.calculateDynamicScore = function(data) {
         let score = 1; let xp = 10; 
-        let percentProgress = 10;
-        let levelName = "Level 1 - Explorer";
-        let levelText = "You are beginning your career discovery journey.";
-        let percentile = 82; 
         
-        let focusTitle = "Complete Baseline Profile";
-        let focusDesc = "Log your academic scores and extra-curriculars to help the AI contextualize your upcoming assessment.";
+        let breakdownHTML = `<div class="xp-list-item"><span>Registered Account</span><strong style="color:var(--success);">+10 XP</strong></div>`;
+        
+        let profileTasks = [
+            { id: 'photo', name: "Upload Profile Photo", done: false },
+            { id: 'target', name: "Set Academic Target", done: false },
+            { id: 'edu', name: "Add Education History", done: false },
+            { id: 'vol', name: "Add Volunteer/Internship", done: false },
+            { id: 'hob', name: "Add Hobbies", done: false },
+            { id: 'int', name: "Add Media Interests", done: false },
+            { id: 'ass', name: "Complete Psychometric Test", done: false },
+            { id: 'ses', name: "Complete Counselling Session", done: false },
+            { id: 'loc', name: "Lock Final Career Path", done: false }
+        ];
+
+        let focusTitle = "Complete Profile";
+        let focusDesc = "Log your academic history to help the AI contextualize your assessment.";
         let focusBtnText = "Update Profile ➔";
         let focusAction = "switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])";
 
         previouslyUnlockedBadges.add('badge-registered');
 
-        if(data.academic && (data.academic.overallScore || data.academic.stream || (data.academic.subjects && data.academic.subjects.length > 0))) { 
-            score += 2; xp += 20; percentProgress = 30;
-            unlockBadge('badge-academic', 'unlocked-primary', 20);
-            document.getElementById('dot-portfolio').innerText = "✔";
+        if (data.photo) profileTasks.find(t=>t.id==='photo').done = true;
+
+        if (data.academic) {
+            if(data.academic.stream && data.academic.stream !== "Undecided") {
+                profileTasks.find(t=>t.id==='target').done = true;
+                xp += 10; breakdownHTML += `<div class="xp-list-item"><span>Academic Target Set</span><strong style="color:var(--success);">+10 XP</strong></div>`;
+            }
+
+            if(data.academic.eduHistory && data.academic.eduHistory.length > 0) {
+                profileTasks.find(t=>t.id==='edu').done = true;
+                score += 1;
+                data.academic.eduHistory.forEach(edu => {
+                    if(edu.name) {
+                        xp += 20; breakdownHTML += `<div class="xp-list-item"><span>Education Added (${edu.level})</span><strong style="color:var(--success);">+20 XP</strong></div>`;
+                    }
+                    if(edu.subjects && edu.subjects.length > 0) {
+                        let subXp = edu.subjects.length * 5;
+                        xp += subXp; breakdownHTML += `<div class="xp-list-item"><span>Subjects Added (${edu.level})</span><strong style="color:var(--success);">+${subXp} XP</strong></div>`;
+                    }
+                });
+            }
+
+            if(data.academic.volunteerHistory && data.academic.volunteerHistory.length > 0 && data.academic.volunteerHistory[0].organization) {
+                profileTasks.find(t=>t.id==='vol').done = true;
+                let volXp = data.academic.volunteerHistory.length * 15;
+                xp += volXp; breakdownHTML += `<div class="xp-list-item"><span>Volunteer/Internships</span><strong style="color:var(--success);">+${volXp} XP</strong></div>`;
+            }
+
+            if(data.academic.hobbies && data.academic.hobbies.length > 0) {
+                profileTasks.find(t=>t.id==='hob').done = true;
+                let hobXp = data.academic.hobbies.length * 5;
+                xp += hobXp; breakdownHTML += `<div class="xp-list-item"><span>Hobbies Logged</span><strong style="color:var(--success);">+${hobXp} XP</strong></div>`;
+            }
+
+            if(data.academic.interests && (data.academic.interests.music || data.academic.interests.movies || data.academic.interests.sports)) {
+                profileTasks.find(t=>t.id==='int').done = true;
+                xp += 15; breakdownHTML += `<div class="xp-list-item"><span>Media Interests Logged</span><strong style="color:var(--success);">+15 XP</strong></div>`;
+            }
             
-            focusTitle = "Take Psychometric Assessment";
-            focusDesc = "Takes approx 25 minutes. Essential to unlock your AI-driven matches.";
-            focusBtnText = "Start Assessment ➔";
-            focusAction = "launchAssessment()";
+            if(profileTasks.find(t=>t.id==='target').done && profileTasks.find(t=>t.id==='edu').done) {
+                score += 1; 
+                unlockBadge('badge-academic', 'unlocked-primary', 20);
+                document.getElementById('dot-portfolio').innerText = "✔";
+                
+                focusTitle = "Take Psychometric Assessment";
+                focusDesc = "Takes approx 25 minutes. Essential to unlock your AI-driven matches.";
+                focusBtnText = "Start Assessment ➔";
+                focusAction = "launchAssessment()";
+            }
         } 
         
         if(data.assessmentCompleted) { 
-            score += 3; xp += 40; percentProgress = 60;
+            profileTasks.find(t=>t.id==='ass').done = true;
+            score += 3; xp += 50; 
+            breakdownHTML += `<div class="xp-list-item"><span>Assessment Completed</span><strong style="color:var(--success);">+50 XP</strong></div>`;
             unlockBadge('badge-assessed', 'unlocked-primary', 40);
             document.getElementById('tl-step-2').classList.add('completed');
             document.getElementById('dot-report').innerText = "✔";
@@ -1231,7 +922,9 @@
         }
 
         if(data.sessionsHad && data.sessionsHad > 0) { 
-            score += 2; xp += 60; percentProgress = 85;
+            profileTasks.find(t=>t.id==='ses').done = true;
+            score += 2; xp += 50; 
+            breakdownHTML += `<div class="xp-list-item"><span>Counselling Session</span><strong style="color:var(--success);">+50 XP</strong></div>`;
             unlockBadge('badge-counselled', 'unlocked-primary', 60);
             document.getElementById('tl-step-3').classList.add('completed');
             document.getElementById('dot-counselling').innerText = "✔";
@@ -1244,7 +937,9 @@
         }
 
         if(data.careerLocked) {
-            score = 10; xp += 100; percentProgress = 100;
+            profileTasks.find(t=>t.id==='loc').done = true;
+            score = 10; xp += 100; 
+            breakdownHTML += `<div class="xp-list-item"><span>Career Path Locked 🔒</span><strong style="color:var(--success);">+100 XP</strong></div>`;
             unlockBadge('badge-locked', 'unlocked-success', 100);
             document.getElementById('tl-step-4').classList.add('completed');
             document.getElementById('lockCareerSection').style.display = 'none'; 
@@ -1255,18 +950,15 @@
             focusDesc = "Your path is set. Follow your recommended 1-Year Execution strategy.";
             focusBtnText = "View Execution Plan ➔";
             focusAction = "switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])";
-        } else if (score >= 8) {
-            document.getElementById('lockCareerSection').style.display = 'block'; document.getElementById('careerLockedSuccess').style.display = 'none';
-        } else {
-            document.getElementById('lockCareerSection').style.display = 'none'; document.getElementById('careerLockedSuccess').style.display = 'none';
         }
 
+        // Apply Logic UI updates
+        let levelName = "Level 1 - Explorer"; let levelText = "You are beginning your career discovery journey."; let percentile = 82; 
         if(score >= 10) { levelName = "Level 5 - Decided"; levelText = "Path locked. Action plan activated. Time to execute."; percentile = 95; }
         else if (score >= 8) { levelName = "Level 4 - Strategist"; levelText = "Excellent clarity! You are ready to lock your final strategic path."; percentile = 88;}
         else if (score >= 6) { levelName = "Level 3 - Analyst"; levelText = "You've moved from exploration to structured comparison."; percentile = 65;}
         else if (score >= 4) { levelName = "Level 2 - Discoverer"; levelText = "Assessment complete. Analyzing your natural aptitudes."; percentile = 40;}
         
-        // Update DOM elements
         document.getElementById('dynLevelTitle').innerText = levelName;
         document.getElementById('dynClarityText').innerText = levelText;
         document.getElementById('dynPercentile').innerText = percentile;
@@ -1279,7 +971,22 @@
         fBtn.innerText = focusBtnText;
         fBtn.setAttribute('onclick', focusAction);
 
-        // Render top level XP animation 
+        // Update Modals
+        document.getElementById('xpBreakdownList').innerHTML = breakdownHTML;
+        
+        let completedCount = profileTasks.filter(t => t.done).length;
+        let percentProgress = Math.round((completedCount / profileTasks.length) * 100);
+        document.getElementById('modalProgressBar').style.width = percentProgress + "%";
+        document.getElementById('sideProfileBar').style.width = percentProgress + "%";
+        document.getElementById('sideProfileText').innerText = percentProgress + "%";
+
+        document.getElementById('progressTaskList').innerHTML = profileTasks.map(t => {
+            return `<div class="prog-task-item ${t.done ? 'done' : 'pending'}">
+                <span>${t.done ? '✅' : '⏳'}</span>
+                <span style="flex:1;">${t.name}</span>
+            </div>`;
+        }).join('');
+
         updateTopXP(xp, levelName);
 
         if(data.assessmentCompleted && data.fullReport) {
@@ -1300,119 +1007,82 @@
                     <div class="career-pill" style="border-left: 4px solid var(--secondary);"><span>${rep.topCareers[1].name}</span> <span>⭐ Good Match</span></div>
                 `;
             }
-
-            if (typeof Chart !== 'undefined') {
-                let existingChart = Chart.getChart('reportRiasecChart');
-                if (existingChart) { existingChart.destroy(); }
-
-                const reportCtx = document.getElementById('reportRiasecChart').getContext('2d');
-                new Chart(reportCtx, { 
-                    type: 'radar', 
-                    data: { 
-                        labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'], 
-                        datasets: [{ 
-                            data: [rep.scores.R, rep.scores.I, rep.scores.A, rep.scores.S, rep.scores.E, rep.scores.C], 
-                            backgroundColor: 'rgba(59, 130, 246, 0.2)', 
-                            borderColor: '#3b82f6', 
-                            pointBackgroundColor: '#0f172a' 
-                        }] 
-                    }, 
-                    options: { maintainAspectRatio: false, scales: { r: { max: 100, min: 0, ticks:{display:false} } }, plugins: { legend: { display: false } } } 
-                });
-            }
         }
 
         setTimeout(() => {
             document.getElementById('dynClarityBar').style.width = (score * 10) + "%";
-            document.getElementById('sideProfileBar').style.width = percentProgress + "%";
-            document.getElementById('sideProfileText').innerText = percentProgress + "%";
-            renderMiniChart(score);
+            if (typeof Chart !== 'undefined') {
+                const ctx = document.getElementById('miniClarityChart');
+                if(ctx) {
+                    if(miniChartInstance) miniChartInstance.destroy();
+                    miniChartInstance = new Chart(ctx.getContext('2d'), {
+                        type: 'line',
+                        data: { labels: ['Start', 'Profile', 'Assessment', 'Now'], datasets: [{ data: [1, 3, score >= 6 ? 6 : score, score], borderColor: '#fcd34d', borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#ffffff', tension: 0.4 }] },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: {enabled: false} }, scales: { x: { display: false }, y: { display: false, min: 0, max: 10 } }, layout: { padding: 5 } }
+                    });
+                }
+            }
         }, 300);
     }
 
-    function lockUI() {
-        document.getElementById('academicInputCard').style.pointerEvents = 'none';
-        document.getElementById('academicInputCard').style.opacity = '0.6';
-    }
-
-    window.lockFinalCareer = async function() {
-        if(!confirm("Are you sure you want to lock your career path? This will finalize your timeline and freeze comparisons.")) return;
-        try { 
-            await updateDoc(doc(db, "students", activeUserUid), { careerLocked: true }); 
-            studentDataObj.careerLocked = true; 
-            calculateDynamicScore(studentDataObj);
-            
-            const successBox = document.getElementById('careerLockedSuccess');
-            successBox.style.animation = 'lockSuccessPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            showToastNotification("Achievement Unlocked! 🏆", "You have officially locked your strategic career path.");
-        } catch(e) { console.error(e); }
-    }
-
-    // --- NEW MASTER SAVE LOGIC FOR COMPLETE PORTFOLIO ---
+    // --- SAVE LOGIC ---
     window.saveAcademicPortfolio = async function() {
         if(!activeUserUid) return;
-        
         const btn = document.getElementById('saveProfileBtn');
-        btn.innerText = "Saving Profile... ⏳";
-        btn.disabled = true;
+        btn.innerText = "Saving Profile... ⏳"; btn.disabled = true;
 
-        const sys = document.getElementById('portGradingSystem').value;
-        const scoreVal = parseFloat(document.getElementById('portOverallScore').value);
+        // Current Target logic
+        const curTrend = document.getElementById('portTrend').value;
+        const curStream = document.getElementById('portStream').value;
 
-        if (!isNaN(scoreVal)) {
-            if ((sys.includes('%') || sys === 'Percentile') && scoreVal > 100) { btn.disabled=false; btn.innerText="💾 Save Complete Profile"; return alert("Score cannot be greater than 100 for Percentage or Percentile.");}
-            if (sys.includes('4') && scoreVal > 4) { btn.disabled=false; btn.innerText="💾 Save Complete Profile"; return alert("Score cannot be greater than 4 for a 4-point GPA system.");}
-            if (sys.includes('10') && scoreVal > 10) { btn.disabled=false; btn.innerText="💾 Save Complete Profile"; return alert("Score cannot be greater than 10 for a 10-point CGPA system.");}
-        }
-
-        // Subjects
-        const subjectNodes = document.querySelectorAll('.subject-row');
-        let parsedSubjects = [];
-        subjectNodes.forEach(node => {
-            let n = node.querySelector('.sub-name').value.trim();
-            let s = node.querySelector('.sub-score').value.trim();
-            let g = node.querySelector('.sub-grade').value.trim();
-            if(n || s) { parsedSubjects.push({ name: n, score: s, grade: g }); }
-        });
-
-        // Volunteer / Work Data
+        // Volunteer Data
         const volBlocks = document.querySelectorAll('#volunteerContainer .entry-block');
         let volData = [];
         volBlocks.forEach(b => {
-            volData.push({
-                organization: b.querySelector('.vol-org').value,
-                role: b.querySelector('.vol-role').value,
-                from: b.querySelector('.vol-from').value,
-                current: b.querySelector('.vol-current').checked,
-                to: b.querySelector('.vol-to').value,
-                type: b.querySelector('.vol-type').value,
-                state: b.querySelector('.vol-state').value,
-                district: b.querySelector('.vol-district').value,
-                city: b.querySelector('.vol-city').value,
-                desc: b.querySelector('.vol-desc').value
-            });
+            let org = b.querySelector('.vol-org').value.trim();
+            if(org) {
+                volData.push({
+                    organization: org,
+                    role: b.querySelector('.vol-role').value,
+                    from: b.querySelector('.vol-from').value,
+                    current: b.querySelector('.vol-current').checked,
+                    to: b.querySelector('.vol-to').value,
+                    type: b.querySelector('.vol-type').value,
+                    state: b.querySelector('.vol-state').value,
+                    desc: b.querySelector('.vol-desc').value
+                });
+            }
         });
 
-        // Edu Data
+        // Edu Data with nested subjects
         const eduBlocks = document.querySelectorAll('#educationContainer .entry-block');
         let eduData = [];
         eduBlocks.forEach(b => {
-            eduData.push({
-                level: b.querySelector('.edu-level').value,
-                name: b.querySelector('.edu-name').value,
-                from: b.querySelector('.edu-from').value,
-                to: b.querySelector('.edu-to').value,
-                subjects: b.querySelector('.edu-subjects').value
-            });
+            let n = b.querySelector('.edu-name').value.trim();
+            if(n) {
+                let subjects = [];
+                b.querySelectorAll('.edu-subject-row').forEach(row => {
+                    let sName = row.querySelector('.edu-sub-name').value.trim();
+                    let sScore = row.querySelector('.edu-sub-score').value.trim();
+                    if(sName || sScore) subjects.push({name: sName, score: sScore});
+                });
+
+                eduData.push({
+                    level: b.querySelector('.edu-level').value,
+                    name: n,
+                    certName: b.querySelector('.edu-cert-name') ? b.querySelector('.edu-cert-name').value : "",
+                    from: b.querySelector('.edu-from').value,
+                    to: b.querySelector('.edu-to').value,
+                    gradingSystem: b.querySelector('.edu-grading-sys').value,
+                    score: b.querySelector('.edu-overall-score').value,
+                    subjects: subjects
+                });
+            }
         });
 
-        // Build Payload
         const academicData = { 
-            gradingSystem: sys,
-            overallScore: isNaN(scoreVal) ? "" : scoreVal,
-            trend: document.getElementById('portTrend').value,
-            stream: document.getElementById('portStream').value,
-            subjects: parsedSubjects,
+            trend: curTrend,
+            stream: curStream,
             extraCurriculars: document.getElementById('portExtraCurricular').value.trim(),
             volunteerHistory: volData,
             eduHistory: eduData,
@@ -1429,13 +1099,8 @@
 
         try {
             await setDoc(doc(db, "students", activeUserUid), { academic: academicData }, { merge: true });
-            
-            // Also update top level photo if it changed
-            if(uploadedImageBase64) {
-                 await updateDoc(doc(db, "students", activeUserUid), { photo: uploadedImageBase64 });
-            }
-
-            showToastNotification("Profile Updated!", "Your complete dossier has been securely saved.");
+            if(uploadedImageBase64) await updateDoc(doc(db, "students", activeUserUid), { photo: uploadedImageBase64 });
+            showToastNotification("Profile Updated!", "Your complete dossier has been securely saved. XP Awarded!");
             if(!studentDataObj.academic) studentDataObj.academic = {};
             studentDataObj.academic = {...studentDataObj.academic, ...academicData}; 
             calculateDynamicScore(studentDataObj);
@@ -1469,36 +1134,12 @@
                     document.getElementById('stuInitials').innerText = firstName.charAt(0).toUpperCase();
                 }
                 
-                // --- LOAD COMPREHENSIVE DATA ---
                 if(data.academic) {
-                    if(data.academic.gradingSystem) { document.getElementById('portGradingSystem').value = data.academic.gradingSystem; updateGradingInput(); }
-                    if(data.academic.overallScore) document.getElementById('portOverallScore').value = data.academic.overallScore;
                     if(data.academic.trend) document.getElementById('portTrend').value = data.academic.trend;
                     if(data.academic.stream) document.getElementById('portStream').value = data.academic.stream;
                     if(data.academic.extraCurriculars) document.getElementById('portExtraCurricular').value = data.academic.extraCurriculars;
                     
-                    // Legacy Fallback
-                    if(!data.academic.overallScore && data.academic.marks) { document.getElementById('portOverallScore').value = data.academic.marks; }
-                    
-                    // Subjects
-                    const subContainer = document.getElementById('subjectContainer');
-                    subContainer.innerHTML = '';
-                    if(data.academic.subjects && data.academic.subjects.length > 0) {
-                        data.academic.subjects.forEach(sub => addSubjectRow(sub.name, sub.score, sub.grade));
-                        document.getElementById('subjectSectionWrapper').style.display = 'block';
-                        document.getElementById('toggleSubjectBtn').innerText = 'Hide Subjects ⬆';
-                    } else {
-                        addSubjectRow(); 
-                        if(data.academic.strongSub) { document.querySelector('.sub-name').value = data.academic.strongSub; }
-                    }
-
-                    // Hobbies
-                    if(data.academic.hobbies && Array.isArray(data.academic.hobbies)) {
-                        hobbiesArray = data.academic.hobbies;
-                        renderHobbies();
-                    }
-
-                    // Interests
+                    if(data.academic.hobbies && Array.isArray(data.academic.hobbies)) { hobbiesArray = data.academic.hobbies; renderHobbies(); }
                     if(data.academic.interests) {
                         document.getElementById('intMusic').value = data.academic.interests.music || '';
                         document.getElementById('intArtist').value = data.academic.interests.artist || '';
@@ -1508,24 +1149,17 @@
                         document.getElementById('intSports').value = data.academic.interests.sports || '';
                     }
 
-                    // Volunteer/Internships Logic (Maps old workHistory if present)
                     if(data.academic.volunteerHistory && data.academic.volunteerHistory.length > 0) {
                         data.academic.volunteerHistory.forEach(v => addVolunteerEntry(v));
                     } else if (data.academic.workHistory && data.academic.workHistory.length > 0) {
-                        // Migrate old work data to volunteer view automatically
-                        data.academic.workHistory.forEach(v => addVolunteerEntry({
-                            organization: v.company, role: v.position, from: v.from, to: v.to, current: v.current, type: v.type, state: v.state, district: v.district, city: v.city, desc: v.desc
-                        }));
-                    } else {
-                        addVolunteerEntry();
-                    }
+                        data.academic.workHistory.forEach(v => addVolunteerEntry({ organization: v.company, role: v.position, from: v.from, to: v.to, current: v.current, type: v.type, state: v.state, desc: v.desc }));
+                    } else addVolunteerEntry();
 
                     if(data.academic.eduHistory && data.academic.eduHistory.length > 0) {
                         data.academic.eduHistory.forEach(e => addEducationEntry(e));
                     } else addEducationEntry();
-
                 } else {
-                    addSubjectRow(); addVolunteerEntry(); addEducationEntry();
+                    addVolunteerEntry(); addEducationEntry();
                 }
 
                 calculateDynamicScore(data);
