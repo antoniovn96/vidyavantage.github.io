@@ -138,6 +138,36 @@
       .hobby-tag { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;}
       .hobby-tag span { cursor: pointer; color: var(--danger); font-weight: bold;}
 
+      /* CLARITY METER */
+      .clarity-meter-wrap { background: radial-gradient(circle at top right, #1e1b4b, #0f172a); color: white; padding: 45px; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.08); display: flex; flex-direction: column;}
+      .clarity-score { font-size: 3.2rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 5px; background: -webkit-linear-gradient(45deg, #fcd34d, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+      .meter-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 25px; overflow: hidden;}
+      .meter-fill { height: 100%; background: linear-gradient(90deg, #fcd34d, #f59e0b); width: 0%; border-radius: 10px; box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
+      .mini-chart-container { height: 50px; margin-top: 20px; width: 100%; opacity: 0.5;}
+
+      /* --- TIMELINE & PILLS --- */
+      .timeline-container { overflow: hidden; max-height: 0; transition: max-height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+      .timeline-container.expanded { max-height: 500px; }
+      .timeline-wrap { position: relative; margin-top: 10px; padding-left: 30px; border-left: 1px solid #e2e8f0; }
+      .timeline-step { position: relative; margin-bottom: 25px; opacity: 0.6; transition: 0.3s;}
+      .timeline-step::before { content: ''; position: absolute; left: -35px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: white; border: 2px solid #cbd5e1; transition: 0.3s;}
+      .timeline-step.completed { opacity: 1; }
+      .timeline-step.completed::before { background: var(--success); border-color: var(--success); box-shadow: 0 0 8px rgba(16,185,129,0.3);}
+      .timeline-step h4 { margin: 0 0 5px 0; color: #0f172a; font-size: 1rem; font-weight: 700; }
+      .timeline-step p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
+
+      .career-pill { background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: #1e293b; transition: 0.2s;}
+      .badge-code { display: inline-block; background: var(--primary); color: white; padding: 6px 20px; border-radius: 50px; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;}
+
+      .status-pill { padding: 4px 12px; border-radius: 50px; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;}
+      .status-success { background: #d1fae5; color: #059669; }
+
+      /* CHAT STYLES */
+      .chat-message { padding: 12px 18px; border-radius: 12px; margin-bottom: 12px; font-size: 0.95rem; max-width: 85%; line-height: 1.5;}
+      .chat-student { background: var(--primary); color: white; margin-left: auto; border-bottom-right-radius: 0; box-shadow: 0 4px 10px rgba(59,130,246,0.15);}
+      .chat-counsellor { background: #f1f5f9; color: #1e293b; margin-right: auto; border-bottom-left-radius: 0; border: 1px solid var(--border);}
+      .chat-time { font-size: 0.75rem; opacity: 0.7; margin-top: 6px; text-align: right; display: block;}
+
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
       @keyframes badgePop { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
       @keyframes fadeOut { to { opacity: 0; } }
@@ -199,7 +229,7 @@
         
         <div style="margin-top: 20px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 10px; cursor:pointer;" onclick="openModal('progressModal')" title="View Completion Details">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.7rem; color: #cbd5e1; text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Setup Progress</span>
+                <span style="font-size:0.7rem; color: #cbd5e1; text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Profile Setup</span>
                 <span style="font-size:0.7rem; color: var(--success); font-weight:bold;" id="sideProfileText">10%</span>
             </div>
             <div style="width:100%; height:6px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:6px; overflow:hidden;">
@@ -256,32 +286,22 @@
                 </div>
             </div>
 
-            <div class="card" id="riskAlertBanner" style="display:none; margin-bottom: 25px; padding: 20px; border-left: 4px solid var(--warning);">
-                <h3 id="riskAlertTitle" style="border-bottom: none; padding-bottom: 0; font-size: 1rem; margin-bottom: 5px;">⚠️ Academic Alignment</h3>
-                <p id="riskAlertText" style="margin-bottom: 0; font-size: 0.9rem; color: var(--text-muted);"></p>
-            </div>
-
             <div class="grid-2" style="grid-template-columns: 1.2fr 1fr; margin-bottom: 30px;">
-                
                 <div class="clarity-meter-wrap" style="cursor:pointer;" onclick="openModal('progressModal')">
                     <h3 style="margin-top:0; color:white; border:none; opacity:0.6; font-size:0.85rem; text-transform:uppercase; letter-spacing: 1.5px; margin-bottom: 15px;">Your Decision Readiness</h3>
-                    
                     <div style="margin-bottom: 15px;">
                         <span id="dynLevelTitle" style="font-size: 1.2rem; font-weight: 800; display:block; color:#cbd5e1; margin-bottom: 5px;">Level 1 - Explorer</span>
                         <div class="clarity-score"><span id="dynClarityScore">1</span><span style="font-size:1.8rem; color:rgba(255,255,255,0.3);">/10</span></div>
                     </div>
-
                     <p style="color:#f8fafc; font-size:1.05rem; line-height: 1.5; margin-bottom:5px; font-weight: 600;" id="dynClarityText">You are beginning your career discovery journey.</p>
-                    <p style="font-size: 0.8rem; color: #94a3b8; margin:0; margin-bottom: 20px;">Ahead of <span id="dynPercentile">18</span>% of students at your stage.</p>
                     
                     <div class="meter-bg"><div class="meter-fill" id="dynClarityBar"></div></div>
-                    <div class="mini-chart-container"><canvas id="miniClarityChart"></canvas></div>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 20px;">
                     <div class="card" style="margin: 0; flex: 1; border-top: 4px solid var(--accent); display: flex; flex-direction: column; justify-content: center;">
                         <h4 style="color:var(--accent); text-transform:uppercase; font-size:0.75rem; letter-spacing: 1px; margin: 0 0 10px 0;">🎯 Current Focus</h4>
-                        <h2 id="weeklyFocusTitle" style="margin:0 0 10px 0; font-size: 1.4rem; color: #0f172a;">Complete Baseline Profile</h2>
+                        <h2 id="weeklyFocusTitle" style="margin:0 0 10px 0; font-size: 1.4rem; color: #0f172a;">Complete Profile</h2>
                         <p id="weeklyFocusDesc" style="color:var(--text-muted); font-size:0.95rem; line-height: 1.5; margin-bottom: 20px;">Log your academic history to help the AI contextualize your assessment.</p>
                         <button id="weeklyFocusBtn" onclick="switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])" class="btn" style="width:100%; padding: 14px;">Update Profile ➔</button>
                     </div>
@@ -1113,7 +1133,6 @@
         const btn = document.getElementById('saveProfileBtn');
         btn.innerText = "Saving Profile... ⏳"; btn.disabled = true;
 
-        // Current Target logic
         const curTrend = document.getElementById('portTrend').value;
         const curStream = document.getElementById('portStream').value;
 
@@ -1190,8 +1209,137 @@
         finally { btn.innerText = "💾 Save Complete Profile"; btn.disabled = false; }
     }
 
+    // --- RESTORED REQUIRED FUNCTIONS ---
+    window.globalCounsellors = {};
+
+    window.showCounsellorTimes = function(cid) {
+        const infoBox = document.getElementById('bookingAvailInfo');
+        if(cid) { infoBox.style.display = 'block'; } else { infoBox.style.display = 'none'; }
+    }
+
+    window.submitBooking = async function() {
+        const cid = document.getElementById('bookCounsellorSelect').value;
+        const date = document.getElementById('bookDate').value;
+        const time = document.getElementById('bookTime').value;
+        const phone = document.getElementById('bookPhone').value;
+        const medium = document.getElementById('bookMedium').value;
+
+        if(!cid || !date || !time || !phone) return alert("Please complete all booking fields.");
+
+        const btn = document.getElementById('confirmBookingBtn');
+        btn.innerText = "Processing Booking... ⏳";
+        btn.disabled = true;
+
+        try {
+            await addDoc(collection(db, "bookings"), {
+                studentId: activeUserUid,
+                studentName: studentDataObj.name,
+                studentEmail: studentDataObj.email,
+                counsellorId: cid,
+                counsellorName: window.globalCounsellors[cid].name,
+                date: date, time: time, phone: phone, medium: medium,
+                status: "Pending", timestamp: serverTimestamp()
+            });
+
+            const currentSessions = studentDataObj.sessionsHad || 0;
+            await updateDoc(doc(db, "students", activeUserUid), { sessionsHad: currentSessions + 1 });
+            studentDataObj.sessionsHad = currentSessions + 1;
+            calculateDynamicScore(studentDataObj);
+
+            showToastNotification("Booking Confirmed! 🎉", `Your session on ${date} at ${time} is locked.`);
+            document.getElementById('bookDate').value = ""; document.getElementById('bookTime').value = ""; document.getElementById('bookPhone').value = ""; document.getElementById('bookCounsellorSelect').value = ""; showCounsellorTimes(""); 
+        } catch (e) { console.error(e); alert("Error connecting to the scheduling system."); } finally { btn.innerText = "Confirm Booking"; btn.disabled = false; }
+    }
+
+    async function loadCounsellors() {
+        const chatSelect = document.getElementById('studentChatSelect');
+        const bookSelect = document.getElementById('bookCounsellorSelect');
+        window.globalCounsellors = {};
+        try {
+            const snap = await getDocs(collection(db, "counsellor_profiles"));
+            if(!snap.empty) {
+                chatSelect.innerHTML = '<option value="">-- Choose your assigned Counsellor --</option>';
+                bookSelect.innerHTML = '<option value="">-- Choose an Expert --</option>';
+                activeChatListeners.forEach(unsub => unsub()); activeChatListeners.length = 0;
+
+                snap.forEach(docSnap => {
+                    const data = docSnap.data();
+                    window.globalCounsellors[docSnap.id] = data;
+                    const optionHtml = `<option value="${docSnap.id}">🟢 ${data.name || docSnap.id} - Online</option>`;
+                    chatSelect.innerHTML += optionHtml; bookSelect.innerHTML += optionHtml;
+
+                    const chatId = `${activeUserUid}_${docSnap.id}`;
+                    const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
+                    let isInitialLoad = true;
+
+                    const unsub = onSnapshot(q, (snapshot) => {
+                        snapshot.docChanges().forEach((change) => {
+                            if (change.type === "added") {
+                                const msg = change.doc.data();
+                                if (!isInitialLoad && msg.senderId !== activeUserUid) {
+                                    const isViewingChat = document.querySelector('.tab-content.active').id === 'tab-chat' && document.getElementById('studentChatSelect').value === docSnap.id;
+                                    if(!isViewingChat) {
+                                        globalUnreadCount++;
+                                        const badge = document.getElementById('notifBadge');
+                                        badge.innerText = globalUnreadCount; badge.style.display = 'flex';
+                                        showToastNotification(data.name || "Counsellor", "Sent you a new message.");
+                                    }
+                                }
+                            }
+                        });
+                        isInitialLoad = false;
+                    });
+                    activeChatListeners.push(unsub);
+                });
+            } else { chatSelect.innerHTML = '<option value="">No counsellors registered.</option>'; bookSelect.innerHTML = '<option value="">No experts registered.</option>'; }
+        } catch(e) { console.error("Error loading counsellors:", e); }
+    }
+
+    window.loadCounsellorChat = function(counsellorId) {
+        if(!counsellorId) { document.getElementById('counsellorProfileCard').innerHTML = "Select a counsellor to view profile."; return; }
+        const c = window.globalCounsellors[counsellorId];
+        if(c) {
+            document.getElementById('counsellorProfileCard').innerHTML = `
+                <img src="${c.photo || 'https://ui-avatars.com/api/?name=Expert&background=3b82f6&color=fff'}" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid var(--success); margin-bottom:15px;">
+                <h4 style="margin:0; color:#0f172a; font-size:1.1rem;">${c.name}</h4>
+                <p style="font-size:0.8rem; margin:5px 0; color:var(--success); font-weight:bold;">🟢 Online Now</p>
+                <p style="font-size:0.85rem; line-height:1.5;">${c.bio || 'Clinical Career Expert'}</p>
+            `;
+        }
+
+        if(unsubscribeChat) unsubscribeChat();
+        const chatBox = document.getElementById('studentChatMessages');
+        chatBox.innerHTML = '<div style="text-align:center; color:var(--text-muted); margin-top:40px;">Loading messages...</div>';
+
+        const chatId = `${activeUserUid}_${counsellorId}`;
+        const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
+
+        unsubscribeChat = onSnapshot(q, (snapshot) => {
+            let html = '<div style="text-align:center; color:var(--text-muted); margin-bottom: 25px; font-size:0.8rem; padding: 5px 15px; background: #f1f5f9; border-radius: 50px; display:inline-block; margin-left: 50%; transform: translateX(-50%);">🔒 Secure connection established.</div>';
+            if(snapshot.empty) { html += `<div class="chat-message chat-counsellor">Hi! I am your career expert. Send a message to start our session.</div>`; } 
+            else {
+                snapshot.forEach(doc => {
+                    const msg = doc.data();
+                    const isStudent = msg.senderId === activeUserUid;
+                    const timeString = msg.timestamp ? new Date(msg.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Sending...';
+                    html += `<div class="chat-message ${isStudent ? 'chat-student' : 'chat-counsellor'}">${msg.text}<span class="chat-time" style="${isStudent ? 'color:rgba(255,255,255,0.7);' : ''}">${timeString}</span></div>`;
+                });
+            }
+            chatBox.innerHTML = html; chatBox.scrollTop = chatBox.scrollHeight;
+        });
+    }
+
+    window.sendStudentChatMessage = async function() {
+        const input = document.getElementById('studentChatInput');
+        const text = input.value.trim();
+        const counsellorId = document.getElementById('studentChatSelect').value;
+        if(!text) return; if(!counsellorId) return alert("Please select a counsellor.");
+        input.value = ""; 
+        try { await addDoc(collection(db, "chats", `${activeUserUid}_${counsellorId}`, "messages"), { text: text, senderId: activeUserUid, senderType: 'student', timestamp: serverTimestamp() }); } 
+        catch(e) { console.error("Failed to send:", e); }
+    }
+
     // --- INITIALIZATION ---
-    // Past dates limit
     const todayStr = new Date().toISOString().split('T')[0];
     document.getElementById("bookDate").setAttribute('min', todayStr);
 
