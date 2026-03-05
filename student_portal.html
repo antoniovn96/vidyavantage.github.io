@@ -199,7 +199,7 @@
         
         <div style="margin-top: 20px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 10px; cursor:pointer;" onclick="openModal('progressModal')" title="View Completion Details">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.7rem; color: #cbd5e1; text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Profile Setup</span>
+                <span style="font-size:0.7rem; color: #cbd5e1; text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Setup Progress</span>
                 <span style="font-size:0.7rem; color: var(--success); font-weight:bold;" id="sideProfileText">10%</span>
             </div>
             <div style="width:100%; height:6px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:6px; overflow:hidden;">
@@ -256,22 +256,32 @@
                 </div>
             </div>
 
+            <div class="card" id="riskAlertBanner" style="display:none; margin-bottom: 25px; padding: 20px; border-left: 4px solid var(--warning);">
+                <h3 id="riskAlertTitle" style="border-bottom: none; padding-bottom: 0; font-size: 1rem; margin-bottom: 5px;">⚠️ Academic Alignment</h3>
+                <p id="riskAlertText" style="margin-bottom: 0; font-size: 0.9rem; color: var(--text-muted);"></p>
+            </div>
+
             <div class="grid-2" style="grid-template-columns: 1.2fr 1fr; margin-bottom: 30px;">
+                
                 <div class="clarity-meter-wrap" style="cursor:pointer;" onclick="openModal('progressModal')">
                     <h3 style="margin-top:0; color:white; border:none; opacity:0.6; font-size:0.85rem; text-transform:uppercase; letter-spacing: 1.5px; margin-bottom: 15px;">Your Decision Readiness</h3>
+                    
                     <div style="margin-bottom: 15px;">
                         <span id="dynLevelTitle" style="font-size: 1.2rem; font-weight: 800; display:block; color:#cbd5e1; margin-bottom: 5px;">Level 1 - Explorer</span>
                         <div class="clarity-score"><span id="dynClarityScore">1</span><span style="font-size:1.8rem; color:rgba(255,255,255,0.3);">/10</span></div>
                     </div>
+
                     <p style="color:#f8fafc; font-size:1.05rem; line-height: 1.5; margin-bottom:5px; font-weight: 600;" id="dynClarityText">You are beginning your career discovery journey.</p>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin:0; margin-bottom: 20px;">Ahead of <span id="dynPercentile">18</span>% of students at your stage.</p>
                     
                     <div class="meter-bg"><div class="meter-fill" id="dynClarityBar"></div></div>
+                    <div class="mini-chart-container"><canvas id="miniClarityChart"></canvas></div>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 20px;">
                     <div class="card" style="margin: 0; flex: 1; border-top: 4px solid var(--accent); display: flex; flex-direction: column; justify-content: center;">
                         <h4 style="color:var(--accent); text-transform:uppercase; font-size:0.75rem; letter-spacing: 1px; margin: 0 0 10px 0;">🎯 Current Focus</h4>
-                        <h2 id="weeklyFocusTitle" style="margin:0 0 10px 0; font-size: 1.4rem; color: #0f172a;">Complete Profile</h2>
+                        <h2 id="weeklyFocusTitle" style="margin:0 0 10px 0; font-size: 1.4rem; color: #0f172a;">Complete Baseline Profile</h2>
                         <p id="weeklyFocusDesc" style="color:var(--text-muted); font-size:0.95rem; line-height: 1.5; margin-bottom: 20px;">Log your academic history to help the AI contextualize your assessment.</p>
                         <button id="weeklyFocusBtn" onclick="switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])" class="btn" style="width:100%; padding: 14px;">Update Profile ➔</button>
                     </div>
@@ -331,6 +341,74 @@
                 <h4 style="margin: 0 0 10px 0; color: var(--success); font-size: 1.4rem; font-weight: 800;">Career Locked Successfully</h4>
                 <p style="color: #065f46; font-size: 0.95rem; margin-bottom: 20px;">Your parents and counselor have been notified. Time to execute the plan.</p>
                 <button class="btn" style="background: var(--success);" onclick="switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])">📄 View Final Execution Report</button>
+            </div>
+        </div>
+
+        <div id="tab-explore" class="tab-content">
+            <div class="header-bar">
+                <div><h1>Career Exploration Lab</h1><p>Your personalized university and subject recommendations.</p></div>
+                <button class="btn" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Launch Full College GPS ➔</button>
+            </div>
+            
+            <div id="exploreLabDynamicArea">
+                <div class="card" style="text-align:center; padding: 60px 20px; border-top: 4px solid var(--secondary);">
+                    <div style="font-size: 4rem; opacity: 0.5; margin-bottom: 15px;">🔍</div>
+                    <h3 style="justify-content: center; border:none;">Lab Locked</h3>
+                    <p style="color:var(--text-muted);">Complete your Psychometric Assessment to unlock personalized recommendations.</p>
+                    <button class="btn hide-from-parent" onclick="launchAssessment()" style="margin-top: 15px;">Take Assessment</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-report" class="tab-content">
+            <div class="header-bar">
+                <div><h1>My Career Report</h1><p>Your personalized, AI-driven psychometric analysis.</p></div>
+            </div>
+            
+            <div id="lockedReportUI" class="card" style="text-align:center; padding: 80px 20px;">
+                <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.8;">📄</div>
+                <h2 style="color: #0f172a; font-size: 1.8rem; margin-bottom: 15px;">Report Locked</h2>
+                <p style="color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">You need to complete your Psychometric Assessment before the AI can generate your personalized Career Report.</p>
+                <button onclick="launchAssessment()" class="btn hide-from-parent" style="padding: 15px 35px;">Take Assessment Now ➔</button>
+            </div>
+
+            <div id="unlockedReportUI" style="display:none;" class="report-render-area">
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🧠 Psychometric Profile</h3>
+                        <div style="margin-bottom: 20px;">
+                            <span class="badge-code" id="reportRiasecCode"></span>
+                        </div>
+                        <p id="reportProfileDesc" style="color: #334155; line-height: 1.6; font-size: 0.95rem;"></p>
+                        <div style="height: 250px; width: 100%; margin-top:20px;">
+                            <canvas id="reportRiasecChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🎯 Recommended Pathways</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:-5px; margin-bottom: 15px;">Fields matching your natural aptitudes.</p>
+                        <div id="reportCareersContainer"></div>
+                        
+                        <h3 style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">🚫 Vulnerability Zones</h3>
+                        <p style="font-size: 0.85rem; color: #475569; margin-top:-5px; margin-bottom: 10px;">Careers leading to higher burnout probability.</p>
+                        <p id="reportAvoid" style="color: var(--danger); font-weight: bold; font-size: 0.95rem;"></p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>📅 1-Year Execution Action Plan</h3>
+                    <div class="grid-2">
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid transparent;">
+                            <h4 style="color: var(--primary); margin-top: 0;">📚 Recommended Courses</h4>
+                            <ul id="reportPlanCourses" style="color: #334155; line-height: 1.6; font-size: 0.9rem;"></ul>
+                        </div>
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid transparent;">
+                            <h4 style="color: var(--primary); margin-top: 0;">🎯 Exams & Focus</h4>
+                            <ul id="reportPlanExams" style="color: #334155; line-height: 1.6; font-size: 0.9rem;"></ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -417,49 +495,6 @@
 
             <button class="btn hide-from-parent" id="saveProfileBtn" onclick="saveAcademicPortfolio()" style="width:100%; padding:18px; font-size:1.1rem; margin-top:20px; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);">💾 Save Complete Profile</button>
         </div>
-        
-        <div id="tab-explore" class="tab-content">
-            <div class="header-bar">
-                <div><h1>Career Exploration Lab</h1><p>Your personalized university and subject recommendations.</p></div>
-                <button class="btn" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Launch Full College GPS ➔</button>
-            </div>
-            <div id="exploreLabDynamicArea">
-                <div class="card" style="text-align:center; padding: 60px 20px; border-top: 4px solid var(--secondary);">
-                    <div style="font-size: 4rem; opacity: 0.5; margin-bottom: 15px;">🔍</div>
-                    <h3 style="justify-content: center; border:none;">Lab Locked</h3>
-                    <p style="color:var(--text-muted);">Complete your Psychometric Assessment to unlock personalized recommendations.</p>
-                    <button class="btn hide-from-parent" onclick="launchAssessment()" style="margin-top: 15px;">Take Assessment</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-report" class="tab-content">
-            <div class="header-bar"><div><h1>My Career Report</h1><p>Your personalized, AI-driven psychometric analysis.</p></div></div>
-            <div id="lockedReportUI" class="card" style="text-align:center; padding: 80px 20px;">
-                <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.8;">📄</div>
-                <h2 style="color: #0f172a; font-size: 1.8rem; margin-bottom: 15px;">Report Locked</h2>
-                <p style="color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">You need to complete your Psychometric Assessment before the AI can generate your personalized Career Report.</p>
-                <button onclick="launchAssessment()" class="btn hide-from-parent" style="padding: 15px 35px;">Take Assessment Now ➔</button>
-            </div>
-            <div id="unlockedReportUI" style="display:none;" class="report-render-area">
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>🧠 Psychometric Profile</h3>
-                        <div style="margin-bottom: 20px;"><span class="badge-code" id="reportRiasecCode"></span></div>
-                        <p id="reportProfileDesc" style="color: #334155; line-height: 1.6; font-size: 0.95rem;"></p>
-                        <div style="height: 250px; width: 100%; margin-top:20px;"><canvas id="reportRiasecChart"></canvas></div>
-                    </div>
-                    <div class="card">
-                        <h3>🎯 Recommended Pathways</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:-5px; margin-bottom: 15px;">Fields matching your natural aptitudes.</p>
-                        <div id="reportCareersContainer"></div>
-                        <h3 style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">🚫 Vulnerability Zones</h3>
-                        <p style="font-size: 0.85rem; color: #475569; margin-top:-5px; margin-bottom: 10px;">Careers leading to higher burnout probability.</p>
-                        <p id="reportAvoid" style="color: var(--danger); font-weight: bold; font-size: 0.95rem;"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div id="tab-counselling" class="tab-content">
             <div class="header-bar"><h1>Book Expert Session</h1><p>Get 1-on-1 clarity with a certified professional.</p></div>
@@ -470,16 +505,28 @@
                         <label class="form-label">Select Expert Counsellor</label>
                         <select class="form-select" id="bookCounsellorSelect" onchange="showCounsellorTimes(this.value)"><option value="">-- Loading Experts --</option></select>
                     </div>
+                    
                     <div id="bookingAvailInfo" style="margin-bottom: 25px; padding: 20px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; display:none;">
                         <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Availability</span><span id="bookingTimeText" style="color:#0f172a; font-weight:800;">Mon, Wed, Fri</span></div>
                         <div style="display:flex; justify-content:space-between; border-top: 1px dashed var(--border); padding-top:10px; margin-top:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Consultation Fee</span><span style="color:var(--success); font-weight:800; font-size:1rem;">100% Free</span></div>
+                        
                         <div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">
                             <div class="grid-2col" style="margin-bottom: 15px;">
-                                <div class="form-group" style="margin:0;"><label class="form-label">Select Date</label><input type="date" id="bookDate" class="form-input" required></div>
-                                <div class="form-group" style="margin:0;"><label class="form-label">Select Time</label><input type="time" id="bookTime" class="form-input" required></div>
+                                <div class="form-group" style="margin:0;">
+                                    <label class="form-label">Select Date</label>
+                                    <input type="date" id="bookDate" class="form-input" required>
+                                </div>
+                                <div class="form-group" style="margin:0;">
+                                    <label class="form-label">Select Time</label>
+                                    <input type="time" id="bookTime" class="form-input" required>
+                                </div>
                             </div>
-                            <div class="form-group" style="margin-bottom: 15px;"><label class="form-label">Contact Number</label><input type="tel" id="bookPhone" class="form-input" placeholder="+91 99999 99999" required></div>
-                            <div class="form-group" style="margin:0;"><label class="form-label">Preferred Medium</label>
+                            <div class="form-group" style="margin-bottom: 15px;">
+                                <label class="form-label">Contact Number</label>
+                                <input type="tel" id="bookPhone" class="form-input" placeholder="+91 99999 99999" required>
+                            </div>
+                            <div class="form-group" style="margin:0;">
+                                <label class="form-label">Preferred Medium</label>
                                 <select id="bookMedium" class="form-select">
                                     <option value="Google Meet">Google Meet (Video)</option>
                                     <option value="Phone Call">Direct Phone Call</option>
@@ -487,13 +534,19 @@
                             </div>
                         </div>
                     </div>
+                    
                     <button class="btn hide-from-parent" id="confirmBookingBtn" onclick="submitBooking()" style="width:100%; padding: 14px;">Confirm Booking</button>
                 </div>
             </div>
         </div>
 
         <div id="tab-chat" class="tab-content">
-            <div class="header-bar"><div><h1>Direct Chat</h1><p>Secure messaging with your assigned expert.</p></div></div>
+            <div class="header-bar">
+                <div>
+                    <h1>Direct Chat</h1>
+                    <p>Secure messaging with your assigned expert.</p>
+                </div>
+            </div>
             <div class="grid-3-1">
                 <div class="card" style="padding:0; overflow:hidden; display:flex; flex-direction:column; height:60vh;">
                     <div style="padding: 20px 25px; border-bottom: 1px solid var(--border); background: #f8fafc;">
@@ -572,7 +625,7 @@
     window.openModal = function(id) { document.getElementById(id).classList.add('active'); }
     window.closeModal = function(id) { document.getElementById(id).classList.remove('active'); }
 
-    // India Data & Datalists remain identical
+    // India Data & Datalists
     const indiaData = {
         "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool"],
         "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi"],
@@ -647,6 +700,16 @@
     }
 
     // --- OVERHAULED EDUCATION LOGIC ---
+    window.updateDynamicGradingInput = function(selectElem) {
+        const sys = selectElem.value;
+        const block = selectElem.closest('.entry-block');
+        const inp = block.querySelector('.edu-overall-score');
+        if(sys.includes('%') || sys === 'Percentile') { inp.placeholder = 'e.g. 88'; inp.max = 100; }
+        else if(sys.includes('4')) { inp.placeholder = 'e.g. 3.8'; inp.max = 4; }
+        else if(sys.includes('10')) { inp.placeholder = 'e.g. 9.2'; inp.max = 10; }
+        else { inp.placeholder = 'Score/Grade'; inp.removeAttribute('max'); }
+    }
+
     window.updateEduLabels = function(selectElem) {
         const level = selectElem.value;
         const block = selectElem.closest('.entry-block');
@@ -682,7 +745,7 @@
         const nameLabel = isSchool ? 'School Name' : (isCert ? 'Institution / Platform' : 'College / Institute Name');
         const displayCert = isCert ? 'block' : 'none';
         const displayFromDate = isSchool ? 'none' : 'block';
-        const toLabelTxt = isSchool ? 'Date of Completion' : 'To Date';
+        const toLabelTxt = isSchool ? 'Date of Completion' : (isCert ? 'To Date (Or completion)' : 'To Date');
 
         let sysOptions = `
             <option value="Percentage (%)" ${data.gradingSystem==='Percentage (%)'?'selected':''}>Percentage (%)</option>
@@ -726,12 +789,12 @@
                 <div class="form-group edu-to-box"><label class="form-label edu-to-label">${toLabelTxt}</label><input type="date" class="form-input edu-to" value="${data.to || ''}"></div>
                 
                 <div class="form-group"><label class="form-label">Grading System</label>
-                    <select class="form-select edu-grading-sys">${sysOptions}</select>
+                    <select class="form-select edu-grading-sys" onchange="updateDynamicGradingInput(this)">${sysOptions}</select>
                 </div>
                 <div class="form-group"><label class="form-label">Overall Score / CGPA</label><input type="text" class="form-input edu-overall-score" placeholder="e.g. 85 or 9.2" value="${data.score || ''}"></div>
             </div>
 
-            <div style="border-top: 1px dashed var(--border); padding-top: 15px; margin-top: 10px;">
+            <div style="border-top: 1px dashed #cbd5e1; padding-top: 15px; margin-top: 10px;">
                 <label class="form-label">Subject-wise Marks (Optional but adds XP!)</label>
                 <div class="edu-subjects-container">${subjectsHtml}</div>
                 <button type="button" class="btn btn-outline" onclick="addEduSubjectRow(this)" style="padding: 6px 12px; font-size: 0.8rem; margin-top: 10px;">+ Add Subject</button>
@@ -821,7 +884,6 @@
             topXpEl.innerText = newXp;
             if(modalXpTotal) modalXpTotal.innerText = newXp + " XP";
             
-            // Trigger bump animation
             if (currentGlobalXP !== -1) {
                 xpContainer.classList.remove('xp-bump');
                 void xpContainer.offsetWidth; // Trigger reflow
@@ -863,7 +925,7 @@
                 xp += 10; breakdownHTML += `<div class="xp-list-item"><span>Academic Target Set</span><strong style="color:var(--success);">+10 XP</strong></div>`;
             }
 
-            if(data.academic.eduHistory && data.academic.eduHistory.length > 0) {
+            if(data.academic.eduHistory && data.academic.eduHistory.length > 0 && data.academic.eduHistory[0].name) {
                 profileTasks.find(t=>t.id==='edu').done = true;
                 score += 1;
                 data.academic.eduHistory.forEach(edu => {
@@ -1007,6 +1069,26 @@
                     <div class="career-pill" style="border-left: 4px solid var(--secondary);"><span>${rep.topCareers[1].name}</span> <span>⭐ Good Match</span></div>
                 `;
             }
+
+            if (typeof Chart !== 'undefined') {
+                let existingChart = Chart.getChart('reportRiasecChart');
+                if (existingChart) { existingChart.destroy(); }
+
+                const reportCtx = document.getElementById('reportRiasecChart').getContext('2d');
+                new Chart(reportCtx, { 
+                    type: 'radar', 
+                    data: { 
+                        labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'], 
+                        datasets: [{ 
+                            data: [rep.scores.R, rep.scores.I, rep.scores.A, rep.scores.S, rep.scores.E, rep.scores.C], 
+                            backgroundColor: 'rgba(59, 130, 246, 0.2)', 
+                            borderColor: '#3b82f6', 
+                            pointBackgroundColor: '#0f172a' 
+                        }] 
+                    }, 
+                    options: { maintainAspectRatio: false, scales: { r: { max: 100, min: 0, ticks:{display:false} } }, plugins: { legend: { display: false } } } 
+                });
+            }
         }
 
         setTimeout(() => {
@@ -1070,7 +1152,7 @@
                 eduData.push({
                     level: b.querySelector('.edu-level').value,
                     name: n,
-                    certName: b.querySelector('.edu-cert-name') ? b.querySelector('.edu-cert-name').value : "",
+                    certName: b.querySelector('.edu-cert-name') ? b.querySelector('.edu-cert-name').value.trim() : "",
                     from: b.querySelector('.edu-from').value,
                     to: b.querySelector('.edu-to').value,
                     gradingSystem: b.querySelector('.edu-grading-sys').value,
@@ -1106,6 +1188,44 @@
             calculateDynamicScore(studentDataObj);
         } catch(e) { console.error(e); alert("Failed to save. Check your connection.");}
         finally { btn.innerText = "💾 Save Complete Profile"; btn.disabled = false; }
+    }
+
+    // --- INITIALIZATION ---
+    // Past dates limit
+    const todayStr = new Date().toISOString().split('T')[0];
+    document.getElementById("bookDate").setAttribute('min', todayStr);
+
+    window.launchAssessment = function() {
+        const currentUrl = window.location.href;
+        const basePath = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+        window.location.href = basePath + "/assessment/";
+    };
+
+    window.switchTab = function(tabId, btn) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+        document.getElementById('headerTitle').innerText = btn.innerText.replace(/[^\w\s]/gi, '').trim();
+        
+        if(tabId === 'tab-chat') {
+            globalUnreadCount = 0;
+            const badge = document.getElementById('notifBadge');
+            badge.style.display = 'none';
+            badge.innerText = '0';
+        }
+    };
+
+    window.toggleMilestones = function() {
+        const section = document.getElementById('milestoneSection');
+        const btn = document.getElementById('milestoneToggleBtn');
+        if (section.classList.contains('expanded')) {
+            section.classList.remove('expanded');
+            btn.innerText = "View Timeline Progress ⬇";
+        } else {
+            section.classList.add('expanded');
+            btn.innerText = "Hide Progress ⬆";
+        }
     }
 
     onAuthStateChanged(auth, async (user) => {
