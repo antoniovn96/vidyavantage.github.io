@@ -39,8 +39,11 @@
           background: transparent; border: none; padding: 0; font-weight: bold; color: var(--primary); pointer-events: none; -webkit-appearance: none; appearance: none;
       }
 
-      /* --- NOTIFICATION UI --- */
+      /* --- HEADER & NOTIFICATION UI --- */
       .header-actions { display: flex; align-items: center; gap: 20px; }
+      .site-link { color: var(--primary); text-decoration: none; font-weight: bold; padding: 8px 12px; border-radius: 8px; background: rgba(59, 130, 246, 0.1); transition: 0.2s; font-size: 0.9rem;}
+      .site-link:hover { background: rgba(59, 130, 246, 0.2); }
+      
       .notif-bell { position: relative; font-size: 1.3rem; cursor: pointer; transition: 0.2s; opacity: 0.8;}
       .notif-bell:hover { transform: scale(1.1); opacity: 1;}
       .notif-badge { position: absolute; top: -5px; right: -5px; background: var(--danger); color: white; font-size: 0.65rem; font-weight: bold; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; display: none; border: 2px solid white;}
@@ -121,22 +124,61 @@
       .chat-counsellor { background: #f1f5f9; color: #1e293b; margin-right: auto; border-bottom-left-radius: 0; border: 1px solid var(--border);}
       .chat-time { font-size: 0.75rem; opacity: 0.7; margin-top: 6px; text-align: right; display: block;}
 
-      /* Form Elements */
+      /* --- ENHANCED FORM ELEMENTS & ACCORDIONS (FROM ADMIN) --- */
       .form-group { margin-bottom: 20px; }
       .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;}
       .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); background: #f8fafc; color: #0f172a; box-sizing: border-box; font-family: inherit; font-size: 0.95rem; transition: 0.3s;}
       .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #93c5fd; outline: none; background: white; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);}
       
-      /* Dynamic Subject Row */
-      .subject-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
-      .subject-row .form-group { margin-bottom: 0; flex: 1; }
-      .btn-remove-sub { background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; font-size: 1.2rem; margin-top: 24px;}
-      .btn-remove-sub:hover { background: #fca5a5; color: white; }
+      details.profile-acc {
+          background: #f8fafc;
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          margin-bottom: 15px;
+          overflow: hidden;
+      }
+      details.profile-acc summary {
+          padding: 18px 20px;
+          font-weight: 800;
+          font-size: 1.05rem;
+          color: #0f172a;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          list-style: none;
+          outline: none;
+          background: white;
+      }
+      details.profile-acc summary::-webkit-details-marker { display: none; }
+      details.profile-acc summary::after { content: '+'; color: var(--primary); font-size: 1.5rem; transition: 0.3s;}
+      details.profile-acc[open] summary::after { content: '×'; transform: rotate(45deg); color: var(--danger);}
+      details.profile-acc[open] summary { border-bottom: 1px solid var(--border); }
+      .acc-body { padding: 25px; background: white;}
 
-      /* Academic Steps UI */
-      .step-indicator { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 15px;}
-      .step-pill { background: #f1f5f9; color: var(--text-muted); padding: 6px 16px; border-radius: 50px; font-weight: 800; font-size: 0.85rem;}
-      .step-pill.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(59,130,246,0.2);}
+      /* Dynamic Entry Blocks */
+      .entry-block {
+          background: #f8fafc;
+          border: 1px dashed var(--border);
+          padding: 25px;
+          border-radius: 12px;
+          margin-bottom: 20px;
+          position: relative;
+      }
+      .remove-entry-btn {
+          position: absolute;
+          top: 15px; right: 15px;
+          background: transparent;
+          border: none;
+          color: var(--danger);
+          cursor: pointer;
+          font-weight: bold;
+      }
+      
+      /* Hobby Tags */
+      .hobby-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;}
+      .hobby-tag { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;}
+      .hobby-tag span { cursor: pointer; color: var(--danger); font-weight: bold;}
 
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
       @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
@@ -146,6 +188,14 @@
     </style>
 </head>
 <body>
+
+<datalist id="hobbySuggestions"></datalist>
+<datalist id="musicGenreSuggestions"></datalist>
+<datalist id="artistSuggestions"></datalist>
+<datalist id="tvSuggestions"></datalist>
+<datalist id="movieSuggestions"></datalist>
+<datalist id="gameSuggestions"></datalist>
+<datalist id="sportSuggestions"></datalist>
 
 <div class="sidebar">
     <div class="profile-info">
@@ -173,7 +223,7 @@
         <button class="nav-btn active" onclick="switchTab('tab-home', this)"><span class="nav-dot" id="dot-home">✔</span> Dashboard</button>
         <button class="nav-btn" onclick="switchTab('tab-report', this)"><span class="nav-dot" id="dot-report">○</span> Career Report</button>
         <button class="nav-btn" onclick="switchTab('tab-explore', this)"><span class="nav-dot" id="dot-explore">○</span> Career Lab</button>
-        <button class="nav-btn" onclick="switchTab('tab-portfolio', this)"><span class="nav-dot" id="dot-portfolio">○</span> Academic Profile</button>
+        <button class="nav-btn" onclick="switchTab('tab-portfolio', this)"><span class="nav-dot" id="dot-portfolio">○</span> My Profile</button>
         <button class="nav-btn" onclick="switchTab('tab-counselling', this)"><span class="nav-dot" id="dot-counselling">○</span> Book Expert</button>
         <button class="nav-btn hide-from-parent" onclick="switchTab('tab-chat', this)"><span class="nav-dot" id="dot-chat">○</span> Direct Chat</button>
         
@@ -188,6 +238,7 @@
     <div class="top-header">
         <h2 style="margin:0; font-size:1.15rem; color:var(--text-muted); font-weight:800;" id="headerTitle">Dashboard Home</h2>
         <div class="header-actions">
+            <a href="index.html" class="site-link">🌐 Live Site</a>
             <div class="notif-bell hide-from-parent" onclick="switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5])">
                 🔔 <span class="notif-badge" id="notifBadge">0</span>
             </div>
@@ -242,7 +293,7 @@
                         <h4 style="color:var(--accent); text-transform:uppercase; font-size:0.75rem; letter-spacing: 1px; margin: 0 0 10px 0;">🎯 Current Focus</h4>
                         <h2 id="weeklyFocusTitle" style="margin:0 0 10px 0; font-size: 1.4rem; color: #0f172a;">Complete Baseline Profile</h2>
                         <p id="weeklyFocusDesc" style="color:var(--text-muted); font-size:0.95rem; line-height: 1.5; margin-bottom: 20px;">Log your academic scores to help the AI contextualize your upcoming assessment.</p>
-                        <button id="weeklyFocusBtn" onclick="switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])" class="btn" style="width:100%; padding: 14px;">Update Academics ➔</button>
+                        <button id="weeklyFocusBtn" onclick="switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])" class="btn" style="width:100%; padding: 14px;">Update Profile ➔</button>
                     </div>
                 </div>
             </div>
@@ -263,7 +314,7 @@
                 <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
                     <div class="badge-container" style="margin-bottom: 30px;">
                         <div class="gamify-badge unlocked" id="badge-registered">Registered</div>
-                        <div class="gamify-badge" id="badge-academic">Academic Baseline</div>
+                        <div class="gamify-badge" id="badge-academic">Profile Built</div>
                         <div class="gamify-badge" id="badge-assessed">Assessed</div>
                         <div class="gamify-badge" id="badge-counselled">Counselled</div>
                         <div class="gamify-badge" id="badge-locked">Path Locked</div>
@@ -272,7 +323,7 @@
                     <div class="timeline-wrap">
                         <div class="timeline-step completed">
                             <h4>Phase 1: Foundation</h4>
-                            <p>Complete your profile settings and academic background.</p>
+                            <p>Complete your full academic and personal profile.</p>
                         </div>
                         <div class="timeline-step" id="tl-step-2">
                             <h4>Phase 2: Discovery</h4>
@@ -371,21 +422,15 @@
             </div>
         </div>
 
-        <div id="tab-portfolio" class="tab-content">
+        <div id="tab-portfolio" class="tab-content" style="padding-bottom: 100px;">
             <div class="header-bar">
-                <div><h1>Academic Profile</h1><p>Provide your context to enhance AI targeting.</p></div>
-            </div>
-            
-            <div class="step-indicator">
-                <span class="step-pill active">Step 1: Metrics & Subjects</span>
-                <span class="step-pill">Step 2: School Context</span>
+                <div><h1>My Complete Profile</h1><p>Build your professional and academic dossier to feed the AI.</p></div>
             </div>
 
-            <div class="grid-2">
-                <div class="card" id="academicInputCard" style="border-top: 4px solid var(--primary);">
-                    <h3>📊 Core Academic Metrics</h3>
-                    
-                    <div class="grid-2col" style="gap:15px;">
+            <details class="profile-acc" open id="academicInputCard">
+                <summary>📊 Core Academic Metrics</summary>
+                <div class="acc-body">
+                    <div class="grid-2col" style="gap:15px; margin-bottom:20px;">
                         <div class="form-group">
                             <label class="form-label">Grading System</label>
                             <select id="portGradingSystem" class="form-select" onchange="updateGradingInput()">
@@ -424,70 +469,66 @@
 
                     <div style="border-top: 1px solid var(--border); padding-top: 25px; margin-top:10px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                            <h3 style="border:none; padding:0; margin:0;">📘 Subject Breakdowns</h3>
+                            <h3 style="border:none; padding:0; margin:0; color:#0f172a; font-size:1.1rem;">📘 Current Subject Breakdowns</h3>
                             <button type="button" class="btn btn-outline" onclick="toggleSubjectSection()" id="toggleSubjectBtn" style="padding: 6px 12px; font-size: 0.8rem;">View / Add Subjects ⬇</button>
                         </div>
                         
                         <div id="subjectSectionWrapper" style="display:none;">
-                            <div id="subjectContainer">
-                                </div>
+                            <div id="subjectContainer"></div>
                             <button type="button" class="btn btn-outline" onclick="addSubjectRow()" style="margin-bottom: 10px; font-size: 0.85rem; padding: 8px 15px; width:100%;">➕ Add Another Subject</button>
                         </div>
                     </div>
                 </div>
+            </details>
 
-                <div>
-                    <div class="card" style="border-top: 4px solid #8b5cf6; margin-bottom: 20px;">
-                        <h3>🎓 School Context</h3>
-                        <div class="form-group">
-                            <label class="form-label">School Name</label>
-                            <input type="text" id="portSchoolName" class="form-input" placeholder="Enter full school name">
-                        </div>
-                        <div class="grid-2col" style="gap:15px;">
-                            <div class="form-group">
-                                <label class="form-label">Board of Studies</label>
-                                <select id="portBoard" class="form-select">
-                                    <option value="CBSE">CBSE</option>
-                                    <option value="ICSE">ICSE / ISC</option>
-                                    <option value="State Board">State Board</option>
-                                    <option value="IB">IB</option>
-                                    <option value="Cambridge (IGCSE)">Cambridge (IGCSE/A-Level)</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Country</label>
-                                <select id="portCountry" class="form-select" onchange="toggleLocationFields()">
-                                    <option value="India">India</option>
-                                    <option value="NRI/International">NRI / International</option>
-                                </select>
-                            </div>
-                        </div>
+            <details class="profile-acc" open>
+                <summary>🎓 Education History</summary>
+                <div class="acc-body">
+                    <div id="educationContainer"></div>
+                    <button class="btn btn-outline" onclick="addEducationEntry()">+ Add Education Record</button>
+                </div>
+            </details>
 
-                        <div id="indianLocationFields" class="grid-2col" style="gap:15px;">
-                            <div class="form-group">
-                                <label class="form-label">State</label>
-                                <select id="portState" class="form-select" onchange="populateDistricts()">
-                                    <option value="">Select State</option>
-                                    </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">District</label>
-                                <select id="portDistrict" class="form-select">
-                                    <option value="">Select District</option>
-                                    </select>
-                            </div>
-                        </div>
-                    </div>
+            <details class="profile-acc">
+                <summary>💼 Work & Volunteer Experience</summary>
+                <div class="acc-body">
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add any internships, part-time jobs, or volunteer work.</p>
+                    <div id="workContainer"></div>
+                    <button class="btn btn-outline" onclick="addWorkEntry()">+ Add Experience</button>
+                </div>
+            </details>
 
-                    <div class="card" style="border-top: 4px solid var(--accent); margin-bottom: 20px;">
-                        <h3>🏆 Extra-Curriculars</h3>
+            <details class="profile-acc">
+                <summary>🎨 Hobbies & Extracurriculars</summary>
+                <div class="acc-body">
+                    <div class="form-group" style="margin-bottom:20px;">
+                        <label class="form-label">Major Achievements / Awards</label>
                         <textarea class="form-textarea" rows="3" placeholder="e.g. 1st Place State Science Fair..." id="portExtraCurricular"></textarea>
                     </div>
-                    
-                    <button class="btn hide-from-parent" style="width:100%; padding: 16px; font-size: 1.1rem; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);" onclick="saveAcademicPortfolio()">💾 Save Academic Profile</button>
+
+                    <label class="form-label">Hobbies</label>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add up to 10 hobbies.</p>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" id="hobbyInput" list="hobbySuggestions" autocomplete="off" class="form-input" placeholder="Search or type a hobby..." style="max-width:300px;">
+                        <button class="btn" onclick="addHobby()">Add</button>
+                    </div>
+                    <div id="hobbyTagsContainer" class="hobby-container"></div>
                 </div>
-            </div>
+            </details>
+
+            <details class="profile-acc">
+                <summary>🎧 Interests & Media</summary>
+                <div class="acc-body grid-2col">
+                    <div class="form-group"><label class="form-label">Music Genres</label><input type="text" id="intMusic" list="musicGenreSuggestions" autocomplete="off" class="form-input" placeholder="Search genres..."></div>
+                    <div class="form-group"><label class="form-label">Favorite Artists</label><input type="text" id="intArtist" list="artistSuggestions" autocomplete="off" class="form-input" placeholder="Search artists..."></div>
+                    <div class="form-group"><label class="form-label">TV Programmes</label><input type="text" id="intTV" list="tvSuggestions" autocomplete="off" class="form-input" placeholder="Search TV shows..."></div>
+                    <div class="form-group"><label class="form-label">Movies</label><input type="text" id="intMovies" list="movieSuggestions" autocomplete="off" class="form-input" placeholder="Search movies..."></div>
+                    <div class="form-group"><label class="form-label">Games</label><input type="text" id="intGames" list="gameSuggestions" autocomplete="off" class="form-input" placeholder="Search games..."></div>
+                    <div class="form-group"><label class="form-label">Sports Teams & Athletes</label><input type="text" id="intSports" list="sportSuggestions" autocomplete="off" class="form-input" placeholder="Search sports..."></div>
+                </div>
+            </details>
+
+            <button class="btn hide-from-parent" id="saveProfileBtn" onclick="saveAcademicPortfolio()" style="width:100%; padding:18px; font-size:1.1rem; margin-top:20px; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);">💾 Save Complete Profile</button>
         </div>
 
         <div id="tab-counselling" class="tab-content">
@@ -610,77 +651,198 @@
     let globalUnreadCount = 0;
     const activeChatListeners = []; 
     let previouslyUnlockedBadges = new Set();
+    
+    let hobbiesArray = [];
+    let uploadedImageBase64 = "";
 
-    // --- FULL INDIAN STATES & DISTRICTS ---
-    const stateDistricts = {
-      "Andaman and Nicobar Islands": ["Nicobar", "North and Middle Andaman", "South Andaman"],
-      "Andhra Pradesh": ["Adilabad", "Anantapur", "Chittoor", "East Godavari", "Guntur", "Hyderabad", "Kadapa", "Krishna", "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari"],
-      "Arunachal Pradesh": ["Anjaw", "Changlang", "East Kameng", "East Siang", "Kurung Kumey", "Lohit", "Lower Dibang Valley", "Lower Subansiri", "Papum Pare", "Tawang", "Tirap", "Upper Dibang Valley", "Upper Siang", "Upper Subansiri", "West Kameng", "West Siang"],
-      "Assam": ["Baksa", "Barpeta", "Bongaigaon", "Cachar", "Charaideo", "Chirang", "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Dima Hasao", "Goalpara", "Golaghat", "Hailakandi", "Jorhat", "Kamrup Metropolitan", "Kamrup", "Karbi Anglong", "Karimganj", "Kokrajhar", "Lakhimpur", "Morigaon", "Nagaon", "Nalbari", "Sivasagar", "Sonitpur", "Tinsukia", "Udalguri"],
-      "Bihar": ["Baksa", "Barpeta", "Bongaigaon", "Cachar", "Charaideo", "Chirang", "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Dima Hasao", "Goalpara", "Golaghat", "Hailakandi", "Jorhat", "Kamrup Metropolitan", "Kamrup", "Karbi Anglong", "Karimganj", "Kokrajhar", "Lakhimpur", "Morigaon", "Nagaon", "Nalbari", "Sivasagar", "Sonitpur", "Tinsukia", "Udalguri"],
-      "Chandigarh": ["Chandigarh"],
-      "Chhattisgarh": ["Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial", "Jangaon", "Jayashankar Bhupalpally", "Jogulamba Gadwal", "Kamareddy", "Karimnagar", "Khammam", "Komaram Bheem Asifabad", "Mahabubabad", "Mahabubnagar", "Mancherial", "Medak", "Medchal", "Nagarkurnool", "Nalgonda", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna Sircilla", "Ranga Reddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", "Warangal (Rural)", "Warangal (Urban)", "Yadadri Bhuvanagiri"],
-      "Dadra and Nagar Haveli": ["Dadra and Nagar Haveli"],
-      "Daman and Diu": ["Daman", "Diu"],
-      "Delhi": ["Central Delhi", "East Delhi", "New Delhi", "North Delhi", "North East Delhi", "North West Delhi", "Shahdara", "South Delhi", "South East Delhi", "South West Delhi", "West Delhi"],
-      "Goa": ["North Goa", "South Goa"],
-      "Gujarat": ["North Goa", "South Goa"],
-      "Haryana": ["Ambala", "Bhiwani", "Charkhi Dadri", "Faridabad", "Fatehabad", "Gurugram", "Hisar", "Jhajjar", "Jind", "Kaithal", "Karnal", "Kurukshetra", "Mahendragarh", "Mewat", "Palwal", "Panchkula", "Panipat", "Rewari", "Rohtak", "Sirsa", "Sonipat", "Yamunanagar"],
-      "Himachal Pradesh": ["Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kinnaur", "Kullu", "Lahaul and Spiti", "Mandi", "Shimla", "Sirmaur", "Solan", "Una"],
-      "Jammu and Kashmir": ["Anantnag", "Bandipore", "Baramulla", "Budgam", "Doda", "Ganderbal", "Jammu", "Kargil", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Poonch", "Pulwama", "Rajouri", "Ramban", "Reasi", "Samba", "Shopian", "Srinagar", "Udhampur"],
-      "Jharkhand": ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai", "Bhagalpur", "Bhojpur", "Buxar", "Darbhanga", "East Champaran", "Gaya", "Gopalganj", "Jamui", "Jehanabad", "Kaimur", "Katihar", "Khagaria", "Kishanganj", "Lakhisarai", "Madhepura", "Madhubani", "Munger", "Muzaffarpur", "Nalanda", "Nawada", "Patna", "Purnia", "Rohtas", "Saharsa", "Samastipur", "Saran", "Sheikhpura", "Sheohar", "Sitamarhi", "Siwan", "Supaul", "Vaishali", "West Champaran"],
-      "Karnataka": ["Bagalkot", "Ballari (Bellary)", "Belagavi (Belgaum)", "Bengaluru (Bangalore) Rural", "Bengaluru (Bangalore) Urban", "Bidar", "Chamarajanagar", "Chikballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", "Davangere", "Dharwad", "Gadag", "Hassan", "Haveri", "Kalaburagi (Gulbarga)", "Kodagu", "Kolar", "Koppal", "Mandya", "Mysuru (Mysore)", "Raichur", "Ramanagara", "Shivamogga (Shimoga)", "Tumakuru (Tumkur)", "Udupi", "Uttara Kannada (Karwar)", "Vijayapura (Bijapur)", "Yadgir"],
-      "Kerala": ["Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", "Thiruvananthapuram", "Thrissur", "Wayanad"],
-      "Lakshadweep": ["Lakshadweep"],
-      "Madhya Pradesh": ["Agar Malwa", "Alirajpur", "Anuppur", "Ashoknagar", "Balaghat", "Barwani", "Betul", "Bhind", "Bhopal", "Burhanpur", "Chhatarpur", "Chhindwara", "Damoh", "Datia", "Dewas", "Dhar", "Dindori", "Guna", "Gwalior", "Harda", "Hoshangabad", "Indore", "Jabalpur", "Jhabua", "Katni", "Khandwa", "Khargone", "Mandla", "Mandsaur", "Morena", "Narsinghpur", "Neemuch", "Panna", "Raisen", "Rajgarh", "Ratlam", "Rewa", "Sagar", "Satna", "Sehore", "Seoni", "Shahdol", "Shajapur", "Sheopur", "Shivpuri", "Sidhi", "Singrauli", "Tikamgarh", "Ujjain", "Umaria", "Vidisha"],
-      "Maharashtra": ["Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban", "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani", "Pune", "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg", "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"],
-      "Manipur": ["Anjaw", "Changlang", "East Kameng", "East Siang", "Kurung Kumey", "Lohit", "Lower Dibang Valley", "Lower Subansiri", "Papum Pare", "Tawang", "Tirap", "Upper Dibang Valley", "Upper Siang", "Upper Subansiri", "West Kameng", "West Siang"],
-      "Meghalaya": ["Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West", "Jiribam", "Kakching", "Kamjong", "Kangpokpi", "Noney", "Pherzawl", "Senapati", "Tamenglong", "Tengnoupal", "Thoubal", "Ukhrul"],
-      "Mizoram": ["East Garo Hills", "East Jaintia Hills", "East Khasi Hills", "North Garo Hills", "Ri Bhoi", "South Garo Hills", "South West Garo Hills", "South West Khasi Hills", "West Garo Hills", "West Jaintia Hills", "West Khasi Hills"],
-      "Nagaland": ["Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung", "Mon", "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto"],
-      "Odisha": ["Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak", "Boudh", "Cuttack", "Deogarh", "Dhenkanal", "Gajapati", "Ganjam", "Jagatsinghapur", "Jajpur", "Jharsuguda", "Kalahandi", "Kandhamal", "Kendrapara", "Kendujhar (Keonjhar)", "Khordha", "Koraput", "Malkangiri", "Mayurbhanj", "Nabarangpur", "Nayagarh", "Nuapada", "Puri", "Rayagada", "Sambalpur", "Subarnapur", "Sundargarh"],
-      "Puducherry": ["Karaikal", "Mahe", "Pondicherry", "Yanam"],
-      "Punjab": ["Amritsar", "Barnala", "Bathinda", "Faridkot", "Fatehgarh Sahib", "Fazilka", "Ferozepur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "Kapurthala", "Ludhiana", "Mansa", "Moga", "Muktsar", "Nawanshahr (Shahid Bhagat Singh Nagar)", "Pathankot", "Patiala", "Rupnagar", "Sahibzada Ajit Singh Nagar (Nawanshahr)", "Sangrur", "Tarn Taran"],
-      "Rajasthan": ["Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha (Palanpur)", "Bharuch", "Bhavnagar", "Botad", "Chhota Udepur", "Dahod", "Dangs (Ahwa)", "Devbhoomi Dwarka", "Gandhinagar", "Gir Somnath", "Jamnagar", "Junagadh", "Kachchh", "Kheda (Nadiad)", "Mahisagar", "Mehsana", "Morbi", "Narmada (Rajpipla)", "Navsari", "Panchmahal (Godhra)", "Patan", "Porbandar", "Rajkot", "Sabarkantha (Himmatnagar)", "Surat", "Surendranagar", "Tapi (Vyara)", "Vadodara", "Valsad"],
-      "Sikkim": ["Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung", "Mon", "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto"],
-      "Tamil Nadu": ["Ariyalur", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kanchipuram", "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Salem", "Sivaganga", "Thanjavur", "Theni", "Thoothukudi (Tuticorin)", "Tiruchirappalli", "Tirunelveli", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram", "Virudhunagar"],
-      "Telangana": ["Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial", "Jangaon", "Jayashankar Bhupalpally", "Jogulamba Gadwal", "Kamareddy", "Karimnagar", "Khammam", "Komaram Bheem Asifabad", "Mahabubabad", "Mahabubnagar", "Mancherial", "Medak", "Medchal", "Nagarkurnool", "Nalgonda", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna Sircilla", "Ranga Reddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", "Warangal (Rural)", "Warangal (Urban)", "Yadadri Bhuvanagiri"],
-      "Tripura": ["Aizawl", "Champhai", "Kolasib", "Lawngtlai", "Lunglei", "Mamit", "Saiha", "Serchhip"],
-      "Uttar Pradesh": ["Ajmer", "Alwar", "Banswara", "Baran", "Barmer", "Barmer", "Bhilwara", "Bikaner", "Bundi", "Chittorgarh", "Churu", "Dausa", "Dholpur", "Dungarpur", "Hanumangarh", "Jaipur", "Jaisalmer", "Jalore", "Jhalawar", "Jhunjhunu", "Jodhpur", "Karauli", "Kota", "Nagaur", "Pali", "Pratapgarh", "Rajsamand", "Sawai Madhopur", "Sikar", "Sirohi", "Sri Ganganagar", "Tonk", "Udaipur"],
-      "Uttarakhand": ["Almora", "Bageshwar", "Chamoli", "Champawat", "Dehradun", "Haridwar", "Nainital", "Pauri Garhwal", "Pithoragarh", "Rudraprayag", "Tehri Garhwal", "Udham Singh Nagar", "Uttarkashi"],
-      "West Bengal": ["Alipurduar", "Bankura", "Birbhum", "Burdwan (Bardhaman)", "Cooch Behar", "Dakshin Dinajpur (South Dinajpur)", "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Kalimpong", "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas", "Paschim Medinipur (West Medinipur)", "Purba Medinipur (East Medinipur)", "Purulia", "South 24 Parganas", "Uttar Dinajpur (North Dinajpur)"]
+    // --- INDIAN STATES & DISTRICTS MAPPING (Re-added from admin) ---
+    const indiaData = {
+        "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool"],
+        "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi"],
+        "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar"],
+        "Karnataka": ["Bengaluru Urban", "Bengaluru Rural", "Mysuru", "Mangaluru", "Hubballi", "Belagavi", "Chikkamagaluru"],
+        "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik"],
+        "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
+        "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Khammam", "Karimnagar"],
+        "Uttar Pradesh": ["Lucknow", "Kanpur", "Ghaziabad", "Agra", "Varanasi"],
+        "West Bengal": ["Kolkata", "Howrah", "Darjeeling", "Asansol", "Siliguri"],
+        "Other State / UT": ["Capital City", "Other District"]
     };
 
-    window.populateStates = function() {
-        const stateSelect = document.getElementById('portState');
-        stateSelect.innerHTML = '<option value="">Select State</option>';
-        Object.keys(stateDistricts).sort().forEach(state => {
-            stateSelect.innerHTML += `<option value="${state}">${state}</option>`;
+    // --- AUTO SUGGESTION DATABASES (Re-added from admin) ---
+    const dbHobbies = ["Reading", "Writing", "Journaling", "Blogging", "Creative writing", "Poetry writing", "Storytelling", "Public speaking", "Debate practice", "Language learning", "Calligraphy", "Hand lettering", "Sketching", "Drawing", "Painting", "Watercolor painting", "Oil painting", "Acrylic painting", "Digital art", "Cartooning", "Caricature drawing", "Graphic design", "Photography", "Portrait photography", "Landscape photography", "Wildlife photography", "Street photography", "Videography", "Video editing", "Filmmaking", "Animation", "Origami", "Paper crafting", "Scrapbooking", "Card making", "DIY crafts", "Candle making", "Soap making", "Pottery", "Clay modeling", "Wood carving", "Woodworking", "Furniture making", "Metal crafting", "Jewelry making", "Beadwork", "Embroidery", "Knitting", "Crocheting", "Sewing", "Fashion designing", "Textile designing", "Tie-dye art", "Gardening", "Indoor gardening", "Bonsai growing", "Organic farming", "Hydroponic gardening", "Flower arranging", "Bird watching", "Nature walking", "Hiking", "Trekking", "Camping", "Rock climbing", "Mountaineering", "Cycling", "Mountain biking", "Running", "Jogging", "Marathon training", "Swimming", "Yoga", "Meditation", "Pilates", "Zumba", "Aerobics", "Gym workouts", "Bodybuilding", "CrossFit training", "Martial arts", "Karate", "Taekwondo", "Judo", "Boxing", "Kickboxing", "Archery", "Shooting sports", "Horse riding", "Skateboarding", "Roller skating", "Ice skating", "Surfing", "Scuba diving", "Snorkeling", "Fishing", "Kayaking", "Canoeing", "Sailing", "Rowing", "Stand-up paddling", "Traveling", "Backpacking", "Road trips", "Travel blogging", "Cultural exploration", "Food tasting", "Cooking", "Baking", "Cake decorating", "Bread making", "Chocolate making", "Barbecue cooking", "Mixology", "Coffee brewing", "Tea tasting", "Wine appreciation", "Home brewing", "Food photography", "Recipe creation", "Nutrition study", "Puzzle solving", "Sudoku", "Crossword puzzles", "Chess", "Checkers", "Board games", "Card games", "Magic tricks", "Rubik’s cube solving", "Strategy gaming", "Video gaming", "Mobile gaming", "PC gaming", "Game streaming", "Game design", "Coding", "Programming", "Web development", "App development", "Robotics", "Electronics projects", "Arduino projects", "Drone flying", "3D printing", "Model building", "Lego building", "Astronomy", "Stargazing", "Telescope observation", "Meteor watching", "Science experiments", "DIY electronics", "Mechanical tinkering", "Car restoration", "Bike maintenance", "Model railways", "Collecting stamps", "Coin collecting", "Antique collecting", "Toy collecting", "Comic collecting", "Book collecting", "Vinyl record collecting", "Postcard collecting", "Action figure collecting", "Memorabilia collecting", "Blogging about hobbies", "Podcasting", "Vlogging", "Social media content creation", "Meme creation", "Online teaching", "Tutoring", "Volunteering", "Community service", "Animal rescue volunteering", "Teaching skills online", "Mentoring students", "Event organizing", "Fundraising", "Debate clubs", "Theatre acting", "Drama performance", "Stand-up comedy", "Singing", "Karaoke", "Songwriting", "Music composition", "Guitar playing", "Piano playing", "Violin playing", "Drumming", "Flute playing", "Keyboard playing", "DJ mixing", "Music production", "Beatboxing", "Dance", "Classical dance", "Hip-hop dance", "Salsa dancing", "Ballroom dancing", "Folk dancing", "Contemporary dance", "Breakdancing", "Choreography", "Fitness dancing", "Acting workshops", "Improvisation theatre", "Costume designing", "Makeup artistry", "Face painting", "Nail art", "Hairstyling", "Personal styling", "Fashion blogging", "Interior decorating", "Home organization", "Minimalism practice", "Feng shui arranging", "Home DIY projects", "Upcycling", "Recycling crafts", "Sustainable living", "Zero-waste living", "Bird feeding", "Aquarium keeping", "Fish breeding", "Pet training", "Dog agility training", "Cat care", "Reptile keeping", "Beekeeping", "Butterfly gardening", "Wildlife conservation", "Environmental activism", "Map reading", "Geocaching", "Orienteering", "Survival skills", "Bushcraft", "Fire making", "Knot tying", "Navigation skills", "Photography editing", "Photo restoration", "Digital illustration", "NFT art creation", "Online selling", "Dropshipping practice", "Handicraft selling", "Etsy shop management", "Market research", "Stock trading simulation", "Investing study", "Personal finance planning", "Budgeting", "Goal setting", "Vision boarding", "Journaling for gratitude", "Mindfulness practice", "Speed reading", "Memory training", "Brain games", "Trivia quizzes", "Language exchange", "Cultural cooking", "Historical research", "Genealogy research", "Museum visiting", "Art gallery touring", "Architecture study", "Urban exploration", "Train spotting", "Plane spotting", "Ship spotting", "Weather watching", "Storm chasing", "Kite flying", "RC car racing", "RC plane flying", "Model rockets", "Astronomy photography", "Macro photography", "Time-lapse photography", "Stop motion animation", "Podcast listening", "Audiobook listening", "Story narration", "Voice acting", "Script writing", "Screenwriting", "Film reviewing", "Book reviewing", "Music reviewing", "Blogging reviews", "Travel planning", "Itinerary designing", "Event photography", "Wedding planning practice", "Floral design", "Landscape design", "Digital marketing learning", "SEO practice", "Copywriting", "Content writing", "Resume writing", "Career coaching practice", "Teaching workshops", "Leadership training", "Negotiation practice", "Entrepreneurship learning", "Business planning", "Startup ideation", "Networking", "Public relations practice", "Presentation design", "Data visualization", "Spreadsheet designing", "Research writing", "Academic tutoring", "Online course creation", "Educational video creation", "Parenting blogging", "Lifestyle blogging", "Health tracking", "Sleep optimization", "Biohacking", "Cold exposure practice", "Breathwork", "Affirmation practice", "Spiritual reading", "Tarot reading", "Astrology study", "Numerology study", "Philosophy reading", "Psychology learning", "Sociology reading", "Political discussions", "Debate analysis", "Ethical discussions", "Creative brainstorming", "Innovation challenges", "Hackathons", "Puzzle design", "Escape room design", "Treasure hunt planning", "Party planning", "Game hosting", "Quiz hosting", "Story gaming", "Role-playing games", "Dungeons & Dragons", "Cosplay", "Costume crafting", "Prop making", "Miniature painting", "Diorama building", "Terrain modeling", "Sand art", "Glass painting", "Mosaic art", "Resin art", "Candle carving", "Soap carving", "Ice carving", "Fruit carving", "Latte art", "Culinary plating", "Food styling", "Fermentation", "Pickling", "Cheesemaking", "Yogurt making", "Spice blending", "Herbal gardening", "Essential oil blending", "Aromatherapy", "Massage techniques", "Reflexology learning", "First aid training", "Disaster preparedness", "Emergency response training", "Self-defense training", "Community gardening", "Tree planting", "Clean-up drives", "Charity knitting", "Blanket making", "Toy making", "Educational volunteering", "Literacy campaigns", "Fundraising campaigns", "Social awareness blogging", "Documentary watching", "Film analysis", "Cultural dancing", "Folk music learning", "Instrument repair", "Sound engineering", "Audio editing", "Podcast production", "Radio hosting practice", "News analysis", "Journalism practice", "Interviewing skills", "Documentary filmmaking", "Photojournalism", "Creative directing", "Advertising concept design", "Brand identity creation", "Logo designing", "UX design", "UI design", "Wireframing", "Prototyping", "App testing", "User research", "Online forums moderation", "Community management", "Forum discussions", "Knowledge sharing", "Mentorship circles", "Study groups", "Language teaching", "Translation practice", "Subtitling", "Caption writing", "Technical writing", "Instructional design", "Educational game design", "Workshop facilitation", "Coaching conversations", "Counseling skill practice", "Emotional intelligence training", "Conflict resolution practice", "Meditation teaching", "Yoga instruction practice", "Fitness coaching", "Nutrition coaching", "Lifestyle coaching", "Habit tracking", "Productivity experimentation", "Time management practice", "Bullet journaling", "Planner decorating", "Digital planning", "Note-taking systems", "Knowledge management", "Mind mapping", "Brainstorm mapping", "Idea journaling", "Creativity exercises", "Daily sketch challenge", "Photo-a-day challenge", "Writing prompts practice", "Gratitude challenges", "Kindness challenges", "Personal storytelling", "Life documentation", "Memory keeping", "Scrap journaling", "Family history recording", "Legacy writing", "Letter writing", "Pen pal communication", "Postcard writing", "Creative mailing", "Map drawing", "Travel sketching", "Urban sketching", "Nature sketching", "Scientific illustration", "Botanical drawing", "Wildlife sketching", "Character design", "Comic strip creation", "Manga drawing", "Fan art creation", "Digital painting practice", "Pixel art", "Game asset creation", "Virtual world building", "Simulation gaming", "Strategy analysis", "Speedcubing", "Mathematical puzzles", "Logic games", "Brain teasers", "Riddle solving", "Optical illusion art", "Perspective drawing", "Shadow art", "Light painting photography", "Drone photography", "Adventure blogging", "Exploration journaling", "Cultural exchange programs", "Language immersion practice", "Cooking international cuisines", "Festival participation", "Cultural volunteering", "Heritage conservation", "Story collection", "Oral history recording", "Podcast storytelling", "Audio journaling", "Soundscape recording", "Field recording", "Nature sound recording", "Relaxation music creation", "Ambient music production", "Instrument improvisation", "Jam sessions", "Choir singing", "Music theory study", "Ear training", "Rhythm training", "Dance fitness", "Movement therapy", "Expressive arts therapy", "Creative visualization", "Dream journaling", "Lucid dreaming practice", "Mind games", "Strategic thinking exercises", "Debate coaching", "Speech writing", "Motivational speaking practice", "Workshop leadership", "Seminar organizing", "Conference volunteering", "Networking events participation", "Community storytelling", "Digital archiving", "Photo cataloging", "Personal library organizing", "Bookbinding", "Paper restoration", "Calligraphy practice", "Ink illustration", "Fountain pen collecting", "Stationery collecting", "Planner customization", "Sticker designing", "Printmaking", "Linocut art", "Screen printing", "Fabric painting", "Costume sewing", "Quilt making", "Rug making", "Basket weaving", "Macrame", "Leather crafting", "Shoe customization", "Watch collecting", "Gadget reviewing", "Tech blogging", "Hardware building", "PC assembling", "Keyboard customization", "Smart home automation", "Coding challenges", "Algorithm practice", "Open-source contribution", "Tech tutorials creation", "Online collaboration", "Virtual volunteering", "Remote mentoring", "Knowledge blogging", "Educational outreach"];
+    const dbMusicGenres = ["Pop", "Rock", "Classical", "Jazz", "Blues", "Hip Hop", "Rap", "R&B", "Soul", "Electronic", "EDM", "Indie", "Alternative Rock", "Heavy Metal", "K-pop", "Bollywood", "Indian Classical", "Hindustani Classical", "Carnatic Music", "Ghazal", "Folk", "Country", "Lofi"];
+    const dbArtists = ["A.R. Rahman", "Arijit Singh", "Shreya Ghoshal", "Taylor Swift", "The Weeknd", "Drake", "BTS", "Kishore Kumar", "Lata Mangeshkar", "Ed Sheeran", "Billie Eilish", "Coldplay", "Imagine Dragons", "Badshah", "Diljit Dosanjh", "Divine"];
+    const dbTV = ["Breaking Bad", "Game of Thrones", "Stranger Things", "The Office", "Friends", "Peaky Blinders", "Money Heist", "Dark", "Squid Game", "Mirzapur", "Sacred Games", "The Family Man", "Scam 1992", "Panchayat"];
+    const dbMovies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Inception", "Interstellar", "Avatar", "Avengers: Endgame", "Spider-Man", "Harry Potter", "The Lord of the Rings", "Dangal", "3 Idiots", "Baahubali", "RRR", "KGF", "Zindagi Na Milegi Dobara", "Sholay"];
+    const dbGames = ["Minecraft", "GTA V", "Valorant", "Fortnite", "PUBG", "CS:GO", "Dota 2", "League of Legends", "FIFA", "Call of Duty", "Apex Legends", "Elden Ring", "Roblox", "Among Us", "Genshin Impact"];
+    const dbSports = ["Cricket", "Football", "Basketball", "Tennis", "Badminton", "Formula 1", "Virat Kohli", "MS Dhoni", "Rohit Sharma", "Cristiano Ronaldo", "Lionel Messi", "LeBron James", "Roger Federer"];
+
+    function attachDynamicSuggest(inputId, listId, dbArray) {
+        const input = document.getElementById(inputId);
+        const datalist = document.getElementById(listId);
+        input.setAttribute('autocomplete', 'off');
+        input.addEventListener('input', (e) => {
+            const val = e.target.value.trim().toLowerCase();
+            if (val.length > 0) {
+                const matches = dbArray.filter(item => item.toLowerCase().includes(val)).slice(0, 20);
+                datalist.innerHTML = matches.map(item => `<option value="${item}">`).join('');
+            } else { datalist.innerHTML = ''; }
         });
+        input.addEventListener('focus', (e) => { if (e.target.value.trim().length === 0) datalist.innerHTML = ''; });
     }
 
-    window.populateDistricts = function(selectedDistrict = "") {
-        const stateSelect = document.getElementById('portState').value;
-        const distSelect = document.getElementById('portDistrict');
-        distSelect.innerHTML = '<option value="">Select District</option>';
-        
-        if(stateSelect && stateDistricts[stateSelect]) {
-            stateDistricts[stateSelect].sort().forEach(dist => {
-                distSelect.innerHTML += `<option value="${dist}" ${dist === selectedDistrict ? 'selected' : ''}>${dist}</option>`;
-            });
+    attachDynamicSuggest('hobbyInput', 'hobbySuggestions', dbHobbies);
+    attachDynamicSuggest('intMusic', 'musicGenreSuggestions', dbMusicGenres);
+    attachDynamicSuggest('intArtist', 'artistSuggestions', dbArtists);
+    attachDynamicSuggest('intTV', 'tvSuggestions', dbTV);
+    attachDynamicSuggest('intMovies', 'movieSuggestions', dbMovies);
+    attachDynamicSuggest('intGames', 'gameSuggestions', dbGames);
+    attachDynamicSuggest('intSports', 'sportSuggestions', dbSports);
+
+    // Profile Photo Upload logic
+    document.getElementById('photoUpload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader(); reader.readAsDataURL(file);
+        reader.onload = function(event) {
+            const img = new Image(); img.src = event.target.result;
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const scaleSize = 200 / img.width; canvas.width = 200; canvas.height = img.height * scaleSize;
+                const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                uploadedImageBase64 = canvas.toDataURL("image/jpeg", 0.8);
+                document.getElementById('stuAvatarImg').src = uploadedImageBase64;
+                document.getElementById('stuAvatarImg').style.display = 'block';
+                document.getElementById('stuInitials').style.display = 'none';
+            }
+        };
+    });
+
+    // --- ACCORDION LOGIC ---
+    window.populateDistricts = function(stateSelectElem) {
+        const state = stateSelectElem.value;
+        const districtSelect = stateSelectElem.parentElement.nextElementSibling.querySelector('.district-select');
+        districtSelect.innerHTML = '<option value="" disabled selected>Select District</option>';
+        if(indiaData[state]) {
+            indiaData[state].forEach(dist => { districtSelect.innerHTML += `<option value="${dist}">${dist}</option>`; });
         }
     }
 
-    window.toggleLocationFields = function() {
-        const country = document.getElementById('portCountry').value;
-        const locWrap = document.getElementById('indianLocationFields');
-        if(country === 'India') {
-            locWrap.style.display = 'grid';
+    window.toggleToDate = function(checkboxElem) {
+        const toDateInput = checkboxElem.parentElement.parentElement.nextElementSibling;
+        if(checkboxElem.checked) toDateInput.style.display = 'none';
+        else toDateInput.style.display = 'block';
+    }
+
+    window.updateEduLabels = function(selectElem) {
+        const level = selectElem.value;
+        const block = selectElem.closest('.entry-block');
+        const nameInput = block.querySelector('.edu-name-input');
+        const toDateBox = block.querySelector('.edu-to-box');
+        const fromLabel = block.querySelector('.edu-from-label');
+        const subjectsBox = block.querySelector('.edu-subjects-box');
+
+        if(level === 'School') {
+            nameInput.placeholder = "School Name";
+            toDateBox.style.display = 'none'; 
+            fromLabel.innerText = "Date of Completion"; 
+            if(subjectsBox) subjectsBox.style.display = 'none';
         } else {
-            locWrap.style.display = 'none';
-            document.getElementById('portState').value = "";
-            document.getElementById('portDistrict').value = "";
+            nameInput.placeholder = "College / Institute Name";
+            toDateBox.style.display = 'block'; 
+            fromLabel.innerText = "From Date"; 
+            if(subjectsBox) subjectsBox.style.display = 'block';
         }
+    }
+
+    window.addWorkEntry = function(data = {}) {
+        const container = document.getElementById('workContainer');
+        const id = Date.now() + Math.random();
+        let stateOptions = '<option value="" disabled selected>Select State</option>';
+        Object.keys(indiaData).forEach(s => { stateOptions += `<option value="${s}" ${data.state===s?'selected':''}>${s}</option>`; });
+        let distOptions = '<option value="" disabled selected>Select District</option>';
+        if(data.state && indiaData[data.state]) { indiaData[data.state].forEach(d => { distOptions += `<option value="${d}" ${data.district===d?'selected':''}>${d}</option>`; }); }
+
+        const html = `
+        <div class="entry-block" id="work-${id}">
+            <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
+            <div class="grid-2col">
+                <div class="form-group"><label class="form-label">Company / Organization</label><input type="text" class="form-input work-company" placeholder="e.g. Google" value="${data.company || ''}"></div>
+                <div class="form-group"><label class="form-label">Position / Role</label><input type="text" class="form-input work-position" placeholder="e.g. Intern" value="${data.position || ''}"></div>
+                <div class="form-group"><label class="form-label">From Date</label><input type="date" class="form-input work-from" value="${data.from || ''}"></div>
+                <div class="form-group">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                        <label class="form-label" style="margin:0;">To Date</label>
+                        <label style="font-size:0.8rem; color:var(--text-muted); display:flex; align-items:center; gap:5px; cursor:pointer;">
+                            <input type="checkbox" class="work-current" onchange="toggleToDate(this)" ${data.current ? 'checked' : ''}> Currently work here
+                        </label>
+                    </div>
+                    <div class="to-date-container" style="display:${data.current ? 'none' : 'block'}">
+                        <input type="date" class="form-input work-to" value="${data.to || ''}">
+                    </div>
+                </div>
+                <div class="form-group"><label class="form-label">Work Type</label>
+                    <select class="form-select work-type">
+                        <option value="On site" ${data.type==='On site'?'selected':''}>On site</option>
+                        <option value="Hybrid" ${data.type==='Hybrid'?'selected':''}>Hybrid</option>
+                        <option value="Online" ${data.type==='Online'?'selected':''}>Online / Remote</option>
+                    </select>
+                </div>
+                <div class="form-group"><label class="form-label">State</label><select class="form-select work-state" onchange="populateDistricts(this)">${stateOptions}</select></div>
+                <div class="form-group"><label class="form-label">District</label><select class="form-select work-district district-select">${distOptions}</select></div>
+                <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input work-city" placeholder="City name" value="${data.city || ''}"></div>
+            </div>
+            <div class="form-group" style="margin-top:10px;"><label class="form-label">Brief Description</label><textarea class="form-textarea work-desc" rows="2" placeholder="Describe your responsibilities...">${data.desc || ''}</textarea></div>
+        </div>`;
+        container.insertAdjacentHTML('beforeend', html);
+    }
+
+    window.addEducationEntry = function(data = {}) {
+        const container = document.getElementById('educationContainer');
+        const id = Date.now() + Math.random();
+        const isSchool = data.level === 'School';
+        const nameLabel = isSchool ? 'School Name' : 'College / Institute Name';
+        const displayToDate = isSchool ? 'none' : 'block';
+        const displaySubjects = isSchool ? 'none' : 'block';
+        const fromLabelTxt = isSchool ? 'Date of Completion' : 'From Date';
+
+        const html = `
+        <div class="entry-block" id="edu-${id}">
+            <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
+            <div class="grid-2col">
+                <div class="form-group"><label class="form-label">Level</label>
+                    <select class="form-select edu-level" onchange="updateEduLabels(this)">
+                        <option value="School" ${data.level==='School'?'selected':''}>School (10th)</option>
+                        <option value="PUC" ${data.level==='PUC'?'selected':''}>PUC / 12th</option>
+                        <option value="UG" ${data.level==='UG'?'selected':''}>Undergraduate (UG)</option>
+                        <option value="PG" ${data.level==='PG'?'selected':''}>Postgraduate (PG)</option>
+                        <option value="Certificate" ${data.level==='Certificate'?'selected':''}>Certificate</option>
+                    </select>
+                </div>
+                <div class="form-group"><label class="form-label">Institution Name</label><input type="text" class="form-input edu-name edu-name-input" placeholder="${nameLabel}" value="${data.name || ''}"></div>
+                <div class="form-group"><label class="form-label edu-from-label">${fromLabelTxt}</label><input type="date" class="form-input edu-from" value="${data.from || ''}"></div>
+                <div class="form-group edu-to-box" style="display: ${displayToDate};"><label class="form-label">To Date</label><input type="date" class="form-input edu-to" value="${data.to || ''}"></div>
+            </div>
+            <div class="form-group edu-subjects-box" style="margin-top:10px; display: ${displaySubjects};"><label class="form-label">Subjects / Field of Study</label><input type="text" class="form-input edu-subjects" placeholder="e.g. Science, Mathematics..." value="${data.subjects || ''}"></div>
+        </div>`;
+        container.insertAdjacentHTML('beforeend', html);
+    }
+
+    window.addHobby = function(val = null) {
+        const input = document.getElementById('hobbyInput');
+        const text = val || input.value.trim();
+        if(!text) return;
+        if(hobbiesArray.length >= 10) return alert("Maximum 10 hobbies allowed.");
+        if(hobbiesArray.includes(text)) return; 
+        hobbiesArray.push(text);
+        renderHobbies();
+        input.value = "";
+    }
+    window.removeHobby = function(index) { hobbiesArray.splice(index, 1); renderHobbies(); }
+    function renderHobbies() {
+        const container = document.getElementById('hobbyTagsContainer');
+        container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="removeHobby(${i})">&times;</span></div>`).join('');
     }
 
     window.updateGradingInput = function() {
@@ -725,9 +887,6 @@
         container.appendChild(row);
     }
     
-    // Initialize standard state dropdown on load
-    populateStates();
-
     // Disallow past dates in calendar
     const today = new Date().toISOString().split('T')[0];
     document.getElementById("bookDate").setAttribute('min', today);
@@ -773,7 +932,7 @@
         toast.innerHTML = `<div class="toast-title">🔔 ${title}</div><div class="toast-body">${message}</div>`;
         
         toast.onclick = () => {
-            if(title.includes("Achievement") || title.includes("Level") || title.includes("Academic")) {
+            if(title.includes("Achievement") || title.includes("Level") || title.includes("Profile")) {
                 window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
             } else {
                 window.switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5]);
@@ -997,7 +1156,7 @@
         
         let focusTitle = "Complete Baseline Profile";
         let focusDesc = "Log your academic scores to help the AI contextualize your upcoming assessment.";
-        let focusBtnText = "Update Academics ➔";
+        let focusBtnText = "Update Profile ➔";
         let focusAction = "switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])";
 
         previouslyUnlockedBadges.add('badge-registered');
@@ -1095,9 +1254,7 @@
 
             if (typeof Chart !== 'undefined') {
                 let existingChart = Chart.getChart('reportRiasecChart');
-                if (existingChart) {
-                    existingChart.destroy();
-                }
+                if (existingChart) { existingChart.destroy(); }
 
                 const reportCtx = document.getElementById('reportRiasecChart').getContext('2d');
                 new Chart(reportCtx, { 
@@ -1142,27 +1299,24 @@
         } catch(e) { console.error(e); }
     }
 
-    // --- NEW ACADEMIC SAVE LOGIC WITH VALIDATION ---
+    // --- NEW MASTER SAVE LOGIC FOR COMPLETE PORTFOLIO ---
     window.saveAcademicPortfolio = async function() {
         if(!activeUserUid) return;
         
+        const btn = document.getElementById('saveProfileBtn');
+        btn.innerText = "Saving Profile... ⏳";
+        btn.disabled = true;
+
         const sys = document.getElementById('portGradingSystem').value;
         const scoreVal = parseFloat(document.getElementById('portOverallScore').value);
 
-        // Score Validation
         if (!isNaN(scoreVal)) {
-            if ((sys.includes('%') || sys === 'Percentile') && scoreVal > 100) {
-                return alert("Score cannot be greater than 100 for Percentage or Percentile.");
-            }
-            if (sys.includes('4') && scoreVal > 4) {
-                return alert("Score cannot be greater than 4 for a 4-point GPA system.");
-            }
-            if (sys.includes('10') && scoreVal > 10) {
-                return alert("Score cannot be greater than 10 for a 10-point CGPA system.");
-            }
+            if ((sys.includes('%') || sys === 'Percentile') && scoreVal > 100) { btn.disabled=false; btn.innerText="💾 Save Complete Profile"; return alert("Score cannot be greater than 100 for Percentage or Percentile.");}
+            if (sys.includes('4') && scoreVal > 4) { btn.disabled=false; btn.innerText="💾 Save Complete Profile"; return alert("Score cannot be greater than 4 for a 4-point GPA system.");}
+            if (sys.includes('10') && scoreVal > 10) { btn.disabled=false; btn.innerText="💾 Save Complete Profile"; return alert("Score cannot be greater than 10 for a 10-point CGPA system.");}
         }
 
-        // Harvest dynamic subjects
+        // Subjects
         const subjectNodes = document.querySelectorAll('.subject-row');
         let parsedSubjects = [];
         subjectNodes.forEach(node => {
@@ -1172,36 +1326,73 @@
             if(n || s) { parsedSubjects.push({ name: n, score: s, grade: g }); }
         });
 
-        // Harvest School Details
-        const isIndia = document.getElementById('portCountry').value === 'India';
-        const schoolObj = {
-            country: document.getElementById('portCountry').value,
-            name: document.getElementById('portSchoolName').value.trim(),
-            board: document.getElementById('portBoard').value,
-            state: isIndia ? document.getElementById('portState').value : "",
-            district: isIndia ? document.getElementById('portDistrict').value : "",
-        };
-        
-        // Include Extra Curriculars
-        const extraCurr = document.getElementById('portExtraCurricular').value.trim();
+        // Work Data
+        const workBlocks = document.querySelectorAll('#workContainer .entry-block');
+        let workData = [];
+        workBlocks.forEach(b => {
+            workData.push({
+                company: b.querySelector('.work-company').value,
+                position: b.querySelector('.work-position').value,
+                from: b.querySelector('.work-from').value,
+                current: b.querySelector('.work-current').checked,
+                to: b.querySelector('.work-to').value,
+                type: b.querySelector('.work-type').value,
+                state: b.querySelector('.work-state').value,
+                district: b.querySelector('.work-district').value,
+                city: b.querySelector('.work-city').value,
+                desc: b.querySelector('.work-desc').value
+            });
+        });
 
+        // Edu Data
+        const eduBlocks = document.querySelectorAll('#educationContainer .entry-block');
+        let eduData = [];
+        eduBlocks.forEach(b => {
+            eduData.push({
+                level: b.querySelector('.edu-level').value,
+                name: b.querySelector('.edu-name').value,
+                from: b.querySelector('.edu-from').value,
+                to: b.querySelector('.edu-to').value,
+                subjects: b.querySelector('.edu-subjects').value
+            });
+        });
+
+        // Build Payload
         const academicData = { 
             gradingSystem: sys,
             overallScore: isNaN(scoreVal) ? "" : scoreVal,
             trend: document.getElementById('portTrend').value,
             stream: document.getElementById('portStream').value,
             subjects: parsedSubjects,
-            school: schoolObj,
-            extraCurriculars: extraCurr
+            extraCurriculars: document.getElementById('portExtraCurricular').value.trim(),
+            workHistory: workData,
+            eduHistory: eduData,
+            hobbies: hobbiesArray,
+            interests: {
+                music: document.getElementById('intMusic').value,
+                artist: document.getElementById('intArtist').value,
+                tv: document.getElementById('intTV').value,
+                movies: document.getElementById('intMovies').value,
+                games: document.getElementById('intGames').value,
+                sports: document.getElementById('intSports').value
+            },
+            photo: uploadedImageBase64 || (studentDataObj ? studentDataObj.photo : null)
         };
 
         try {
             await setDoc(doc(db, "students", activeUserUid), { academic: academicData }, { merge: true });
-            showToastNotification("Academic Profile Updated!", "Your metrics have been successfully saved.");
+            
+            // Also update top level photo if it changed
+            if(uploadedImageBase64) {
+                 await updateDoc(doc(db, "students", activeUserUid), { photo: uploadedImageBase64 });
+            }
+
+            showToastNotification("Profile Updated!", "Your complete dossier has been securely saved.");
             if(!studentDataObj.academic) studentDataObj.academic = {};
             studentDataObj.academic = {...studentDataObj.academic, ...academicData}; 
             calculateDynamicScore(studentDataObj);
         } catch(e) { console.error(e); alert("Failed to save. Check your connection.");}
+        finally { btn.innerText = "💾 Save Complete Profile"; btn.disabled = false; }
     }
 
     onAuthStateChanged(auth, async (user) => {
@@ -1222,6 +1413,7 @@
                 document.getElementById('setStuEmail').value = data.email;
                 
                 if(data.photo) {
+                    uploadedImageBase64 = data.photo;
                     document.getElementById('stuAvatarImg').src = data.photo;
                     document.getElementById('stuAvatarImg').style.display = 'block';
                     document.getElementById('stuInitials').style.display = 'none';
@@ -1229,7 +1421,7 @@
                     document.getElementById('stuInitials').innerText = firstName.charAt(0).toUpperCase();
                 }
                 
-                // --- LOAD NEW ACADEMIC STRUCTURE ---
+                // --- LOAD COMPREHENSIVE DATA ---
                 if(data.academic) {
                     if(data.academic.gradingSystem) { document.getElementById('portGradingSystem').value = data.academic.gradingSystem; updateGradingInput(); }
                     if(data.academic.overallScore) document.getElementById('portOverallScore').value = data.academic.overallScore;
@@ -1237,35 +1429,48 @@
                     if(data.academic.stream) document.getElementById('portStream').value = data.academic.stream;
                     if(data.academic.extraCurriculars) document.getElementById('portExtraCurricular').value = data.academic.extraCurriculars;
                     
-                    // Legacy Fallback for older data format
+                    // Legacy Fallback
                     if(!data.academic.overallScore && data.academic.marks) { document.getElementById('portOverallScore').value = data.academic.marks; }
                     
-                    // Load Subjects
+                    // Subjects
                     const subContainer = document.getElementById('subjectContainer');
                     subContainer.innerHTML = '';
                     if(data.academic.subjects && data.academic.subjects.length > 0) {
                         data.academic.subjects.forEach(sub => addSubjectRow(sub.name, sub.score, sub.grade));
-                        // Automatically show subject section if data exists
                         document.getElementById('subjectSectionWrapper').style.display = 'block';
                         document.getElementById('toggleSubjectBtn').innerText = 'Hide Subjects ⬆';
                     } else {
-                        addSubjectRow(); // Fallback empty row
+                        addSubjectRow(); 
                         if(data.academic.strongSub) { document.querySelector('.sub-name').value = data.academic.strongSub; }
                     }
 
-                    // Load School
-                    if(data.academic.school) {
-                        document.getElementById('portCountry').value = data.academic.school.country || "India";
-                        toggleLocationFields();
-                        document.getElementById('portSchoolName').value = data.academic.school.name || "";
-                        document.getElementById('portBoard').value = data.academic.school.board || "CBSE";
-                        if(data.academic.school.state) {
-                            document.getElementById('portState').value = data.academic.school.state;
-                            populateDistricts(data.academic.school.district);
-                        }
+                    // Hobbies
+                    if(data.academic.hobbies && Array.isArray(data.academic.hobbies)) {
+                        hobbiesArray = data.academic.hobbies;
+                        renderHobbies();
                     }
+
+                    // Interests
+                    if(data.academic.interests) {
+                        document.getElementById('intMusic').value = data.academic.interests.music || '';
+                        document.getElementById('intArtist').value = data.academic.interests.artist || '';
+                        document.getElementById('intTV').value = data.academic.interests.tv || '';
+                        document.getElementById('intMovies').value = data.academic.interests.movies || '';
+                        document.getElementById('intGames').value = data.academic.interests.games || '';
+                        document.getElementById('intSports').value = data.academic.interests.sports || '';
+                    }
+
+                    // Work & Edu
+                    if(data.academic.workHistory && data.academic.workHistory.length > 0) {
+                        data.academic.workHistory.forEach(w => addWorkEntry(w));
+                    } else addWorkEntry();
+
+                    if(data.academic.eduHistory && data.academic.eduHistory.length > 0) {
+                        data.academic.eduHistory.forEach(e => addEducationEntry(e));
+                    } else addEducationEntry();
+
                 } else {
-                    addSubjectRow(); // Initial empty state for subjects
+                    addSubjectRow(); addWorkEntry(); addEducationEntry();
                 }
 
                 calculateDynamicScore(data);
