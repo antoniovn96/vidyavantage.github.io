@@ -653,7 +653,7 @@
     
     let hobbiesArray = [];
     let uploadedImageBase64 = "";
-    let currentGlobalXP = -1; // Used for animation tracking
+    let currentGlobalXP = -1; 
 
     // Modals & Alert Logic
     window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; setTimeout(()=> {document.getElementById(id).classList.add('active');}, 10);}
@@ -664,6 +664,19 @@
         titleEl.style.color = isError ? 'var(--danger)' : 'var(--primary)';
         document.getElementById('customAlertMessage').innerText = message;
         openModal('customAlertModal');
+    }
+
+    // --- RESTORED: unlockBadge function ---
+    window.unlockBadge = function(id, primaryClass, xpValue) {
+        const el = document.getElementById(id);
+        if(el && !previouslyUnlockedBadges.has(id) && !el.classList.contains(primaryClass)) {
+            el.classList.add(primaryClass);
+            el.style.animation = 'none';
+            el.offsetHeight; 
+            el.style.animation = 'badgePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+            showToastNotification(`Achievement Unlocked!`, `+${xpValue} XP added to your profile.`);
+            previouslyUnlockedBadges.add(id);
+        }
     }
 
     // Comprehensive India Data
@@ -915,41 +928,10 @@
                     </select>
                 </div>
                 <div class="form-group"><label class="form-label">State</label><select class="form-select vol-state" onchange="populateDistricts(this)">${stateOptions}</select></div>
-                <div class="form-group"><label class="form-label">District</label><select class="form-select vol-district district-select">${distOptions}</select></div>
-                <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input vol-city" placeholder="City name" value="${data.city || ''}"></div>
             </div>
             <div class="form-group" style="margin-top:10px;"><label class="form-label">Brief Description of Responsibilities</label><textarea class="form-textarea vol-desc" rows="2" placeholder="Describe your responsibilities, skills learned, or impact made...">${data.desc || ''}</textarea></div>
         </div>`;
         container.insertAdjacentHTML('beforeend', html);
-    }
-
-    window.addHobby = function(val = null) {
-        const input = document.getElementById('hobbyInput');
-        const text = val || input.value.trim();
-        if(!text) return;
-        if(hobbiesArray.length >= 10) { showCustomAlert("Maximum 10 hobbies allowed.", "Limit Reached", false); return; }
-        if(hobbiesArray.includes(text)) return; 
-        hobbiesArray.push(text);
-        renderHobbies();
-        input.value = "";
-    }
-    window.removeHobby = function(index) { hobbiesArray.splice(index, 1); renderHobbies(); }
-    function renderHobbies() {
-        const container = document.getElementById('hobbyTagsContainer');
-        container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="removeHobby(${i})">&times;</span></div>`).join('');
-    }
-
-    // --- CRITICAL FIX: UNLOCK BADGE DEFINITION ---
-    window.unlockBadge = function(id, primaryClass, xpValue) {
-        const el = document.getElementById(id);
-        if(el && !previouslyUnlockedBadges.has(id) && !el.classList.contains(primaryClass)) {
-            el.classList.add(primaryClass);
-            el.style.animation = 'none';
-            el.offsetHeight; 
-            el.style.animation = 'badgePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            showToastNotification(`Achievement Unlocked!`, `+${xpValue} XP added to your profile.`);
-            previouslyUnlockedBadges.add(id);
-        }
     }
 
     // --- ADVANCED XP CALCULATION & MODALS ---
