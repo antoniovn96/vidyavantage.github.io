@@ -170,6 +170,11 @@
       .chat-counsellor { background: #f1f5f9; color: #1e293b; margin-right: auto; border-bottom-left-radius: 0; border: 1px solid var(--border);}
       .chat-time { font-size: 0.75rem; opacity: 0.7; margin-top: 6px; text-align: right; display: block;}
 
+      /* PARENT TOGGLE STYLES */
+      .parent-toggle-wrap { display: flex; align-items: center; gap: 8px; background: #fffbeb; border: 1px solid #fde68a; padding: 6px 14px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 0.85rem; color: #d97706; transition: 0.3s;}
+      .parent-toggle-wrap:hover { background: #fef3c7; }
+      .parent-toggle-wrap.active { background: #d97706; color: white; border-color: #d97706;}
+
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
       @keyframes badgePop { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
       @keyframes fadeOut { to { opacity: 0; } }
@@ -282,7 +287,7 @@
                 🔔 <span class="notif-badge" id="notifBadge">0</span>
             </div>
 
-            <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="toggleParentMode()">
+            <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="window.toggleParentMode()">
                 <span id="parentToggleIcon">👨‍👩‍👧</span> <span id="parentToggleText">Parent View</span>
             </div>
             
@@ -655,9 +660,17 @@
     let uploadedImageBase64 = "";
     let currentGlobalXP = -1; 
 
-    // Modals, Alerts, & Toast Logic
-    window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; setTimeout(()=> {document.getElementById(id).classList.add('active');}, 10);}
-    window.closeModal = function(id) { document.getElementById(id).classList.remove('active'); setTimeout(()=> {document.getElementById(id).style.display = 'none';}, 300); }
+    // --- RESTORED: Modal, Toast & Parent Mode Logic ---
+    window.openModal = function(id) { 
+        document.getElementById(id).style.display = 'flex'; 
+        setTimeout(()=> {document.getElementById(id).classList.add('active');}, 10);
+    }
+    
+    window.closeModal = function(id) { 
+        document.getElementById(id).classList.remove('active'); 
+        setTimeout(()=> {document.getElementById(id).style.display = 'none';}, 300); 
+    }
+    
     window.showCustomAlert = function(message, title = "Notice", isError = true) {
         const titleEl = document.getElementById('customAlertTitle');
         titleEl.innerText = title;
@@ -666,7 +679,6 @@
         openModal('customAlertModal');
     }
 
-    // --- RESTORED TOAST & PARENT MODE LOGIC ---
     window.showToastNotification = function(title, message) {
         const container = document.getElementById('toastContainer');
         const toast = document.createElement('div');
@@ -674,10 +686,10 @@
         toast.innerHTML = `<div class="toast-title">🔔 ${title}</div><div class="toast-body">${message}</div>`;
         
         toast.onclick = () => {
-            if(title.includes("Achievement") || title.includes("Level") || title.includes("Profile")) {
-                window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
-            } else {
+            if(title.includes("New Message") || title.includes("Chat")) {
                 window.switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5]);
+            } else {
+                window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
             }
             toast.style.animation = 'fadeOut 0.3s ease forwards';
             setTimeout(() => toast.remove(), 300);
@@ -981,6 +993,22 @@
             <div class="form-group" style="margin-top:10px;"><label class="form-label">Brief Description of Responsibilities</label><textarea class="form-textarea vol-desc" rows="2" placeholder="Describe your responsibilities, skills learned, or impact made...">${data.desc || ''}</textarea></div>
         </div>`;
         container.insertAdjacentHTML('beforeend', html);
+    }
+
+    window.addHobby = function(val = null) {
+        const input = document.getElementById('hobbyInput');
+        const text = val || input.value.trim();
+        if(!text) return;
+        if(hobbiesArray.length >= 10) { showCustomAlert("Maximum 10 hobbies allowed.", "Limit Reached", false); return; }
+        if(hobbiesArray.includes(text)) return; 
+        hobbiesArray.push(text);
+        renderHobbies();
+        input.value = "";
+    }
+    window.removeHobby = function(index) { hobbiesArray.splice(index, 1); renderHobbies(); }
+    function renderHobbies() {
+        const container = document.getElementById('hobbyTagsContainer');
+        container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="removeHobby(${i})">&times;</span></div>`).join('');
     }
 
     // --- ADVANCED XP CALCULATION & MODALS ---
