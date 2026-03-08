@@ -182,7 +182,7 @@
 <datalist id="gameSuggestions"></datalist>
 <datalist id="sportSuggestions"></datalist>
 
-<div class="modal-overlay" id="customAlertModal" style="z-index: 9999;" onclick="if(event.target === this) closeModal('customAlertModal')">
+<div class="modal-overlay" id="customAlertModal">
     <div class="modal-content" style="max-width: 400px; text-align: center;">
         <h3 id="customAlertTitle" style="color: var(--danger); margin-top: 0; font-size: 1.5rem;">Notice</h3>
         <p id="customAlertMessage" style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.5; font-size: 1.05rem;"></p>
@@ -190,7 +190,7 @@
     </div>
 </div>
 
-<div class="modal-overlay" id="xpModal" onclick="if(event.target === this) closeModal('xpModal')">
+<div class="modal-overlay" id="xpModal">
     <div class="modal-content" style="position:relative;">
         <button class="modal-close" onclick="closeModal('xpModal')">&times;</button>
         <div style="text-align:center; margin-bottom:20px;">
@@ -207,7 +207,7 @@
     </div>
 </div>
 
-<div class="modal-overlay" id="progressModal" onclick="if(event.target === this) closeModal('progressModal')">
+<div class="modal-overlay" id="progressModal">
     <div class="modal-content" style="position:relative;">
         <button class="modal-close" onclick="closeModal('progressModal')">&times;</button>
         <div style="text-align:center; margin-bottom:20px;">
@@ -323,7 +323,7 @@
                         <div style="font-size:3rem; margin-bottom:10px;">🔒</div>
                         <h3 style="border:none; justify-content:center; font-size:1.4rem;">Assessment Pending</h3>
                         <p style="color:var(--text-muted); margin-top:-5px;">Complete your psychometric assessment to reveal your top matching careers.</p>
-                        <button class="btn" style="margin-top:15px;" onclick="launchAssessment()">Start Assessment Now</button>
+                        <button class="btn" style="margin-top:15px;" onclick="window.launchAssessment()">Start Assessment Now</button>
                     </div>
                 </div>
             </div>
@@ -336,13 +336,13 @@
             
             <div id="lockCareerSection" class="hide-from-parent" style="display:none; margin-top: 30px; background: rgba(0,0,0,0.02); padding: 30px; border-radius: 16px; text-align: center; border: 1px dashed var(--accent);">
                 <p style="color: #d97706; font-size: 1.05rem; margin-bottom: 15px; font-weight: 800;">You have achieved Strategy Level! Ready to commit?</p>
-                <button onclick="lockFinalCareer()" class="btn" style="background: var(--accent); color: #fff; padding: 14px 40px;">🔒 Lock My Final Career Path</button>
+                <button onclick="window.lockFinalCareer()" class="btn" style="background: var(--accent); color: #fff; padding: 14px 40px;">🔒 Lock My Final Career Path</button>
             </div>
             <div id="careerLockedSuccess" style="display:none; margin-top: 30px; background: #ecfdf5; padding: 30px; border-radius: 16px; text-align: center; border: 1px solid #a7f3d0;">
                 <div style="font-size: 3rem; margin-bottom: 10px;">🎊</div>
                 <h4 style="margin: 0 0 10px 0; color: var(--success); font-size: 1.4rem; font-weight: 800;">Career Locked Successfully</h4>
                 <p style="color: #065f46; font-size: 0.95rem; margin-bottom: 20px;">Your parents and counselor have been notified. Time to execute the plan.</p>
-                <button class="btn" style="background: var(--success);" onclick="switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])">📄 View Final Execution Report</button>
+                <button class="btn" style="background: var(--success);" onclick="window.switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])">📄 View Final Execution Report</button>
             </div>
         </div>
 
@@ -357,7 +357,7 @@
                     <div style="font-size: 4rem; opacity: 0.5; margin-bottom: 15px;">🔍</div>
                     <h3 style="justify-content: center; border:none;">Lab Locked</h3>
                     <p style="color:var(--text-muted);">Complete your Psychometric Assessment to unlock personalized recommendations.</p>
-                    <button class="btn hide-from-parent" onclick="launchAssessment()" style="margin-top: 15px;">Take Assessment</button>
+                    <button class="btn hide-from-parent" onclick="window.launchAssessment()" style="margin-top: 15px;">Take Assessment</button>
                 </div>
             </div>
         </div>
@@ -371,7 +371,7 @@
                 <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.8;">📄</div>
                 <h2 style="color: #0f172a; font-size: 1.8rem; margin-bottom: 15px;">Report Locked</h2>
                 <p style="color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">You need to complete your Psychometric Assessment before the AI can generate your personalized Career Report.</p>
-                <button onclick="launchAssessment()" class="btn hide-from-parent" style="padding: 15px 35px;">Take Assessment Now ➔</button>
+                <button onclick="window.launchAssessment()" class="btn hide-from-parent" style="padding: 15px 35px;">Take Assessment Now ➔</button>
             </div>
 
             <div id="unlockedReportUI" style="display:none;" class="report-render-area">
@@ -452,7 +452,7 @@
                 <div class="acc-body">
                     <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0; margin-bottom:20px;">Add your completed and ongoing education levels. XP is awarded for detailed subject marks.</p>
                     <div id="educationContainer"></div>
-                    <button class="btn btn-outline" onclick="addEducationEntry()" style="width:100%; border-style:dashed;">+ Add Education Record</button>
+                    <button class="btn btn-outline" onclick="window.addEducationEntry()" style="width:100%; border-style:dashed;">+ Add Education Record</button>
                 </div>
             </details>
 
@@ -461,7 +461,7 @@
                 <div class="acc-body">
                     <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add any internships, part-time roles, social work, or volunteer experiences.</p>
                     <div id="volunteerContainer"></div>
-                    <button class="btn btn-outline" onclick="addVolunteerEntry()" style="width:100%; border-style:dashed;">+ Add Experience</button>
+                    <button class="btn btn-outline" onclick="window.addVolunteerEntry()" style="width:100%; border-style:dashed;">+ Add Experience</button>
                 </div>
             </details>
 
@@ -477,7 +477,7 @@
                     <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add up to 10 hobbies.</p>
                     <div style="display:flex; gap:10px;">
                         <input type="text" id="hobbyInput" list="hobbySuggestions" autocomplete="off" class="form-input" placeholder="Search or type a hobby..." style="max-width:300px;">
-                        <button class="btn" onclick="addHobby()">Add</button>
+                        <button class="btn" onclick="window.addHobby()">Add</button>
                     </div>
                     <div id="hobbyTagsContainer" class="hobby-container"></div>
                 </div>
@@ -495,7 +495,7 @@
                 </div>
             </details>
 
-            <button class="btn hide-from-parent" id="saveProfileBtn" onclick="saveAcademicPortfolio()" style="width:100%; padding:18px; font-size:1.1rem; margin-top:20px; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);">💾 Save Complete Profile</button>
+            <button class="btn hide-from-parent" id="saveProfileBtn" onclick="window.saveAcademicPortfolio()" style="width:100%; padding:18px; font-size:1.1rem; margin-top:20px; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);">💾 Save Complete Profile</button>
         </div>
 
         <div id="tab-counselling" class="tab-content">
@@ -505,7 +505,7 @@
                     <h3 style="margin-bottom: 20px;">Secure Your Slot</h3>
                     <div class="form-group">
                         <label class="form-label">Select Expert Counsellor</label>
-                        <select class="form-select" id="bookCounsellorSelect" onchange="showCounsellorTimes(this.value)"><option value="">-- Loading Experts --</option></select>
+                        <select class="form-select" id="bookCounsellorSelect" onchange="window.showCounsellorTimes(this.value)"><option value="">-- Loading Experts --</option></select>
                     </div>
                     
                     <div id="bookingAvailInfo" style="margin-bottom: 25px; padding: 20px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; display:none;">
@@ -537,7 +537,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn hide-from-parent" id="confirmBookingBtn" onclick="submitBooking()" style="width:100%; padding: 14px;">Confirm Booking</button>
+                    <button class="btn hide-from-parent" id="confirmBookingBtn" onclick="window.submitBooking()" style="width:100%; padding: 14px;">Confirm Booking</button>
                 </div>
             </div>
         </div>
@@ -554,7 +554,7 @@
                     <div style="padding: 20px 25px; border-bottom: 1px solid var(--border); background: #f8fafc;">
                         <div class="form-group" style="margin:0;">
                             <label class="form-label" style="font-size:0.75rem;">Select Counsellor</label>
-                            <select class="form-select" id="studentChatSelect" onchange="loadCounsellorChat(this.value)"><option value="">-- Choose a Counsellor --</option></select>
+                            <select class="form-select" id="studentChatSelect" onchange="window.loadCounsellorChat(this.value)"><option value="">-- Choose a Counsellor --</option></select>
                         </div>
                     </div>
                     <div style="flex:1; padding: 25px; overflow-y:auto; background: #ffffff;" id="studentChatMessages">
@@ -562,7 +562,7 @@
                     </div>
                     <div style="padding: 20px 25px; border-top: 1px solid var(--border); display:flex; gap:15px; background: #f8fafc;">
                         <input type="text" id="studentChatInput" class="form-input" placeholder="Type a message..." style="margin:0; background:white;">
-                        <button class="btn" onclick="sendStudentChatMessage()" style="padding: 0 25px;">Send</button>
+                        <button class="btn" onclick="window.sendStudentChatMessage()" style="padding: 0 25px;">Send</button>
                     </div>
                 </div>
                 <div>
@@ -623,6 +623,16 @@
     let uploadedImageBase64 = "";
     let currentGlobalXP = -1; 
 
+    // --- BULLETPROOF SAFE DOM SETTERS ---
+    function safeSetText(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.innerText = text;
+    }
+    function safeSetHTML(id, html) {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+    }
+
     // --- MODAL CLICK-OUTSIDE & ALERT LOGIC ---
     window.openModal = function(id) { 
         const el = document.getElementById(id);
@@ -643,19 +653,16 @@
     // Listen for clicks on ALL modal overlays to close them safely
     document.addEventListener('click', function(event) {
         if (event.target && event.target.classList && event.target.classList.contains('modal-overlay')) {
-            closeModal(event.target.id);
+            window.closeModal(event.target.id);
         }
     });
 
     window.showCustomAlert = function(message, title = "Notice", isError = true) {
+        safeSetText('customAlertTitle', title);
         const titleEl = document.getElementById('customAlertTitle');
-        if(titleEl) {
-            titleEl.innerText = title;
-            titleEl.style.color = isError ? 'var(--danger)' : 'var(--primary)';
-        }
-        const msgEl = document.getElementById('customAlertMessage');
-        if(msgEl) msgEl.innerText = message;
-        openModal('customAlertModal');
+        if(titleEl) titleEl.style.color = isError ? 'var(--danger)' : 'var(--primary)';
+        safeSetText('customAlertMessage', message);
+        window.openModal('customAlertModal');
     }
 
     // --- RESTORED TOAST & PARENT MODE LOGIC ---
@@ -721,7 +728,7 @@
             el.style.animation = 'none';
             el.offsetHeight; 
             el.style.animation = 'badgePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            showToastNotification(`Achievement Unlocked!`, `+${xpValue} XP added to your profile.`);
+            window.showToastNotification(`Achievement Unlocked!`, `+${xpValue} XP added to your profile.`);
             previouslyUnlockedBadges.add(id);
         }
     }
@@ -906,7 +913,7 @@
             <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
             <div class="grid-2col">
                 <div class="form-group"><label class="form-label">Education Level</label>
-                    <select class="form-select edu-level" onchange="updateEduLabels(this)">
+                    <select class="form-select edu-level" onchange="window.updateEduLabels(this)">
                         <option value="School" ${data.level==='School'?'selected':''}>School (10th)</option>
                         <option value="PUC" ${data.level==='PUC'?'selected':''}>PUC / 12th</option>
                         <option value="Diploma" ${data.level==='Diploma'?'selected':''}>Diploma</option>
@@ -923,7 +930,7 @@
                 <div class="form-group edu-to-box"><label class="form-label edu-to-label">${toLabelTxt}</label><input type="date" class="form-input edu-to" value="${data.to || ''}"></div>
                 
                 <div class="form-group"><label class="form-label">Grading System</label>
-                    <select class="form-select edu-grading-sys" onchange="updateDynamicGradingInput(this)">${sysOptions}</select>
+                    <select class="form-select edu-grading-sys" onchange="window.updateDynamicGradingInput(this)">${sysOptions}</select>
                 </div>
                 <div class="form-group"><label class="form-label">Overall Score / CGPA</label><input type="text" class="form-input edu-overall-score" placeholder="e.g. 85 or 9.2" value="${data.score || ''}"></div>
             </div>
@@ -931,7 +938,7 @@
             <div style="border-top: 1px dashed #cbd5e1; padding-top: 15px; margin-top: 10px;">
                 <label class="form-label">Subject-wise Marks (Optional but adds XP!)</label>
                 <div class="edu-subjects-container">${subjectsHtml}</div>
-                <button type="button" class="btn btn-outline" onclick="addEduSubjectRow(this)" style="padding: 6px 12px; font-size: 0.8rem; margin-top: 10px;">+ Add Subject</button>
+                <button type="button" class="btn btn-outline" onclick="window.addEduSubjectRow(this)" style="padding: 6px 12px; font-size: 0.8rem; margin-top: 10px;">+ Add Subject</button>
             </div>
         </div>`;
         container.insertAdjacentHTML('beforeend', html);
@@ -970,7 +977,7 @@
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                         <label class="form-label" style="margin:0;">To Date</label>
                         <label style="font-size:0.8rem; color:var(--text-muted); display:flex; align-items:center; gap:5px; cursor:pointer;">
-                            <input type="checkbox" class="vol-current" onchange="toggleToDate(this)" ${data.current ? 'checked' : ''}> Currently active here
+                            <input type="checkbox" class="vol-current" onchange="window.toggleToDate(this)" ${data.current ? 'checked' : ''}> Currently active here
                         </label>
                     </div>
                     <div class="to-date-container" style="display:${data.current ? 'none' : 'block'}">
@@ -984,7 +991,7 @@
                         <option value="Online" ${data.type==='Online'?'selected':''}>Online / Remote</option>
                     </select>
                 </div>
-                <div class="form-group"><label class="form-label">State</label><select class="form-select vol-state" onchange="populateDistricts(this)">${stateOptions}</select></div>
+                <div class="form-group"><label class="form-label">State</label><select class="form-select vol-state" onchange="window.populateDistricts(this)">${stateOptions}</select></div>
                 <div class="form-group"><label class="form-label">District</label><select class="form-select vol-district district-select">${distOptions}</select></div>
                 <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input vol-city" placeholder="City name" value="${data.city || ''}"></div>
             </div>
@@ -997,7 +1004,7 @@
         const input = document.getElementById('hobbyInput');
         const text = val || input.value.trim();
         if(!text) return;
-        if(hobbiesArray.length >= 10) { showCustomAlert("Maximum 10 hobbies allowed.", "Limit Reached", false); return; }
+        if(hobbiesArray.length >= 10) { window.showCustomAlert("Maximum 10 hobbies allowed.", "Limit Reached", false); return; }
         if(hobbiesArray.includes(text)) return; 
         hobbiesArray.push(text);
         renderHobbies();
@@ -1006,7 +1013,7 @@
     window.removeHobby = function(index) { hobbiesArray.splice(index, 1); renderHobbies(); }
     function renderHobbies() {
         const container = document.getElementById('hobbyTagsContainer');
-        container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="removeHobby(${i})">&times;</span></div>`).join('');
+        container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="window.removeHobby(${i})">&times;</span></div>`).join('');
     }
 
     // --- ADVANCED XP CALCULATION & MODALS (Fully Null-Protected) ---
@@ -1031,6 +1038,7 @@
     }
 
     window.calculateDynamicScore = function(data) {
+      try {
         let score = 1; let xp = 10; 
         
         let breakdownHTML = `<div class="xp-list-item"><span>Registered Account</span><strong style="color:var(--success);">+10 XP</strong></div>`;
@@ -1050,7 +1058,7 @@
         let focusTitle = "Complete Profile";
         let focusDesc = "Log your academic history to help the AI contextualize your assessment.";
         let focusBtnText = "Update Profile ➔";
-        let focusAction = "switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])";
+        let focusAction = "window.switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])";
 
         previouslyUnlockedBadges.add('badge-registered');
 
@@ -1095,15 +1103,14 @@
             
             if(profileTasks.find(t=>t.id==='target').done && profileTasks.find(t=>t.id==='edu').done) {
                 score += 1; 
-                unlockBadge('badge-academic', 'unlocked-primary', 20);
+                window.unlockBadge('badge-academic', 'unlocked-primary', 20);
                 
-                const dotPortfolio = document.getElementById('dot-portfolio');
-                if (dotPortfolio) dotPortfolio.innerText = "✔";
+                safeSetText('dot-portfolio', "✔");
                 
                 focusTitle = "Take Psychometric Assessment";
                 focusDesc = "Takes approx 25 minutes. Essential to unlock your AI-driven matches.";
                 focusBtnText = "Start Assessment ➔";
-                focusAction = "launchAssessment()";
+                focusAction = "window.launchAssessment()";
             }
         } 
         
@@ -1111,37 +1118,31 @@
             profileTasks.find(t=>t.id==='ass').done = true;
             score += 3; xp += 50; 
             breakdownHTML += `<div class="xp-list-item"><span>Assessment Completed</span><strong style="color:var(--success);">+50 XP</strong></div>`;
-            unlockBadge('badge-assessed', 'unlocked-primary', 40);
+            window.unlockBadge('badge-assessed', 'unlocked-primary', 40);
             
             const step2 = document.getElementById('tl-step-2');
             if (step2) step2.classList.add('completed');
             
-            const dotReport = document.getElementById('dot-report');
-            if (dotReport) dotReport.innerText = "✔";
-            
-            const dotExplore = document.getElementById('dot-explore');
-            if (dotExplore) dotExplore.innerText = "✔";
+            safeSetText('dot-report', "✔");
+            safeSetText('dot-explore', "✔");
             
             focusTitle = "Review & Book Expert";
             focusDesc = "Review your Career Lab pathways, then book a session to discuss with a pro.";
             focusBtnText = "Book Free Session ➔";
-            focusAction = "switchTab('tab-counselling', document.querySelectorAll('.nav-btn')[4])";
+            focusAction = "window.switchTab('tab-counselling', document.querySelectorAll('.nav-btn')[4])";
         }
 
         if(data.sessionsHad && data.sessionsHad > 0) { 
             profileTasks.find(t=>t.id==='ses').done = true;
             score += 2; xp += 50; 
             breakdownHTML += `<div class="xp-list-item"><span>Counselling Session</span><strong style="color:var(--success);">+50 XP</strong></div>`;
-            unlockBadge('badge-counselled', 'unlocked-primary', 60);
+            window.unlockBadge('badge-counselled', 'unlocked-primary', 60);
             
             const step3 = document.getElementById('tl-step-3');
             if (step3) step3.classList.add('completed');
             
-            const dotCounsel = document.getElementById('dot-counselling');
-            if (dotCounsel) dotCounsel.innerText = "✔";
-            
-            const dotChat = document.getElementById('dot-chat');
-            if (dotChat) dotChat.innerText = "✔";
+            safeSetText('dot-counselling', "✔");
+            safeSetText('dot-chat', "✔");
 
             focusTitle = "Commit & Lock Path";
             focusDesc = "Based on your session, lock in your final choice to generate your execution plan.";
@@ -1153,7 +1154,7 @@
             profileTasks.find(t=>t.id==='loc').done = true;
             score = 10; xp += 100; 
             breakdownHTML += `<div class="xp-list-item"><span>Career Path Locked 🔒</span><strong style="color:var(--success);">+100 XP</strong></div>`;
-            unlockBadge('badge-locked', 'unlocked-success', 100);
+            window.unlockBadge('badge-locked', 'unlocked-success', 100);
             
             const step4 = document.getElementById('tl-step-4');
             if (step4) step4.classList.add('completed');
@@ -1173,7 +1174,7 @@
             focusTitle = "Execute Action Plan";
             focusDesc = "Your path is set. Follow your recommended 1-Year Execution strategy.";
             focusBtnText = "View Execution Plan ➔";
-            focusAction = "switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])";
+            focusAction = "window.switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])";
         }
 
         // Apply Logic UI updates safely
@@ -1189,46 +1190,50 @@
         else if (score >= 4) { levelName = "Level 2 - Discoverer"; levelText = "Assessment complete. Analyzing your natural aptitudes."; percentile = 40;}
         
         // --- NEW ROW 1 SAFE UPDATES ---
-        if (document.getElementById('dashClarityScore')) document.getElementById('dashClarityScore').innerText = score;
+        safeSetText('dashClarityScore', score);
         
-        if (document.getElementById('dashAssStatus')) {
-            document.getElementById('dashAssStatus').innerHTML = assDone ? '<span style="color:var(--success);">Completed ✔</span>' : '<span style="color:var(--warning);">Pending ⏳</span>';
-        }
+        const assStatusHTML = assDone ? '<span style="color:var(--success);">Completed ✔</span>' : '<span style="color:var(--warning);">Pending ⏳</span>';
+        safeSetHTML('dashAssStatus', assStatusHTML);
         
-        if (document.getElementById('dashSessionStatus')) {
-            document.getElementById('dashSessionStatus').innerHTML = sesDone ? '<span style="color:var(--success);">Completed ✔</span>' : '<span style="color:var(--text-muted);">Not Booked</span>';
-        }
+        const sesStatusHTML = sesDone ? '<span style="color:var(--success);">Completed ✔</span>' : '<span style="color:var(--text-muted);">Not Booked</span>';
+        safeSetHTML('dashSessionStatus', sesStatusHTML);
         
-        if (document.getElementById('dashActionText')) document.getElementById('dashActionText').innerText = focusBtnText.replace(' ➔', '');
-        if (document.getElementById('dashActionCard')) document.getElementById('dashActionCard').setAttribute('onclick', focusAction);
+        safeSetText('dashActionText', focusBtnText.replace(' ➔', ''));
+        const actionCard = document.getElementById('dashActionCard');
+        if (actionCard) actionCard.setAttribute('onclick', focusAction);
 
         // Update Modals safely
-        if (document.getElementById('xpBreakdownList')) {
-            document.getElementById('xpBreakdownList').innerHTML = breakdownHTML;
-        }
+        safeSetHTML('xpBreakdownList', breakdownHTML);
         
         let completedCount = profileTasks.filter(t => t.done).length;
         let percentProgress = Math.round((completedCount / profileTasks.length) * 100);
         
-        if (document.getElementById('modalProgressBar')) document.getElementById('modalProgressBar').style.width = percentProgress + "%";
-        if (document.getElementById('sideProfileBar')) document.getElementById('sideProfileBar').style.width = percentProgress + "%";
-        if (document.getElementById('sideProfileText')) document.getElementById('sideProfileText').innerText = percentProgress + "%";
+        const modalProgressBar = document.getElementById('modalProgressBar');
+        if (modalProgressBar) modalProgressBar.style.width = percentProgress + "%";
+        
+        const sideProfileBar = document.getElementById('sideProfileBar');
+        if (sideProfileBar) sideProfileBar.style.width = percentProgress + "%";
+        
+        safeSetText('sideProfileText', percentProgress + "%");
 
         // Render distinct Done / Pending lists
         const pendingTasks = profileTasks.filter(t => !t.done);
         const doneTasks = profileTasks.filter(t => t.done);
         
-        if (document.getElementById('progressTaskListPending')) {
-            document.getElementById('progressTaskListPending').innerHTML = pendingTasks.map(t => `<div class="prog-task-item pending"><span>⏳</span><span style="flex:1;">${t.name}</span></div>`).join('');
+        const pendingListEl = document.getElementById('progressTaskListPending');
+        if (pendingListEl) {
+            pendingListEl.innerHTML = pendingTasks.map(t => `<div class="prog-task-item pending"><span>⏳</span><span style="flex:1;">${t.name}</span></div>`).join('');
             if(pendingTasks.length === 0) { 
-                document.getElementById('progressTaskListPending').innerHTML = `<div style="text-align:center; padding:10px; font-weight:bold; color:var(--success);">All tasks complete!</div>`; 
+                pendingListEl.innerHTML = `<div style="text-align:center; padding:10px; font-weight:bold; color:var(--success);">All tasks complete!</div>`; 
             }
         }
-        if (document.getElementById('progressTaskListDone')) {
-            document.getElementById('progressTaskListDone').innerHTML = doneTasks.map(t => `<div class="prog-task-item done"><span>✅</span><span style="flex:1;">${t.name}</span></div>`).join('');
+        
+        const doneListEl = document.getElementById('progressTaskListDone');
+        if (doneListEl) {
+            doneListEl.innerHTML = doneTasks.map(t => `<div class="prog-task-item done"><span>✅</span><span style="flex:1;">${t.name}</span></div>`).join('');
         }
 
-        updateTopXP(xp, levelName);
+        window.updateTopXP(xp, levelName);
 
         // --- NEW ROW 2: CAREERS SAFE UPDATE ---
         const careersRow = document.getElementById('dashTopCareersRow');
@@ -1257,7 +1262,7 @@
                     <div style="font-size:3rem; margin-bottom:10px;">🔒</div>
                     <h3 style="border:none; justify-content:center; font-size:1.4rem;">Assessment Pending</h3>
                     <p style="color:var(--text-muted); margin-top:-5px;">Complete your psychometric assessment to reveal your top matching careers.</p>
-                    <button class="btn" style="margin-top:15px;" onclick="launchAssessment()">Start Assessment Now</button>
+                    <button class="btn" style="margin-top:15px;" onclick="window.launchAssessment()">Start Assessment Now</button>
                 </div>`;
             }
         }
@@ -1296,12 +1301,15 @@
 
         // SAFELY RENDER ASSESSMENT RESULTS TAB
         if(data.assessmentCompleted && data.fullReport) {
-            if (document.getElementById('lockedReportUI')) document.getElementById('lockedReportUI').style.display = 'none';
-            if (document.getElementById('unlockedReportUI')) document.getElementById('unlockedReportUI').style.display = 'block';
+            const lockedRepUI = document.getElementById('lockedReportUI');
+            if (lockedRepUI) lockedRepUI.style.display = 'none';
+            
+            const unlockedRepUI = document.getElementById('unlockedReportUI');
+            if (unlockedRepUI) unlockedRepUI.style.display = 'block';
             
             const rep = data.fullReport;
-            if (document.getElementById('reportRiasecCode')) document.getElementById('reportRiasecCode').innerText = rep.finalCode || "N/A";
-            if (document.getElementById('reportProfileDesc')) document.getElementById('reportProfileDesc').innerText = rep.profileDesc || "";
+            safeSetText('reportRiasecCode', rep.finalCode || "N/A");
+            safeSetText('reportProfileDesc', rep.profileDesc || "");
 
             if (document.getElementById('reportCareersContainer') && rep.topCareers) {
                 document.getElementById('reportCareersContainer').innerHTML = rep.topCareers.map(c => `
@@ -1309,6 +1317,17 @@
                 `).join('');
             }
             
+            safeSetText('reportAvoid', rep.avoid || "None specified.");
+            
+            if (rep.executionPlan) {
+                if (rep.executionPlan.courses && document.getElementById('reportPlanCourses')) {
+                    document.getElementById('reportPlanCourses').innerHTML = rep.executionPlan.courses.map(c => `<li>${c}</li>`).join('');
+                }
+                if (rep.executionPlan.exams && document.getElementById('reportPlanExams')) {
+                    document.getElementById('reportPlanExams').innerHTML = rep.executionPlan.exams.map(e => `<li>${e}</li>`).join('');
+                }
+            }
+
             if (typeof Chart !== 'undefined' && rep.scores) {
                 let existingChart = Chart.getChart('reportRiasecChart');
                 if (existingChart) { existingChart.destroy(); }
@@ -1332,6 +1351,9 @@
                 }
             }
         }
+      } catch (err) {
+        console.error("Dashboard Render Error:", err);
+      }
     }
 
     // --- SAVE LOGIC ---
@@ -1410,11 +1432,11 @@
         try {
             await setDoc(doc(db, "students", activeUserUid), { academic: academicData }, { merge: true });
             if(uploadedImageBase64) await updateDoc(doc(db, "students", activeUserUid), { photo: uploadedImageBase64 });
-            showToastNotification("Profile Updated!", "Your complete dossier has been securely saved. XP Awarded!");
+            window.showToastNotification("Profile Updated!", "Your complete dossier has been securely saved. XP Awarded!");
             if(!studentDataObj.academic) studentDataObj.academic = {};
             studentDataObj.academic = {...studentDataObj.academic, ...academicData}; 
-            calculateDynamicScore(studentDataObj);
-        } catch(e) { console.error(e); showCustomAlert("Failed to save. Check your connection.", "Save Error");}
+            window.calculateDynamicScore(studentDataObj);
+        } catch(e) { console.error(e); window.showCustomAlert("Failed to save. Check your connection.", "Save Error");}
         finally { btn.innerText = "💾 Save Complete Profile"; btn.disabled = false; }
     }
 
@@ -1423,9 +1445,9 @@
 
     window.showNotificationPopup = function() {
         if(globalUnreadCount > 0) {
-            showCustomAlert(`You have ${globalUnreadCount} unread message(s) from your counsellor. Please check the Direct Chat tab.`, "New Messages", false);
+            window.showCustomAlert(`You have ${globalUnreadCount} unread message(s) from your counsellor. Please check the Direct Chat tab.`, "New Messages", false);
         } else {
-            showCustomAlert("You have no new notifications right now.", "No Notifications", false);
+            window.showCustomAlert("You have no new notifications right now.", "No Notifications", false);
         }
     }
 
@@ -1441,7 +1463,7 @@
         const phone = document.getElementById('bookPhone').value;
         const medium = document.getElementById('bookMedium').value;
 
-        if(!cid || !date || !time || !phone) return showCustomAlert("Please complete all booking fields.", "Missing Info");
+        if(!cid || !date || !time || !phone) return window.showCustomAlert("Please complete all booking fields.", "Missing Info");
 
         const btn = document.getElementById('confirmBookingBtn');
         btn.innerText = "Processing Booking... ⏳";
@@ -1461,11 +1483,11 @@
             const currentSessions = studentDataObj.sessionsHad || 0;
             await updateDoc(doc(db, "students", activeUserUid), { sessionsHad: currentSessions + 1 });
             studentDataObj.sessionsHad = currentSessions + 1;
-            calculateDynamicScore(studentDataObj);
+            window.calculateDynamicScore(studentDataObj);
 
-            showToastNotification("Booking Confirmed! 🎉", `Your session on ${date} at ${time} is locked.`);
-            document.getElementById('bookDate').value = ""; document.getElementById('bookTime').value = ""; document.getElementById('bookPhone').value = ""; document.getElementById('bookCounsellorSelect').value = ""; showCounsellorTimes(""); 
-        } catch (e) { console.error(e); showCustomAlert("Error connecting to the scheduling system.", "System Error"); } finally { btn.innerText = "Confirm Booking"; btn.disabled = false; }
+            window.showToastNotification("Booking Confirmed! 🎉", `Your session on ${date} at ${time} is locked.`);
+            document.getElementById('bookDate').value = ""; document.getElementById('bookTime').value = ""; document.getElementById('bookPhone').value = ""; document.getElementById('bookCounsellorSelect').value = ""; window.showCounsellorTimes(""); 
+        } catch (e) { console.error(e); window.showCustomAlert("Error connecting to the scheduling system.", "System Error"); } finally { btn.innerText = "Confirm Booking"; btn.disabled = false; }
     }
 
     async function loadCounsellors() {
@@ -1504,7 +1526,7 @@
                                             badge.innerText = globalUnreadCount; 
                                             badge.style.display = 'flex';
                                         }
-                                        showToastNotification("New Message", `${data.name || "Counsellor"} sent you a message.`);
+                                        window.showToastNotification("New Message", `${data.name || "Counsellor"} sent you a message.`);
                                     }
                                 }
                             }
@@ -1566,7 +1588,7 @@
         const text = input.value.trim();
         const counsellorId = document.getElementById('studentChatSelect').value;
         if(!text) return; 
-        if(!counsellorId) return showCustomAlert("Please select a counsellor to chat.", "Select Expert");
+        if(!counsellorId) return window.showCustomAlert("Please select a counsellor to chat.", "Select Expert");
         input.value = ""; 
         try { await addDoc(collection(db, "chats", `${activeUserUid}_${counsellorId}`, "messages"), { text: text, senderId: activeUserUid, senderType: 'student', timestamp: serverTimestamp() }); } 
         catch(e) { console.error("Failed to send:", e); }
@@ -1630,8 +1652,9 @@
                 
                 const firstName = data.name.split(' ')[0];
                 
-                if (document.getElementById('stuName')) document.getElementById('stuName').innerText = data.name;
-                if (document.getElementById('welcomeText')) document.getElementById('welcomeText').innerText = `Welcome back, ${firstName}.`;
+                safeSetText('stuName', data.name);
+                safeSetText('welcomeText', `Welcome back, ${firstName}.`);
+                
                 if (document.getElementById('setStuName')) document.getElementById('setStuName').value = data.name;
                 if (document.getElementById('setStuEmail')) document.getElementById('setStuEmail').value = data.email;
                 
@@ -1642,8 +1665,7 @@
                     const avaImg2 = document.getElementById('stuInitials');
                     if(avaImg2) avaImg2.style.display = 'none';
                 } else {
-                    const stuInitials = document.getElementById('stuInitials');
-                    if(stuInitials) stuInitials.innerText = firstName.charAt(0).toUpperCase();
+                    safeSetText('stuInitials', firstName.charAt(0).toUpperCase());
                 }
                 
                 if(data.academic) {
@@ -1662,19 +1684,19 @@
                     }
 
                     if(data.academic.volunteerHistory && data.academic.volunteerHistory.length > 0) {
-                        data.academic.volunteerHistory.forEach(v => addVolunteerEntry(v));
+                        data.academic.volunteerHistory.forEach(v => window.addVolunteerEntry(v));
                     } else if (data.academic.workHistory && data.academic.workHistory.length > 0) {
-                        data.academic.workHistory.forEach(v => addVolunteerEntry({ organization: v.company, role: v.position, from: v.from, to: v.to, current: v.current, type: v.type, state: v.state, desc: v.desc }));
-                    } else addVolunteerEntry();
+                        data.academic.workHistory.forEach(v => window.addVolunteerEntry({ organization: v.company, role: v.position, from: v.from, to: v.to, current: v.current, type: v.type, state: v.state, desc: v.desc }));
+                    } else window.addVolunteerEntry();
 
                     if(data.academic.eduHistory && data.academic.eduHistory.length > 0) {
-                        data.academic.eduHistory.forEach(e => addEducationEntry(e));
-                    } else addEducationEntry();
+                        data.academic.eduHistory.forEach(e => window.addEducationEntry(e));
+                    } else window.addEducationEntry();
                 } else {
-                    addVolunteerEntry(); addEducationEntry();
+                    window.addVolunteerEntry(); window.addEducationEntry();
                 }
 
-                calculateDynamicScore(data);
+                window.calculateDynamicScore(data);
             } else { window.location.href = "register.html"; }
         } catch (error) { console.error("Data load failed:", error); }
     });
