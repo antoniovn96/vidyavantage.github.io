@@ -69,16 +69,18 @@
       .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
       .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; } 
       .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
-      @media (max-width: 1000px) { .grid-2, .grid-3-1, .grid-2col { grid-template-columns: 1fr; } }
+      
+      /* NEW DASHBOARD GRIDS */
+      .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+      .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+      @media (max-width: 1000px) { 
+          .grid-2, .grid-3-1, .grid-2col { grid-template-columns: 1fr; } 
+          .grid-4 { grid-template-columns: 1fr 1fr; }
+          .grid-3 { grid-template-columns: 1fr; }
+      }
       
       /* --- GAMIFICATION --- */
-      .badge-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;}
-      .gamify-badge { background: #f8fafc; color: #94a3b8; padding: 6px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; border: 1px solid transparent; display: flex; align-items: center; gap: 5px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s ease;}
-      .gamify-badge.unlocked { opacity: 1; filter: grayscale(0%); background: #fffbeb; color: #d97706;}
-      .gamify-badge.unlocked-primary { opacity: 1; filter: grayscale(0%); background: #eff6ff; color: #1e40af;}
-      .gamify-badge.unlocked-success { opacity: 1; filter: grayscale(0%); background: #d1fae5; color: #059669;}
-      
-      /* Top Header XP Display & Animations */
       .top-xp-display { display: flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 6px 12px; border-radius: 50px; transition: 0.3s; cursor:pointer;}
       .top-xp-display:hover { background: rgba(245, 158, 11, 0.2); }
       .top-xp-display span.lvl { color: #b45309; font-weight: 900; font-size: 0.85rem;}
@@ -90,7 +92,7 @@
       }
       .xp-bump { animation: xpBumpAnim 0.6s ease-out; }
 
-      /* --- MODALS FOR ALERTS, XP & PROGRESS --- */
+      /* --- MODALS --- */
       .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 10px; box-sizing: border-box; opacity: 0; transition: opacity 0.3s ease;}
       .modal-overlay.active { display: flex; opacity: 1; }
       .modal-content { background: var(--card-bg); width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: translateY(20px); transition: 0.3s ease; box-sizing: border-box; position: relative;}
@@ -140,29 +142,19 @@
       .hobby-tag { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;}
       .hobby-tag span { cursor: pointer; color: var(--danger); font-weight: bold;}
 
-      /* CLARITY METER */
-      .clarity-meter-wrap { background: radial-gradient(circle at top right, #1e1b4b, #0f172a); color: white; padding: 45px; border-radius: 20px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.08); display: flex; flex-direction: column;}
-      .clarity-score { font-size: 3.2rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 5px; background: -webkit-linear-gradient(45deg, #fcd34d, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
-      .meter-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 25px; overflow: hidden;}
-      .meter-fill { height: 100%; background: linear-gradient(90deg, #fcd34d, #f59e0b); width: 0%; border-radius: 10px; box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
-      .mini-chart-container { height: 50px; margin-top: 20px; width: 100%; opacity: 0.5;}
-
-      /* --- TIMELINE & PILLS --- */
-      .timeline-container { overflow: hidden; max-height: 0; transition: max-height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-      .timeline-container.expanded { max-height: 500px; }
-      .timeline-wrap { position: relative; margin-top: 10px; padding-left: 30px; border-left: 1px solid #e2e8f0; }
-      .timeline-step { position: relative; margin-bottom: 25px; opacity: 0.6; transition: 0.3s;}
-      .timeline-step::before { content: ''; position: absolute; left: -35px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: white; border: 2px solid #cbd5e1; transition: 0.3s;}
-      .timeline-step.completed { opacity: 1; }
-      .timeline-step.completed::before { background: var(--success); border-color: var(--success); box-shadow: 0 0 8px rgba(16,185,129,0.3);}
-      .timeline-step h4 { margin: 0 0 5px 0; color: #0f172a; font-size: 1rem; font-weight: 700; }
-      .timeline-step p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
-
-      .career-pill { background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; color: #1e293b; transition: 0.2s;}
       .badge-code { display: inline-block; background: var(--primary); color: white; padding: 6px 20px; border-radius: 50px; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;}
 
       .status-pill { padding: 4px 12px; border-radius: 50px; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;}
       .status-success { background: #d1fae5; color: #059669; }
+
+      /* NEW PROGRESS TRACK STYLES */
+      .journey-step { display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px dashed var(--border); transition: 0.3s; }
+      .journey-step:last-child { border: none; }
+      .j-icon { font-size: 1.5rem; width: 30px; text-align: center;}
+      .j-text { font-size: 1.05rem; font-weight: bold; color: #0f172a; flex: 1;}
+      .j-status { font-size: 0.75rem; font-weight: bold; padding: 6px 14px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;}
+      .status-done { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;}
+      .status-pending { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;}
 
       /* CHAT STYLES */
       .chat-message { padding: 12px 18px; border-radius: 12px; margin-bottom: 12px; font-size: 0.95rem; max-width: 85%; line-height: 1.5;}
@@ -287,7 +279,7 @@
                 🔔 <span class="notif-badge" id="notifBadge">0</span>
             </div>
 
-            <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="toggleParentMode()">
+            <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="window.toggleParentMode()">
                 <span id="parentToggleIcon">👨‍👩‍👧</span> <span id="parentToggleText">Parent View</span>
             </div>
             
@@ -301,80 +293,51 @@
             <div class="header-bar">
                 <div>
                     <h1 id="welcomeText">Welcome back, Student.</h1>
-                    <p style="color: var(--text-muted); font-size: 1.05rem;">Every step you complete sharpens your future.</p>
+                    <p style="color: var(--text-muted); font-size: 1.05rem;">Here is your current standing and immediate next steps.</p>
                 </div>
             </div>
 
-            <div class="grid-2" style="grid-template-columns: 1.2fr 1fr; margin-bottom: 30px;">
-                <div class="clarity-meter-wrap" style="cursor:pointer;" onclick="openModal('progressModal')">
-                    <h3 style="margin-top:0; color:white; border:none; opacity:0.6; font-size:0.85rem; text-transform:uppercase; letter-spacing: 1.5px; margin-bottom: 15px;">Your Decision Readiness</h3>
-                    <div style="margin-bottom: 15px;">
-                        <span id="dynLevelTitle" style="font-size: 1.2rem; font-weight: 800; display:block; color:#cbd5e1; margin-bottom: 5px;">Level 1 - Explorer</span>
-                        <div class="clarity-score"><span id="dynClarityScore">1</span><span style="font-size:1.8rem; color:rgba(255,255,255,0.3);">/10</span></div>
-                    </div>
-                    <p style="color:#f8fafc; font-size:1.05rem; line-height: 1.5; margin-bottom:5px; font-weight: 600;" id="dynClarityText">You are beginning your career discovery journey.</p>
-                    
-                    <div class="meter-bg"><div class="meter-fill" id="dynClarityBar"></div></div>
+            <div class="grid-4" style="margin-bottom: 30px;">
+                <div class="card" style="padding: 20px; border-top: 4px solid var(--primary); margin-bottom: 0;">
+                    <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; font-weight:bold;">Career Clarity Score</p>
+                    <div style="font-size: 2rem; font-weight: 900; color: #0f172a;"><span id="dashClarityScore">1</span><span style="font-size:1.2rem; color:rgba(0,0,0,0.3);">/10</span></div>
                 </div>
+                <div class="card" style="padding: 20px; border-top: 4px solid var(--secondary); margin-bottom: 0;">
+                    <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; font-weight:bold;">Assessment</p>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top:10px;" id="dashAssStatus">Pending</div>
+                </div>
+                <div class="card" style="padding: 20px; border-top: 4px solid var(--accent); margin-bottom: 0; background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%); cursor: pointer;" id="dashActionCard">
+                    <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--accent); text-transform:uppercase; font-weight:bold;">🎯 Next Action</p>
+                    <div style="font-size: 1.2rem; font-weight: 800; color: #b45309; margin-top:5px; text-decoration: underline; text-underline-offset: 4px;" id="dashActionText">Complete Profile</div>
+                </div>
+                <div class="card" style="padding: 20px; border-top: 4px solid #8b5cf6; margin-bottom: 0;">
+                    <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; font-weight:bold;">Next Session</p>
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top:10px;" id="dashSessionStatus">Not Booked</div>
+                </div>
+            </div>
 
-                <div style="display: flex; flex-direction: column; gap: 20px;">
-                    <div class="card" style="margin: 0; flex: 1; border-top: 4px solid var(--accent); display: flex; flex-direction: column; justify-content: center;">
-                        <h4 style="color:var(--accent); text-transform:uppercase; font-size:0.75rem; letter-spacing: 1px; margin: 0 0 10px 0;">🎯 Current Focus</h4>
-                        <h2 id="weeklyFocusTitle" style="margin:0 0 10px 0; font-size: 1.4rem; color: #0f172a;">Complete Profile</h2>
-                        <p id="weeklyFocusDesc" style="color:var(--text-muted); font-size:0.95rem; line-height: 1.5; margin-bottom: 20px;">Log your academic history to help the AI contextualize your assessment.</p>
-                        <button id="weeklyFocusBtn" onclick="switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])" class="btn" style="width:100%; padding: 14px;">Update Profile ➔</button>
+            <div style="margin-bottom: 35px;">
+                <h2 style="font-size: 1.4rem; color: #0f172a; margin: 0 0 15px 0;">🎯 Top Career Matches</h2>
+                <div class="grid-3" id="dashTopCareersRow">
+                    <div class="card" style="margin:0; text-align:center; opacity:0.6; padding:40px 20px; grid-column: 1 / -1; border-top: 4px solid var(--border);">
+                        <div style="font-size:3rem; margin-bottom:10px;">🔒</div>
+                        <h3 style="border:none; justify-content:center; font-size:1.4rem;">Assessment Pending</h3>
+                        <p style="color:var(--text-muted); margin-top:-5px;">Complete your psychometric assessment to reveal your top matching careers.</p>
+                        <button class="btn" style="margin-top:15px;" onclick="launchAssessment()">Start Assessment Now</button>
                     </div>
                 </div>
             </div>
 
-            <div class="card" style="margin-bottom: 30px;">
-                <h3 style="border-bottom: none; padding-bottom: 0;">Top Recommended Pathways</h3>
-                <div id="dashCareersContainer" style="margin-top: 15px;">
-                    <div class="career-pill" style="opacity: 0.5;"><span>Assessment Pending</span> <span>🔒</span></div>
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin:10px 0 0 0;">Complete your focus tasks to unlock AI matches.</p>
-                </div>
-            </div>
-
-            <div style="margin-top: 20px; text-align: center;">
-                <button onclick="toggleMilestones()" id="milestoneToggleBtn" style="background: none; border: none; color: var(--primary); font-weight: 700; font-size: 0.9rem; cursor: pointer;">View Timeline Progress ⬇</button>
-            </div>
-
-            <div id="milestoneSection" class="timeline-container">
-                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
-                    <div class="badge-container" style="margin-bottom: 30px;">
-                        <div class="gamify-badge unlocked" id="badge-registered">Registered</div>
-                        <div class="gamify-badge" id="badge-academic">Profile Built</div>
-                        <div class="gamify-badge" id="badge-assessed">Assessed</div>
-                        <div class="gamify-badge" id="badge-counselled">Counselled</div>
-                        <div class="gamify-badge" id="badge-locked">Path Locked</div>
+            <div class="card" style="margin-bottom:30px; border-top: 4px solid #334155;">
+                <h2 style="font-size: 1.3rem; color: #0f172a; margin: 0 0 20px 0; border-bottom: 1px solid var(--border); padding-bottom: 15px;">🚀 Your Career Journey</h2>
+                <div id="dashJourneyTrack">
                     </div>
-
-                    <div class="timeline-wrap">
-                        <div class="timeline-step completed">
-                            <h4>Phase 1: Foundation</h4>
-                            <p>Complete your full academic and personal profile.</p>
-                        </div>
-                        <div class="timeline-step" id="tl-step-2">
-                            <h4>Phase 2: Discovery</h4>
-                            <p>Take the Psychometric Assessment to unlock your report.</p>
-                        </div>
-                        <div class="timeline-step" id="tl-step-3">
-                            <h4>Phase 3: Interpretation</h4>
-                            <p>Book a 1-on-1 session with your designated career expert.</p>
-                        </div>
-                        <div class="timeline-step" id="tl-step-4">
-                            <h4>Phase 4: Execution</h4>
-                            <p>Lock your career path and generate your final timeline.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <div id="lockCareerSection" class="hide-from-parent" style="display:none; margin-top: 30px; background: rgba(0,0,0,0.02); padding: 30px; border-radius: 16px; text-align: center; border: 1px dashed var(--accent);">
                 <p style="color: #d97706; font-size: 1.05rem; margin-bottom: 15px; font-weight: 800;">You have achieved Strategy Level! Ready to commit?</p>
                 <button onclick="lockFinalCareer()" class="btn" style="background: var(--accent); color: #fff; padding: 14px 40px;">🔒 Lock My Final Career Path</button>
             </div>
-            
             <div id="careerLockedSuccess" style="display:none; margin-top: 30px; background: #ecfdf5; padding: 30px; border-radius: 16px; text-align: center; border: 1px solid #a7f3d0;">
                 <div style="font-size: 3rem; margin-bottom: 10px;">🎊</div>
                 <h4 style="margin: 0 0 10px 0; color: var(--success); font-size: 1.4rem; font-weight: 800;">Career Locked Successfully</h4>
@@ -1030,6 +993,22 @@
         container.insertAdjacentHTML('beforeend', html);
     }
 
+    window.addHobby = function(val = null) {
+        const input = document.getElementById('hobbyInput');
+        const text = val || input.value.trim();
+        if(!text) return;
+        if(hobbiesArray.length >= 10) { showCustomAlert("Maximum 10 hobbies allowed.", "Limit Reached", false); return; }
+        if(hobbiesArray.includes(text)) return; 
+        hobbiesArray.push(text);
+        renderHobbies();
+        input.value = "";
+    }
+    window.removeHobby = function(index) { hobbiesArray.splice(index, 1); renderHobbies(); }
+    function renderHobbies() {
+        const container = document.getElementById('hobbyTagsContainer');
+        container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="removeHobby(${i})">&times;</span></div>`).join('');
+    }
+
     // --- ADVANCED XP CALCULATION & MODALS (Fully Null-Protected) ---
     window.updateTopXP = function(newXp, newLevelName) {
         const topXpEl = document.getElementById('topXpDisplay');
@@ -1198,26 +1177,30 @@
         }
 
         // Apply Logic UI updates safely
+        let profDone = profileTasks.find(t=>t.id==='target').done && profileTasks.find(t=>t.id==='edu').done;
+        let assDone = data.assessmentCompleted;
+        let sesDone = data.sessionsHad && data.sessionsHad > 0;
+        let locDone = data.careerLocked;
+
         let levelName = "Level 1 - Explorer"; let levelText = "You are beginning your career discovery journey."; let percentile = 82; 
         if(score >= 10) { levelName = "Level 5 - Decided"; levelText = "Path locked. Action plan activated. Time to execute."; percentile = 95; }
         else if (score >= 8) { levelName = "Level 4 - Strategist"; levelText = "Excellent clarity! You are ready to lock your final strategic path."; percentile = 88;}
         else if (score >= 6) { levelName = "Level 3 - Analyst"; levelText = "You've moved from exploration to structured comparison."; percentile = 65;}
         else if (score >= 4) { levelName = "Level 2 - Discoverer"; levelText = "Assessment complete. Analyzing your natural aptitudes."; percentile = 40;}
         
-        if (document.getElementById('dynLevelTitle')) document.getElementById('dynLevelTitle').innerText = levelName;
-        if (document.getElementById('dynClarityText')) document.getElementById('dynClarityText').innerText = levelText;
-        if (document.getElementById('dynPercentile')) document.getElementById('dynPercentile').innerText = percentile;
-        if (document.getElementById('dynClarityScore')) document.getElementById('dynClarityScore').innerText = score;
-        if (document.getElementById('dynXp')) document.getElementById('dynXp').innerText = xp;
+        // --- NEW ROW 1 SAFE UPDATES ---
+        if (document.getElementById('dashClarityScore')) document.getElementById('dashClarityScore').innerText = score;
         
-        if (document.getElementById('weeklyFocusTitle')) document.getElementById('weeklyFocusTitle').innerText = focusTitle;
-        if (document.getElementById('weeklyFocusDesc')) document.getElementById('weeklyFocusDesc').innerText = focusDesc;
-        
-        const fBtn = document.getElementById('weeklyFocusBtn');
-        if (fBtn) {
-            fBtn.innerText = focusBtnText;
-            fBtn.setAttribute('onclick', focusAction);
+        if (document.getElementById('dashAssStatus')) {
+            document.getElementById('dashAssStatus').innerHTML = assDone ? '<span style="color:var(--success);">Completed ✔</span>' : '<span style="color:var(--warning);">Pending ⏳</span>';
         }
+        
+        if (document.getElementById('dashSessionStatus')) {
+            document.getElementById('dashSessionStatus').innerHTML = sesDone ? '<span style="color:var(--success);">Completed ✔</span>' : '<span style="color:var(--text-muted);">Not Booked</span>';
+        }
+        
+        if (document.getElementById('dashActionText')) document.getElementById('dashActionText').innerText = focusBtnText.replace(' ➔', '');
+        if (document.getElementById('dashActionCard')) document.getElementById('dashActionCard').setAttribute('onclick', focusAction);
 
         // Update Modals safely
         if (document.getElementById('xpBreakdownList')) {
@@ -1247,7 +1230,71 @@
 
         updateTopXP(xp, levelName);
 
-        // SAFELY RENDER ASSESSMENT RESULTS
+        // --- NEW ROW 2: CAREERS SAFE UPDATE ---
+        const careersRow = document.getElementById('dashTopCareersRow');
+        if(careersRow) {
+            if(assDone && data.fullReport && data.fullReport.topCareers) {
+                let cHtml = '';
+                data.fullReport.topCareers.slice(0,3).forEach((c, idx) => {
+                    let searchStr = c.name.split(' ')[0].toLowerCase();
+                    let trait = data.fullReport.finalCode ? data.fullReport.finalCode.charAt(0) : 'R';
+                    let traitName = trait === 'R' ? 'Realistic (Hands-on)' : trait === 'I' ? 'Investigative (Analytical)' : trait === 'A' ? 'Artistic (Creative)' : trait === 'S' ? 'Social (Helping)' : trait === 'E' ? 'Enterprising (Leading)' : 'Conventional (Organizing)';
+                    
+                    cHtml += `
+                    <div class="card" style="margin:0; padding:20px; border-top: 4px solid ${idx===0?'var(--primary)':idx===1?'var(--secondary)':'var(--warning)'}; display:flex; flex-direction:column;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+                            <h3 style="border:none; padding:0; margin:0; font-size:1.1rem; color:#0f172a; line-height:1.3;">${c.name}</h3>
+                            <span class="status-pill status-success">${c.score}%</span>
+                        </div>
+                        <p style="font-size:0.85rem; color:var(--text-muted); flex:1; margin-bottom:15px;"><strong>Why it matches:</strong> Aligns perfectly with your ${traitName} natural aptitude.</p>
+                        <a href="https://antoniovn96.github.io/vidyavantage.github.io/colleges/?search=${searchStr}" target="_blank" class="btn btn-outline" style="width:100%; text-align:center; padding:8px; font-size:0.85rem; text-decoration:none;">Explore Career ➔</a>
+                    </div>`;
+                });
+                careersRow.innerHTML = cHtml;
+            } else {
+                careersRow.innerHTML = `
+                <div class="card" style="margin:0; text-align:center; opacity:0.6; padding:40px 20px; grid-column: 1 / -1; border-top: 4px solid var(--border);">
+                    <div style="font-size:3rem; margin-bottom:10px;">🔒</div>
+                    <h3 style="border:none; justify-content:center; font-size:1.4rem;">Assessment Pending</h3>
+                    <p style="color:var(--text-muted); margin-top:-5px;">Complete your psychometric assessment to reveal your top matching careers.</p>
+                    <button class="btn" style="margin-top:15px;" onclick="launchAssessment()">Start Assessment Now</button>
+                </div>`;
+            }
+        }
+
+        // --- NEW ROW 3: PROGRESS SAFE UPDATE ---
+        const track = document.getElementById('dashJourneyTrack');
+        if(track) {
+            track.innerHTML = `
+                <div class="journey-step">
+                    <div class="j-icon">${profDone ? '✅' : '⏳'}</div>
+                    <div class="j-text" style="${profDone?'':'opacity:0.6'}">1. Profile Completed</div>
+                    <div class="j-status ${profDone ? 'status-done' : 'status-pending'}">${profDone ? 'Done' : 'Action Req'}</div>
+                </div>
+                <div class="journey-step">
+                    <div class="j-icon">${assDone ? '✅' : '🔒'}</div>
+                    <div class="j-text" style="${assDone?'':'opacity:0.6'}">2. Assessment Completed</div>
+                    <div class="j-status ${assDone ? 'status-done' : 'status-pending'}">${assDone ? 'Done' : 'Pending'}</div>
+                </div>
+                <div class="journey-step">
+                    <div class="j-icon">${assDone ? '✅' : '🔒'}</div>
+                    <div class="j-text" style="${assDone?'':'opacity:0.6'}">3. Career Exploration</div>
+                    <div class="j-status ${assDone ? 'status-done' : 'status-pending'}">${assDone ? 'Done' : 'Pending'}</div>
+                </div>
+                <div class="journey-step">
+                    <div class="j-icon">${sesDone ? '✅' : '🔒'}</div>
+                    <div class="j-text" style="${sesDone?'':'opacity:0.6'}">4. Counselling Session</div>
+                    <div class="j-status ${sesDone ? 'status-done' : 'status-pending'}">${sesDone ? 'Done' : 'Pending'}</div>
+                </div>
+                <div class="journey-step">
+                    <div class="j-icon">${locDone ? '✅' : '🔒'}</div>
+                    <div class="j-text" style="${locDone?'':'opacity:0.6'}">5. Career Decision Locked</div>
+                    <div class="j-status ${locDone ? 'status-done' : 'status-pending'}">${locDone ? 'Done' : 'Pending'}</div>
+                </div>
+            `;
+        }
+
+        // SAFELY RENDER ASSESSMENT RESULTS TAB
         if(data.assessmentCompleted && data.fullReport) {
             if (document.getElementById('lockedReportUI')) document.getElementById('lockedReportUI').style.display = 'none';
             if (document.getElementById('unlockedReportUI')) document.getElementById('unlockedReportUI').style.display = 'block';
@@ -1262,15 +1309,6 @@
                 `).join('');
             }
             
-            if(rep.topCareers && rep.topCareers.length > 0) {
-                if (document.getElementById('dashCareersContainer')) {
-                    document.getElementById('dashCareersContainer').innerHTML = `
-                        <div class="career-pill" style="border-left: 4px solid var(--primary);"><span>${rep.topCareers[0].name}</span> <span>🔥 Strong Match</span></div>
-                        <div class="career-pill" style="border-left: 4px solid var(--secondary);"><span>${rep.topCareers[1].name}</span> <span>⭐ Good Match</span></div>
-                    `;
-                }
-            }
-
             if (typeof Chart !== 'undefined' && rep.scores) {
                 let existingChart = Chart.getChart('reportRiasecChart');
                 if (existingChart) { existingChart.destroy(); }
@@ -1294,23 +1332,6 @@
                 }
             }
         }
-
-        setTimeout(() => {
-            if (document.getElementById('dynClarityBar')) {
-                document.getElementById('dynClarityBar').style.width = (score * 10) + "%";
-            }
-            if (typeof Chart !== 'undefined') {
-                const ctx = document.getElementById('miniClarityChart');
-                if(ctx) {
-                    if(miniChartInstance) miniChartInstance.destroy();
-                    miniChartInstance = new Chart(ctx.getContext('2d'), {
-                        type: 'line',
-                        data: { labels: ['Start', 'Profile', 'Assessment', 'Now'], datasets: [{ data: [1, 3, score >= 6 ? 6 : score, score], borderColor: '#fcd34d', borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#ffffff', tension: 0.4 }] },
-                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: {enabled: false} }, scales: { x: { display: false }, y: { display: false, min: 0, max: 10 } }, layout: { padding: 5 } }
-                    });
-                }
-            }
-        }, 300);
     }
 
     // --- SAVE LOGIC ---
