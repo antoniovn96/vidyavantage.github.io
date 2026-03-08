@@ -207,8 +207,7 @@
             <h2 style="margin:5px 0 0 0; color:#0f172a;">Experience Points</h2>
             <p style="color:var(--text-muted); margin:5px 0;">Here is exactly how you earned your XP.</p>
         </div>
-        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 20px;" id="xpBreakdownList">
-            </div>
+        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 20px;" id="xpBreakdownList"></div>
         <div style="display:flex; justify-content:space-between; font-size: 1.2rem; font-weight:900; color:var(--accent); padding: 0 10px;">
             <span>Total XP</span>
             <span id="xpModalTotal">0 XP</span>
@@ -227,12 +226,31 @@
         <div style="width:100%; height:8px; background:rgba(0,0,0,0.1); border-radius:4px; margin-bottom:20px; overflow:hidden;">
             <div style="width:0%; height:100%; background:var(--success); border-radius:4px; transition: 1s ease;" id="modalProgressBar"></div>
         </div>
-        
         <h4 style="margin:0 0 10px 0; color:#ef4444;">⏳ Pending Tasks</h4>
         <div id="progressTaskListPending" style="margin-bottom: 20px; background: #fff1f2; padding: 10px 15px; border-radius: 8px;"></div>
-        
         <h4 style="margin:0 0 10px 0; color:#10b981;">✅ Completed Milestones</h4>
         <div id="progressTaskListDone" style="background: #ecfdf5; padding: 10px 15px; border-radius: 8px;"></div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="scholarshipModal" onclick="if(event.target === this) window.closeModal('scholarshipModal')">
+    <div class="modal-content" style="position:relative;">
+        <button class="modal-close" onclick="window.closeModal('scholarshipModal')">&times;</button>
+        <div style="text-align:center; margin-bottom:20px;">
+            <div style="font-size:3rem;" id="scholIcon">🎓</div>
+            <h2 style="margin:5px 0 0 0; color:#0f172a; font-size:1.4rem; line-height: 1.3;" id="scholTitle">Scholarship Name</h2>
+            <p style="color:var(--primary); font-weight: bold; margin:5px 0;" id="scholProvider">Provider</p>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <p style="margin:0 0 15px 0; font-size:0.95rem; color:#334155; line-height: 1.5;" id="scholDesc">Description here</p>
+            <ul style="margin:0; padding-left:20px; font-size:0.95rem; color:#475569; line-height: 1.8;">
+                <li><strong>Amount:</strong> <span id="scholAmount" style="color:var(--success); font-weight:bold;">₹0</span></li>
+                <li><strong>Eligibility:</strong> <span id="scholEligibility">Criteria</span></li>
+                <li><strong>States Applicable:</strong> <span id="scholStates">All India</span></li>
+                <li><strong>Deadline:</strong> <span id="scholDeadline" style="color:var(--danger); font-weight: bold;">Date</span></li>
+            </ul>
+        </div>
+        <a href="#" target="_blank" id="scholLink" class="btn" style="width:100%; text-align:center; text-decoration:none;">Apply on Official Portal ➔</a>
     </div>
 </div>
 
@@ -376,7 +394,7 @@
         <div id="tab-explore" class="tab-content">
             <div class="header-bar">
                 <div><h1>Career Exploration Engine</h1><p>Deep dive into careers, compare salaries, and find colleges.</p></div>
-                <button class="btn" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Launch Full College GPS ➔</button>
+                <button class="btn hide-from-parent" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Launch Full College GPS ➔</button>
             </div>
             
             <div id="exploreLockedUI">
@@ -418,20 +436,47 @@
                         <h3 style="color:white; border-bottom: 1px solid rgba(255,255,255,0.1);">🏫 College Finder</h3>
                         <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px;">Find top institutions matching your preferred career path in your state.</p>
                         <div class="form-group"><input type="text" class="form-input" placeholder="e.g. Psychology in Karnataka" style="background: rgba(255,255,255,0.1); color:white; border:none;"></div>
-                        <button class="btn" style="width: 100%; background: var(--secondary);" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Search Directory</button>
+                        <button class="btn hide-from-parent" style="width: 100%; background: var(--secondary);" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Search Directory</button>
                     </div>
                     
-                    <div class="card" style="border-top: 4px solid var(--accent);">
+                    <div class="card" style="border-top: 4px solid var(--accent); max-height: 500px; overflow-y: auto; padding-right: 15px;">
                         <h3>🎓 Scholarship Alerts</h3>
+                        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:-10px; margin-bottom:15px;">Click 'View' to see eligibility and apply.</p>
+                        
                         <div class="journey-step" style="padding:10px 0;">
-                            <div class="j-icon">💰</div>
+                            <div class="j-icon">🏛️</div>
                             <div class="j-text" style="font-size:0.9rem;">State Merit Scholarship<br><span style="color:var(--danger); font-size:0.75rem;">Deadline: 15 April 2026</span></div>
-                            <button class="btn btn-outline" style="padding: 4px 10px; font-size:0.75rem;">Apply</button>
+                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('state_merit')">View</button>
                         </div>
                         <div class="journey-step" style="padding:10px 0;">
-                            <div class="j-icon">🎓</div>
-                            <div class="j-text" style="font-size:0.9rem;">STEM Excellence Grant<br><span style="color:var(--text-muted); font-size:0.75rem;">Eligibility: 12th PCM</span></div>
-                            <button class="btn btn-outline" style="padding: 4px 10px; font-size:0.75rem;">View</button>
+                            <div class="j-icon">🔬</div>
+                            <div class="j-text" style="font-size:0.9rem;">STEM Excellence Grant (INSPIRE)<br><span style="color:var(--text-muted); font-size:0.75rem;">Eligibility: 12th PCM/PCB</span></div>
+                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('stem_grant')">View</button>
+                        </div>
+                        <div class="journey-step" style="padding:10px 0;">
+                            <div class="j-icon">🇮🇳</div>
+                            <div class="j-text" style="font-size:0.9rem;">PM YASASVI Scholarship<br><span style="color:var(--text-muted); font-size:0.75rem;">Class 9 to 12 OBC/EBC</span></div>
+                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('pm_yasasvi')">View</button>
+                        </div>
+                        <div class="journey-step" style="padding:10px 0;">
+                            <div class="j-icon">👩‍🎓</div>
+                            <div class="j-text" style="font-size:0.9rem;">AICTE Pragati for Girls<br><span style="color:var(--text-muted); font-size:0.75rem;">Tech/Engineering Degree</span></div>
+                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('pragati')">View</button>
+                        </div>
+                        <div class="journey-step" style="padding:10px 0;">
+                            <div class="j-icon">🏢</div>
+                            <div class="j-text" style="font-size:0.9rem;">Reliance Foundation Scholar<br><span style="color:var(--text-muted); font-size:0.75rem;">First-Year UG Merit</span></div>
+                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('reliance')">View</button>
+                        </div>
+                        <div class="journey-step" style="padding:10px 0;">
+                            <div class="j-icon">🏦</div>
+                            <div class="j-text" style="font-size:0.9rem;">HDFC Bank Parivartan ECSS<br><span style="color:var(--text-muted); font-size:0.75rem;">Need & Merit Based</span></div>
+                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('hdfc')">View</button>
+                        </div>
+                        <div class="journey-step" style="padding:10px 0;">
+                            <div class="j-icon">🤝</div>
+                            <div class="j-text" style="font-size:0.9rem;">Tata Trusts Means Grant<br><span style="color:var(--text-muted); font-size:0.75rem;">College Tuition Support</span></div>
+                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('tata')">View</button>
                         </div>
                     </div>
                 </div>
@@ -735,6 +780,61 @@
         if (el) el.innerHTML = html;
     }
 
+    // --- SCHOLARSHIP DATA & MODAL LOGIC ---
+    const scholarshipsData = {
+        'state_merit': {
+            title: "State Merit Scholarship", provider: "State Government (Various)", icon: "🏛️",
+            desc: "Financial assistance provided by respective state governments to meritorious students belonging to economically weaker sections to pursue higher education.",
+            amount: "₹10,000 - ₹50,000 / year", eligibility: "Above 80% in 10th/12th, Family Income < ₹2.5L", states: "Karnataka, Maharashtra, Kerala, Gujarat, Tamil Nadu, etc.", deadline: "15 April 2026", link: "https://scholarships.gov.in/"
+        },
+        'stem_grant': {
+            title: "STEM Excellence Grant (INSPIRE)", provider: "Dept. of Science & Technology, Govt. of India", icon: "🔬",
+            desc: "Innovation in Science Pursuit for Inspired Research (INSPIRE) scheme offers financial support to students undertaking Bachelor's/Master's in basic and natural sciences.",
+            amount: "₹80,000 / year", eligibility: "Top 1% in 12th Board Exams (PCM/PCB)", states: "All India", deadline: "31 May 2026", link: "https://online-inspire.gov.in/"
+        },
+        'pm_yasasvi': {
+            title: "PM YASASVI Scholarship", provider: "Ministry of Social Justice, Govt. of India", icon: "🇮🇳",
+            desc: "Awarded to meritorious students from OBC, EBC, and DNT categories studying in Class 9 to 12.",
+            amount: "₹75,000 - ₹1,25,000 / year", eligibility: "OBC/EBC/DNT categories, Family income < ₹2.5L", states: "All India", deadline: "30 August 2026", link: "https://yet.nta.ac.in/"
+        },
+        'pragati': {
+            title: "AICTE Pragati Scholarship for Girls", provider: "AICTE, Govt. of India", icon: "👩‍🎓",
+            desc: "Empowering girls by providing financial assistance for pursuing technical education (Degree/Diploma).",
+            amount: "₹50,000 / year", eligibility: "Girl students admitted to AICTE approved tech programs", states: "All India", deadline: "31 Oct 2026", link: "https://www.aicte-india.org/schemes/students-development-schemes"
+        },
+        'reliance': {
+            title: "Reliance Foundation Scholarship", provider: "Reliance Foundation (Private)", icon: "🏢",
+            desc: "Supports exceptional undergraduates to pursue their higher education and become India's future leaders.",
+            amount: "Up to ₹2,00,000 over the degree", eligibility: "First-year UG students, Merit-based", states: "All India", deadline: "14 Feb 2026", link: "https://scholarships.reliancefoundation.org/"
+        },
+        'hdfc': {
+            title: "HDFC Bank Parivartan's ECSS", provider: "HDFC Bank (Private)", icon: "🏦",
+            desc: "Helps meritorious and needy students belonging to underprivileged sections to continue their education without dropping out.",
+            amount: "Up to ₹75,000 / year", eligibility: "School, UG, and PG students. Family income < ₹2.5L", states: "All India", deadline: "31 March 2026", link: "https://www.hdfcbank.com/"
+        },
+        'tata': {
+            title: "Tata Trusts Means Grant", provider: "Tata Trusts (Private)", icon: "🤝",
+            desc: "Offers partial financial assistance to college students to meet their tuition fee needs.",
+            amount: "Partial or Full Tuition Coverage", eligibility: "College students, based on financial need", states: "All India (Specifically Mumbai for some programs)", deadline: "Rolling", link: "https://www.tatatrusts.org/our-work/individual-grants-programme/education-grants"
+        }
+    };
+
+    window.showScholarship = function(id) {
+        const data = scholarshipsData[id];
+        if(!data) return;
+        safeSetText('scholIcon', data.icon);
+        safeSetText('scholTitle', data.title);
+        safeSetText('scholProvider', data.provider);
+        safeSetText('scholDesc', data.desc);
+        safeSetText('scholAmount', data.amount);
+        safeSetText('scholEligibility', data.eligibility);
+        safeSetText('scholStates', data.states);
+        safeSetText('scholDeadline', data.deadline);
+        const linkEl = document.getElementById('scholLink');
+        if(linkEl) linkEl.href = data.link;
+        window.openModal('scholarshipModal');
+    }
+
     // --- MODAL CLICK-OUTSIDE & ALERT LOGIC ---
     window.openModal = function(id) { 
         const el = document.getElementById(id);
@@ -766,7 +866,6 @@
         window.openModal('customAlertModal');
     }
 
-    // --- TOAST & PARENT MODE LOGIC ---
     window.showToastNotification = function(title, message) {
         const container = document.getElementById('toastContainer');
         if(!container) return;
@@ -834,12 +933,10 @@
         }
     }
 
-    // Comprehensive India Data
     const indiaData = {
         "Karnataka": ["Bengaluru Urban", "Bengaluru Rural", "Mysuru", "Mangaluru", "Hubballi", "Belagavi", "Chikkamagaluru", "Udupi", "Dakshina Kannada"],
         "Maharashtra": ["Mumbai City", "Mumbai Suburban", "Pune", "Nagpur", "Thane", "Nashik"],
         "Delhi": ["New Delhi", "South Delhi", "West Delhi", "North Delhi", "East Delhi"],
-        // Truncated for demo speed, expand as needed
     };
 
     const dbHobbies = ["Reading", "Writing", "Coding", "Robotics", "Painting", "Photography", "Video Editing", "Gaming", "Fitness", "Cooking", "Public Speaking", "Volunteering"];
@@ -909,7 +1006,6 @@
         if(toDateInput) toDateInput.style.display = checkboxElem.checked ? 'none' : 'block';
     }
 
-    // --- OVERHAULED EDUCATION LOGIC ---
     window.updateDynamicGradingInput = function(selectElem) {
         const sys = selectElem.value;
         const block = selectElem.closest('.entry-block');
