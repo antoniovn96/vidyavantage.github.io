@@ -93,7 +93,7 @@
       /* --- MODALS FOR ALERTS, XP & PROGRESS --- */
       .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 10px; box-sizing: border-box; opacity: 0; transition: opacity 0.3s ease;}
       .modal-overlay.active { display: flex; opacity: 1; }
-      .modal-content { background: var(--card-bg); width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: translateY(20px); transition: 0.3s ease; box-sizing: border-box;}
+      .modal-content { background: var(--card-bg); width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: translateY(20px); transition: 0.3s ease; box-sizing: border-box; position: relative;}
       .modal-overlay.active .modal-content { transform: translateY(0); }
       .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
       .modal-close:hover { color: var(--danger); transform: scale(1.1); }
@@ -190,7 +190,7 @@
 <datalist id="gameSuggestions"></datalist>
 <datalist id="sportSuggestions"></datalist>
 
-<div class="modal-overlay" id="customAlertModal" style="z-index: 9999;" onclick="if(event.target === this) closeModal('customAlertModal')">
+<div class="modal-overlay" id="customAlertModal" style="z-index: 9999;">
     <div class="modal-content" style="max-width: 400px; text-align: center;">
         <h3 id="customAlertTitle" style="color: var(--danger); margin-top: 0; font-size: 1.5rem;">Notice</h3>
         <p id="customAlertMessage" style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.5; font-size: 1.05rem;"></p>
@@ -198,8 +198,8 @@
     </div>
 </div>
 
-<div class="modal-overlay" id="xpModal" onclick="if(event.target === this) closeModal('xpModal')">
-    <div class="modal-content" style="position:relative;">
+<div class="modal-overlay" id="xpModal">
+    <div class="modal-content">
         <button class="modal-close" onclick="closeModal('xpModal')">&times;</button>
         <div style="text-align:center; margin-bottom:20px;">
             <div style="font-size:3rem;">✨</div>
@@ -215,8 +215,8 @@
     </div>
 </div>
 
-<div class="modal-overlay" id="progressModal" onclick="if(event.target === this) closeModal('progressModal')">
-    <div class="modal-content" style="position:relative;">
+<div class="modal-overlay" id="progressModal">
+    <div class="modal-content">
         <button class="modal-close" onclick="closeModal('progressModal')">&times;</button>
         <div style="text-align:center; margin-bottom:20px;">
             <div style="font-size:3rem;">🎯</div>
@@ -287,7 +287,7 @@
                 🔔 <span class="notif-badge" id="notifBadge">0</span>
             </div>
 
-            <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="window.toggleParentMode()">
+            <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="toggleParentMode()">
                 <span id="parentToggleIcon">👨‍👩‍👧</span> <span id="parentToggleText">Parent View</span>
             </div>
             
@@ -660,7 +660,7 @@
     let uploadedImageBase64 = "";
     let currentGlobalXP = -1; 
 
-    // --- RESTORED: Modal, Toast & Parent Mode Logic ---
+    // --- MODAL CLICK-OUTSIDE & ALERT LOGIC ---
     window.openModal = function(id) { 
         document.getElementById(id).style.display = 'flex'; 
         setTimeout(()=> {document.getElementById(id).classList.add('active');}, 10);
@@ -671,6 +671,13 @@
         setTimeout(()=> {document.getElementById(id).style.display = 'none';}, 300); 
     }
     
+    // Listen for clicks on ALL modal overlays to close them
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal-overlay')) {
+            closeModal(event.target.id);
+        }
+    });
+
     window.showCustomAlert = function(message, title = "Notice", isError = true) {
         const titleEl = document.getElementById('customAlertTitle');
         titleEl.innerText = title;
@@ -679,6 +686,7 @@
         openModal('customAlertModal');
     }
 
+    // --- RESTORED TOAST & PARENT MODE LOGIC ---
     window.showToastNotification = function(title, message) {
         const container = document.getElementById('toastContainer');
         const toast = document.createElement('div');
@@ -1098,7 +1106,10 @@
             if(profileTasks.find(t=>t.id==='target').done && profileTasks.find(t=>t.id==='edu').done) {
                 score += 1; 
                 unlockBadge('badge-academic', 'unlocked-primary', 20);
-                document.getElementById('dot-portfolio').innerText = "✔";
+                
+                // Safe DOM Update
+                const dotPortfolio = document.getElementById('dot-portfolio');
+                if (dotPortfolio) dotPortfolio.innerText = "✔";
                 
                 focusTitle = "Take Psychometric Assessment";
                 focusDesc = "Takes approx 25 minutes. Essential to unlock your AI-driven matches.";
@@ -1112,9 +1123,16 @@
             score += 3; xp += 50; 
             breakdownHTML += `<div class="xp-list-item"><span>Assessment Completed</span><strong style="color:var(--success);">+50 XP</strong></div>`;
             unlockBadge('badge-assessed', 'unlocked-primary', 40);
-            document.getElementById('tl-step-2').classList.add('completed');
-            document.getElementById('dot-report').innerText = "✔";
-            document.getElementById('dot-explore').innerText = "✔";
+            
+            // Safe DOM Updates
+            const step2 = document.getElementById('tl-step-2');
+            if (step2) step2.classList.add('completed');
+            
+            const dotReport = document.getElementById('dot-report');
+            if (dotReport) dotReport.innerText = "✔";
+            
+            const dotExplore = document.getElementById('dot-explore');
+            if (dotExplore) dotExplore.innerText = "✔";
             
             focusTitle = "Review & Book Expert";
             focusDesc = "Review your Career Lab pathways, then book a session to discuss with a pro.";
@@ -1127,9 +1145,16 @@
             score += 2; xp += 50; 
             breakdownHTML += `<div class="xp-list-item"><span>Counselling Session</span><strong style="color:var(--success);">+50 XP</strong></div>`;
             unlockBadge('badge-counselled', 'unlocked-primary', 60);
-            document.getElementById('tl-step-3').classList.add('completed');
-            document.getElementById('dot-counselling').innerText = "✔";
-            document.getElementById('dot-chat').innerText = "✔";
+            
+            // Safe DOM Updates
+            const step3 = document.getElementById('tl-step-3');
+            if (step3) step3.classList.add('completed');
+            
+            const dotCounsel = document.getElementById('dot-counselling');
+            if (dotCounsel) dotCounsel.innerText = "✔";
+            
+            const dotChat = document.getElementById('dot-chat');
+            if (dotChat) dotChat.innerText = "✔";
 
             focusTitle = "Commit & Lock Path";
             focusDesc = "Based on your session, lock in your final choice to generate your execution plan.";
@@ -1142,10 +1167,19 @@
             score = 10; xp += 100; 
             breakdownHTML += `<div class="xp-list-item"><span>Career Path Locked 🔒</span><strong style="color:var(--success);">+100 XP</strong></div>`;
             unlockBadge('badge-locked', 'unlocked-success', 100);
-            document.getElementById('tl-step-4').classList.add('completed');
-            document.getElementById('lockCareerSection').style.display = 'none'; 
-            document.getElementById('careerLockedSuccess').style.display = 'block';
-            lockUI();
+            
+            // Safe DOM Updates
+            const step4 = document.getElementById('tl-step-4');
+            if (step4) step4.classList.add('completed');
+            
+            const lockSection = document.getElementById('lockCareerSection');
+            if (lockSection) lockSection.style.display = 'none'; 
+            
+            const lockedSuccess = document.getElementById('careerLockedSuccess');
+            if (lockedSuccess) lockedSuccess.style.display = 'block';
+            
+            // Assuming lockUI is defined elsewhere or not strictly needed here
+            if (typeof lockUI === "function") lockUI();
 
             focusTitle = "Execute Action Plan";
             focusDesc = "Your path is set. Follow your recommended 1-Year Execution strategy.";
@@ -1153,86 +1187,109 @@
             focusAction = "switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])";
         }
 
-        // Apply Logic UI updates
+        // Apply Logic UI updates safely
         let levelName = "Level 1 - Explorer"; let levelText = "You are beginning your career discovery journey."; let percentile = 82; 
         if(score >= 10) { levelName = "Level 5 - Decided"; levelText = "Path locked. Action plan activated. Time to execute."; percentile = 95; }
         else if (score >= 8) { levelName = "Level 4 - Strategist"; levelText = "Excellent clarity! You are ready to lock your final strategic path."; percentile = 88;}
         else if (score >= 6) { levelName = "Level 3 - Analyst"; levelText = "You've moved from exploration to structured comparison."; percentile = 65;}
         else if (score >= 4) { levelName = "Level 2 - Discoverer"; levelText = "Assessment complete. Analyzing your natural aptitudes."; percentile = 40;}
         
-        document.getElementById('dynLevelTitle').innerText = levelName;
-        document.getElementById('dynClarityText').innerText = levelText;
-        document.getElementById('dynPercentile').innerText = percentile;
-        document.getElementById('dynClarityScore').innerText = score;
+        if (document.getElementById('dynLevelTitle')) document.getElementById('dynLevelTitle').innerText = levelName;
+        if (document.getElementById('dynClarityText')) document.getElementById('dynClarityText').innerText = levelText;
+        if (document.getElementById('dynPercentile')) document.getElementById('dynPercentile').innerText = percentile;
+        if (document.getElementById('dynClarityScore')) document.getElementById('dynClarityScore').innerText = score;
+        if (document.getElementById('dynXp')) document.getElementById('dynXp').innerText = xp;
         
-        document.getElementById('weeklyFocusTitle').innerText = focusTitle;
-        document.getElementById('weeklyFocusDesc').innerText = focusDesc;
+        if (document.getElementById('weeklyFocusTitle')) document.getElementById('weeklyFocusTitle').innerText = focusTitle;
+        if (document.getElementById('weeklyFocusDesc')) document.getElementById('weeklyFocusDesc').innerText = focusDesc;
+        
         const fBtn = document.getElementById('weeklyFocusBtn');
-        fBtn.innerText = focusBtnText;
-        fBtn.setAttribute('onclick', focusAction);
+        if (fBtn) {
+            fBtn.innerText = focusBtnText;
+            fBtn.setAttribute('onclick', focusAction);
+        }
 
-        // Update Modals
-        document.getElementById('xpBreakdownList').innerHTML = breakdownHTML;
+        // Update Modals safely
+        if (document.getElementById('xpBreakdownList')) {
+            document.getElementById('xpBreakdownList').innerHTML = breakdownHTML;
+        }
         
         let completedCount = profileTasks.filter(t => t.done).length;
         let percentProgress = Math.round((completedCount / profileTasks.length) * 100);
-        document.getElementById('modalProgressBar').style.width = percentProgress + "%";
-        document.getElementById('sideProfileBar').style.width = percentProgress + "%";
-        document.getElementById('sideProfileText').innerText = percentProgress + "%";
+        
+        if (document.getElementById('modalProgressBar')) document.getElementById('modalProgressBar').style.width = percentProgress + "%";
+        if (document.getElementById('sideProfileBar')) document.getElementById('sideProfileBar').style.width = percentProgress + "%";
+        if (document.getElementById('sideProfileText')) document.getElementById('sideProfileText').innerText = percentProgress + "%";
 
         // Render distinct Done / Pending lists
         const pendingTasks = profileTasks.filter(t => !t.done);
         const doneTasks = profileTasks.filter(t => t.done);
         
-        document.getElementById('progressTaskListPending').innerHTML = pendingTasks.map(t => `<div class="prog-task-item pending"><span>⏳</span><span style="flex:1;">${t.name}</span></div>`).join('');
-        document.getElementById('progressTaskListDone').innerHTML = doneTasks.map(t => `<div class="prog-task-item done"><span>✅</span><span style="flex:1;">${t.name}</span></div>`).join('');
-        
-        if(pendingTasks.length === 0) { document.getElementById('progressTaskListPending').innerHTML = `<div style="text-align:center; padding:10px; font-weight:bold; color:var(--success);">All tasks complete!</div>`; }
+        if (document.getElementById('progressTaskListPending')) {
+            document.getElementById('progressTaskListPending').innerHTML = pendingTasks.map(t => `<div class="prog-task-item pending"><span>⏳</span><span style="flex:1;">${t.name}</span></div>`).join('');
+            if(pendingTasks.length === 0) { 
+                document.getElementById('progressTaskListPending').innerHTML = `<div style="text-align:center; padding:10px; font-weight:bold; color:var(--success);">All tasks complete!</div>`; 
+            }
+        }
+        if (document.getElementById('progressTaskListDone')) {
+            document.getElementById('progressTaskListDone').innerHTML = doneTasks.map(t => `<div class="prog-task-item done"><span>✅</span><span style="flex:1;">${t.name}</span></div>`).join('');
+        }
 
         updateTopXP(xp, levelName);
 
         if(data.assessmentCompleted && data.fullReport) {
-            document.getElementById('lockedReportUI').style.display = 'none';
-            document.getElementById('unlockedReportUI').style.display = 'block';
+            if (document.getElementById('lockedReportUI')) document.getElementById('lockedReportUI').style.display = 'none';
+            if (document.getElementById('unlockedReportUI')) document.getElementById('unlockedReportUI').style.display = 'block';
+            
             renderCareerLabActuals(data.fullReport);
+            
             const rep = data.fullReport;
-            document.getElementById('reportRiasecCode').innerText = rep.finalCode;
-            document.getElementById('reportProfileDesc').innerText = rep.profileDesc;
+            if (document.getElementById('reportRiasecCode')) document.getElementById('reportRiasecCode').innerText = rep.finalCode;
+            if (document.getElementById('reportProfileDesc')) document.getElementById('reportProfileDesc').innerText = rep.profileDesc;
 
-            document.getElementById('reportCareersContainer').innerHTML = rep.topCareers.map(c => `
-                <div class="career-pill" style="border-left: 4px solid var(--border);"><span>${c.name}</span><span class="status-pill status-success" style="font-size:0.75rem;">${c.score}% Match</span></div>
-            `).join('');
+            if (document.getElementById('reportCareersContainer')) {
+                document.getElementById('reportCareersContainer').innerHTML = rep.topCareers.map(c => `
+                    <div class="career-pill" style="border-left: 4px solid var(--border);"><span>${c.name}</span><span class="status-pill status-success" style="font-size:0.75rem;">${c.score}% Match</span></div>
+                `).join('');
+            }
             
             if(rep.topCareers && rep.topCareers.length > 0) {
-                document.getElementById('dashCareersContainer').innerHTML = `
-                    <div class="career-pill" style="border-left: 4px solid var(--primary);"><span>${rep.topCareers[0].name}</span> <span>🔥 Strong Match</span></div>
-                    <div class="career-pill" style="border-left: 4px solid var(--secondary);"><span>${rep.topCareers[1].name}</span> <span>⭐ Good Match</span></div>
-                `;
+                if (document.getElementById('dashCareersContainer')) {
+                    document.getElementById('dashCareersContainer').innerHTML = `
+                        <div class="career-pill" style="border-left: 4px solid var(--primary);"><span>${rep.topCareers[0].name}</span> <span>🔥 Strong Match</span></div>
+                        <div class="career-pill" style="border-left: 4px solid var(--secondary);"><span>${rep.topCareers[1].name}</span> <span>⭐ Good Match</span></div>
+                    `;
+                }
             }
 
             if (typeof Chart !== 'undefined') {
                 let existingChart = Chart.getChart('reportRiasecChart');
                 if (existingChart) { existingChart.destroy(); }
 
-                const reportCtx = document.getElementById('reportRiasecChart').getContext('2d');
-                new Chart(reportCtx, { 
-                    type: 'radar', 
-                    data: { 
-                        labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'], 
-                        datasets: [{ 
-                            data: [rep.scores.R, rep.scores.I, rep.scores.A, rep.scores.S, rep.scores.E, rep.scores.C], 
-                            backgroundColor: 'rgba(59, 130, 246, 0.2)', 
-                            borderColor: '#3b82f6', 
-                            pointBackgroundColor: '#0f172a' 
-                        }] 
-                    }, 
-                    options: { maintainAspectRatio: false, scales: { r: { max: 100, min: 0, ticks:{display:false} } }, plugins: { legend: { display: false } } } 
-                });
+                const reportCtxEl = document.getElementById('reportRiasecChart');
+                if (reportCtxEl) {
+                    const reportCtx = reportCtxEl.getContext('2d');
+                    new Chart(reportCtx, { 
+                        type: 'radar', 
+                        data: { 
+                            labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'], 
+                            datasets: [{ 
+                                data: [rep.scores.R, rep.scores.I, rep.scores.A, rep.scores.S, rep.scores.E, rep.scores.C], 
+                                backgroundColor: 'rgba(59, 130, 246, 0.2)', 
+                                borderColor: '#3b82f6', 
+                                pointBackgroundColor: '#0f172a' 
+                            }] 
+                        }, 
+                        options: { maintainAspectRatio: false, scales: { r: { max: 100, min: 0, ticks:{display:false} } }, plugins: { legend: { display: false } } } 
+                    });
+                }
             }
         }
 
         setTimeout(() => {
-            document.getElementById('dynClarityBar').style.width = (score * 10) + "%";
+            if (document.getElementById('dynClarityBar')) {
+                document.getElementById('dynClarityBar').style.width = (score * 10) + "%";
+            }
             if (typeof Chart !== 'undefined') {
                 const ctx = document.getElementById('miniClarityChart');
                 if(ctx) {
