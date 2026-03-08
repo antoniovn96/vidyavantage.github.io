@@ -34,7 +34,7 @@
       
       /* CLEAN PARENT MODE UI */
       body.parent-mode-active .main-wrapper { border-top: 5px solid var(--warning); }
-      body.parent-mode-active .hide-from-parent { display: none !important; }
+      body.parent-mode-active .hide-from-parent { display: none !important; opacity: 0 !important; pointer-events: none !important; position: absolute; }
       body.parent-mode-active .form-input, body.parent-mode-active .form-select, body.parent-mode-active .form-textarea { 
           background: transparent; border: none; padding: 0; font-weight: bold; color: var(--primary); pointer-events: none; -webkit-appearance: none; appearance: none;
       }
@@ -70,7 +70,6 @@
       .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; } 
       .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
       
-      /* NEW DASHBOARD GRIDS */
       .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
       .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
@@ -81,6 +80,12 @@
       }
       
       /* --- GAMIFICATION --- */
+      .badge-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;}
+      .gamify-badge { background: #f8fafc; color: #94a3b8; padding: 6px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; border: 1px solid transparent; display: flex; align-items: center; gap: 5px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s ease;}
+      .gamify-badge.unlocked { opacity: 1; filter: grayscale(0%); background: #fffbeb; color: #d97706;}
+      .gamify-badge.unlocked-primary { opacity: 1; filter: grayscale(0%); background: #eff6ff; color: #1e40af;}
+      .gamify-badge.unlocked-success { opacity: 1; filter: grayscale(0%); background: #d1fae5; color: #059669;}
+      
       .top-xp-display { display: flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 6px 12px; border-radius: 50px; transition: 0.3s; cursor:pointer;}
       .top-xp-display:hover { background: rgba(245, 158, 11, 0.2); }
       .top-xp-display span.lvl { color: #b45309; font-weight: 900; font-size: 0.85rem;}
@@ -132,12 +137,10 @@
       .entry-block { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 25px; border-radius: 12px; margin-bottom: 20px; position: relative; }
       .remove-entry-btn { position: absolute; top: 15px; right: 15px; background: transparent; border: none; color: var(--danger); cursor: pointer; font-weight: bold; }
       
-      /* Subject Rows inside Education */
       .subject-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
       .btn-remove-sub { background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; font-size: 1.2rem;}
       .btn-remove-sub:hover { background: #fca5a5; color: white; }
 
-      /* Hobby Tags */
       .hobby-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;}
       .hobby-tag { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;}
       .hobby-tag span { cursor: pointer; color: var(--danger); font-weight: bold;}
@@ -167,6 +170,12 @@
       .parent-toggle-wrap:hover { background: #fef3c7; }
       .parent-toggle-wrap.active { background: #d97706; color: white; border-color: #d97706;}
 
+      /* DATA TABLE */
+      .data-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95rem;}
+      .data-table th, .data-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); }
+      .data-table th { color: var(--text-muted); text-transform: uppercase; font-size: 0.8rem; background: #f8fafc; font-weight: 800;}
+      .data-table tr:hover { background: #f1f5f9; }
+
       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
       @keyframes badgePop { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
       @keyframes fadeOut { to { opacity: 0; } }
@@ -182,17 +191,17 @@
 <datalist id="gameSuggestions"></datalist>
 <datalist id="sportSuggestions"></datalist>
 
-<div class="modal-overlay" id="customAlertModal">
+<div class="modal-overlay" id="customAlertModal" style="z-index: 9999;" onclick="if(event.target === this) window.closeModal('customAlertModal')">
     <div class="modal-content" style="max-width: 400px; text-align: center;">
         <h3 id="customAlertTitle" style="color: var(--danger); margin-top: 0; font-size: 1.5rem;">Notice</h3>
         <p id="customAlertMessage" style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.5; font-size: 1.05rem;"></p>
-        <button class="btn" style="width: 100%; padding: 14px;" onclick="closeModal('customAlertModal')">Acknowledge</button>
+        <button class="btn" style="width: 100%; padding: 14px;" onclick="window.closeModal('customAlertModal')">Acknowledge</button>
     </div>
 </div>
 
-<div class="modal-overlay" id="xpModal">
+<div class="modal-overlay" id="xpModal" onclick="if(event.target === this) window.closeModal('xpModal')">
     <div class="modal-content" style="position:relative;">
-        <button class="modal-close" onclick="closeModal('xpModal')">&times;</button>
+        <button class="modal-close" onclick="window.closeModal('xpModal')">&times;</button>
         <div style="text-align:center; margin-bottom:20px;">
             <div style="font-size:3rem;">✨</div>
             <h2 style="margin:5px 0 0 0; color:#0f172a;">Experience Points</h2>
@@ -207,9 +216,9 @@
     </div>
 </div>
 
-<div class="modal-overlay" id="progressModal">
+<div class="modal-overlay" id="progressModal" onclick="if(event.target === this) window.closeModal('progressModal')">
     <div class="modal-content" style="position:relative;">
-        <button class="modal-close" onclick="closeModal('progressModal')">&times;</button>
+        <button class="modal-close" onclick="window.closeModal('progressModal')">&times;</button>
         <div style="text-align:center; margin-bottom:20px;">
             <div style="font-size:3rem;">🎯</div>
             <h2 style="margin:5px 0 0 0; color:#0f172a;">Profile Completion</h2>
@@ -238,7 +247,7 @@
         <h3 id="stuName" style="margin: 0 0 5px 0; font-size: 1.1rem; font-weight:800;">Loading Profile...</h3>
         <p id="stuInst" style="font-size:0.8rem; color:#94a3b8; margin:0;">...</p>
         
-        <div style="margin-top: 20px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 10px; cursor:pointer;" onclick="openModal('progressModal')" title="View Completion Details">
+        <div style="margin-top: 20px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 10px; cursor:pointer;" onclick="window.openModal('progressModal')" title="View Completion Details">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <span style="font-size:0.7rem; color: #cbd5e1; text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Profile Setup</span>
                 <span style="font-size:0.7rem; color: var(--success); font-weight:bold;" id="sideProfileText">10%</span>
@@ -250,15 +259,15 @@
     </div>
     
     <nav class="nav-menu">
-        <button class="nav-btn active" onclick="switchTab('tab-home', this)"><span class="nav-dot" id="dot-home">✔</span> Dashboard</button>
-        <button class="nav-btn" onclick="switchTab('tab-report', this)"><span class="nav-dot" id="dot-report">○</span> Career Report</button>
-        <button class="nav-btn" onclick="switchTab('tab-explore', this)"><span class="nav-dot" id="dot-explore">○</span> Career Lab</button>
-        <button class="nav-btn" onclick="switchTab('tab-portfolio', this)"><span class="nav-dot" id="dot-portfolio">○</span> My Profile</button>
-        <button class="nav-btn" onclick="switchTab('tab-counselling', this)"><span class="nav-dot" id="dot-counselling">○</span> Book Expert</button>
-        <button class="nav-btn hide-from-parent" onclick="switchTab('tab-chat', this)"><span class="nav-dot" id="dot-chat">○</span> Direct Chat</button>
+        <button class="nav-btn active" onclick="window.switchTab('tab-home', this)"><span class="nav-dot" id="dot-home">✔</span> Dashboard</button>
+        <button class="nav-btn" onclick="window.switchTab('tab-report', this)"><span class="nav-dot" id="dot-report">○</span> Career Report</button>
+        <button class="nav-btn" onclick="window.switchTab('tab-explore', this)"><span class="nav-dot" id="dot-explore">○</span> Career Explorer</button>
+        <button class="nav-btn" onclick="window.switchTab('tab-portfolio', this)"><span class="nav-dot" id="dot-portfolio">○</span> My Profile</button>
+        <button class="nav-btn" onclick="window.switchTab('tab-counselling', this)"><span class="nav-dot" id="dot-counselling">○</span> Book Expert</button>
+        <button class="nav-btn hide-from-parent" onclick="window.switchTab('tab-chat', this)"><span class="nav-dot" id="dot-chat">○</span> Direct Chat</button>
         
         <div class="hide-from-parent" style="border-top: 1px solid rgba(255,255,255,0.05); margin: 15px 0;"></div>
-        <button class="nav-btn hide-from-parent" onclick="switchTab('tab-settings', this)"><span class="nav-dot">⚙</span> Settings</button>
+        <button class="nav-btn hide-from-parent" onclick="window.switchTab('tab-settings', this)"><span class="nav-dot">⚙</span> Settings</button>
     </nav>
 </div>
 
@@ -269,13 +278,13 @@
         <h2 style="margin:0; font-size:1.15rem; color:var(--text-muted); font-weight:800;" id="headerTitle">Dashboard Home</h2>
         <div class="header-actions">
             
-            <div class="top-xp-display" id="topXpContainer" title="View XP Breakdown" onclick="openModal('xpModal')">
+            <div class="top-xp-display" id="topXpContainer" title="View XP Breakdown" onclick="window.openModal('xpModal')">
                 <span class="lvl" id="topLevelDisplay">Lvl 1</span>
                 <span class="xp">✨ <span id="topXpDisplay">10</span> XP</span>
             </div>
 
             <a href="index.html" class="site-link hide-from-parent">🌐 Live Site</a>
-            <div class="notif-bell hide-from-parent" onclick="showNotificationPopup()">
+            <div class="notif-bell hide-from-parent" onclick="window.showNotificationPopup()">
                 🔔 <span class="notif-badge" id="notifBadge">0</span>
             </div>
 
@@ -298,22 +307,30 @@
             </div>
 
             <div class="grid-4" style="margin-bottom: 30px;">
-                <div class="card" style="padding: 20px; border-top: 4px solid var(--primary); margin-bottom: 0;">
+                <div class="card" style="padding: 20px; border-top: 4px solid var(--primary); margin-bottom: 0; text-align: center;">
                     <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; font-weight:bold;">Career Clarity Score</p>
-                    <div style="font-size: 2rem; font-weight: 900; color: #0f172a;"><span id="dashClarityScore">1</span><span style="font-size:1.2rem; color:rgba(0,0,0,0.3);">/10</span></div>
+                    <div style="font-size: 2.2rem; font-weight: 900; color: #0f172a;"><span id="dashClarityScore">1</span><span style="font-size:1.2rem; color:rgba(0,0,0,0.3);">/10</span></div>
                 </div>
-                <div class="card" style="padding: 20px; border-top: 4px solid var(--secondary); margin-bottom: 0;">
+                <div class="card" style="padding: 20px; border-top: 4px solid var(--secondary); margin-bottom: 0; text-align: center;">
                     <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; font-weight:bold;">Assessment</p>
                     <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top:10px;" id="dashAssStatus">Pending</div>
                 </div>
-                <div class="card" style="padding: 20px; border-top: 4px solid var(--accent); margin-bottom: 0; background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%); cursor: pointer;" id="dashActionCard">
+                <div class="card hide-from-parent" style="padding: 20px; border-top: 4px solid var(--accent); margin-bottom: 0; background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%); cursor: pointer; text-align: center;" id="dashActionCard">
                     <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--accent); text-transform:uppercase; font-weight:bold;">🎯 Next Action</p>
-                    <div style="font-size: 1.2rem; font-weight: 800; color: #b45309; margin-top:5px; text-decoration: underline; text-underline-offset: 4px;" id="dashActionText">Complete Profile</div>
+                    <div style="font-size: 1.1rem; font-weight: 800; color: #b45309; margin-top:10px; text-decoration: underline; text-underline-offset: 4px;" id="dashActionText">Complete Profile</div>
                 </div>
-                <div class="card" style="padding: 20px; border-top: 4px solid #8b5cf6; margin-bottom: 0;">
+                <div class="card" style="padding: 20px; border-top: 4px solid #8b5cf6; margin-bottom: 0; text-align: center;">
                     <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; font-weight:bold;">Next Session</p>
                     <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top:10px;" id="dashSessionStatus">Not Booked</div>
                 </div>
+            </div>
+
+            <div id="aiInsightPanel" style="display:none; background: linear-gradient(135deg, #1e1b4b 0%, #3b82f6 100%); color: white; padding: 25px 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom: 10px;">
+                    <span style="font-size:1.5rem;">🧠</span>
+                    <h3 style="margin:0; font-size:1.2rem; font-weight:800;">AI Career Insight</h3>
+                </div>
+                <p id="aiInsightText" style="font-size: 1.05rem; line-height: 1.6; margin:0; opacity: 0.95;">Analyzing your data...</p>
             </div>
 
             <div style="margin-bottom: 35px;">
@@ -323,22 +340,32 @@
                         <div style="font-size:3rem; margin-bottom:10px;">🔒</div>
                         <h3 style="border:none; justify-content:center; font-size:1.4rem;">Assessment Pending</h3>
                         <p style="color:var(--text-muted); margin-top:-5px;">Complete your psychometric assessment to reveal your top matching careers.</p>
-                        <button class="btn" style="margin-top:15px;" onclick="window.launchAssessment()">Start Assessment Now</button>
+                        <button class="btn hide-from-parent" style="margin-top:15px;" onclick="window.launchAssessment()">Start Assessment Now</button>
                     </div>
                 </div>
             </div>
 
-            <div class="card" style="margin-bottom:30px; border-top: 4px solid #334155;">
-                <h2 style="font-size: 1.3rem; color: #0f172a; margin: 0 0 20px 0; border-bottom: 1px solid var(--border); padding-bottom: 15px;">🚀 Your Career Journey</h2>
-                <div id="dashJourneyTrack">
+            <div class="grid-2col">
+                <div class="card" style="margin-bottom:30px; border-top: 4px solid #334155;">
+                    <h2 style="font-size: 1.3rem; color: #0f172a; margin: 0 0 20px 0; border-bottom: 1px solid var(--border); padding-bottom: 15px;">🚀 30-Day Action Roadmap</h2>
+                    <div id="dashJourneyTrack">
+                        </div>
+                </div>
+
+                <div class="card" style="margin-bottom:30px; border-top: 4px solid var(--accent);">
+                    <h2 style="font-size: 1.3rem; color: #0f172a; margin: 0 0 20px 0; border-bottom: 1px solid var(--border); padding-bottom: 15px;">📈 Growth Tracker</h2>
+                    <p style="font-size:0.85rem; color:var(--text-muted); text-align:center;">Your Career Clarity progression over time.</p>
+                    <div style="height: 250px; width: 100%;">
+                        <canvas id="growthChart"></canvas>
                     </div>
+                </div>
             </div>
             
-            <div id="lockCareerSection" class="hide-from-parent" style="display:none; margin-top: 30px; background: rgba(0,0,0,0.02); padding: 30px; border-radius: 16px; text-align: center; border: 1px dashed var(--accent);">
+            <div id="lockCareerSection" class="hide-from-parent" style="display:none; margin-top: 10px; background: rgba(0,0,0,0.02); padding: 30px; border-radius: 16px; text-align: center; border: 1px dashed var(--accent);">
                 <p style="color: #d97706; font-size: 1.05rem; margin-bottom: 15px; font-weight: 800;">You have achieved Strategy Level! Ready to commit?</p>
                 <button onclick="window.lockFinalCareer()" class="btn" style="background: var(--accent); color: #fff; padding: 14px 40px;">🔒 Lock My Final Career Path</button>
             </div>
-            <div id="careerLockedSuccess" style="display:none; margin-top: 30px; background: #ecfdf5; padding: 30px; border-radius: 16px; text-align: center; border: 1px solid #a7f3d0;">
+            <div id="careerLockedSuccess" style="display:none; margin-top: 10px; background: #ecfdf5; padding: 30px; border-radius: 16px; text-align: center; border: 1px solid #a7f3d0;">
                 <div style="font-size: 3rem; margin-bottom: 10px;">🎊</div>
                 <h4 style="margin: 0 0 10px 0; color: var(--success); font-size: 1.4rem; font-weight: 800;">Career Locked Successfully</h4>
                 <p style="color: #065f46; font-size: 0.95rem; margin-bottom: 20px;">Your parents and counselor have been notified. Time to execute the plan.</p>
@@ -348,16 +375,65 @@
 
         <div id="tab-explore" class="tab-content">
             <div class="header-bar">
-                <div><h1>Career Exploration Lab</h1><p>Your personalized university and subject recommendations.</p></div>
+                <div><h1>Career Exploration Engine</h1><p>Deep dive into careers, compare salaries, and find colleges.</p></div>
                 <button class="btn" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Launch Full College GPS ➔</button>
             </div>
             
-            <div id="exploreLabDynamicArea">
-                <div class="card" style="text-align:center; padding: 60px 20px; border-top: 4px solid var(--secondary);">
-                    <div style="font-size: 4rem; opacity: 0.5; margin-bottom: 15px;">🔍</div>
-                    <h3 style="justify-content: center; border:none;">Lab Locked</h3>
-                    <p style="color:var(--text-muted);">Complete your Psychometric Assessment to unlock personalized recommendations.</p>
-                    <button class="btn hide-from-parent" onclick="window.launchAssessment()" style="margin-top: 15px;">Take Assessment</button>
+            <div id="exploreLockedUI">
+                <div class="card" style="text-align:center; padding: 80px 20px; border-top: 4px solid var(--secondary);">
+                    <div style="font-size: 5rem; opacity: 0.5; margin-bottom: 15px;">🔍</div>
+                    <h3 style="justify-content: center; border:none; font-size:1.8rem;">Explorer Locked</h3>
+                    <p style="color:var(--text-muted); font-size: 1.05rem;">Complete your Psychometric Assessment to unlock the AI comparison engine.</p>
+                    <button class="btn hide-from-parent" onclick="window.launchAssessment()" style="margin-top: 15px; padding: 15px 30px; font-size:1.1rem;">Take Assessment</button>
+                </div>
+            </div>
+
+            <div id="exploreUnlockedUI" style="display:none;">
+                <h2 style="font-size: 1.4rem; color: #0f172a; margin: 0 0 15px 0;">🌟 Your Top Recommendations</h2>
+                <div class="grid-3" id="exploreCardsGrid" style="margin-bottom: 40px;">
+                    </div>
+
+                <div class="card" style="border-top: 4px solid var(--primary); margin-bottom: 40px;">
+                    <h3 style="margin-bottom: 5px;">⚖️ Career Comparison Tool</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0; margin-bottom: 15px;">Compare top fields by metrics to make an informed decision.</p>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table" id="comparisonTable">
+                            <thead>
+                                <tr>
+                                    <th>Career Path</th>
+                                    <th>Avg Salary (INR)</th>
+                                    <th>Study Years</th>
+                                    <th>Growth Rate</th>
+                                    <th>Core Skills Needed</th>
+                                </tr>
+                            </thead>
+                            <tbody id="comparisonTableBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid-2col">
+                    <div class="card" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white;">
+                        <h3 style="color:white; border-bottom: 1px solid rgba(255,255,255,0.1);">🏫 College Finder</h3>
+                        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px;">Find top institutions matching your preferred career path in your state.</p>
+                        <div class="form-group"><input type="text" class="form-input" placeholder="e.g. Psychology in Karnataka" style="background: rgba(255,255,255,0.1); color:white; border:none;"></div>
+                        <button class="btn" style="width: 100%; background: var(--secondary);" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Search Directory</button>
+                    </div>
+                    
+                    <div class="card" style="border-top: 4px solid var(--accent);">
+                        <h3>🎓 Scholarship Alerts</h3>
+                        <div class="journey-step" style="padding:10px 0;">
+                            <div class="j-icon">💰</div>
+                            <div class="j-text" style="font-size:0.9rem;">State Merit Scholarship<br><span style="color:var(--danger); font-size:0.75rem;">Deadline: 15 April 2026</span></div>
+                            <button class="btn btn-outline" style="padding: 4px 10px; font-size:0.75rem;">Apply</button>
+                        </div>
+                        <div class="journey-step" style="padding:10px 0;">
+                            <div class="j-icon">🎓</div>
+                            <div class="j-text" style="font-size:0.9rem;">STEM Excellence Grant<br><span style="color:var(--text-muted); font-size:0.75rem;">Eligibility: 12th PCM</span></div>
+                            <button class="btn btn-outline" style="padding: 4px 10px; font-size:0.75rem;">View</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -416,31 +492,51 @@
 
         <div id="tab-portfolio" class="tab-content" style="padding-bottom: 100px;">
             <div class="header-bar">
-                <div><h1>My Complete Profile</h1><p>Build your professional and academic dossier to feed the AI.</p></div>
+                <div><h1>My Complete Profile</h1><p>Build your academic dossier to feed the AI.</p></div>
             </div>
 
             <details class="profile-acc" open id="academicInputCard">
-                <summary>🎯 Current Academic Target</summary>
+                <summary>🎯 Current Academic Snapshot</summary>
                 <div class="acc-body">
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">What are you currently studying or planning to study?</p>
-                    <div class="grid-2col" style="gap:15px;">
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Provide accurate data to improve AI recommendations.</p>
+                    
+                    <div class="grid-3" style="margin-bottom: 15px;">
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Academic Trend</label>
-                            <select id="portTrend" class="form-select">
-                                <option value="Stable">Stable Grades</option>
-                                <option value="Improving">Improving Grades</option>
-                                <option value="Declining">Declining Grades</option>
+                            <label class="form-label">Board / Curriculum</label>
+                            <select id="portBoard" class="form-select">
+                                <option value="CBSE">CBSE</option>
+                                <option value="ICSE">ICSE</option>
+                                <option value="State Board">State Board</option>
+                                <option value="IB/IGCSE">IB / IGCSE</option>
+                                <option value="University">University/College</option>
                             </select>
                         </div>
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Target Stream / Discipline</label>
-                            <select id="portStream" class="form-select">
-                                <option value="Undecided">Undecided</option>
-                                <option value="PCM">Science (PCM)</option>
-                                <option value="PCB">Science (PCB)</option>
-                                <option value="Commerce">Commerce</option>
-                                <option value="Arts">Arts / Humanities</option>
-                                <option value="Diploma">Technical Diploma</option>
+                            <label class="form-label">Current Class / Year</label>
+                            <input type="text" id="portClass" class="form-input" placeholder="e.g. 10th, 12th, B.Tech 2nd Yr">
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Latest Marks (%)</label>
+                            <input type="number" id="portMarks" class="form-input" placeholder="e.g. 85" max="100">
+                        </div>
+                    </div>
+
+                    <div class="grid-3" style="margin-bottom: 15px;">
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Strongest Subject</label>
+                            <input type="text" id="portStrong" class="form-input" placeholder="e.g. Mathematics">
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Weakest Subject</label>
+                            <input type="text" id="portWeak" class="form-input" placeholder="e.g. History">
+                        </div>
+                        <div class="form-group" style="margin:0;">
+                            <label class="form-label">Preferred Study Style</label>
+                            <select id="portStyle" class="form-select">
+                                <option value="Visual">Visual (Diagrams, Videos)</option>
+                                <option value="Auditory">Auditory (Lectures, Audio)</option>
+                                <option value="Kinesthetic">Hands-on (Practical, Labs)</option>
+                                <option value="Reading/Writing">Reading / Writing Notes</option>
                             </select>
                         </div>
                     </div>
@@ -448,9 +544,8 @@
             </details>
 
             <details class="profile-acc" open>
-                <summary>🎓 Education History & Marks</summary>
+                <summary>🎓 Education History</summary>
                 <div class="acc-body">
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0; margin-bottom:20px;">Add your completed and ongoing education levels. XP is awarded for detailed subject marks.</p>
                     <div id="educationContainer"></div>
                     <button class="btn btn-outline" onclick="window.addEducationEntry()" style="width:100%; border-style:dashed;">+ Add Education Record</button>
                 </div>
@@ -459,39 +554,24 @@
             <details class="profile-acc">
                 <summary>🤝 Volunteer Experience & Internships</summary>
                 <div class="acc-body">
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add any internships, part-time roles, social work, or volunteer experiences.</p>
                     <div id="volunteerContainer"></div>
                     <button class="btn btn-outline" onclick="window.addVolunteerEntry()" style="width:100%; border-style:dashed;">+ Add Experience</button>
                 </div>
             </details>
 
             <details class="profile-acc">
-                <summary>🎨 Hobbies & Extracurriculars</summary>
+                <summary>🎨 Hobbies & Achievements</summary>
                 <div class="acc-body">
                     <div class="form-group" style="margin-bottom:20px;">
                         <label class="form-label">Major Achievements / Awards</label>
                         <textarea class="form-textarea" rows="3" placeholder="e.g. 1st Place State Science Fair..." id="portExtraCurricular"></textarea>
                     </div>
-
                     <label class="form-label">Hobbies (Earn XP)</label>
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Add up to 10 hobbies.</p>
                     <div style="display:flex; gap:10px;">
                         <input type="text" id="hobbyInput" list="hobbySuggestions" autocomplete="off" class="form-input" placeholder="Search or type a hobby..." style="max-width:300px;">
                         <button class="btn" onclick="window.addHobby()">Add</button>
                     </div>
                     <div id="hobbyTagsContainer" class="hobby-container"></div>
-                </div>
-            </details>
-
-            <details class="profile-acc">
-                <summary>🎧 Interests & Media</summary>
-                <div class="acc-body grid-2col">
-                    <div class="form-group"><label class="form-label">Music Genres</label><input type="text" id="intMusic" list="musicGenreSuggestions" autocomplete="off" class="form-input" placeholder="Search genres..."></div>
-                    <div class="form-group"><label class="form-label">Favorite Artists</label><input type="text" id="intArtist" list="artistSuggestions" autocomplete="off" class="form-input" placeholder="Search artists..."></div>
-                    <div class="form-group"><label class="form-label">TV Programmes</label><input type="text" id="intTV" list="tvSuggestions" autocomplete="off" class="form-input" placeholder="Search TV shows..."></div>
-                    <div class="form-group"><label class="form-label">Movies</label><input type="text" id="intMovies" list="movieSuggestions" autocomplete="off" class="form-input" placeholder="Search movies..."></div>
-                    <div class="form-group"><label class="form-label">Games</label><input type="text" id="intGames" list="gameSuggestions" autocomplete="off" class="form-input" placeholder="Search games..."></div>
-                    <div class="form-group"><label class="form-label">Sports Teams & Athletes</label><input type="text" id="intSports" list="sportSuggestions" autocomplete="off" class="form-input" placeholder="Search sports..."></div>
                 </div>
             </details>
 
@@ -509,10 +589,32 @@
                     </div>
                     
                     <div id="bookingAvailInfo" style="margin-bottom: 25px; padding: 20px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; display:none;">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Availability</span><span id="bookingTimeText" style="color:#0f172a; font-weight:800;">Mon, Wed, Fri</span></div>
-                        <div style="display:flex; justify-content:space-between; border-top: 1px dashed var(--border); padding-top:10px; margin-top:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Consultation Fee</span><span style="color:var(--success); font-weight:800; font-size:1rem;">100% Free</span></div>
                         
-                        <div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">
+                        <div class="grid-2col" style="margin-bottom:15px; border-bottom: 1px dashed var(--border); padding-bottom:15px;">
+                            <div>
+                                <span style="color:#64748b; font-weight:bold; font-size:0.75rem; text-transform:uppercase; display:block;">Session Type</span>
+                                <span style="color:#0f172a; font-weight:800; font-size:0.95rem;">Career Clarity Session</span>
+                            </div>
+                            <div>
+                                <span style="color:#64748b; font-weight:bold; font-size:0.75rem; text-transform:uppercase; display:block;">Duration</span>
+                                <span style="color:#0f172a; font-weight:800; font-size:0.95rem;">60 Minutes</span>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Next Available Slot</span><span id="bookingTimeText" style="color:var(--primary); font-weight:800;">Tomorrow, 4:00 PM</span></div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:15px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Consultation Fee</span><span style="color:var(--success); font-weight:800; font-size:1.1rem;">₹1999 (Free via School)</span></div>
+                        
+                        <div class="form-group" style="margin-bottom: 15px; border-top: 1px solid var(--border); padding-top: 15px;">
+                            <label class="form-label" style="color: var(--accent);">Primary Goals for Session (Select all that apply)</label>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.85rem; color:#334155;">
+                                <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Stream Confusion"> Stream Confusion</label>
+                                <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Career Decision"> Career Decision</label>
+                                <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Study Abroad"> Study Abroad</label>
+                                <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Entrance Exams"> Entrance Exams</label>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px solid var(--border); padding-top: 15px;">
                             <div class="grid-2col" style="margin-bottom: 15px;">
                                 <div class="form-group" style="margin:0;">
                                     <label class="form-label">Select Date</label>
@@ -613,7 +715,7 @@
     
     let activeUserUid = null;
     let studentDataObj = null;
-    let miniChartInstance = null;
+    let growthChartInstance = null;
     let unsubscribeChat = null; 
     let globalUnreadCount = 0;
     const activeChatListeners = []; 
@@ -650,7 +752,6 @@
         }
     }
     
-    // Listen for clicks on ALL modal overlays to close them safely
     document.addEventListener('click', function(event) {
         if (event.target && event.target.classList && event.target.classList.contains('modal-overlay')) {
             window.closeModal(event.target.id);
@@ -665,7 +766,7 @@
         window.openModal('customAlertModal');
     }
 
-    // --- RESTORED TOAST & PARENT MODE LOGIC ---
+    // --- TOAST & PARENT MODE LOGIC ---
     window.showToastNotification = function(title, message) {
         const container = document.getElementById('toastContainer');
         if(!container) return;
@@ -708,7 +809,7 @@
             const activeTabEl = document.querySelector('.tab-content.active');
             if(activeTabEl) {
                 const activeTab = activeTabEl.id;
-                if(activeTab === 'tab-chat' || activeTab === 'tab-settings' || activeTab === 'tab-counselling') {
+                if(activeTab === 'tab-chat' || activeTab === 'tab-settings' || activeTab === 'tab-counselling' || activeTab === 'tab-portfolio') {
                     const btns = document.querySelectorAll('.nav-btn');
                     if(btns.length > 0) window.switchTab('tab-home', btns[0]);
                 }
@@ -735,40 +836,10 @@
 
     // Comprehensive India Data
     const indiaData = {
-        "Andaman and Nicobar Islands": ["Nicobar", "North and Middle Andaman", "South Andaman"],
-        "Andhra Pradesh": ["Anantapur", "Chittoor", "East Godavari", "Guntur", "Kadapa", "Krishna", "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", "West Godavari"],
-        "Arunachal Pradesh": ["Anjaw", "Changlang", "East Kameng", "East Siang", "Kurung Kumey", "Lohit", "Lower Dibang Valley", "Lower Subansiri", "Papum Pare", "Tawang", "Tirap", "Upper Dibang Valley", "Upper Siang", "Upper Subansiri", "West Kameng", "West Siang"],
-        "Assam": ["Baksa", "Barpeta", "Bongaigaon", "Cachar", "Charaideo", "Chirang", "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Dima Hasao", "Goalpara", "Golaghat", "Hailakandi", "Jorhat", "Kamrup Metropolitan", "Kamrup", "Karbi Anglong", "Karimganj", "Kokrajhar", "Lakhimpur", "Majuli", "Morigaon", "Nagaon", "Nalbari", "Sivasagar", "Sonitpur", "South Salmara-Mankachar", "Tinsukia", "Udalguri", "West Karbi Anglong"],
-        "Bihar": ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai", "Bhagalpur", "Bhojpur", "Buxar", "Darbhanga", "East Champaran", "Gaya", "Gopalganj", "Jamui", "Jehanabad", "Kaimur", "Katihar", "Khagaria", "Kishanganj", "Lakhisarai", "Madhepura", "Madhubani", "Munger", "Muzaffarpur", "Nalanda", "Nawada", "Patna", "Purnia", "Rohtas", "Saharsa", "Samastipur", "Saran", "Sheikhpura", "Sheohar", "Sitamarhi", "Siwan", "Supaul", "Vaishali", "West Champaran"],
-        "Chandigarh": ["Chandigarh"],
-        "Chhattisgarh": ["Balod", "Baloda Bazar", "Balrampur", "Bastar", "Bemetara", "Bijapur", "Bilaspur", "Dantewada", "Dhamtari", "Durg", "Gariaband", "Janjgir-Champa", "Jashpur", "Kabirdham", "Kanker", "Kondagaon", "Korba", "Koriya", "Mahasamund", "Mungeli", "Narayanpur", "Raigarh", "Raipur", "Rajnandgaon", "Sukma", "Surajpur", "Surguja"],
-        "Dadra and Nagar Haveli and Daman and Diu": ["Dadra and Nagar Haveli", "Daman", "Diu"],
-        "Delhi": ["Central Delhi", "East Delhi", "New Delhi", "North Delhi", "North East Delhi", "North West Delhi", "Shahdara", "South Delhi", "South East Delhi", "South West Delhi", "West Delhi"],
-        "Goa": ["North Goa", "South Goa"],
-        "Gujarat": ["Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha", "Bharuch", "Bhavnagar", "Botad", "Chhota Udepur", "Dahod", "Dang", "Devbhoomi Dwarka", "Gandhinagar", "Gir Somnath", "Jamnagar", "Junagadh", "Kutch", "Kheda", "Mahisagar", "Mehsana", "Morbi", "Narmada", "Navsari", "Panchmahal", "Patan", "Porbandar", "Rajkot", "Sabarkantha", "Surat", "Surendranagar", "Tapi", "Vadodara", "Valsad"],
-        "Haryana": ["Ambala", "Bhiwani", "Charkhi Dadri", "Faridabad", "Fatehabad", "Gurugram", "Hisar", "Jhajjar", "Jind", "Kaithal", "Karnal", "Kurukshetra", "Mahendragarh", "Nuh", "Palwal", "Panchkula", "Panipat", "Rewari", "Rohtak", "Sirsa", "Sonipat", "Yamunanagar"],
-        "Himachal Pradesh": ["Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kinnaur", "Kullu", "Lahaul and Spiti", "Mandi", "Shimla", "Sirmaur", "Solan", "Una"],
-        "Jammu and Kashmir": ["Anantnag", "Bandipora", "Baramulla", "Budgam", "Doda", "Ganderbal", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Poonch", "Pulwama", "Rajouri", "Ramban", "Reasi", "Samba", "Shopian", "Srinagar", "Udhampur"],
-        "Jharkhand": ["Bokaro", "Chatra", "Deoghar", "Dhanbad", "Dumka", "East Singhbhum", "Garhwa", "Giridih", "Godda", "Gumla", "Hazaribagh", "Jamtara", "Khunti", "Koderma", "Latehar", "Lohardaga", "Pakur", "Palamu", "Ramgarh", "Ranchi", "Sahebganj", "Seraikela Kharsawan", "Simdega", "West Singhbhum"],
-        "Karnataka": ["Bagalkot", "Ballari", "Belagavi", "Bengaluru Rural", "Bengaluru Urban", "Bidar", "Chamarajanagar", "Chikkaballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", "Davanagere", "Dharwad", "Gadag", "Hassan", "Haveri", "Kalaburagi", "Kodagu", "Kolar", "Koppal", "Mandya", "Mysuru", "Raichur", "Ramanagara", "Shivamogga", "Tumakuru", "Udupi", "Uttara Kannada", "Vijayapura", "Yadgir"],
-        "Kerala": ["Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", "Thiruvananthapuram", "Thrissur", "Wayanad"],
-        "Madhya Pradesh": ["Agar Malwa", "Alirajpur", "Anuppur", "Ashoknagar", "Balaghat", "Barwani", "Betul", "Bhind", "Bhopal", "Burhanpur", "Chhatarpur", "Chhindwara", "Damoh", "Datia", "Dewas", "Dhar", "Dindori", "Guna", "Gwalior", "Harda", "Hoshangabad", "Indore", "Jabalpur", "Jhabua", "Katni", "Khandwa", "Khargone", "Mandla", "Mandsaur", "Morena", "Narsinghpur", "Neemuch", "Panna", "Raisen", "Rajgarh", "Ratlam", "Rewa", "Sagar", "Satna", "Sehore", "Seoni", "Shahdol", "Shajapur", "Sheopur", "Shivpuri", "Sidhi", "Singrauli", "Tikamgarh", "Ujjain", "Umaria", "Vidisha"],
-        "Maharashtra": ["Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara", "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli", "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai City", "Mumbai Suburban", "Nagpur", "Nanded", "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani", "Pune", "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg", "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"],
-        "Manipur": ["Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West", "Jiribam", "Kakching", "Kamjong", "Kangpokpi", "Noney", "Pherzawl", "Senapati", "Tamenglong", "Tengnoupal", "Thoubal", "Ukhrul"],
-        "Meghalaya": ["East Garo Hills", "East Jaintia Hills", "East Khasi Hills", "North Garo Hills", "Ri Bhoi", "South Garo Hills", "South West Garo Hills", "South West Khasi Hills", "West Garo Hills", "West Jaintia Hills", "West Khasi Hills"],
-        "Mizoram": ["Aizawl", "Champhai", "Hnahthial", "Khawzawl", "Kolasib", "Lawngtlai", "Lunglei", "Mamit", "Saiha", "Saitual", "Serchhip"],
-        "Nagaland": ["Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung", "Mon", "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto"],
-        "Odisha": ["Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak", "Boudh", "Cuttack", "Deogarh", "Dhenkanal", "Gajapati", "Ganjam", "Jagatsinghpur", "Jajpur", "Jharsuguda", "Kalahandi", "Kandhamal", "Kendrapara", "Kendujhar", "Khordha", "Koraput", "Malkangiri", "Mayurbhanj", "Nabarangpur", "Nayagarh", "Nuapada", "Puri", "Rayagada", "Sambalpur", "Subarnapur", "Sundergarh"],
-        "Puducherry": ["Karaikal", "Mahe", "Puducherry", "Yanam"],
-        "Punjab": ["Amritsar", "Barnala", "Bathinda", "Faridkot", "Fatehgarh Sahib", "Fazilka", "Ferozepur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "Kapurthala", "Ludhiana", "Mansa", "Moga", "Muktsar", "Nawanshahr", "Pathankot", "Patiala", "Rupnagar", "Sangrur", "Tarn Taran"],
-        "Rajasthan": ["Ajmer", "Alwar", "Banswara", "Baran", "Barmer", "Bharatpur", "Bhilwara", "Bikaner", "Bundi", "Chittorgarh", "Churu", "Dausa", "Dholpur", "Dungarpur", "Hanumangarh", "Jaipur", "Jaisalmer", "Jalore", "Jhalawar", "Jhunjhunu", "Jodhpur", "Karauli", "Kota", "Nagaur", "Pali", "Pratapgarh", "Rajsamand", "Sawai Madhopur", "Sikar", "Sirohi", "Sri Ganganagar", "Tonk", "Udaipur"],
-        "Sikkim": ["East Sikkim", "North Sikkim", "South Sikkim", "West Sikkim"],
-        "Tamil Nadu": ["Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kallakurichi", "Kanchipuram", "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Ranipet", "Salem", "Sivaganga", "Tenkasi", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", "Tirupattur", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram", "Virudhunagar"],
-        "Telangana": ["Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial", "Jangaon", "Jayashankar Bhupalpally", "Jogulamba Gadwal", "Kamareddy", "Karimnagar", "Khammam", "Komaram Bheem Asifabad", "Mahabubabad", "Mahabubnagar", "Mancherial", "Medak", "Medchal", "Mulugu", "Nagarkurnool", "Nalgonda", "Narayanpet", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna Sircilla", "Rangareddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", "Warangal Rural", "Warangal Urban", "Yadadri Bhuvanagiri"],
-        "Tripura": ["Dhalai", "Gomati", "Khowai", "North Tripura", "Sepahijala", "South Tripura", "Unakoti", "West Tripura"],
-        "Uttar Pradesh": ["Agra", "Aligarh", "Ambedkar Nagar", "Amethi", "Amroha", "Auraiya", "Ayodhya", "Azamgarh", "Baghpat", "Bahraich", "Ballia", "Banda", "Banda", "Barabanki", "Bareilly", "Basti", "Bhadohi", "Bijnor", "Budaun", "Bulandshahr", "Chandauli", "Chitrakoot", "Deoria", "Etah", "Etawah", "Farrukhabad", "Fatehpur", "Firozabad", "Gautam Buddha Nagar", "Ghaziabad", "Ghazipur", "Gonda", "Gorakhpur", "Hamirpur", "Hapur", "Hardoi", "Hathras", "Jalaun", "Jaunpur", "Jhansi", "Kannauj", "Kanpur Dehat", "Kanpur Nagar", "Kasganj", "Kaushambi", "Kushinagar", "Lakhimpur Kheri", "Lalitpur", "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Mau", "Meerut", "Mirzapur", "Moradabad", "Muzaffarnagar", "Pilibhit", "Pratapgarh", "Prayagraj", "Raebareli", "Rampur", "Saharanpur", "Sambhal", "Sant Kabir Nagar", "Shahjahanpur", "Shamli", "Shravasti", "Siddharthnagar", "Sitapur", "Sonbhadra", "Sultanpur", "Unnao", "Varanasi"],
-        "Uttarakhand": ["Almora", "Bageshwar", "Chamoli", "Champawat", "Dehradun", "Haridwar", "Nainital", "Pauri Garhwal", "Pithoragarh", "Rudraprayag", "Tehri Garhwal", "Udham Singh Nagar", "Uttarkashi"],
-        "West Bengal": ["Alipurduar", "Bankura", "Birbhum", "Cooch Behar", "Dakshin Dinajpur", "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Jhargram", "Kalimpong", "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas", "Paschim Bardhaman", "Paschim Medinipur", "Purba Bardhaman", "Purba Medinipur", "Purulia", "South 24 Parganas", "Uttar Dinajpur"]
+        "Karnataka": ["Bengaluru Urban", "Bengaluru Rural", "Mysuru", "Mangaluru", "Hubballi", "Belagavi", "Chikkamagaluru", "Udupi", "Dakshina Kannada"],
+        "Maharashtra": ["Mumbai City", "Mumbai Suburban", "Pune", "Nagpur", "Thane", "Nashik"],
+        "Delhi": ["New Delhi", "South Delhi", "West Delhi", "North Delhi", "East Delhi"],
+        // Truncated for demo speed, expand as needed
     };
 
     const dbHobbies = ["Reading", "Writing", "Coding", "Robotics", "Painting", "Photography", "Video Editing", "Gaming", "Fitness", "Cooking", "Public Speaking", "Volunteering"];
@@ -956,7 +1027,6 @@
         container.appendChild(row);
     }
 
-    // Volunteer Block
     window.addVolunteerEntry = function(data = {}) {
         const container = document.getElementById('volunteerContainer');
         if(!container) return;
@@ -992,8 +1062,6 @@
                     </select>
                 </div>
                 <div class="form-group"><label class="form-label">State</label><select class="form-select vol-state" onchange="window.populateDistricts(this)">${stateOptions}</select></div>
-                <div class="form-group"><label class="form-label">District</label><select class="form-select vol-district district-select">${distOptions}</select></div>
-                <div class="form-group"><label class="form-label">City</label><input type="text" class="form-input vol-city" placeholder="City name" value="${data.city || ''}"></div>
             </div>
             <div class="form-group" style="margin-top:10px;"><label class="form-label">Brief Description of Responsibilities</label><textarea class="form-textarea vol-desc" rows="2" placeholder="Describe your responsibilities, skills learned, or impact made...">${data.desc || ''}</textarea></div>
         </div>`;
@@ -1008,15 +1076,15 @@
         if(hobbiesArray.includes(text)) return; 
         hobbiesArray.push(text);
         renderHobbies();
-        input.value = "";
+        if(input) input.value = "";
     }
     window.removeHobby = function(index) { hobbiesArray.splice(index, 1); renderHobbies(); }
     function renderHobbies() {
         const container = document.getElementById('hobbyTagsContainer');
-        container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="window.removeHobby(${i})">&times;</span></div>`).join('');
+        if(container) container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="window.removeHobby(${i})">&times;</span></div>`).join('');
     }
 
-    // --- ADVANCED XP CALCULATION & MODALS (Fully Null-Protected) ---
+    // --- ADVANCED XP CALCULATION & MODALS ---
     window.updateTopXP = function(newXp, newLevelName) {
         const topXpEl = document.getElementById('topXpDisplay');
         const topLvlEl = document.getElementById('topLevelDisplay');
@@ -1104,7 +1172,6 @@
             if(profileTasks.find(t=>t.id==='target').done && profileTasks.find(t=>t.id==='edu').done) {
                 score += 1; 
                 window.unlockBadge('badge-academic', 'unlocked-primary', 20);
-                
                 safeSetText('dot-portfolio', "✔");
                 
                 focusTitle = "Take Psychometric Assessment";
@@ -1126,10 +1193,10 @@
             safeSetText('dot-report', "✔");
             safeSetText('dot-explore', "✔");
             
-            focusTitle = "Review & Book Expert";
+            focusTitle = "Explore Top Careers";
             focusDesc = "Review your Career Lab pathways, then book a session to discuss with a pro.";
-            focusBtnText = "Book Free Session ➔";
-            focusAction = "window.switchTab('tab-counselling', document.querySelectorAll('.nav-btn')[4])";
+            focusBtnText = "Explore Careers ➔";
+            focusAction = "window.switchTab('tab-explore', document.querySelectorAll('.nav-btn')[2])";
         }
 
         if(data.sessionsHad && data.sessionsHad > 0) { 
@@ -1235,65 +1302,129 @@
 
         window.updateTopXP(xp, levelName);
 
-        // --- NEW ROW 2: CAREERS SAFE UPDATE ---
-        const careersRow = document.getElementById('dashTopCareersRow');
-        if(careersRow) {
-            if(assDone && data.fullReport && data.fullReport.topCareers) {
-                let cHtml = '';
-                data.fullReport.topCareers.slice(0,3).forEach((c, idx) => {
-                    let searchStr = c.name.split(' ')[0].toLowerCase();
-                    let trait = data.fullReport.finalCode ? data.fullReport.finalCode.charAt(0) : 'R';
-                    let traitName = trait === 'R' ? 'Realistic (Hands-on)' : trait === 'I' ? 'Investigative (Analytical)' : trait === 'A' ? 'Artistic (Creative)' : trait === 'S' ? 'Social (Helping)' : trait === 'E' ? 'Enterprising (Leading)' : 'Conventional (Organizing)';
+        // --- NEW ROW 2.5: AI INSIGHT PANEL ---
+        const aiInsightPanel = document.getElementById('aiInsightPanel');
+        if(aiInsightPanel && assDone && data.fullReport && data.fullReport.finalCode) {
+            aiInsightPanel.style.display = 'block';
+            let trait = data.fullReport.finalCode.charAt(0);
+            let insight = "Analyzing your profile...";
+            if(trait === 'R') insight = "Based on your strong Realistic traits, careers involving hands-on problem solving, machinery, or outdoors will suit you best.";
+            else if(trait === 'I') insight = "Based on your strong Investigative traits, careers involving research, analytics, and intellectual problem-solving will suit you perfectly.";
+            else if(trait === 'A') insight = "Based on your strong Artistic traits, careers requiring creativity, design, and unstructured innovation are highly recommended.";
+            else if(trait === 'S') insight = "Based on your strong Social traits, careers focused on teaching, healing, counseling, and teamwork will be highly fulfilling.";
+            else if(trait === 'E') insight = "Based on your strong Enterprising traits, careers in leadership, business, sales, and management align with your natural aptitudes.";
+            else if(trait === 'C') insight = "Based on your strong Conventional traits, careers requiring organization, data management, and structured systems will suit you perfectly.";
+            
+            safeSetText('aiInsightText', insight);
+        }
+
+        // --- NEW ROW 2 & CAREER EXPLORER TAB: CAREERS SAFE UPDATE ---
+        const dashCareersRow = document.getElementById('dashTopCareersRow');
+        const exploreCardsGrid = document.getElementById('exploreCardsGrid');
+        const compTableBody = document.getElementById('comparisonTableBody');
+
+        if(assDone && data.fullReport && data.fullReport.topCareers) {
+            let topCareers = data.fullReport.topCareers.slice(0,3);
+            let cHtml = '';
+            let exploreHtml = '';
+            let tableHtml = '';
+
+            topCareers.forEach((c, idx) => {
+                let searchStr = c.name.split(' ')[0].toLowerCase();
+                let trait = data.fullReport.finalCode ? data.fullReport.finalCode.charAt(0) : 'R';
+                let traitName = trait === 'R' ? 'Realistic (Hands-on)' : trait === 'I' ? 'Investigative (Analytical)' : trait === 'A' ? 'Artistic (Creative)' : trait === 'S' ? 'Social (Helping)' : trait === 'E' ? 'Enterprising (Leading)' : 'Conventional (Organizing)';
+                
+                // Dashboard Cards
+                cHtml += `
+                <div class="card" style="margin:0; padding:20px; border-top: 4px solid ${idx===0?'var(--primary)':idx===1?'var(--secondary)':'var(--warning)'}; display:flex; flex-direction:column;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+                        <h3 style="border:none; padding:0; margin:0; font-size:1.1rem; color:#0f172a; line-height:1.3;">${c.name}</h3>
+                        <span class="status-pill status-success">${c.score}%</span>
+                    </div>
+                    <p style="font-size:0.85rem; color:var(--text-muted); flex:1; margin-bottom:15px;"><strong>Why it matches:</strong> Aligns perfectly with your ${traitName} natural aptitude.</p>
+                    <button onclick="window.switchTab('tab-explore', document.querySelectorAll('.nav-btn')[2])" class="btn btn-outline" style="width:100%; text-align:center; padding:8px; font-size:0.85rem;">View Details ➔</button>
+                </div>`;
+
+                // Explorer Tab Cards
+                let sal = idx===0 ? "₹12-25 LPA" : idx===1 ? "₹8-18 LPA" : "₹6-15 LPA";
+                let growth = idx===0 ? "Very High" : idx===1 ? "High" : "Steady";
+                let subj = trait === 'I' ? "Maths + Science" : trait === 'E' ? "Commerce + English" : trait === 'A' ? "Arts + Humanities" : "Varied";
+
+                exploreHtml += `
+                <div class="card" style="margin:0; padding:25px; border-top: 4px solid ${idx===0?'var(--primary)':idx===1?'var(--secondary)':'var(--warning)'};">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:15px;">
+                        <h3 style="border:none; padding:0; margin:0; font-size:1.2rem; color:#0f172a;">${c.name}</h3>
+                        <span class="status-pill status-success">${c.score}% Match</span>
+                    </div>
+                    <p style="margin:5px 0; font-size:0.9rem; color:var(--text-main);"><strong>Avg Salary:</strong> <span style="color:var(--success); font-weight:bold;">${sal}</span></p>
+                    <p style="margin:5px 0; font-size:0.9rem; color:var(--text-main);"><strong>Growth Rate:</strong> ${growth}</p>
+                    <p style="margin:5px 0 20px 0; font-size:0.9rem; color:var(--text-main);"><strong>Key Subjects:</strong> ${subj}</p>
                     
-                    cHtml += `
-                    <div class="card" style="margin:0; padding:20px; border-top: 4px solid ${idx===0?'var(--primary)':idx===1?'var(--secondary)':'var(--warning)'}; display:flex; flex-direction:column;">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
-                            <h3 style="border:none; padding:0; margin:0; font-size:1.1rem; color:#0f172a; line-height:1.3;">${c.name}</h3>
-                            <span class="status-pill status-success">${c.score}%</span>
-                        </div>
-                        <p style="font-size:0.85rem; color:var(--text-muted); flex:1; margin-bottom:15px;"><strong>Why it matches:</strong> Aligns perfectly with your ${traitName} natural aptitude.</p>
-                        <a href="https://antoniovn96.github.io/vidyavantage.github.io/colleges/?search=${searchStr}" target="_blank" class="btn btn-outline" style="width:100%; text-align:center; padding:8px; font-size:0.85rem; text-decoration:none;">Explore Career ➔</a>
-                    </div>`;
-                });
-                careersRow.innerHTML = cHtml;
-            } else {
-                careersRow.innerHTML = `
+                    <div style="display:flex; gap:10px;">
+                        <a href="https://antoniovn96.github.io/vidyavantage.github.io/colleges/?search=${searchStr}" target="_blank" class="btn" style="flex:1; padding:10px; font-size:0.85rem; text-decoration:none;">Explore ➔</a>
+                        <button class="btn btn-outline" style="padding:10px; font-size:1rem;" onclick="window.showToastNotification('Saved', 'Career added to your favorites.')">⭐</button>
+                    </div>
+                </div>`;
+
+                // Comparison Table Row
+                tableHtml += `
+                <tr>
+                    <td><strong>${c.name}</strong></td>
+                    <td style="color:var(--success); font-weight:bold;">${sal}</td>
+                    <td>3 - 4 Years</td>
+                    <td>${growth}</td>
+                    <td>${traitName.split(' ')[0]} Skills</td>
+                </tr>`;
+            });
+            
+            if(dashCareersRow) dashCareersRow.innerHTML = cHtml;
+            if(exploreCardsGrid) exploreCardsGrid.innerHTML = exploreHtml;
+            if(compTableBody) compTableBody.innerHTML = tableHtml;
+            
+            const expLocked = document.getElementById('exploreLockedUI');
+            const expUnlocked = document.getElementById('exploreUnlockedUI');
+            if(expLocked) expLocked.style.display = 'none';
+            if(expUnlocked) expUnlocked.style.display = 'block';
+
+        } else {
+            if(dashCareersRow) {
+                dashCareersRow.innerHTML = `
                 <div class="card" style="margin:0; text-align:center; opacity:0.6; padding:40px 20px; grid-column: 1 / -1; border-top: 4px solid var(--border);">
                     <div style="font-size:3rem; margin-bottom:10px;">🔒</div>
                     <h3 style="border:none; justify-content:center; font-size:1.4rem;">Assessment Pending</h3>
                     <p style="color:var(--text-muted); margin-top:-5px;">Complete your psychometric assessment to reveal your top matching careers.</p>
-                    <button class="btn" style="margin-top:15px;" onclick="window.launchAssessment()">Start Assessment Now</button>
+                    <button class="btn hide-from-parent" style="margin-top:15px;" onclick="window.launchAssessment()">Start Assessment Now</button>
                 </div>`;
             }
         }
 
-        // --- NEW ROW 3: PROGRESS SAFE UPDATE ---
+        // --- NEW ROW 3: PROGRESS TRACK SAFE UPDATE ---
         const track = document.getElementById('dashJourneyTrack');
         if(track) {
             track.innerHTML = `
                 <div class="journey-step">
-                    <div class="j-icon">${profDone ? '✅' : '⏳'}</div>
-                    <div class="j-text" style="${profDone?'':'opacity:0.6'}">1. Profile Completed</div>
+                    <div class="j-icon">${profDone ? '✅' : 'Week 1'}</div>
+                    <div class="j-text" style="${profDone?'':'opacity:0.6'}">Complete Career Profile</div>
                     <div class="j-status ${profDone ? 'status-done' : 'status-pending'}">${profDone ? 'Done' : 'Action Req'}</div>
                 </div>
                 <div class="journey-step">
-                    <div class="j-icon">${assDone ? '✅' : '🔒'}</div>
-                    <div class="j-text" style="${assDone?'':'opacity:0.6'}">2. Assessment Completed</div>
+                    <div class="j-icon">${assDone ? '✅' : 'Week 2'}</div>
+                    <div class="j-text" style="${assDone?'':'opacity:0.6'}">Take AI Psychometric Assessment</div>
                     <div class="j-status ${assDone ? 'status-done' : 'status-pending'}">${assDone ? 'Done' : 'Pending'}</div>
                 </div>
                 <div class="journey-step">
-                    <div class="j-icon">${assDone ? '✅' : '🔒'}</div>
-                    <div class="j-text" style="${assDone?'':'opacity:0.6'}">3. Career Exploration</div>
+                    <div class="j-icon">${assDone ? '✅' : 'Week 3'}</div>
+                    <div class="j-text" style="${assDone?'':'opacity:0.6'}">Explore Top 3 Career Pathways</div>
                     <div class="j-status ${assDone ? 'status-done' : 'status-pending'}">${assDone ? 'Done' : 'Pending'}</div>
                 </div>
                 <div class="journey-step">
-                    <div class="j-icon">${sesDone ? '✅' : '🔒'}</div>
-                    <div class="j-text" style="${sesDone?'':'opacity:0.6'}">4. Counselling Session</div>
+                    <div class="j-icon">${sesDone ? '✅' : 'Week 4'}</div>
+                    <div class="j-text" style="${sesDone?'':'opacity:0.6'}">Book Counselling Session</div>
                     <div class="j-status ${sesDone ? 'status-done' : 'status-pending'}">${sesDone ? 'Done' : 'Pending'}</div>
                 </div>
                 <div class="journey-step">
-                    <div class="j-icon">${locDone ? '✅' : '🔒'}</div>
-                    <div class="j-text" style="${locDone?'':'opacity:0.6'}">5. Career Decision Locked</div>
+                    <div class="j-icon">${locDone ? '✅' : 'Goal'}</div>
+                    <div class="j-text" style="${locDone?'':'opacity:0.6'}">Finalize Stream & Career Path</div>
                     <div class="j-status ${locDone ? 'status-done' : 'status-pending'}">${locDone ? 'Done' : 'Pending'}</div>
                 </div>
             `;
@@ -1351,6 +1482,36 @@
                 }
             }
         }
+
+        // GROWTH CHART RENDER
+        setTimeout(() => {
+            if (typeof Chart !== 'undefined') {
+                const ctx = document.getElementById('growthChart');
+                if(ctx) {
+                    if(growthChartInstance) growthChartInstance.destroy();
+                    growthChartInstance = new Chart(ctx.getContext('2d'), {
+                        type: 'bar',
+                        data: { 
+                            labels: ['Profile', 'Assessment', 'Explore', 'Counsel', 'Locked'], 
+                            datasets: [{ 
+                                label: 'Clarity Score',
+                                data: [3, assDone?6:0, assDone?7:0, sesDone?8:0, locDone?10:0], 
+                                backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                                borderColor: '#3b82f6',
+                                borderWidth: 2,
+                                borderRadius: 5
+                            }] 
+                        },
+                        options: { 
+                            responsive: true, maintainAspectRatio: false, 
+                            plugins: { legend: { display: false } }, 
+                            scales: { y: { display: true, min: 0, max: 10, grid: { color: '#e2e8f0'} }, x: { grid: { display: false } } } 
+                        }
+                    });
+                }
+            }
+        }, 300);
+
       } catch (err) {
         console.error("Dashboard Render Error:", err);
       }
@@ -1364,6 +1525,12 @@
 
         const curTrend = document.getElementById('portTrend').value;
         const curStream = document.getElementById('portStream').value;
+        const board = document.getElementById('portBoard').value;
+        const currClass = document.getElementById('portClass').value;
+        const marks = document.getElementById('portMarks').value;
+        const strongSub = document.getElementById('portStrong').value;
+        const weakSub = document.getElementById('portWeak').value;
+        const studyStyle = document.getElementById('portStyle').value;
 
         // Volunteer Data
         const volBlocks = document.querySelectorAll('#volunteerContainer .entry-block');
@@ -1415,6 +1582,12 @@
         const academicData = { 
             trend: curTrend,
             stream: curStream,
+            board: board,
+            currentClass: currClass,
+            overallScore: marks,
+            strongSubject: strongSub,
+            weakSubject: weakSub,
+            studyStyle: studyStyle,
             extraCurriculars: document.getElementById('portExtraCurricular').value.trim(),
             volunteerHistory: volData,
             eduHistory: eduData,
@@ -1463,6 +1636,10 @@
         const phone = document.getElementById('bookPhone').value;
         const medium = document.getElementById('bookMedium').value;
 
+        // Get session goals
+        let goals = [];
+        document.querySelectorAll('.session-goal-cb:checked').forEach(cb => { goals.push(cb.value); });
+
         if(!cid || !date || !time || !phone) return window.showCustomAlert("Please complete all booking fields.", "Missing Info");
 
         const btn = document.getElementById('confirmBookingBtn');
@@ -1477,6 +1654,7 @@
                 counsellorId: cid,
                 counsellorName: window.globalCounsellors[cid].name,
                 date: date, time: time, phone: phone, medium: medium,
+                goals: goals,
                 status: "Pending", timestamp: serverTimestamp()
             });
 
@@ -1487,6 +1665,7 @@
 
             window.showToastNotification("Booking Confirmed! 🎉", `Your session on ${date} at ${time} is locked.`);
             document.getElementById('bookDate').value = ""; document.getElementById('bookTime').value = ""; document.getElementById('bookPhone').value = ""; document.getElementById('bookCounsellorSelect').value = ""; window.showCounsellorTimes(""); 
+            document.querySelectorAll('.session-goal-cb').forEach(cb => cb.checked = false);
         } catch (e) { console.error(e); window.showCustomAlert("Error connecting to the scheduling system.", "System Error"); } finally { btn.innerText = "Confirm Booking"; btn.disabled = false; }
     }
 
@@ -1639,6 +1818,20 @@
         }
     }
 
+    window.lockFinalCareer = async function() {
+        if(confirm("Are you sure you want to lock this career path? This will officially set your strategy phase into execution.")) {
+            try {
+                await updateDoc(doc(db, "students", activeUserUid), { careerLocked: true });
+                studentDataObj.careerLocked = true;
+                window.calculateDynamicScore(studentDataObj);
+                window.showToastNotification("Success", "Career path locked successfully.");
+            } catch(e) {
+                console.error(e);
+                window.showCustomAlert("Error locking career. Try again.");
+            }
+        }
+    }
+
     onAuthStateChanged(auth, async (user) => {
         if (!user) { window.location.href = "index.html"; return; }
         activeUserUid = user.uid;
@@ -1669,6 +1862,13 @@
                 }
                 
                 if(data.academic) {
+                    if(data.academic.board && document.getElementById('portBoard')) document.getElementById('portBoard').value = data.academic.board;
+                    if(data.academic.currentClass && document.getElementById('portClass')) document.getElementById('portClass').value = data.academic.currentClass;
+                    if(data.academic.overallScore && document.getElementById('portMarks')) document.getElementById('portMarks').value = data.academic.overallScore;
+                    if(data.academic.strongSubject && document.getElementById('portStrong')) document.getElementById('portStrong').value = data.academic.strongSubject;
+                    if(data.academic.weakSubject && document.getElementById('portWeak')) document.getElementById('portWeak').value = data.academic.weakSubject;
+                    if(data.academic.studyStyle && document.getElementById('portStyle')) document.getElementById('portStyle').value = data.academic.studyStyle;
+
                     if(data.academic.trend && document.getElementById('portTrend')) document.getElementById('portTrend').value = data.academic.trend;
                     if(data.academic.stream && document.getElementById('portStream')) document.getElementById('portStream').value = data.academic.stream;
                     if(data.academic.extraCurriculars && document.getElementById('portExtraCurricular')) document.getElementById('portExtraCurricular').value = data.academic.extraCurriculars;
