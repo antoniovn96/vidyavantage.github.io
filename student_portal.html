@@ -190,7 +190,7 @@
 <datalist id="gameSuggestions"></datalist>
 <datalist id="sportSuggestions"></datalist>
 
-<div class="modal-overlay" id="customAlertModal" style="z-index: 9999;">
+<div class="modal-overlay" id="customAlertModal" style="z-index: 9999;" onclick="if(event.target === this) closeModal('customAlertModal')">
     <div class="modal-content" style="max-width: 400px; text-align: center;">
         <h3 id="customAlertTitle" style="color: var(--danger); margin-top: 0; font-size: 1.5rem;">Notice</h3>
         <p id="customAlertMessage" style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.5; font-size: 1.05rem;"></p>
@@ -198,8 +198,8 @@
     </div>
 </div>
 
-<div class="modal-overlay" id="xpModal">
-    <div class="modal-content">
+<div class="modal-overlay" id="xpModal" onclick="if(event.target === this) closeModal('xpModal')">
+    <div class="modal-content" style="position:relative;">
         <button class="modal-close" onclick="closeModal('xpModal')">&times;</button>
         <div style="text-align:center; margin-bottom:20px;">
             <div style="font-size:3rem;">✨</div>
@@ -215,8 +215,8 @@
     </div>
 </div>
 
-<div class="modal-overlay" id="progressModal">
-    <div class="modal-content">
+<div class="modal-overlay" id="progressModal" onclick="if(event.target === this) closeModal('progressModal')">
+    <div class="modal-content" style="position:relative;">
         <button class="modal-close" onclick="closeModal('progressModal')">&times;</button>
         <div style="text-align:center; margin-bottom:20px;">
             <div style="font-size:3rem;">🎯</div>
@@ -662,42 +662,54 @@
 
     // --- MODAL CLICK-OUTSIDE & ALERT LOGIC ---
     window.openModal = function(id) { 
-        document.getElementById(id).style.display = 'flex'; 
-        setTimeout(()=> {document.getElementById(id).classList.add('active');}, 10);
+        const el = document.getElementById(id);
+        if(el) {
+            el.style.display = 'flex'; 
+            setTimeout(()=> {el.classList.add('active');}, 10);
+        }
     }
     
     window.closeModal = function(id) { 
-        document.getElementById(id).classList.remove('active'); 
-        setTimeout(()=> {document.getElementById(id).style.display = 'none';}, 300); 
+        const el = document.getElementById(id);
+        if(el) {
+            el.classList.remove('active'); 
+            setTimeout(()=> {el.style.display = 'none';}, 300); 
+        }
     }
     
-    // Listen for clicks on ALL modal overlays to close them
+    // Listen for clicks on ALL modal overlays to close them safely
     document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('modal-overlay')) {
+        if (event.target && event.target.classList && event.target.classList.contains('modal-overlay')) {
             closeModal(event.target.id);
         }
     });
 
     window.showCustomAlert = function(message, title = "Notice", isError = true) {
         const titleEl = document.getElementById('customAlertTitle');
-        titleEl.innerText = title;
-        titleEl.style.color = isError ? 'var(--danger)' : 'var(--primary)';
-        document.getElementById('customAlertMessage').innerText = message;
+        if(titleEl) {
+            titleEl.innerText = title;
+            titleEl.style.color = isError ? 'var(--danger)' : 'var(--primary)';
+        }
+        const msgEl = document.getElementById('customAlertMessage');
+        if(msgEl) msgEl.innerText = message;
         openModal('customAlertModal');
     }
 
     // --- RESTORED TOAST & PARENT MODE LOGIC ---
     window.showToastNotification = function(title, message) {
         const container = document.getElementById('toastContainer');
+        if(!container) return;
         const toast = document.createElement('div');
         toast.className = 'toast';
         toast.innerHTML = `<div class="toast-title">🔔 ${title}</div><div class="toast-body">${message}</div>`;
         
         toast.onclick = () => {
             if(title.includes("New Message") || title.includes("Chat")) {
-                window.switchTab('tab-chat', document.querySelectorAll('.nav-btn')[5]);
+                const btns = document.querySelectorAll('.nav-btn');
+                if(btns.length > 5) window.switchTab('tab-chat', btns[5]);
             } else {
-                window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
+                const btns = document.querySelectorAll('.nav-btn');
+                if(btns.length > 0) window.switchTab('tab-home', btns[0]);
             }
             toast.style.animation = 'fadeOut 0.3s ease forwards';
             setTimeout(() => toast.remove(), 300);
@@ -719,18 +731,23 @@
         
         if(!document.body.classList.contains('parent-mode-active')) {
             document.body.classList.add('parent-mode-active');
-            btn.classList.add('active');
-            icon.innerText = "🔐";
-            text.innerText = "Exit Parent View";
-            const activeTab = document.querySelector('.tab-content.active').id;
-            if(activeTab === 'tab-chat' || activeTab === 'tab-settings' || activeTab === 'tab-counselling') {
-                window.switchTab('tab-home', document.querySelectorAll('.nav-btn')[0]);
+            if(btn) btn.classList.add('active');
+            if(icon) icon.innerText = "🔐";
+            if(text) text.innerText = "Exit Parent View";
+            
+            const activeTabEl = document.querySelector('.tab-content.active');
+            if(activeTabEl) {
+                const activeTab = activeTabEl.id;
+                if(activeTab === 'tab-chat' || activeTab === 'tab-settings' || activeTab === 'tab-counselling') {
+                    const btns = document.querySelectorAll('.nav-btn');
+                    if(btns.length > 0) window.switchTab('tab-home', btns[0]);
+                }
             }
         } else {
             document.body.classList.remove('parent-mode-active');
-            btn.classList.remove('active');
-            icon.innerText = "👨‍👩‍👧";
-            text.innerText = "Parent View";
+            if(btn) btn.classList.remove('active');
+            if(icon) icon.innerText = "👨‍👩‍👧";
+            if(text) text.innerText = "Parent View";
         }
     }
 
@@ -795,6 +812,7 @@
     function attachDynamicSuggest(inputId, listId, dbArray) {
         const input = document.getElementById(inputId);
         const datalist = document.getElementById(listId);
+        if(!input || !datalist) return;
         input.setAttribute('autocomplete', 'off');
         input.addEventListener('input', (e) => {
             const val = e.target.value.trim().toLowerCase();
@@ -824,9 +842,13 @@
                 const scaleSize = 200 / img.width; canvas.width = 200; canvas.height = img.height * scaleSize;
                 const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                 uploadedImageBase64 = canvas.toDataURL("image/jpeg", 0.8);
-                document.getElementById('stuAvatarImg').src = uploadedImageBase64;
-                document.getElementById('stuAvatarImg').style.display = 'block';
-                document.getElementById('stuInitials').style.display = 'none';
+                const aImg = document.getElementById('stuAvatarImg');
+                if(aImg) {
+                    aImg.src = uploadedImageBase64;
+                    aImg.style.display = 'block';
+                }
+                const aInit = document.getElementById('stuInitials');
+                if(aInit) aInit.style.display = 'none';
             }
         };
     });
@@ -834,14 +856,16 @@
     window.populateDistricts = function(stateSelectElem) {
         const state = stateSelectElem.value;
         const districtSelect = stateSelectElem.parentElement.nextElementSibling.querySelector('.district-select');
+        if(!districtSelect) return;
         districtSelect.innerHTML = '<option value="" disabled selected>Select District</option>';
         if(indiaData[state]) {
             indiaData[state].forEach(dist => { districtSelect.innerHTML += `<option value="${dist}">${dist}</option>`; });
         }
     }
+    
     window.toggleToDate = function(checkboxElem) {
         const toDateInput = checkboxElem.parentElement.parentElement.nextElementSibling;
-        toDateInput.style.display = checkboxElem.checked ? 'none' : 'block';
+        if(toDateInput) toDateInput.style.display = checkboxElem.checked ? 'none' : 'block';
     }
 
     // --- OVERHAULED EDUCATION LOGIC ---
@@ -849,6 +873,7 @@
         const sys = selectElem.value;
         const block = selectElem.closest('.entry-block');
         const inp = block.querySelector('.edu-overall-score');
+        if(!inp) return;
         if(sys.includes('%') || sys === 'Percentile') { inp.placeholder = 'e.g. 88'; inp.max = 100; }
         else if(sys.includes('4')) { inp.placeholder = 'e.g. 3.8'; inp.max = 4; }
         else if(sys.includes('10')) { inp.placeholder = 'e.g. 9.2'; inp.max = 10; }
@@ -864,25 +889,26 @@
         const toLabel = block.querySelector('.edu-to-label');
 
         if(level === 'School') {
-            nameInput.placeholder = "School Name";
-            certNameBox.style.display = 'none';
-            fromBox.style.display = 'none'; 
-            toLabel.innerText = "Date of Completion"; 
+            if(nameInput) nameInput.placeholder = "School Name";
+            if(certNameBox) certNameBox.style.display = 'none';
+            if(fromBox) fromBox.style.display = 'none'; 
+            if(toLabel) toLabel.innerText = "Date of Completion"; 
         } else if (level === 'Certificate') {
-            nameInput.placeholder = "Institution / Platform Name";
-            certNameBox.style.display = 'block';
-            fromBox.style.display = 'block'; 
-            toLabel.innerText = "To Date (Or completion)"; 
+            if(nameInput) nameInput.placeholder = "Institution / Platform Name";
+            if(certNameBox) certNameBox.style.display = 'block';
+            if(fromBox) fromBox.style.display = 'block'; 
+            if(toLabel) toLabel.innerText = "To Date (Or completion)"; 
         } else {
-            nameInput.placeholder = "College / Institute Name";
-            certNameBox.style.display = 'none';
-            fromBox.style.display = 'block'; 
-            toLabel.innerText = "To Date"; 
+            if(nameInput) nameInput.placeholder = "College / Institute Name";
+            if(certNameBox) certNameBox.style.display = 'none';
+            if(fromBox) fromBox.style.display = 'block'; 
+            if(toLabel) toLabel.innerText = "To Date"; 
         }
     }
 
     window.addEducationEntry = function(data = {}) {
         const container = document.getElementById('educationContainer');
+        if(!container) return;
         const id = Date.now() + Math.random();
         
         const isSchool = data.level === 'School' || !data.level;
@@ -963,6 +989,7 @@
     // Volunteer Block
     window.addVolunteerEntry = function(data = {}) {
         const container = document.getElementById('volunteerContainer');
+        if(!container) return;
         const id = Date.now() + Math.random();
         let stateOptions = '<option value="" disabled selected>Select State</option>';
         Object.keys(indiaData).forEach(s => { stateOptions += `<option value="${s}" ${data.state===s?'selected':''}>${s}</option>`; });
@@ -1003,23 +1030,7 @@
         container.insertAdjacentHTML('beforeend', html);
     }
 
-    window.addHobby = function(val = null) {
-        const input = document.getElementById('hobbyInput');
-        const text = val || input.value.trim();
-        if(!text) return;
-        if(hobbiesArray.length >= 10) { showCustomAlert("Maximum 10 hobbies allowed.", "Limit Reached", false); return; }
-        if(hobbiesArray.includes(text)) return; 
-        hobbiesArray.push(text);
-        renderHobbies();
-        input.value = "";
-    }
-    window.removeHobby = function(index) { hobbiesArray.splice(index, 1); renderHobbies(); }
-    function renderHobbies() {
-        const container = document.getElementById('hobbyTagsContainer');
-        container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="removeHobby(${i})">&times;</span></div>`).join('');
-    }
-
-    // --- ADVANCED XP CALCULATION & MODALS ---
+    // --- ADVANCED XP CALCULATION & MODALS (Fully Null-Protected) ---
     window.updateTopXP = function(newXp, newLevelName) {
         const topXpEl = document.getElementById('topXpDisplay');
         const topLvlEl = document.getElementById('topLevelDisplay');
@@ -1027,11 +1038,11 @@
         const modalXpTotal = document.getElementById('xpModalTotal');
 
         if (currentGlobalXP !== newXp) {
-            topLvlEl.innerText = newLevelName.split(' - ')[0].replace('Level', 'Lvl');
-            topXpEl.innerText = newXp;
-            if(modalXpTotal) modalXpTotal.innerText = newXp + " XP";
+            if (topLvlEl) topLvlEl.innerText = newLevelName.split(' - ')[0].replace('Level', 'Lvl');
+            if (topXpEl) topXpEl.innerText = newXp;
+            if (modalXpTotal) modalXpTotal.innerText = newXp + " XP";
             
-            if (currentGlobalXP !== -1) {
+            if (currentGlobalXP !== -1 && xpContainer) {
                 xpContainer.classList.remove('xp-bump');
                 void xpContainer.offsetWidth; // Trigger reflow
                 xpContainer.classList.add('xp-bump');
@@ -1107,7 +1118,6 @@
                 score += 1; 
                 unlockBadge('badge-academic', 'unlocked-primary', 20);
                 
-                // Safe DOM Update
                 const dotPortfolio = document.getElementById('dot-portfolio');
                 if (dotPortfolio) dotPortfolio.innerText = "✔";
                 
@@ -1124,7 +1134,6 @@
             breakdownHTML += `<div class="xp-list-item"><span>Assessment Completed</span><strong style="color:var(--success);">+50 XP</strong></div>`;
             unlockBadge('badge-assessed', 'unlocked-primary', 40);
             
-            // Safe DOM Updates
             const step2 = document.getElementById('tl-step-2');
             if (step2) step2.classList.add('completed');
             
@@ -1146,7 +1155,6 @@
             breakdownHTML += `<div class="xp-list-item"><span>Counselling Session</span><strong style="color:var(--success);">+50 XP</strong></div>`;
             unlockBadge('badge-counselled', 'unlocked-primary', 60);
             
-            // Safe DOM Updates
             const step3 = document.getElementById('tl-step-3');
             if (step3) step3.classList.add('completed');
             
@@ -1168,7 +1176,6 @@
             breakdownHTML += `<div class="xp-list-item"><span>Career Path Locked 🔒</span><strong style="color:var(--success);">+100 XP</strong></div>`;
             unlockBadge('badge-locked', 'unlocked-success', 100);
             
-            // Safe DOM Updates
             const step4 = document.getElementById('tl-step-4');
             if (step4) step4.classList.add('completed');
             
@@ -1178,8 +1185,11 @@
             const lockedSuccess = document.getElementById('careerLockedSuccess');
             if (lockedSuccess) lockedSuccess.style.display = 'block';
             
-            // Assuming lockUI is defined elsewhere or not strictly needed here
-            if (typeof lockUI === "function") lockUI();
+            const academicInputCard = document.getElementById('academicInputCard');
+            if (academicInputCard) {
+                academicInputCard.style.pointerEvents = 'none';
+                academicInputCard.style.opacity = '0.6';
+            }
 
             focusTitle = "Execute Action Plan";
             focusDesc = "Your path is set. Follow your recommended 1-Year Execution strategy.";
@@ -1237,17 +1247,16 @@
 
         updateTopXP(xp, levelName);
 
+        // SAFELY RENDER ASSESSMENT RESULTS
         if(data.assessmentCompleted && data.fullReport) {
             if (document.getElementById('lockedReportUI')) document.getElementById('lockedReportUI').style.display = 'none';
             if (document.getElementById('unlockedReportUI')) document.getElementById('unlockedReportUI').style.display = 'block';
             
-            renderCareerLabActuals(data.fullReport);
-            
             const rep = data.fullReport;
-            if (document.getElementById('reportRiasecCode')) document.getElementById('reportRiasecCode').innerText = rep.finalCode;
-            if (document.getElementById('reportProfileDesc')) document.getElementById('reportProfileDesc').innerText = rep.profileDesc;
+            if (document.getElementById('reportRiasecCode')) document.getElementById('reportRiasecCode').innerText = rep.finalCode || "N/A";
+            if (document.getElementById('reportProfileDesc')) document.getElementById('reportProfileDesc').innerText = rep.profileDesc || "";
 
-            if (document.getElementById('reportCareersContainer')) {
+            if (document.getElementById('reportCareersContainer') && rep.topCareers) {
                 document.getElementById('reportCareersContainer').innerHTML = rep.topCareers.map(c => `
                     <div class="career-pill" style="border-left: 4px solid var(--border);"><span>${c.name}</span><span class="status-pill status-success" style="font-size:0.75rem;">${c.score}% Match</span></div>
                 `).join('');
@@ -1262,7 +1271,7 @@
                 }
             }
 
-            if (typeof Chart !== 'undefined') {
+            if (typeof Chart !== 'undefined' && rep.scores) {
                 let existingChart = Chart.getChart('reportRiasecChart');
                 if (existingChart) { existingChart.destroy(); }
 
@@ -1445,15 +1454,16 @@
         try {
             const snap = await getDocs(collection(db, "counsellor_profiles"));
             if(!snap.empty) {
-                chatSelect.innerHTML = '<option value="">-- Choose your assigned Counsellor --</option>';
-                bookSelect.innerHTML = '<option value="">-- Choose an Expert --</option>';
+                if(chatSelect) chatSelect.innerHTML = '<option value="">-- Choose your assigned Counsellor --</option>';
+                if(bookSelect) bookSelect.innerHTML = '<option value="">-- Choose an Expert --</option>';
                 activeChatListeners.forEach(unsub => unsub()); activeChatListeners.length = 0;
 
                 snap.forEach(docSnap => {
                     const data = docSnap.data();
                     window.globalCounsellors[docSnap.id] = data;
                     const optionHtml = `<option value="${docSnap.id}">🟢 ${data.name || docSnap.id} - Online</option>`;
-                    chatSelect.innerHTML += optionHtml; bookSelect.innerHTML += optionHtml;
+                    if(chatSelect) chatSelect.innerHTML += optionHtml; 
+                    if(bookSelect) bookSelect.innerHTML += optionHtml;
 
                     const chatId = `${activeUserUid}_${docSnap.id}`;
                     const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
@@ -1464,11 +1474,15 @@
                             if (change.type === "added") {
                                 const msg = change.doc.data();
                                 if (!isInitialLoad && msg.senderId !== activeUserUid) {
-                                    const isViewingChat = document.querySelector('.tab-content.active').id === 'tab-chat' && document.getElementById('studentChatSelect').value === docSnap.id;
+                                    const activeTabEl = document.querySelector('.tab-content.active');
+                                    const isViewingChat = activeTabEl && activeTabEl.id === 'tab-chat' && document.getElementById('studentChatSelect') && document.getElementById('studentChatSelect').value === docSnap.id;
                                     if(!isViewingChat) {
                                         globalUnreadCount++;
                                         const badge = document.getElementById('notifBadge');
-                                        badge.innerText = globalUnreadCount; badge.style.display = 'flex';
+                                        if(badge) {
+                                            badge.innerText = globalUnreadCount; 
+                                            badge.style.display = 'flex';
+                                        }
                                         showToastNotification("New Message", `${data.name || "Counsellor"} sent you a message.`);
                                     }
                                 }
@@ -1478,14 +1492,20 @@
                     });
                     activeChatListeners.push(unsub);
                 });
-            } else { chatSelect.innerHTML = '<option value="">No counsellors registered.</option>'; bookSelect.innerHTML = '<option value="">No experts registered.</option>'; }
+            } else { 
+                if(chatSelect) chatSelect.innerHTML = '<option value="">No counsellors registered.</option>'; 
+                if(bookSelect) bookSelect.innerHTML = '<option value="">No experts registered.</option>'; 
+            }
         } catch(e) { console.error("Error loading counsellors:", e); }
     }
 
     window.loadCounsellorChat = function(counsellorId) {
-        if(!counsellorId) { document.getElementById('counsellorProfileCard').innerHTML = "Select a counsellor to view profile."; return; }
+        if(!counsellorId) { 
+            if(document.getElementById('counsellorProfileCard')) document.getElementById('counsellorProfileCard').innerHTML = "Select a counsellor to view profile."; 
+            return; 
+        }
         const c = window.globalCounsellors[counsellorId];
-        if(c) {
+        if(c && document.getElementById('counsellorProfileCard')) {
             document.getElementById('counsellorProfileCard').innerHTML = `
                 <img src="${c.photo || 'https://ui-avatars.com/api/?name=Expert&background=3b82f6&color=fff'}" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid var(--success); margin-bottom:15px;">
                 <h4 style="margin:0; color:#0f172a; font-size:1.1rem;">${c.name}</h4>
@@ -1496,7 +1516,7 @@
 
         if(unsubscribeChat) unsubscribeChat();
         const chatBox = document.getElementById('studentChatMessages');
-        chatBox.innerHTML = '<div style="text-align:center; color:var(--text-muted); margin-top:40px;">Loading messages...</div>';
+        if(chatBox) chatBox.innerHTML = '<div style="text-align:center; color:var(--text-muted); margin-top:40px;">Loading messages...</div>';
 
         const chatId = `${activeUserUid}_${counsellorId}`;
         const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
@@ -1512,15 +1532,20 @@
                     html += `<div class="chat-message ${isStudent ? 'chat-student' : 'chat-counsellor'}">${msg.text}<span class="chat-time" style="${isStudent ? 'color:rgba(255,255,255,0.7);' : ''}">${timeString}</span></div>`;
                 });
             }
-            chatBox.innerHTML = html; chatBox.scrollTop = chatBox.scrollHeight;
+            if(chatBox) {
+                chatBox.innerHTML = html; 
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
         });
     }
 
     window.sendStudentChatMessage = async function() {
         const input = document.getElementById('studentChatInput');
+        if(!input) return;
         const text = input.value.trim();
         const counsellorId = document.getElementById('studentChatSelect').value;
-        if(!text) return; if(!counsellorId) return showCustomAlert("Please select a counsellor to chat.", "Select Expert");
+        if(!text) return; 
+        if(!counsellorId) return showCustomAlert("Please select a counsellor to chat.", "Select Expert");
         input.value = ""; 
         try { await addDoc(collection(db, "chats", `${activeUserUid}_${counsellorId}`, "messages"), { text: text, senderId: activeUserUid, senderType: 'student', timestamp: serverTimestamp() }); } 
         catch(e) { console.error("Failed to send:", e); }
@@ -1528,7 +1553,8 @@
 
     // --- INITIALIZATION ---
     const todayStr = new Date().toISOString().split('T')[0];
-    document.getElementById("bookDate").setAttribute('min', todayStr);
+    const bookDateInput = document.getElementById("bookDate");
+    if(bookDateInput) bookDateInput.setAttribute('min', todayStr);
 
     window.launchAssessment = function() {
         const currentUrl = window.location.href;
@@ -1539,21 +1565,28 @@
     window.switchTab = function(tabId, btn) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        btn.classList.add('active');
-        document.getElementById('headerTitle').innerText = btn.innerText.replace(/[^\w\s]/gi, '').trim();
+        const targetTab = document.getElementById(tabId);
+        if(targetTab) targetTab.classList.add('active');
+        if(btn) btn.classList.add('active');
+        
+        const headerTitle = document.getElementById('headerTitle');
+        if(headerTitle && btn) headerTitle.innerText = btn.innerText.replace(/[^\w\s]/gi, '').trim();
         
         if(tabId === 'tab-chat') {
             globalUnreadCount = 0;
             const badge = document.getElementById('notifBadge');
-            badge.style.display = 'none';
-            badge.innerText = '0';
+            if(badge) {
+                badge.style.display = 'none';
+                badge.innerText = '0';
+            }
         }
     };
 
     window.toggleMilestones = function() {
         const section = document.getElementById('milestoneSection');
         const btn = document.getElementById('milestoneToggleBtn');
+        if(!section || !btn) return;
+        
         if (section.classList.contains('expanded')) {
             section.classList.remove('expanded');
             btn.innerText = "View Timeline Progress ⬇";
@@ -1575,33 +1608,36 @@
                 studentDataObj = data; 
                 
                 const firstName = data.name.split(' ')[0];
-                document.getElementById('stuName').innerText = data.name;
-                document.getElementById('welcomeText').innerText = `Welcome back, ${firstName}.`;
-                document.getElementById('setStuName').value = data.name;
-                document.getElementById('setStuEmail').value = data.email;
+                
+                if (document.getElementById('stuName')) document.getElementById('stuName').innerText = data.name;
+                if (document.getElementById('welcomeText')) document.getElementById('welcomeText').innerText = `Welcome back, ${firstName}.`;
+                if (document.getElementById('setStuName')) document.getElementById('setStuName').value = data.name;
+                if (document.getElementById('setStuEmail')) document.getElementById('setStuEmail').value = data.email;
                 
                 if(data.photo) {
                     uploadedImageBase64 = data.photo;
-                    document.getElementById('stuAvatarImg').src = data.photo;
-                    document.getElementById('stuAvatarImg').style.display = 'block';
-                    document.getElementById('stuInitials').style.display = 'none';
+                    const avaImg1 = document.getElementById('stuAvatarImg');
+                    if(avaImg1) { avaImg1.src = data.photo; avaImg1.style.display = 'block'; }
+                    const avaImg2 = document.getElementById('stuInitials');
+                    if(avaImg2) avaImg2.style.display = 'none';
                 } else {
-                    document.getElementById('stuInitials').innerText = firstName.charAt(0).toUpperCase();
+                    const stuInitials = document.getElementById('stuInitials');
+                    if(stuInitials) stuInitials.innerText = firstName.charAt(0).toUpperCase();
                 }
                 
                 if(data.academic) {
-                    if(data.academic.trend) document.getElementById('portTrend').value = data.academic.trend;
-                    if(data.academic.stream) document.getElementById('portStream').value = data.academic.stream;
-                    if(data.academic.extraCurriculars) document.getElementById('portExtraCurricular').value = data.academic.extraCurriculars;
+                    if(data.academic.trend && document.getElementById('portTrend')) document.getElementById('portTrend').value = data.academic.trend;
+                    if(data.academic.stream && document.getElementById('portStream')) document.getElementById('portStream').value = data.academic.stream;
+                    if(data.academic.extraCurriculars && document.getElementById('portExtraCurricular')) document.getElementById('portExtraCurricular').value = data.academic.extraCurriculars;
                     
                     if(data.academic.hobbies && Array.isArray(data.academic.hobbies)) { hobbiesArray = data.academic.hobbies; renderHobbies(); }
                     if(data.academic.interests) {
-                        document.getElementById('intMusic').value = data.academic.interests.music || '';
-                        document.getElementById('intArtist').value = data.academic.interests.artist || '';
-                        document.getElementById('intTV').value = data.academic.interests.tv || '';
-                        document.getElementById('intMovies').value = data.academic.interests.movies || '';
-                        document.getElementById('intGames').value = data.academic.interests.games || '';
-                        document.getElementById('intSports').value = data.academic.interests.sports || '';
+                        if(document.getElementById('intMusic')) document.getElementById('intMusic').value = data.academic.interests.music || '';
+                        if(document.getElementById('intArtist')) document.getElementById('intArtist').value = data.academic.interests.artist || '';
+                        if(document.getElementById('intTV')) document.getElementById('intTV').value = data.academic.interests.tv || '';
+                        if(document.getElementById('intMovies')) document.getElementById('intMovies').value = data.academic.interests.movies || '';
+                        if(document.getElementById('intGames')) document.getElementById('intGames').value = data.academic.interests.games || '';
+                        if(document.getElementById('intSports')) document.getElementById('intSports').value = data.academic.interests.sports || '';
                     }
 
                     if(data.academic.volunteerHistory && data.academic.volunteerHistory.length > 0) {
@@ -1622,9 +1658,12 @@
         } catch (error) { console.error("Data load failed:", error); }
     });
 
-    document.getElementById('logoutBtnTop').addEventListener('click', () => {
-        if(confirm("Are you sure you want to log out?")) { signOut(auth).then(() => { window.location.href = "index.html"; }); }
-    });
+    const logoutBtn = document.getElementById('logoutBtnTop');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            if(confirm("Are you sure you want to log out?")) { signOut(auth).then(() => { window.location.href = "index.html"; }); }
+        });
+    }
 </script>
 </body>
 </html>
