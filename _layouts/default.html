@@ -11,9 +11,9 @@
     {% seo %}
 
     <style>
-      body { margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; display: flex; flex-direction: column; min-height: 100vh; background-color: #f8f9fa; }
+      body { margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; display: flex; flex-direction: column; min-height: 100vh; background-color: #f8f9fa; overflow-x: hidden; }
       
-      /* NAV BAR */
+      /* --- NAV BAR --- */
       .top-nav {
         background-color: #0A2342; /* Navy Blue */
         padding: 15px 30px;
@@ -22,7 +22,7 @@
         align-items: center;
         position: sticky;
         top: 0;
-        z-index: 9999; /* Ensure navbar is always on top of everything */
+        z-index: 9999; 
         box-shadow: 0 2px 10px rgba(0,0,0,0.3);
       }
       .nav-logo {
@@ -35,11 +35,13 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        z-index: 10001; /* Keeps logo above mobile overlay */
       }
       .nav-logo img {
-        height: 28px; /* Perfectly sizes the 16x16 or larger logo for the navbar */
+        height: 28px; 
         width: auto;
       }
+      
       .nav-links {
         display: flex;
         align-items: center;
@@ -82,7 +84,7 @@
       /* --- PROFILE DROPDOWN MENU --- */
       .profile-dropdown {
         position: relative;
-        display: none; /* Hidden by default until Firebase confirms login */
+        display: none; 
         align-items: center;
         gap: 10px;
         cursor: pointer;
@@ -91,14 +93,13 @@
         margin-left: 10px;
       }
       
-      /* 🔥 THE FIX: INVISIBLE BRIDGE FOR HOVER GAP 🔥 */
       .profile-dropdown::after {
         content: '';
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        height: 20px; /* Fills the physical gap so hover doesn't drop */
+        height: 20px; 
         background: transparent;
       }
 
@@ -112,7 +113,7 @@
       .profile-dropdown-content {
         display: none;
         position: absolute;
-        top: calc(100% + 15px); /* Safely pushes it down */
+        top: calc(100% + 15px);
         right: 0;
         background-color: white;
         min-width: 180px;
@@ -122,9 +123,9 @@
         z-index: 10000;
       }
       
-      /* Keeps menu open when hovering over the parent OR the menu itself */
-      .profile-dropdown:hover .profile-dropdown-content {
-        display: block;
+      /* Desktop Hover */
+      @media (min-width: 1051px) {
+        .profile-dropdown:hover .profile-dropdown-content { display: block; }
       }
       
       .profile-dropdown-content a {
@@ -136,15 +137,42 @@
         border-bottom: 1px solid #eee;
         transition: 0.2s;
       }
-      .profile-dropdown-content a:hover {
-        background-color: #f1f5f9;
-        color: #2563EB;
+      .profile-dropdown-content a:hover { background-color: #f1f5f9; color: #2563EB; }
+
+      /* --- CREATIVE MOBILE MENU COMPONENTS --- */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        cursor: pointer;
+        z-index: 10001; /* Above the overlay and drawer */
+      }
+      .hamburger span {
+        display: block;
+        width: 28px;
+        height: 3px;
+        background-color: #D4AF37;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out;
+      }
+      /* Animated X */
+      .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+      .hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
+      .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100vh;
+        background: rgba(10, 35, 66, 0.7);
+        backdrop-filter: blur(4px);
+        z-index: 9998;
+        opacity: 0;
+        transition: opacity 0.4s ease;
       }
 
-      /* CONTENT WRAPPER */
+      /* --- CONTENT WRAPPER & FOOTER --- */
       .main-content { flex: 1; max-width: 100%; margin: 0; padding: 0; width: 100%; box-sizing: border-box; }
-
-      /* FOOTER */
       .site-footer { background-color: #0A2342; color: white; padding: 60px 20px 20px; border-top: 5px solid #D4AF37; font-size: 0.9rem; margin-top: auto; }
       .footer-grid { display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 40px; }
       .footer-col { flex: 1; min-width: 200px; }
@@ -153,22 +181,70 @@
       .footer-links a:hover { color: #D4AF37; padding-left: 5px; }
       .copyright { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; }
       
+      /* --- MOBILE RESPONSIVENESS (THE CREATIVE MENU) --- */
       @media (max-width: 1050px) {
-        .top-nav { flex-direction: column; gap: 15px; padding: 15px; }
-        .nav-links { flex-wrap: wrap; justify-content: center; font-size: 0.85rem; }
+        .top-nav { padding: 15px 20px; }
+        .hamburger { display: flex; }
+        
+        .nav-links {
+          position: fixed;
+          top: 0;
+          right: -300px; /* Hidden off-screen */
+          width: 260px;
+          height: 100vh;
+          background-color: #0A2342;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 80px 30px 30px; /* Space for the X button */
+          box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+          transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 10000;
+          gap: 25px;
+          overflow-y: auto;
+        }
+        .nav-links.active {
+          right: 0; /* Slides into view */
+        }
+        
+        .nav-links a { font-size: 1.15rem; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;}
+        .nav-links a:last-child { border-bottom: none; }
+        .nav-btn { width: 100%; text-align: center; margin-left: 0 !important; border-bottom: none !important;}
+        .nav-btn-login { width: 100%; padding: 14px; font-size: 1.1rem;}
+
+        /* Mobile Profile Dropdown Adjustments */
+        .profile-dropdown { margin-left: 0; width: 100%; flex-wrap: wrap; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;}
+        .profile-dropdown-content {
+          position: static;
+          box-shadow: none;
+          background: rgba(255,255,255,0.05);
+          width: 100%;
+          margin-top: 10px;
+          border-radius: 8px;
+        }
+        .profile-dropdown-content a { color: white; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px 15px; }
+        .profile-dropdown-content a:hover { background: rgba(255,255,255,0.1); color: #D4AF37; }
+        .profile-dropdown.mobile-open .profile-dropdown-content { display: block; }
       }
     </style>
   </head>
   
   <body>
     
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
     <nav class="top-nav">
       <a href="{{ '/' | relative_url }}" class="nav-logo">
         <img src="{{ '/assets/image/favicon-16x16.png' | relative_url }}" alt="VidyaVantage Logo">
         VIDYAVANTAGE
       </a>
       
-      <div class="nav-links">
+      <div class="hamburger" id="mobileMenuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <div class="nav-links" id="navLinks">
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/stream-selector/' | relative_url }}">Stream Selector</a>
         <a href="{{ '/colleges/' | relative_url }}">Colleges</a>
@@ -221,6 +297,40 @@
         © {{ site.time | date: '%Y' }} VidyaVantage. Built for the students of India.
       </div>
     </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const hamburger = document.getElementById('mobileMenuBtn');
+          const navLinks = document.getElementById('navLinks');
+          const overlay = document.getElementById('mobileOverlay');
+          const profileNav = document.getElementById('userProfileNav');
+
+          // Toggle drawer and overlay
+          function toggleMenu() {
+              hamburger.classList.toggle('active');
+              navLinks.classList.toggle('active');
+              
+              if(navLinks.classList.contains('active')) {
+                  overlay.style.display = 'block';
+                  setTimeout(() => overlay.style.opacity = '1', 10);
+              } else {
+                  overlay.style.opacity = '0';
+                  setTimeout(() => overlay.style.display = 'none', 400);
+                  profileNav.classList.remove('mobile-open'); // Close profile if open
+              }
+          }
+
+          hamburger.addEventListener('click', toggleMenu);
+          overlay.addEventListener('click', toggleMenu);
+
+          // Handle Profile Clicks on Mobile
+          profileNav.addEventListener('click', (e) => {
+              if (window.innerWidth <= 1050) {
+                  profileNav.classList.toggle('mobile-open');
+              }
+          });
+      });
+    </script>
 
     <script type="module">
         import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
