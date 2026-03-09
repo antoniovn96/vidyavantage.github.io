@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>India's Career Intelligence Platform | Guidance & Psychometric Test</title>
+    <title>Career Guidance & Psychometric Test for Students | Career Intelligence</title>
     
     <meta name="description" content="AI-powered career guidance and psychometric testing for students of Class 8 to 12. Discover the right stream and career path with expert counselling.">
     <meta property="og:title" content="Career Guidance & Psychometric Test for Students">
@@ -58,7 +58,7 @@
         .btn-nav { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: 0.3s;}
         .btn-nav:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(59,130,246,0.3);}
 
-        /* --- HERO SECTION (WITH LOGIN) --- */
+        /* --- HERO SECTION (WITH LOGIN ON THE RIGHT) --- */
         .hero { padding: 140px 0 80px; background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 40%), radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.05), transparent 40%); }
         .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;}
         
@@ -159,7 +159,7 @@
         .blog-content p { margin: 0; font-size: 0.9rem; color: var(--text-muted);}
 
         /* --- CTA SECTION --- */
-        .cta-section { background: var(--primary); color: white; text-align: center; padding: 60px 0; }
+        .cta-section { background: var(--primary); color: white; text-align: center; padding: 60px 20px; }
         .cta-section h2 { font-size: 2.2rem; margin: 0 0 15px 0; color: white;}
         .cta-section p { font-size: 1.1rem; opacity: 0.9; margin: 0 0 30px 0;}
 
@@ -513,7 +513,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     // ⚠️ REPLACE WITH YOUR FIREBASE CONFIG
     const firebaseConfig = {
@@ -568,6 +568,8 @@
 
     // --- SMART LOGGED-IN STATE DETECTION ---
     onAuthStateChanged(auth, (user) => {
+        // Stop forcing redirect! Let them read the homepage if they want to.
+        // Instead, we dynamically change the Login UI to a "Go to Dashboard" button.
         if (user && !isProcessingLogin) {
             
             // 1. Update Navbar
