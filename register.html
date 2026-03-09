@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Registration | Career Intelligence</title>
     <link rel="icon" type="image/png" sizes="16x16" href="assets/image/favicon-16x16.png">
     <style>
@@ -95,7 +96,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, doc, getDoc, getDocs, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     // ⚠️ REPLACE WITH YOUR ACTUAL CONFIG
     const firebaseConfig = {
@@ -114,6 +115,14 @@
     const regForm = document.getElementById('registrationForm');
     const regBtn = document.getElementById('regBtn');
     const errorMsg = document.getElementById('errorMsg');
+    let isRegistering = false;
+
+    // Smart Redirect: If they are already logged in, send them to the dashboard (but DO NOT kick them out if they are logged out!)
+    onAuthStateChanged(auth, (user) => {
+        if (user && !isRegistering) {
+            window.location.href = "student_portal.html";
+        }
+    });
 
     // 1. Populate Schools Dropdown dynamically
     async function loadSchools() {
@@ -135,6 +144,7 @@
     // 2. Handle Registration & Account Creation
     regForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        isRegistering = true; // Tell the auth listener not to redirect prematurely
         
         const name = document.getElementById('stuName').value.trim();
         const email = document.getElementById('stuEmail').value.trim();
@@ -200,6 +210,7 @@
             errorMsg.style.display = "block";
             regBtn.innerText = "Start My Journey ➔";
             regBtn.disabled = false;
+            isRegistering = false;
         }
     });
 </script>
