@@ -17,6 +17,7 @@
       h1 { margin-top: 0; font-size: 1.8rem; text-align: center; background: linear-gradient(to right, #93c5fd, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
       
       .form-group { margin-bottom: 20px; }
+      .name-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;}
       label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: bold; }
       .form-input, .form-select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--border); background: #0f172a; color: white; box-sizing: border-box; font-family: inherit; font-size: 1rem; transition: 0.3s;}
       .form-input:focus, .form-select:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);}
@@ -24,6 +25,15 @@
       .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; background: var(--primary); color: white; font-weight: 900; font-size: 1.1rem; cursor: pointer; transition: 0.3s; margin-top: 10px;}
       .btn:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);}
       .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+      .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: var(--text-muted); font-size: 0.85rem; font-weight: bold; text-transform: uppercase;}
+      .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
+      .divider::before { margin-right: .75em; }
+      .divider::after { margin-left: .75em; }
+      
+      .btn-google { width: 100%; background: white; color: #0f172a; border: none; padding: 14px; font-size: 1.05rem; font-weight: 800; border-radius: 12px; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Nunito', sans-serif;}
+      .btn-google:hover:not(:disabled) { background: #f1f5f9; transform: translateY(-2px); }
+      .btn-google:disabled { opacity: 0.7; cursor: not-allowed; }
       
       .error-msg { color: var(--danger); font-size: 0.85rem; margin-top: 10px; font-weight: 600; text-align: center; display: none;}
       
@@ -39,9 +49,21 @@
     <p style="text-align: center; color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px;">Set up your account to access your career dashboard.</p>
 
     <form id="registrationForm">
+        
+        <div class="name-grid">
+            <div>
+                <label>First Name</label>
+                <input type="text" id="stuFirstName" class="form-input" placeholder="First Name" required>
+            </div>
+            <div>
+                <label>Surname</label>
+                <input type="text" id="stuSurName" class="form-input" placeholder="Surname" required>
+            </div>
+        </div>
+        
         <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" id="stuName" class="form-input" placeholder="John Doe" required>
+            <label>Middle Name</label>
+            <input type="text" id="stuMidName" class="form-input" placeholder="Middle Name">
         </div>
 
         <div class="form-group">
@@ -62,6 +84,7 @@
                 <option value="10th" selected>Grade 10</option>
                 <option value="11th">Grade 11</option>
                 <option value="12th">Grade 12</option>
+                <option value="Pre-University">Pre-University</option>
                 <option value="Undergraduate">Undergraduate</option>
                 <option value="Postgraduate">Postgraduate</option>
             </select>
@@ -74,7 +97,7 @@
                 <label>Select Your Institution <span style="color:var(--primary); font-weight:normal;">(Optional)</span></label>
                 <select id="stuSchool" class="form-select">
                     <option value="GENERAL">-- Independent / General Public --</option>
-                    </select>
+                </select>
             </div>
 
             <div class="form-group" style="margin-bottom: 5px;">
@@ -88,6 +111,13 @@
         <button type="submit" class="btn" id="regBtn">Start My Journey ➔</button>
     </form>
 
+    <div class="divider"><span>OR</span></div>
+    
+    <button type="button" class="btn-google" id="googleBtn">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;">
+        Register with Google
+    </button>
+
     <div class="login-link">
         Already have an account?<br><br> <a href="index.html">Sign in here</a>
     </div>
@@ -96,7 +126,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, doc, getDoc, getDocs, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-    import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     // ⚠️ REPLACE WITH YOUR ACTUAL CONFIG
     const firebaseConfig = {
@@ -111,13 +141,15 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
 
     const regForm = document.getElementById('registrationForm');
     const regBtn = document.getElementById('regBtn');
+    const googleBtn = document.getElementById('googleBtn');
     const errorMsg = document.getElementById('errorMsg');
     let isRegistering = false;
 
-    // Smart Redirect: If they are already logged in, send them to the dashboard (but DO NOT kick them out if they are logged out!)
+    // Smart Redirect: If they are already logged in, send them to the dashboard
     onAuthStateChanged(auth, (user) => {
         if (user && !isRegistering) {
             window.location.href = "student_portal.html";
@@ -141,12 +173,25 @@
     }
     loadSchools();
 
-    // 2. Handle Registration & Account Creation
+    // Helper function to build the full name from parts
+    function getCombinedName() {
+        const fName = document.getElementById('stuFirstName').value.trim();
+        const mName = document.getElementById('stuMidName').value.trim();
+        const sName = document.getElementById('stuSurName').value.trim();
+        
+        let fullName = fName;
+        if(mName) fullName += " " + mName;
+        fullName += " " + sName;
+        
+        return fullName;
+    }
+
+    // 2. Handle Standard Registration
     regForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        isRegistering = true; // Tell the auth listener not to redirect prematurely
+        isRegistering = true; 
         
-        const name = document.getElementById('stuName').value.trim();
+        const combinedName = getCombinedName();
         const email = document.getElementById('stuEmail').value.trim();
         const password = document.getElementById('stuPassword').value.trim();
         let schoolId = document.getElementById('stuSchool').value;
@@ -155,32 +200,27 @@
 
         regBtn.innerText = "Creating Profile... ⏳";
         regBtn.disabled = true;
+        googleBtn.disabled = true;
         errorMsg.style.display = "none";
 
         try {
-            // STEP 1: If they selected a specific school, Verify the Access Code FIRST
             if (schoolId !== "GENERAL") {
                 if(!inputCode) {
                     throw new Error("Missing Code: You selected a school. Please enter the School Access Code.");
                 }
-
                 const schoolRef = doc(db, "schools", schoolId);
                 const schoolSnap = await getDoc(schoolRef);
-                
                 const masterCode = schoolSnap.exists() ? (schoolSnap.data().accessCode || "JOIN123") : "JOIN123"; 
-
                 if (inputCode !== masterCode) {
                     throw new Error("Invalid Access Code. Please check your typing or contact your teacher.");
                 }
             }
 
-            // STEP 2: Create the user in Firebase Authentication
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // STEP 3: Create the user's database profile document
             await setDoc(doc(db, "students", user.uid), {
-                name: name,
+                name: combinedName,
                 email: email,
                 schoolId: schoolId,
                 assessmentCompleted: false,
@@ -192,23 +232,89 @@
                 }
             });
 
-            // STEP 4: Success! Redirect to the dashboard
             window.location.href = "student_portal.html";
 
         } catch (error) {
             console.error("Registration Error:", error);
             
-            // Handle specific Firebase Auth errors nicely
             if (error.message.includes("email-already-in-use")) {
                 errorMsg.innerText = "This email is already registered. Please sign in.";
             } else if (error.message.includes("Missing Code") || error.message.includes("Invalid Access Code")) {
-                errorMsg.innerText = error.message; // Custom school code errors
+                errorMsg.innerText = error.message; 
             } else {
                 errorMsg.innerText = "Registration failed. Please check your connection and try again.";
             }
             
             errorMsg.style.display = "block";
             regBtn.innerText = "Start My Journey ➔";
+            regBtn.disabled = false;
+            googleBtn.disabled = false;
+            isRegistering = false;
+        }
+    });
+
+    // 3. Handle Google Registration
+    googleBtn.addEventListener('click', async () => {
+        isRegistering = true;
+        
+        let schoolId = document.getElementById('stuSchool').value;
+        const inputCode = document.getElementById('stuCode').value.trim();
+        const grade = document.getElementById('stuGrade').value;
+
+        googleBtn.innerText = "Connecting... ⏳";
+        googleBtn.disabled = true;
+        regBtn.disabled = true;
+        errorMsg.style.display = "none";
+
+        try {
+            // Verify school code BEFORE launching Google popup
+            if (schoolId !== "GENERAL") {
+                if(!inputCode) {
+                    throw new Error("Missing Code: Please enter the School Access Code before clicking Google.");
+                }
+                const schoolRef = doc(db, "schools", schoolId);
+                const schoolSnap = await getDoc(schoolRef);
+                const masterCode = schoolSnap.exists() ? (schoolSnap.data().accessCode || "JOIN123") : "JOIN123"; 
+                if (inputCode !== masterCode) {
+                    throw new Error("Invalid Access Code. Please check your typing or contact your teacher.");
+                }
+            }
+
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+
+            // Check if profile exists, if not, create it
+            const docRef = doc(db, "students", user.uid);
+            const docSnap = await getDoc(docRef);
+            
+            if (!docSnap.exists()) {
+                await setDoc(docRef, {
+                    name: user.displayName || "Student",
+                    email: user.email,
+                    schoolId: schoolId,
+                    joinedAt: serverTimestamp(),
+                    assessmentCompleted: false,
+                    sessionsHad: 0,
+                    careerLocked: false,
+                    academic: {
+                        currentClass: grade
+                    }
+                });
+            } else {
+                // If they already had a profile, update their selected class just in case
+                await setDoc(docRef, { academic: { currentClass: grade } }, { merge: true });
+            }
+
+            window.location.href = "student_portal.html";
+
+        } catch (error) {
+            console.error("Google Reg Error:", error.message);
+            errorMsg.innerText = error.message.includes("Missing Code") || error.message.includes("Invalid Access Code") 
+                                ? error.message 
+                                : "Google Sign-In failed or was cancelled.";
+            errorMsg.style.display = 'block';
+            googleBtn.innerHTML = `<img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;"> Register with Google`;
+            googleBtn.disabled = false;
             regBtn.disabled = false;
             isRegistering = false;
         }
