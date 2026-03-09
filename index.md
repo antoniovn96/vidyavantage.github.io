@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Intelligence | AI-Powered Discovery</title>
+    <title>Career Guidance & Psychometric Test for Students | Career Intelligence</title>
+    <meta name="description" content="AI-powered career guidance and psychometric testing for students of Class 8 to 12. Discover the right stream and career path with expert counselling.">
     <style>
         :root {
             --bg: #f8fafc;
@@ -97,6 +98,15 @@
         .badge-before { background: #fee2e2; color: #ef4444; }
         .badge-after { background: #d1fae5; color: #059669; }
 
+        /* --- FOUNDER AUTHORITY SECTION --- */
+        .founder-section { background: #eff6ff; border-top: 1px solid #bfdbfe; border-bottom: 1px solid #bfdbfe;}
+        .founder-card { background: white; border-radius: 20px; padding: 40px; display: flex; gap: 40px; align-items: center; box-shadow: 0 15px 40px rgba(59,130,246,0.1); max-width: 900px; margin: 0 auto;}
+        .founder-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.1);}
+        .founder-info h3 { margin: 0 0 5px 0; font-size: 1.8rem; color: var(--dark); }
+        .founder-info h4 { margin: 0 0 15px 0; font-size: 1.1rem; color: var(--primary); }
+        .founder-stats { display: flex; gap: 20px; margin-top: 20px;}
+        .f-stat { background: #f8fafc; padding: 10px 15px; border-radius: 10px; border: 1px solid var(--border); font-weight: bold; color: var(--dark); font-size: 0.9rem;}
+
         /* --- DASHBOARD PREVIEW --- */
         .dash-mockup { background: white; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 25px 50px rgba(0,0,0,0.1); overflow: hidden; display: flex; height: 400px; max-width: 900px; margin: 0 auto;}
         .mock-sidebar { width: 200px; background: var(--dark); padding: 20px;}
@@ -105,6 +115,15 @@
         .mock-header { height: 30px; width: 40%; background: #e2e8f0; border-radius: 8px; margin-bottom: 30px;}
         .mock-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;}
         .mock-card { height: 100px; background: white; border-radius: 12px; border: 1px solid #e2e8f0;}
+
+        /* --- BLOG PREVIEW --- */
+        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .blog-card { background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: 0.3s; text-decoration: none; color: inherit; display: block;}
+        .blog-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); border-color: var(--primary);}
+        .blog-img { width: 100%; height: 180px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 3rem;}
+        .blog-content { padding: 20px; }
+        .blog-content h4 { margin: 0 0 10px 0; font-size: 1.15rem; color: var(--dark); line-height: 1.4;}
+        .blog-content p { margin: 0; font-size: 0.9rem; color: var(--text-muted);}
 
         /* --- FAQ --- */
         details.faq-item { background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: 0.3s;}
@@ -136,9 +155,11 @@
         @media (max-width: 900px) {
             .hero h1 { font-size: 2.8rem; }
             .hero-buttons { flex-direction: column; }
-            .trust-grid, .steps-grid, .parent-grid, .split-grid { grid-template-columns: 1fr; }
+            .trust-grid, .steps-grid, .parent-grid, .split-grid, .blog-grid { grid-template-columns: 1fr; }
+            .founder-card { flex-direction: column; text-align: center; }
+            .founder-stats { justify-content: center; flex-wrap: wrap; }
             .step-card { margin-bottom: 10px; }
-            .dash-mockup { display: none; /* hide mockup on mobile for space */ }
+            .dash-mockup { display: none; }
         }
     </style>
 </head>
@@ -160,7 +181,7 @@
         <h1>Confused About Science, Commerce or Arts?</h1>
         <p>Discover the Right Career Path Before It’s Too Late. AI-powered psychometric testing combined with expert human counsellors to help you make confident, data-driven career decisions.</p>
         <div class="hero-buttons">
-            <a href="register.html" class="btn-large">Take Career Assessment →</a>
+            <a href="#loginArea" class="btn-large">Take Career Assessment →</a>
             <a href="#howItWorks" class="btn-large btn-outline">See How It Works</a>
         </div>
     </div>
@@ -281,6 +302,24 @@
     </div>
 </section>
 
+<section class="section founder-section">
+    <div class="container">
+        <div class="founder-card">
+            <div style="width: 150px; height: 150px; border-radius: 50%; background: #e2e8f0; display:flex; align-items:center; justify-content:center; font-size:4rem; border: 4px solid var(--primary); flex-shrink: 0;">👨‍💼</div>
+            <div class="founder-info">
+                <p style="text-transform: uppercase; font-weight: 800; color: var(--text-muted); font-size: 0.85rem; margin: 0 0 5px 0; letter-spacing: 1px;">Meet the Career Architect</p>
+                <h3>Antonio Vian Noronha</h3>
+                <h4>Lead School Counsellor & Architect</h4>
+                <p style="color: var(--text-main); margin: 0; line-height: 1.6;">"My mission is to replace career anxiety with data-driven confidence. Combining deep psychometric testing with human empathy allows us to find the exact intersection of what a student loves and what they are naturally built to succeed in."</p>
+                <div class="founder-stats">
+                    <div class="f-stat">🎓 MSW (Medical & Psychiatric)</div>
+                    <div class="f-stat">🌟 5000+ Students Guided</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
         <h2 class="section-title">Inside Your Career Dashboard</h2>
@@ -309,6 +348,37 @@
 </section>
 
 <section class="section" style="background: white;">
+    <div class="container">
+        <h2 class="section-title">Latest Career Insights</h2>
+        <p class="section-subtitle">Research-backed advice to help you navigate the modern education system.</p>
+        
+        <div class="blog-grid">
+            <a href="#" class="blog-card">
+                <div class="blog-img">📚</div>
+                <div class="blog-content">
+                    <h4>The Ultimate Guide: Best Stream After 10th</h4>
+                    <p>How to choose between Science, Commerce, and Arts using the NEP 2020 framework.</p>
+                </div>
+            </a>
+            <a href="#" class="blog-card">
+                <div class="blog-img">💻</div>
+                <div class="blog-content">
+                    <h4>High-Paying Careers Without Maths</h4>
+                    <p>Hate numbers? Discover 5 lucrative tech and design fields that don't require advanced mathematics.</p>
+                </div>
+            </a>
+            <a href="#" class="blog-card">
+                <div class="blog-img">✈️</div>
+                <div class="blog-content">
+                    <h4>Study Abroad: The Complete Checklist</h4>
+                    <p>From IELTS to SOPs, here is exactly what you need to do in Class 11 to secure foreign admissions.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
     <div class="container" style="max-width: 800px;">
         <h2 class="section-title">Frequently Asked Questions</h2>
         
@@ -324,13 +394,20 @@
             <summary>Can parents attend the expert counselling session?</summary>
             <div class="faq-body">Absolutely. We strongly encourage at least one parent to be present during the final roadmap session to ensure family alignment and proper execution of the plan.</div>
         </details>
+        <details class="faq-item">
+            <summary>Is this suitable for Class 8 students?</summary>
+            <div class="faq-body">Yes. For 8th graders, the assessment acts as an early-warning system to identify broad aptitude areas, allowing them more time to explore subjects before the critical 10th-grade stream decision.</div>
+        </details>
     </div>
 </section>
 
 <section class="login-section" id="loginArea">
     <div class="container">
-        <h2 class="section-title" style="margin-bottom: 5px;">Stop Guessing Your Future.</h2>
-        <p class="section-subtitle">25 minutes could save you years of academic confusion. Sign in or register below to begin.</p>
+        
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h2 style="font-size: 2.8rem; color: var(--dark); font-weight: 900; margin-bottom: 10px; letter-spacing: -1px;">Ready to Discover Your Career Path?</h2>
+            <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;">25 minutes could save you years of academic confusion. Access your intelligence dashboard below.</p>
+        </div>
 
         <div class="login-card-container" id="authCardContainer">
             <h2 style="margin: 0 0 5px 0; font-size: 1.8rem; color: var(--dark); text-align:center;">Student Login</h2>
@@ -405,7 +482,7 @@
             
             // 1. Update Navbar
             if(navAuthContainer) {
-                navAuthContainer.innerHTML = `<a href="student_portal.html" class="btn-nav">Dashboard ➔</a>`;
+                navAuthContainer.innerHTML = `<a href="student_portal.html" class="btn-nav">Go to Dashboard ➔</a>`;
             }
 
             // 2. Update bottom Login Card to a Welcome Card
@@ -415,9 +492,9 @@
                         <div style="font-size: 3rem; margin-bottom: 10px;">👋</div>
                         <h2 style="color:var(--dark); margin:0 0 10px 0;">Welcome Back!</h2>
                         <p style="color:var(--text-muted); margin-bottom:25px;">You are already securely authenticated.</p>
-                        <button onclick="window.location.href='student_portal.html'" class="btn-large" style="margin-bottom:15px;">Enter My Dashboard ➔</button>
+                        <button onclick="window.location.href='student_portal.html'" class="btn-large" style="width:100%; margin-bottom:15px;">Enter My Dashboard ➔</button>
                         <br>
-                        <button id="quickLogoutBtn" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:800; font-size:0.95rem; font-family:inherit; text-decoration:underline;">Sign Out</button>
+                        <button id="quickLogoutBtn" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:800; font-size:0.95rem; font-family:inherit; text-decoration:underline; margin-top: 10px;">Sign Out Securely</button>
                     </div>
                 `;
                 
