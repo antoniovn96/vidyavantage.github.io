@@ -3,9 +3,16 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ page.title }} | {{ site.title }}</title>
+    
+    <title>Vidyavantage | India's Career Intelligence Platform</title>
+    <meta name="description" content="AI-powered career guidance and psychometric testing for students of Class 8 to 12. Discover the right stream and career path with expert counselling.">
+    <meta property="og:site_name" content="Vidyavantage">
+    <meta property="og:title" content="Vidyavantage | Career Guidance & Psychometric Test">
+    <meta property="og:description" content="AI-powered career guidance platform for students of Class 8–12. Discover the right stream and career path.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ '/assets/image/thumbnail.png' | absolute_url }}">
 
-    <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/image/favicon-16x16.png' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     
     {% seo %}
@@ -271,7 +278,7 @@
                 
                 // If they click Login while logged out, send them to homepage Auth Box
                 loginBtn.onclick = () => {
-                    window.location.href = "{{ '/' | relative_url }}";
+                    window.location.href = "{{ '/index.html' | relative_url }}";
                 };
             }
         });
