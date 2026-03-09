@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>India's Career Intelligence Platform | Guidance & Psychometric Test</title>
+    <title>VidyaVantage | India's Career Intelligence Platform</title>
     
     <meta name="description" content="AI-powered career guidance and psychometric testing for students of Class 8 to 12. Discover the right stream and career path with expert counselling.">
-    <meta property="og:title" content="Career Guidance & Psychometric Test for Students">
+    <meta property="og:title" content="VidyaVantage | Career Guidance & Psychometric Test">
     <meta property="og:description" content="AI-powered career guidance platform for students of Class 8–12. Discover the right stream and career path.">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="VidyaVantage">
     
     <link rel="icon" type="image/png" sizes="16x16" href="assets/image/favicon-16x16.png">
     
@@ -194,7 +195,7 @@
 
 <header>
     <div class="nav-inner">
-        <a href="#" class="logo"><span>AI</span> Career Intelligence</a>
+        <a href="#" class="logo"><span>AI</span> VidyaVantage</a>
         <div id="nav-auth-container">
             <a href="#loginArea" style="color:var(--text-main); text-decoration:none; font-weight:800; margin-right:20px;">Login</a>
             <a href="register.html" class="btn-nav">Register</a>
@@ -506,14 +507,14 @@
 <footer>
     <div class="container">
         <p style="margin:0 0 10px 0; font-weight: bold; color: #94a3b8;">Serving students across India | Career counselling headquartered in Bangalore</p>
-        &copy; 2026 Career Intelligence System. All rights reserved. Designed to empower students.
+        &copy; 2026 VidyaVantage. All rights reserved. Designed to empower students.
     </div>
 </footer>
 
 <script type="module">
     import { initializeApp } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js)";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js)";
-    import { getFirestore, doc, setDoc, getDoc } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js)";
+    import { getFirestore, doc, getDoc } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js)";
 
     // ⚠️ REPLACE WITH YOUR FIREBASE CONFIG
     const firebaseConfig = {
@@ -570,18 +571,16 @@
     onAuthStateChanged(auth, (user) => {
         if (user && !isProcessingLogin) {
             
-            // 1. Update Navbar
             if(navAuthContainer) {
                 navAuthContainer.innerHTML = `<a href="student_portal.html" class="btn-nav">Dashboard ➔</a>`;
             }
 
-            // 2. Update bottom Login Card to a Welcome Card
             if(authCardContainer) {
                 authCardContainer.innerHTML = `
                     <div style="text-align:center;">
                         <div style="font-size: 3rem; margin-bottom: 10px;">👋</div>
                         <h2 style="color:var(--dark); margin:0 0 10px 0;">Welcome Back!</h2>
-                        <p style="color:var(--text-muted); margin-bottom:25px;">You are securely authenticated.</p>
+                        <p style="color:var(--text-muted); margin-bottom:25px;">You are securely logged into VidyaVantage.</p>
                         <button onclick="window.location.href='student_portal.html'" class="btn-large" style="width:100%; margin-bottom:15px; border:none;">Enter My Dashboard ➔</button>
                         <br>
                         <button id="quickLogoutBtn" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:800; font-size:0.95rem; font-family:inherit; text-decoration:underline; margin-top: 10px;">Sign Out Securely</button>
@@ -616,7 +615,6 @@
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 
-                // Extra Security Check: Does their profile actually exist?
                 const docRef = doc(db, "students", userCredential.user.uid);
                 const docSnap = await getDoc(docRef);
                 
@@ -627,8 +625,6 @@
 
                 window.location.href = "student_portal.html";
             } catch (error) {
-                console.error("Login Error:", error.message);
-                
                 if(error.message === "unregistered_user" || error.message.includes("user-not-found") || error.message.includes("invalid-credential")) {
                     errorMsg.innerHTML = "🕵️‍♂️ <strong>User Not Found!</strong><br><br>Did you try sneaking in through the back door? You need to register first!<br><br>Redirecting...";
                     errorMsg.style.display = 'block';
@@ -662,26 +658,21 @@
                 const result = await signInWithPopup(auth, provider);
                 const user = result.user;
 
-                // STRICT CHECK: If they don't have a profile, kick them out.
                 const docRef = doc(db, "students", user.uid);
                 const docSnap = await getDoc(docRef);
                 
                 if (!docSnap.exists()) {
-                    await signOut(auth); // Kick them out of Auth
+                    await signOut(auth); 
                     errorMsg.innerHTML = "🕵️‍♂️ <strong>Profile Not Found!</strong><br><br>Hold your horses! 🐎 You can't enter the VIP club without making a profile first.<br><br>Taking you to registration...";
                     errorMsg.style.display = 'block';
                     
-                    setTimeout(() => {
-                        window.location.href = "register.html";
-                    }, 3500);
-                    return; // Stop script execution so it doesn't redirect to dashboard
+                    setTimeout(() => { window.location.href = "register.html"; }, 3500);
+                    return; 
                 }
 
-                // If profile exists, let them in.
                 window.location.href = "student_portal.html";
 
             } catch (error) {
-                console.error("Google Login Error:", error.message);
                 errorMsg.innerText = "Google Sign-In failed or was cancelled.";
                 errorMsg.style.display = 'block';
                 googleBtn.innerHTML = `<img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;"> Sign in with Google`;
