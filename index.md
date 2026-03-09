@@ -3,847 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | Career Intelligence</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Career Intelligence | AI-Powered Discovery</title>
     <style>
-      :root {
-        --bg: #f8fafc; --sidebar: #0f172a; --card-bg: #ffffff; 
-        --primary: #3b82f6; --secondary: #10b981; --accent: #f59e0b;
-        --text-main: #334155; --text-muted: #64748b; --border: #e2e8f0;
-        --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
-      }
-      body { background-color: var(--bg); font-family: 'Nunito', sans-serif; color: var(--text-main); margin: 0; display: flex; height: 100vh; overflow: hidden; }
-      
-      /* --- SIDEBAR & MOBILE OVERLAY --- */
-      .sidebar { width: 280px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; color: white; transition: transform 0.3s ease; z-index: 2000; }
-      .mobile-sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(3px); z-index: 1999; display: none; opacity: 0; transition: opacity 0.3s ease; }
-      
-      .profile-info { text-align: center; padding: 30px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.02); margin-bottom: 10px; position: relative;}
-      
-      .avatar-wrapper { position: relative; width: 80px; height: 80px; margin: 0 auto 15px; cursor: pointer; }
-      .stu-avatar { width: 100%; height: 100%; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; border: 3px solid rgba(255,255,255,0.1); object-fit: cover; transition: 0.3s;}
-      .avatar-wrapper:hover .stu-avatar { opacity: 0.7; }
-      
-      .nav-menu { padding: 10px; display: flex; flex-direction: column; gap: 5px; }
-      .nav-btn { background: transparent; color: #94a3b8; border: none; text-align: left; padding: 12px 20px; width: 100%; cursor: pointer; border-radius: 12px; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; transition: all 0.2s ease;}
-      .nav-btn:hover { background: rgba(255,255,255,0.03); color: white; transform: translateX(3px);}
-      .nav-btn.active { background: rgba(59, 130, 246, 0.1); color: #60a5fa; border-left: 3px solid #3b82f6; border-radius: 0 12px 12px 0;}
-      .nav-dot { width: 20px; display: inline-block; font-size: 0.85rem; opacity: 0.7; }
-      .nav-btn.active .nav-dot { opacity: 1; }
+        :root {
+            --bg: #f8fafc;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        body { 
+            background-color: var(--bg); 
+            font-family: 'Nunito', sans-serif; 
+            color: var(--text-main); 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh;
+        }
 
-      /* --- MAIN CONTENT & LAYOUT --- */
-      .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; transition: border 0.3s ease; border-top: 0px solid var(--warning); position: relative;}
-      .top-header { background: white; height: 75px; min-height: 75px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 50px; box-shadow: 0 2px 10px rgba(0,0,0,0.01); z-index: 10;}
-      
-      .hamburger-btn { display: none; font-size: 1.5rem; background: none; border: none; color: #0f172a; cursor: pointer; padding: 5px; margin-right: 15px;}
+        /* --- NAVBAR --- */
+        header {
+            background: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-sizing: border-box;
+            z-index: 100;
+        }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--dark); display: flex; align-items: center; gap: 10px;}
+        .logo span { background: var(--primary); color: white; padding: 5px 10px; border-radius: 8px; }
 
-      /* CLEAN PARENT MODE UI */
-      body.parent-mode-active .main-wrapper { border-top: 5px solid var(--warning); }
-      body.parent-mode-active .hide-from-parent { display: none !important; opacity: 0 !important; pointer-events: none !important; position: absolute; }
-      body.parent-mode-active .form-input, body.parent-mode-active .form-select, body.parent-mode-active .form-textarea { 
-          background: transparent; border: none; padding: 0; font-weight: bold; color: var(--primary); pointer-events: none; -webkit-appearance: none; appearance: none;
-      }
+        /* --- HERO SECTION --- */
+        .hero {
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 40px 50px;
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 50%),
+                        radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.05), transparent 50%);
+        }
+        
+        .hero-content { flex: 1; max-width: 600px; padding-right: 50px; }
+        .hero-content h1 { font-size: 3.5rem; font-weight: 900; color: var(--dark); line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px;}
+        .hero-content p { font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px;}
+        
+        .feature-tags { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap;}
+        .tag { background: white; border: 1px solid var(--border); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; color: var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.03);}
 
-      /* --- HEADER & NOTIFICATION UI --- */
-      .header-actions { display: flex; align-items: center; gap: 20px; }
-      .site-link { color: var(--primary); text-decoration: none; font-weight: bold; padding: 8px 12px; border-radius: 8px; background: rgba(59, 130, 246, 0.1); transition: 0.2s; font-size: 0.9rem;}
-      .site-link:hover { background: rgba(59, 130, 246, 0.2); }
-      
-      .notif-bell { position: relative; font-size: 1.3rem; cursor: pointer; transition: 0.2s; opacity: 0.8;}
-      .notif-bell:hover { transform: scale(1.1); opacity: 1;}
-      .notif-badge { position: absolute; top: -5px; right: -5px; background: var(--danger); color: white; font-size: 0.65rem; font-weight: bold; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; display: none; border: 2px solid white;}
-      
-      /* Toast Notifications */
-      .toast-container { position: absolute; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-      .toast { background: white; border-left: 4px solid var(--primary); padding: 15px 20px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); animation: slideInRight 0.3s ease forwards; display: flex; flex-direction: column; min-width: 250px; cursor: pointer;}
-      .toast-title { font-weight: 800; color: #0f172a; font-size: 0.95rem; margin-bottom: 3px; }
-      .toast-body { font-size: 0.85rem; color: var(--text-muted); }
+        /* --- LOGIN CARD --- */
+        .login-wrapper { flex: 0.8; max-width: 450px; }
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .login-card h2 { margin: 0 0 5px 0; font-size: 1.8rem; color: var(--dark); }
+        .login-card p { margin: 0 0 25px 0; color: var(--text-muted); font-size: 0.95rem; }
 
-      .main-content { flex: 1; padding: 40px 50px; overflow-y: auto; position: relative;}
-      .tab-content { display: none; animation: fadeIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
-      .tab-content.active { display: block; }
-      
-      .header-bar { margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end;}
-      .header-bar h1 { margin: 0 0 8px 0; font-size: 2rem; color: #0f172a; font-weight: 800; letter-spacing: -0.5px;}
-      .header-bar p { margin: 0; color: var(--text-muted); font-size: 1.05rem;}
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;}
+        .form-input, .form-select { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background: #f8fafc; color: var(--dark); box-sizing: border-box; font-family: inherit; font-size: 1rem; transition: 0.3s;}
+        .form-input:focus, .form-select:focus { border-color: var(--primary); outline: none; background: white; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);}
+        .form-select { cursor: pointer; }
 
-      /* --- UI COMPONENTS --- */
-      .card { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: transform 0.3s ease;}
-      .card h3 { margin-top: 0; color: #0f172a; padding-bottom: 15px; font-size: 1.15rem; font-weight: 800;}
-      
-      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-      .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; } 
-      .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
-      .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-      .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-      
-      /* --- GAMIFICATION --- */
-      .badge-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;}
-      .gamify-badge { background: #f8fafc; color: #94a3b8; padding: 6px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; border: 1px solid transparent; display: flex; align-items: center; gap: 5px; opacity: 0.6; filter: grayscale(100%); transition: 0.4s ease;}
-      .gamify-badge.unlocked { opacity: 1; filter: grayscale(0%); background: #fffbeb; color: #d97706;}
-      .gamify-badge.unlocked-primary { opacity: 1; filter: grayscale(0%); background: #eff6ff; color: #1e40af;}
-      .gamify-badge.unlocked-success { opacity: 1; filter: grayscale(0%); background: #d1fae5; color: #059669;}
-      
-      .top-xp-display { display: flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 6px 12px; border-radius: 50px; transition: 0.3s; cursor:pointer; white-space: nowrap;}
-      .top-xp-display:hover { background: rgba(245, 158, 11, 0.2); }
-      .top-xp-display span.lvl { color: #b45309; font-weight: 900; font-size: 0.85rem;}
-      .top-xp-display span.xp { color: var(--accent); font-weight: bold; font-size: 0.85rem;}
-      @keyframes xpBumpAnim {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.15); background: rgba(245, 158, 11, 0.3); box-shadow: 0 0 15px rgba(245, 158, 11, 0.5); }
-          100% { transform: scale(1); }
-      }
-      .xp-bump { animation: xpBumpAnim 0.6s ease-out; }
+        /* BIG LOGIN BUTTON */
+        .btn-large { 
+            width: 100%; 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 18px; /* Increased padding */
+            font-size: 1.25rem; /* Larger font */
+            font-weight: 900; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px;
+            margin-top: 10px;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+        }
+        .btn-large:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 12px 25px rgba(59, 130, 246, 0.35);}
+        .btn-large:disabled { background: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none;}
+        
+        .error-msg { color: var(--danger); font-size: 0.85rem; margin-top: 10px; font-weight: 600; text-align: center; display: none;}
+        
+        /* REGISTER LINK */
+        .register-link { text-align: center; margin-top: 25px; font-size: 1.05rem; color: var(--text-muted); }
+        .register-link a { color: var(--accent); font-weight: 900; text-decoration: none; border-bottom: 2px solid transparent; transition: 0.2s;}
+        .register-link a:hover { border-bottom: 2px solid var(--accent); }
 
-      /* --- MODALS --- */
-      .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 10px; box-sizing: border-box; opacity: 0; transition: opacity 0.3s ease;}
-      .modal-overlay.active { display: flex; opacity: 1; }
-      .modal-content { background: var(--card-bg); width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: translateY(20px); transition: 0.3s ease; box-sizing: border-box; position: relative;}
-      .modal-overlay.active .modal-content { transform: translateY(0); }
-      .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; transition: 0.2s; }
-      .modal-close:hover { color: var(--danger); transform: scale(1.1); }
-      .xp-list-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem;}
-      .xp-list-item:last-child { border: none; }
-      
-      .prog-task-item { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem; font-weight: 600;}
-      .prog-task-item:last-child { border: none;}
-      .prog-task-item.done { color: var(--text-main); }
-      .prog-task-item.pending { color: var(--danger); }
-
-      /* --- BUTTONS --- */
-      .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; font-size: 1rem; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;}
-      .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);}
-      .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-      .btn-outline { background: transparent; border: 1px solid var(--border); color: #475569; box-shadow: none;}
-      .btn-outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: #f8fafc; transform: translateY(-1px);}
-
-      /* --- ENHANCED FORM ELEMENTS & ACCORDIONS --- */
-      .form-group { margin-bottom: 20px; }
-      .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;}
-      .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); background: #f8fafc; color: #0f172a; box-sizing: border-box; font-family: inherit; font-size: 0.95rem; transition: 0.3s;}
-      .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #93c5fd; outline: none; background: white; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);}
-      
-      details.profile-acc { background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; }
-      details.profile-acc summary { padding: 18px 20px; font-weight: 800; font-size: 1.05rem; color: #0f172a; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; outline: none; background: white; }
-      details.profile-acc summary::-webkit-details-marker { display: none; }
-      details.profile-acc summary::after { content: '+'; color: var(--primary); font-size: 1.5rem; transition: 0.3s;}
-      details.profile-acc[open] summary::after { content: '×'; transform: rotate(45deg); color: var(--danger);}
-      details.profile-acc[open] summary { border-bottom: 1px solid var(--border); }
-      .acc-body { padding: 25px; background: white;}
-
-      /* Subject Rows inside Education */
-      .subject-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
-      .btn-remove-sub { background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; font-size: 1.2rem;}
-      .btn-remove-sub:hover { background: #fca5a5; color: white; }
-
-      .hobby-tag { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 8px; margin-bottom:10px;}
-      .hobby-tag span { cursor: pointer; color: var(--danger); font-weight: bold;}
-
-      .badge-code { display: inline-block; background: var(--primary); color: white; padding: 6px 20px; border-radius: 50px; font-weight: 900; font-size: 1.4rem; letter-spacing: 2px;}
-      .status-pill { padding: 4px 12px; border-radius: 50px; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;}
-      .status-success { background: #d1fae5; color: #059669; }
-
-      /* PROGRESS TRACK STYLES */
-      .journey-step { display: flex; align-items: center; gap: 15px; padding: 15px; border-bottom: 1px dashed var(--border); transition: 0.3s; }
-      .journey-step:last-child { border: none; }
-      .j-icon { font-size: 1.5rem; width: 30px; text-align: center;}
-      .j-text { font-size: 1.05rem; font-weight: bold; color: #0f172a; flex: 1;}
-      .j-status { font-size: 0.75rem; font-weight: bold; padding: 6px 14px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;}
-      .status-done { background: #d1fae5; color: #059669; border: 1px solid #a7f3d0;}
-      .status-pending { background: #fef3c7; color: #d97706; border: 1px solid #fde68a;}
-
-      /* STREAM SUBJECT COMBINATIONS TAGS */
-      .stream-tag { display: inline-block; font-weight: 900; color: #1e40af; background: #eff6ff; padding: 2px 8px; border-radius: 6px; margin-right: 5px; border: 1px solid #bfdbfe; font-size: 0.85rem;}
-
-      /* CHAT STYLES */
-      .chat-message { padding: 12px 18px; border-radius: 12px; margin-bottom: 12px; font-size: 0.95rem; max-width: 85%; line-height: 1.5;}
-      .chat-student { background: var(--primary); color: white; margin-left: auto; border-bottom-right-radius: 0; box-shadow: 0 4px 10px rgba(59,130,246,0.15);}
-      .chat-counsellor { background: #f1f5f9; color: #1e293b; margin-right: auto; border-bottom-left-radius: 0; border: 1px solid var(--border);}
-
-      /* PARENT TOGGLE STYLES */
-      .parent-toggle-wrap { display: flex; align-items: center; gap: 8px; background: #fffbeb; border: 1px solid #fde68a; padding: 6px 14px; border-radius: 50px; cursor: pointer; font-weight: 700; font-size: 0.85rem; color: #d97706; transition: 0.3s; white-space: nowrap;}
-      .parent-toggle-wrap.active { background: #d97706; color: white; border-color: #d97706;}
-
-      /* DATA TABLE */
-      .data-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95rem;}
-      .data-table th, .data-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); }
-      .data-table th { color: var(--text-muted); text-transform: uppercase; font-size: 0.8rem; background: #f8fafc; font-weight: 800;}
-      
-      /* --- MOBILE RESPONSIVENESS --- */
-      @media (max-width: 768px) {
-          .sidebar { position: absolute; height: 100vh; left: 0; top: 0; transform: translateX(-100%); }
-          .sidebar.active { transform: translateX(0); }
-          .mobile-sidebar-overlay.active { display: block; opacity: 1; }
-          .hamburger-btn { display: block; }
-          .top-header { padding: 0 20px; }
-          .main-content { padding: 20px; }
-          
-          .grid-4, .grid-3, .grid-2, .grid-3-1, .grid-2col { grid-template-columns: 1fr; gap: 15px;}
-          .header-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
-          .hide-on-mobile { display: none !important; }
-          .parent-toggle-wrap span:last-child { display: none; } /* hide text, keep icon */
-          .header-actions { gap: 10px; }
-      }
-
-      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-      @keyframes badgePop { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
-      @keyframes fadeOut { to { opacity: 0; } }
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; padding: 40px 20px; margin-top: 70px; text-align: center;}
+            .hero-content { padding-right: 0; margin-bottom: 40px;}
+            .feature-tags { justify-content: center; }
+            header { padding: 15px 20px; }
+            .login-wrapper { width: 100%; max-width: 100%; }
+        }
     </style>
 </head>
 <body>
 
-<datalist id="hobbySuggestions"></datalist>
-<datalist id="musicGenreSuggestions"></datalist>
-<datalist id="artistSuggestions"></datalist>
-<datalist id="tvSuggestions"></datalist>
-<datalist id="movieSuggestions"></datalist>
-<datalist id="gameSuggestions"></datalist>
-<datalist id="sportSuggestions"></datalist>
+<header>
+    <div class="logo"><span>AI</span> Career Intelligence</div>
+    <div style="font-weight: 700; color: var(--text-muted); font-size: 0.9rem;">Student Portal</div>
+</header>
 
-<div class="mobile-sidebar-overlay" id="mobileOverlay" onclick="window.toggleSidebar()"></div>
-
-<div class="modal-overlay" id="customAlertModal" style="z-index: 9999;" onclick="if(event.target === this) window.closeModal('customAlertModal')">
-    <div class="modal-content" style="max-width: 400px; text-align: center;">
-        <h3 id="customAlertTitle" style="color: var(--danger); margin-top: 0; font-size: 1.5rem;">Notice</h3>
-        <p id="customAlertMessage" style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.5; font-size: 1.05rem;"></p>
-        <button class="btn" style="width: 100%; padding: 14px;" onclick="window.closeModal('customAlertModal')">Acknowledge</button>
-    </div>
-</div>
-
-<div class="modal-overlay" id="xpModal" onclick="if(event.target === this) window.closeModal('xpModal')">
-    <div class="modal-content" style="position:relative;">
-        <button class="modal-close" onclick="window.closeModal('xpModal')">&times;</button>
-        <div style="text-align:center; margin-bottom:20px;">
-            <div style="font-size:3rem;">✨</div>
-            <h2 style="margin:5px 0 0 0; color:#0f172a;">Experience Points</h2>
-            <p style="color:var(--text-muted); margin:5px 0;">Here is exactly how you earned your XP.</p>
-        </div>
-        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 20px;" id="xpBreakdownList"></div>
-        <div style="display:flex; justify-content:space-between; font-size: 1.2rem; font-weight:900; color:var(--accent); padding: 0 10px;">
-            <span>Total XP</span>
-            <span id="xpModalTotal">0 XP</span>
-        </div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="progressModal" onclick="if(event.target === this) window.closeModal('progressModal')">
-    <div class="modal-content" style="position:relative;">
-        <button class="modal-close" onclick="window.closeModal('progressModal')">&times;</button>
-        <div style="text-align:center; margin-bottom:20px;">
-            <div style="font-size:3rem;">🎯</div>
-            <h2 style="margin:5px 0 0 0; color:#0f172a;">Profile Completion</h2>
-            <p style="color:var(--text-muted); margin:5px 0;">Feed the AI to generate accurate matches.</p>
-        </div>
-        <div style="width:100%; height:8px; background:rgba(0,0,0,0.1); border-radius:4px; margin-bottom:20px; overflow:hidden;">
-            <div style="width:0%; height:100%; background:var(--success); border-radius:4px; transition: 1s ease;" id="modalProgressBar"></div>
-        </div>
-        <h4 style="margin:0 0 10px 0; color:#ef4444;">⏳ Pending Tasks</h4>
-        <div id="progressTaskListPending" style="margin-bottom: 20px; background: #fff1f2; padding: 10px 15px; border-radius: 8px;"></div>
-        <h4 style="margin:0 0 10px 0; color:#10b981;">✅ Completed Milestones</h4>
-        <div id="progressTaskListDone" style="background: #ecfdf5; padding: 10px 15px; border-radius: 8px;"></div>
-    </div>
-</div>
-
-<div class="modal-overlay" id="scholarshipModal" onclick="if(event.target === this) window.closeModal('scholarshipModal')">
-    <div class="modal-content" style="position:relative;">
-        <button class="modal-close" onclick="window.closeModal('scholarshipModal')">&times;</button>
-        <div style="text-align:center; margin-bottom:20px;">
-            <div style="font-size:3rem;" id="scholIcon">🎓</div>
-            <h2 style="margin:5px 0 0 0; color:#0f172a; font-size:1.4rem; line-height: 1.3;" id="scholTitle">Scholarship Name</h2>
-            <p style="color:var(--primary); font-weight: bold; margin:5px 0;" id="scholProvider">Provider</p>
-        </div>
-        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
-            <p style="margin:0 0 15px 0; font-size:0.95rem; color:#334155; line-height: 1.5;" id="scholDesc">Description here</p>
-            <ul style="margin:0; padding-left:20px; font-size:0.95rem; color:#475569; line-height: 1.8;">
-                <li><strong>Amount:</strong> <span id="scholAmount" style="color:var(--success); font-weight:bold;">₹0</span></li>
-                <li><strong>Eligibility:</strong> <span id="scholEligibility">Criteria</span></li>
-                <li><strong>States Applicable:</strong> <span id="scholStates">All India</span></li>
-                <li><strong>Deadline:</strong> <span id="scholDeadline" style="color:var(--danger); font-weight: bold;">Date</span></li>
-            </ul>
-        </div>
-        <a href="#" target="_blank" id="scholLink" class="btn" style="width:100%; text-align:center; text-decoration:none;">Apply on Official Portal ➔</a>
-    </div>
-</div>
-
-<div class="sidebar" id="mainSidebar">
-    <div class="profile-info">
-        <div class="avatar-wrapper" onclick="document.getElementById('photoUpload').click()" title="Change Profile Picture">
-            <img class="stu-avatar" id="stuAvatarImg" style="display:none;">
-            <div class="stu-avatar" id="stuInitials">--</div>
-        </div>
-        <input type="file" id="photoUpload" class="hide-from-parent" style="display: none;" accept="image/png, image/jpeg">
+<div class="hero">
+    <div class="hero-content">
+        <h1>Discover Your True Career Path.</h1>
+        <p>Take the guesswork out of your future. Combine AI-driven psychometric analysis with human expert counselling to map out your perfect 1-year execution strategy.</p>
         
-        <h3 id="stuName" style="margin: 0 0 5px 0; font-size: 1.1rem; font-weight:800;">Loading Profile...</h3>
-        <p id="stuInst" style="font-size:0.8rem; color:#94a3b8; margin:0;">...</p>
-        
-        <div style="margin-top: 20px; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 10px; cursor:pointer;" onclick="window.openModal('progressModal'); window.toggleSidebar(true);" title="View Completion Details">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.7rem; color: #cbd5e1; text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Profile Setup</span>
-                <span style="font-size:0.7rem; color: var(--success); font-weight:bold;" id="sideProfileText">10%</span>
-            </div>
-            <div style="width:100%; height:6px; background:rgba(255,255,255,0.1); border-radius:4px; margin-top:6px; overflow:hidden;">
-                <div style="width:10%; height:100%; background:var(--success); border-radius:4px; transition: 1s ease;" id="sideProfileBar"></div>
-            </div>
-        </div>
-    </div>
-    
-    <nav class="nav-menu">
-        <button class="nav-btn active" onclick="window.switchTab('tab-home', this)"><span class="nav-dot" id="dot-home">✔</span> Dashboard</button>
-        <button class="nav-btn" onclick="window.switchTab('tab-report', this)"><span class="nav-dot" id="dot-report">○</span> Career Report</button>
-        <button class="nav-btn" onclick="window.switchTab('tab-explore', this)"><span class="nav-dot" id="dot-explore">○</span> Career Explorer</button>
-        <button class="nav-btn" onclick="window.switchTab('tab-portfolio', this)"><span class="nav-dot" id="dot-portfolio">○</span> My Profile</button>
-        <button class="nav-btn" onclick="window.switchTab('tab-counselling', this)"><span class="nav-dot" id="dot-counselling">○</span> Book Expert</button>
-        <button class="nav-btn hide-from-parent" onclick="window.switchTab('tab-chat', this)"><span class="nav-dot" id="dot-chat">○</span> Direct Chat</button>
-        
-        <div class="hide-from-parent" style="border-top: 1px solid rgba(255,255,255,0.05); margin: 15px 0;"></div>
-        <button class="nav-btn hide-from-parent" onclick="window.switchTab('tab-settings', this)"><span class="nav-dot">⚙</span> Settings</button>
-    </nav>
-</div>
-
-<div class="main-wrapper">
-    <div class="toast-container" id="toastContainer"></div>
-
-    <div class="top-header">
-        <div style="display:flex; align-items:center;">
-            <button class="hamburger-btn" onclick="window.toggleSidebar()">☰</button>
-            <h2 style="margin:0; font-size:1.15rem; color:var(--text-muted); font-weight:800;" id="headerTitle">Dashboard Home</h2>
-        </div>
-        <div class="header-actions">
-            
-            <div class="top-xp-display" id="topXpContainer" title="View XP Breakdown" onclick="window.openModal('xpModal')">
-                <span class="lvl hide-on-mobile" id="topLevelDisplay">Lvl 1</span>
-                <span class="xp">✨ <span id="topXpDisplay">10</span> XP</span>
-            </div>
-
-            <a href="index.html" class="site-link hide-from-parent hide-on-mobile">🌐 Live Site</a>
-            <div class="notif-bell hide-from-parent" onclick="window.showNotificationPopup()">
-                🔔 <span class="notif-badge" id="notifBadge">0</span>
-            </div>
-
-            <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="window.toggleParentMode()">
-                <span id="parentToggleIcon">👨‍👩‍👧</span> <span id="parentToggleText">Parent View</span>
-            </div>
-            
-            <button class="btn btn-outline hide-from-parent hide-on-mobile" style="color: #ef4444; border-color: #fca5a5; padding: 6px 14px; font-size: 0.85rem;" id="logoutBtnTop">🚪 Logout</button>
+        <div class="feature-tags">
+            <div class="tag">🧠 Psychometric Matching</div>
+            <div class="tag">📈 Stream Comparisons</div>
+            <div class="tag">🤝 Expert Counselling</div>
         </div>
     </div>
 
-    <div class="main-content">
-        
-        <div id="tab-home" class="tab-content active">
-            <div class="header-bar">
-                <div>
-                    <h1 id="welcomeText">Welcome back, Student.</h1>
-                    <p style="color: var(--text-muted); font-size: 1.05rem;">Here is your current standing and immediate next steps.</p>
-                </div>
-            </div>
-
-            <div class="grid-4" style="margin-bottom: 30px;">
-                <div class="card" style="padding: 20px; border-top: 4px solid var(--primary); margin-bottom: 0; text-align: center;">
-                    <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; font-weight:bold;">Career Clarity Score</p>
-                    <div style="font-size: 2.2rem; font-weight: 900; color: #0f172a;"><span id="dashClarityScore">1</span><span style="font-size:1.2rem; color:rgba(0,0,0,0.3);">/10</span></div>
-                </div>
-                <div class="card" style="padding: 20px; border-top: 4px solid var(--secondary); margin-bottom: 0; text-align: center;">
-                    <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; font-weight:bold;">Assessment</p>
-                    <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top:10px;" id="dashAssStatus">Pending</div>
-                </div>
-                <div class="card hide-from-parent" style="padding: 20px; border-top: 4px solid var(--accent); margin-bottom: 0; background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%); cursor: pointer; text-align: center;" id="dashActionCard">
-                    <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--accent); text-transform:uppercase; font-weight:bold;">🎯 Next Action</p>
-                    <div style="font-size: 1.1rem; font-weight: 800; color: #b45309; margin-top:10px; text-decoration: underline; text-underline-offset: 4px;" id="dashActionText">Complete Profile</div>
-                </div>
-                <div class="card" style="padding: 20px; border-top: 4px solid #8b5cf6; margin-bottom: 0; text-align: center;">
-                    <p style="margin:0 0 5px 0; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase; font-weight:bold;">Next Session</p>
-                    <div style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top:10px;" id="dashSessionStatus">Not Booked</div>
-                </div>
-            </div>
-
-            <div id="aiInsightPanel" style="display:none; background: linear-gradient(135deg, #1e1b4b 0%, #3b82f6 100%); color: white; padding: 25px 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);">
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom: 10px;">
-                    <span style="font-size:1.5rem;">🧠</span>
-                    <h3 style="margin:0; font-size:1.2rem; font-weight:800;">AI Career Insight</h3>
-                </div>
-                <p id="aiInsightText" style="font-size: 1.05rem; line-height: 1.6; margin:0; opacity: 0.95;">Analyzing your data...</p>
-            </div>
-
-            <div style="margin-bottom: 35px;">
-                <h2 style="font-size: 1.4rem; color: #0f172a; margin: 0 0 15px 0;">🎯 Top Career Matches</h2>
-                <div class="grid-3" id="dashTopCareersRow">
-                    <div class="card" style="margin:0; text-align:center; opacity:0.6; padding:40px 20px; grid-column: 1 / -1; border-top: 4px solid var(--border);">
-                        <div style="font-size:3rem; margin-bottom:10px;">🔒</div>
-                        <h3 style="border:none; justify-content:center; font-size:1.4rem;">Assessment Pending</h3>
-                        <p style="color:var(--text-muted); margin-top:-5px;">Complete your psychometric assessment to reveal your top matching careers.</p>
-                        <button class="btn hide-from-parent" style="margin-top:15px;" onclick="window.launchAssessment()">Start Assessment Now</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid-2col">
-                <div class="card" style="margin-bottom:30px; border-top: 4px solid #334155;">
-                    <h2 style="font-size: 1.3rem; color: #0f172a; margin: 0 0 20px 0; border-bottom: 1px solid var(--border); padding-bottom: 15px;">🚀 30-Day Action Roadmap</h2>
-                    <div id="dashJourneyTrack">
-                        </div>
-                </div>
-
-                <div class="card" style="margin-bottom:30px; border-top: 4px solid var(--accent);">
-                    <h2 style="font-size: 1.3rem; color: #0f172a; margin: 0 0 20px 0; border-bottom: 1px solid var(--border); padding-bottom: 15px;">📈 Growth Tracker</h2>
-                    <p style="font-size:0.85rem; color:var(--text-muted); text-align:center;">Your Career Clarity progression over time.</p>
-                    <div style="height: 250px; width: 100%;">
-                        <canvas id="growthChart"></canvas>
-                    </div>
-                </div>
-            </div>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h2>Student Login</h2>
+            <p>Enter your details below to access your dashboard.</p>
             
-            <div id="lockCareerSection" class="hide-from-parent" style="display:none; margin-top: 10px; background: rgba(0,0,0,0.02); padding: 30px; border-radius: 16px; text-align: center; border: 1px dashed var(--accent);">
-                <p style="color: #d97706; font-size: 1.05rem; margin-bottom: 15px; font-weight: 800;">You have achieved Strategy Level! Ready to commit?</p>
-                <button onclick="window.lockFinalCareer()" class="btn" style="background: var(--accent); color: #fff; padding: 14px 40px;">🔒 Lock My Final Career Path</button>
-            </div>
-            <div id="careerLockedSuccess" style="display:none; margin-top: 10px; background: #ecfdf5; padding: 30px; border-radius: 16px; text-align: center; border: 1px solid #a7f3d0;">
-                <div style="font-size: 3rem; margin-bottom: 10px;">🎊</div>
-                <h4 style="margin: 0 0 10px 0; color: var(--success); font-size: 1.4rem; font-weight: 800;">Career Locked Successfully</h4>
-                <p style="color: #065f46; font-size: 0.95rem; margin-bottom: 20px;">Your parents and counselor have been notified. Time to execute the plan.</p>
-                <button class="btn" style="background: var(--success);" onclick="window.switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])">📄 View Final Execution Report</button>
-            </div>
-        </div>
-
-        <div id="tab-explore" class="tab-content">
-            <div class="header-bar">
-                <div><h1>Career Exploration Engine</h1><p>Deep dive into careers, compare salaries, and find colleges.</p></div>
-                <button class="btn hide-from-parent hide-on-mobile" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Launch Full College GPS ➔</button>
-            </div>
-            
-            <div id="exploreLockedUI">
-                <div class="card" style="text-align:center; padding: 80px 20px; border-top: 4px solid var(--secondary);">
-                    <div style="font-size: 5rem; opacity: 0.5; margin-bottom: 15px;">🔍</div>
-                    <h3 style="justify-content: center; border:none; font-size:1.8rem;">Explorer Locked</h3>
-                    <p style="color:var(--text-muted); font-size: 1.05rem;">Complete your Psychometric Assessment to unlock the AI comparison engine.</p>
-                    <button class="btn hide-from-parent" onclick="window.launchAssessment()" style="margin-top: 15px; padding: 15px 30px; font-size:1.1rem;">Take Assessment</button>
+            <form id="loginForm">
+                
+                <div class="form-group">
+                    <label class="form-label">Current Education Level</label>
+                    <select id="currentStudy" class="form-select" required>
+                        <option value="" disabled selected>Select your current class...</option>
+                        <option value="10th">10th Grade / SSLC</option>
+                        <option value="11th">11th Grade / PUC 1</option>
+                        <option value="12th">12th Grade / PUC 2</option>
+                        <option value="Undergraduate">Undergraduate (Degree)</option>
+                        <option value="Postgraduate">Postgraduate (Masters)</option>
+                    </select>
                 </div>
-            </div>
 
-            <div id="exploreUnlockedUI" style="display:none;">
-                <h2 style="font-size: 1.4rem; color: #0f172a; margin: 0 0 15px 0;">🌟 Your Top Recommendations</h2>
-                <div class="grid-3" id="exploreCardsGrid" style="margin-bottom: 40px;">
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="student@school.com" required>
+                </div>
 
-                <div class="card" style="border-top: 4px solid var(--primary); margin-bottom: 40px;">
-                    <h3 style="margin-bottom: 5px;">⚖️ Career Comparison Tool</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0; margin-bottom: 15px;">Compare top fields by metrics to make an informed decision.</p>
-                    <div style="overflow-x: auto;">
-                        <table class="data-table" id="comparisonTable">
-                            <thead>
-                                <tr>
-                                    <th>Career Path</th>
-                                    <th>Avg Salary (INR)</th>
-                                    <th>Study Years</th>
-                                    <th>Growth Rate</th>
-                                    <th>Core Skills Needed</th>
-                                </tr>
-                            </thead>
-                            <tbody id="comparisonTableBody">
-                                </tbody>
-                        </table>
-                    </div>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="••••••••" required>
                 </div>
                 
-                <div class="card" style="border-top: 4px solid var(--secondary); margin-bottom: 40px;">
-                    <h3 style="margin-bottom: 5px;">📚 Stream & Subject Combinations (NEP 2020)</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0; margin-bottom: 15px; line-height:1.5;">Under NEP 2020, you can technically pair any subject with another. Choosing 4 out of 30 common subjects results in <strong>27,405 unique combinations!</strong> If your school allows "Open Electives", you could choose Physics + Accountancy + History + Music. However, most students stick to standardized combinations below to ensure university entrance requirements are met.</p>
-
-                    <details class="profile-acc" style="margin-bottom:10px;">
-                        <summary>📊 Commerce Stream Combinations</summary>
-                        <div class="acc-body" style="line-height:2.2; font-size:0.9rem;">
-                            <span class="stream-tag">BEBA</span> (Basic Maths, Economics, Business Studies, Accountancy)<br>
-                            <span class="stream-tag">BSBA</span> (Business Studies, Statistics, Basic Maths, Accountancy)<br>
-                            <span class="stream-tag">SEBA</span> (Statistics, Economics, Business Studies, Accountancy)<br>
-                            <span class="stream-tag">CEBA</span> (Computer Science, Economics, Business Studies, Accountancy)<br>
-                            <span class="stream-tag">MEBA</span> (Mathematics, Economics, Business Studies, Accountancy)<br>
-                            <span class="stream-tag">MSBA</span> (Basic Maths, Statistics, Business Studies, Accountancy)<br>
-                            <span class="stream-tag">CSBA</span> (Computer Science, Statistics, Business Studies, Accountancy)<br>
-                            <span class="stream-tag">HEBA</span> (History, Economics, Business Studies, Accountancy)<br>
-                            <span class="stream-tag">PEBA</span> (Political Science, Economics, Business Studies, Accountancy)<br>
-                            <span class="stream-tag">EBAC</span> (Economics, Business Studies, Accountancy, Computer Science)<br>
-                            <span class="stream-tag">EBAS</span> (Economics, Business Studies, Accountancy, Statistics)<br>
-                            <span class="stream-tag">ABEL</span> (Accountancy, Business Studies, Economics, Legal Studies)<br>
-                            <span class="stream-tag">ABEE</span> (Accountancy, Business Studies, Economics, Entrepreneurship)<br>
-                            <span class="stream-tag">ABPs</span> (Accountancy, Business Studies, Economics, Psychology)<br>
-                            <span class="stream-tag">ABIP</span> (Accountancy, Business Studies, Economics, Informatics Practices)<br>
-                            <span class="stream-tag">ABPE</span> (Accountancy, Business Studies, Economics, Physical Education)<br>
-                            <span class="stream-tag">ABFA</span> (Accountancy, Business Studies, Economics, Fine Arts)<br>
-                            <span class="stream-tag">ABMS</span> (Accountancy, Business Studies, Economics, Mass Communication)<br>
-                            <span class="stream-tag">ABFM</span> (Accountancy, Business Studies, Economics, Financial Markets)<br>
-                            <span class="stream-tag">ABAI</span> (Accountancy, Business Studies, Economics, AI)
-                        </div>
-                    </details>
-                    
-                    <details class="profile-acc" style="margin-bottom:10px;">
-                        <summary>🔬 Science Stream Combinations</summary>
-                        <div class="acc-body" style="line-height:2.2; font-size:0.9rem;">
-                            <span class="stream-tag">PCMB</span> (Physics, Chemistry, Maths, Biology)<br>
-                            <span class="stream-tag">PCMC</span> (Physics, Chemistry, Maths, Computer Science)<br>
-                            <span class="stream-tag">PCME</span> (Physics, Chemistry, Maths, Electronics)<br>
-                            <span class="stream-tag">PCMG</span> (Physics, Chemistry, Maths, Geology)<br>
-                            <span class="stream-tag">PCMS</span> (Physics, Chemistry, Maths, Statistics)<br>
-                            <span class="stream-tag">PCBH</span> (Physics, Chemistry, Biology, Home Science)<br>
-                            <span class="stream-tag">PCMI</span> (Physics, Chemistry, Maths, Informatics Practices)<br>
-                            <span class="stream-tag">PCBB</span> (Physics, Chemistry, Biology, Biotech)<br>
-                            <span class="stream-tag">PCBP</span> (Physics, Chemistry, Biology, Psychology)<br>
-                            <span class="stream-tag">PCMPE</span> (Physics, Chemistry, Maths, Physical Ed)<br>
-                            <span class="stream-tag">PCBFA</span> (Physics, Chemistry, Biology, Fine Arts)<br>
-                            <span class="stream-tag">PCMBt</span> (Physics, Chemistry, Maths, Biotechnology)
-                        </div>
-                    </details>
-
-                    <details class="profile-acc" style="margin-bottom:10px;">
-                        <summary>🎨 Arts & Humanities Combinations</summary>
-                        <div class="acc-body" style="line-height:2.2; font-size:0.9rem;">
-                            <span class="stream-tag">HEPS</span> (History, Economics, Pol Science, Sociology)<br>
-                            <span class="stream-tag">HEPP</span> (History, Economics, Pol Science, Psychology)<br>
-                            <span class="stream-tag">HEPG</span> (History, Economics, Pol Science, Geography)<br>
-                            <span class="stream-tag">HEPL</span> (History, Economics, Pol Science, Logic)<br>
-                            <span class="stream-tag">HSPG</span> (History, Sociology, Pol Science, Geography)<br>
-                            <span class="stream-tag">HESG</span> (History, Economics, Sociology, Geography)<br>
-                            <span class="stream-tag">PSPG</span> (Psychology, Sociology, Pol Science, Geography)<br>
-                            <span class="stream-tag">EPSG</span> (Economics, Pol Science, Sociology, Geography)<br>
-                            <span class="stream-tag">HESL</span> (History, Economics, Sociology, Logic)<br>
-                            <span class="stream-tag">PEGL</span> (Pol Science, Economics, Geography, Logic)<br>
-                            <span class="stream-tag">HEPF</span> (History, Economics, Pol Science, French)<br>
-                            <span class="stream-tag">HEPH</span> (History, Economics, Pol Science, Hindi)
-                        </div>
-                    </details>
-
-                    <details class="profile-acc" style="margin-bottom:0;">
-                        <summary>🚀 Vocational & New-Age (NEP Style)</summary>
-                        <div class="acc-body" style="line-height:2.2; font-size:0.9rem;">
-                            <span class="stream-tag">AIMP</span> (AI, Maths, Physics)<br>
-                            <span class="stream-tag">DABM</span> (Data Science, Accountancy, Business Studies, Maths)<br>
-                            <span class="stream-tag">WCPM</span> (Web Apps, Computer Science, Physics, Maths)<br>
-                            <span class="stream-tag">FBEP</span> (Fashion, Biology, English, Psychology)<br>
-                            <span class="stream-tag">DFSH</span> (Design, Fine Arts, Sociology, History)<br>
-                            <span class="stream-tag">YPBP</span> (Yoga, Physical Ed, Biology, Psychology)<br>
-                            <span class="stream-tag">FAEM</span> (Fine Arts, Economics, Maths)<br>
-                            <span class="stream-tag">MESP</span> (Media Studies, Economics, Sociology, Psychology)<br>
-                            <span class="stream-tag">LHPE</span> (Legal, History, Pol Science, English)<br>
-                            <span class="stream-tag">TGHE</span> (Tourism, Geography, History, Economics)<br>
-                            <span class="stream-tag">HCPS</span> (Home Science, Chemistry, Psychology, Sociology)<br>
-                            <span class="stream-tag">EDLS</span> (Economics, Design, Legal, Sociology)
-                        </div>
-                    </details>
-                </div>
-
-                <div class="grid-2col">
-                    <div class="card" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white;">
-                        <h3 style="color:white; border-bottom: 1px solid rgba(255,255,255,0.1);">🏫 College Finder</h3>
-                        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 20px;">Find top institutions matching your preferred career path in your state.</p>
-                        <div class="form-group"><input type="text" class="form-input" placeholder="e.g. Psychology in Karnataka" style="background: rgba(255,255,255,0.1); color:white; border:none;"></div>
-                        <button class="btn hide-from-parent" style="width: 100%; background: var(--secondary);" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Search Directory</button>
-                    </div>
-                    
-                    <div class="card" style="border-top: 4px solid var(--accent); max-height: 500px; overflow-y: auto; padding-right: 15px;">
-                        <h3>🎓 Scholarship Alerts</h3>
-                        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:-10px; margin-bottom:15px;">Click 'View' to see eligibility and apply.</p>
-                        
-                        <div class="journey-step" style="padding:10px 0;">
-                            <div class="j-icon">🏛️</div>
-                            <div class="j-text" style="font-size:0.9rem;">State Merit Scholarship<br><span style="color:var(--danger); font-size:0.75rem;">Deadline: 15 April 2026</span></div>
-                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('state_merit')">View</button>
-                        </div>
-                        <div class="journey-step" style="padding:10px 0;">
-                            <div class="j-icon">🔬</div>
-                            <div class="j-text" style="font-size:0.9rem;">STEM Excellence Grant (INSPIRE)<br><span style="color:var(--text-muted); font-size:0.75rem;">Eligibility: 12th PCM/PCB</span></div>
-                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('stem_grant')">View</button>
-                        </div>
-                        <div class="journey-step" style="padding:10px 0;">
-                            <div class="j-icon">🇮🇳</div>
-                            <div class="j-text" style="font-size:0.9rem;">PM YASASVI Scholarship<br><span style="color:var(--text-muted); font-size:0.75rem;">Class 9 to 12 OBC/EBC</span></div>
-                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('pm_yasasvi')">View</button>
-                        </div>
-                        <div class="journey-step" style="padding:10px 0;">
-                            <div class="j-icon">👩‍🎓</div>
-                            <div class="j-text" style="font-size:0.9rem;">AICTE Pragati for Girls<br><span style="color:var(--text-muted); font-size:0.75rem;">Tech/Engineering Degree</span></div>
-                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('pragati')">View</button>
-                        </div>
-                        <div class="journey-step" style="padding:10px 0;">
-                            <div class="j-icon">🏢</div>
-                            <div class="j-text" style="font-size:0.9rem;">Reliance Foundation Scholar<br><span style="color:var(--text-muted); font-size:0.75rem;">First-Year UG Merit</span></div>
-                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('reliance')">View</button>
-                        </div>
-                        <div class="journey-step" style="padding:10px 0;">
-                            <div class="j-icon">🏦</div>
-                            <div class="j-text" style="font-size:0.9rem;">HDFC Bank Parivartan ECSS<br><span style="color:var(--text-muted); font-size:0.75rem;">Need & Merit Based</span></div>
-                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('hdfc')">View</button>
-                        </div>
-                        <div class="journey-step" style="padding:10px 0;">
-                            <div class="j-icon">🤝</div>
-                            <div class="j-text" style="font-size:0.9rem;">Tata Trusts Means Grant<br><span style="color:var(--text-muted); font-size:0.75rem;">College Tuition Support</span></div>
-                            <button class="btn btn-outline hide-from-parent" style="padding: 4px 10px; font-size:0.75rem;" onclick="window.showScholarship('tata')">View</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-report" class="tab-content">
-            <div class="header-bar">
-                <div><h1>My Career Report</h1><p>Your personalized, AI-driven psychometric analysis.</p></div>
-            </div>
-            
-            <div id="lockedReportUI" class="card" style="text-align:center; padding: 80px 20px;">
-                <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.8;">📄</div>
-                <h2 style="color: #0f172a; font-size: 1.8rem; margin-bottom: 15px;">Report Locked</h2>
-                <p style="color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">You need to complete your Psychometric Assessment before the AI can generate your personalized Career Report.</p>
-                <button onclick="window.launchAssessment()" class="btn hide-from-parent" style="padding: 15px 35px;">Take Assessment Now ➔</button>
-            </div>
-
-            <div id="unlockedReportUI" style="display:none;" class="report-render-area">
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>🧠 Psychometric Profile</h3>
-                        <div style="margin-bottom: 20px;">
-                            <span class="badge-code" id="reportRiasecCode"></span>
-                        </div>
-                        <p id="reportProfileDesc" style="color: #334155; line-height: 1.6; font-size: 0.95rem;"></p>
-                        <div style="height: 250px; width: 100%; margin-top:20px;">
-                            <canvas id="reportRiasecChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>🎯 Recommended Pathways</h3>
-                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top:-5px; margin-bottom: 15px;">Fields matching your natural aptitudes.</p>
-                        <div id="reportCareersContainer"></div>
-                        
-                        <h3 style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">🚫 Vulnerability Zones</h3>
-                        <p style="font-size: 0.85rem; color: #475569; margin-top:-5px; margin-bottom: 10px;">Careers leading to higher burnout probability.</p>
-                        <p id="reportAvoid" style="color: var(--danger); font-weight: bold; font-size: 0.95rem;"></p>
-                    </div>
-                </div>
+                <div class="error-msg" id="errorMsg">Invalid email or password.</div>
                 
-                <div class="card">
-                    <h3>📅 1-Year Execution Action Plan</h3>
-                    <div class="grid-2">
-                        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid transparent;">
-                            <h4 style="color: var(--primary); margin-top: 0;">📚 Recommended Courses</h4>
-                            <ul id="reportPlanCourses" style="color: #334155; line-height: 1.6; font-size: 0.9rem;"></ul>
-                        </div>
-                        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid transparent;">
-                            <h4 style="color: var(--primary); margin-top: 0;">🎯 Exams & Focus</h4>
-                            <ul id="reportPlanExams" style="color: #334155; line-height: 1.6; font-size: 0.9rem;"></ul>
-                        </div>
-                    </div>
-                </div>
+                <button type="submit" class="btn-large" id="loginBtn">Secure Sign In ➔</button>
+            </form>
+
+            <div class="register-link">
+                New to the platform? <br><br> <a href="register.html">Click Here to Create an Account</a>
             </div>
         </div>
-
-        <div id="tab-portfolio" class="tab-content" style="padding-bottom: 100px;">
-            <div class="header-bar">
-                <div><h1>My Complete Profile</h1><p>Build your academic dossier to feed the AI.</p></div>
-            </div>
-
-            <details class="profile-acc" open id="academicInputCard">
-                <summary>🎯 Current Academic Snapshot</summary>
-                <div class="acc-body">
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0;">Provide accurate data to improve AI recommendations.</p>
-                    
-                    <div class="grid-3" style="margin-bottom: 15px;">
-                        <div class="form-group" style="margin:0;">
-                            <label class="form-label">Board / Curriculum</label>
-                            <select id="portBoard" class="form-select">
-                                <option value="CBSE">CBSE</option>
-                                <option value="ICSE">ICSE</option>
-                                <option value="State Board">State Board</option>
-                                <option value="IB/IGCSE">IB / IGCSE</option>
-                                <option value="University">University/College</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="margin:0;">
-                            <label class="form-label">Current Class / Year</label>
-                            <input type="text" id="portClass" class="form-input" placeholder="e.g. 10th, 12th, B.Tech 2nd Yr">
-                        </div>
-                        <div class="form-group" style="margin:0;">
-                            <label class="form-label">Latest Marks (%)</label>
-                            <input type="number" id="portMarks" class="form-input" placeholder="e.g. 85" max="100">
-                        </div>
-                    </div>
-
-                    <div class="grid-3" style="margin-bottom: 15px;">
-                        <div class="form-group" style="margin:0;">
-                            <label class="form-label">Strongest Subject</label>
-                            <input type="text" id="portStrong" class="form-input" placeholder="e.g. Mathematics">
-                        </div>
-                        <div class="form-group" style="margin:0;">
-                            <label class="form-label">Weakest Subject</label>
-                            <input type="text" id="portWeak" class="form-input" placeholder="e.g. History">
-                        </div>
-                        <div class="form-group" style="margin:0;">
-                            <label class="form-label">Preferred Study Style</label>
-                            <select id="portStyle" class="form-select">
-                                <option value="Visual">Visual (Diagrams, Videos)</option>
-                                <option value="Auditory">Auditory (Lectures, Audio)</option>
-                                <option value="Kinesthetic">Hands-on (Practical, Labs)</option>
-                                <option value="Reading/Writing">Reading / Writing Notes</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </details>
-
-            <details class="profile-acc" open>
-                <summary>🎓 Education History</summary>
-                <div class="acc-body">
-                    <div id="educationContainer"></div>
-                    <button class="btn btn-outline" onclick="window.addEducationEntry()" style="width:100%; border-style:dashed;">+ Add Education Record</button>
-                </div>
-            </details>
-
-            <details class="profile-acc">
-                <summary>🤝 Volunteer Experience & Internships</summary>
-                <div class="acc-body">
-                    <div id="volunteerContainer"></div>
-                    <button class="btn btn-outline" onclick="window.addVolunteerEntry()" style="width:100%; border-style:dashed;">+ Add Experience</button>
-                </div>
-            </details>
-
-            <details class="profile-acc">
-                <summary>🎨 Hobbies & Achievements</summary>
-                <div class="acc-body">
-                    <div class="form-group" style="margin-bottom:20px;">
-                        <label class="form-label">Major Achievements / Awards</label>
-                        <textarea class="form-textarea" rows="3" placeholder="e.g. 1st Place State Science Fair..." id="portExtraCurricular"></textarea>
-                    </div>
-                    <label class="form-label">Hobbies (Earn XP)</label>
-                    <div style="display:flex; gap:10px;">
-                        <input type="text" id="hobbyInput" list="hobbySuggestions" autocomplete="off" class="form-input" placeholder="Search or type a hobby..." style="max-width:300px;">
-                        <button class="btn" onclick="window.addHobby()">Add</button>
-                    </div>
-                    <div id="hobbyTagsContainer" class="hobby-container"></div>
-                </div>
-            </details>
-
-            <button class="btn hide-from-parent" id="saveProfileBtn" onclick="window.saveAcademicPortfolio()" style="width:100%; padding:18px; font-size:1.1rem; margin-top:20px; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);">💾 Save Complete Profile</button>
-        </div>
-
-        <div id="tab-counselling" class="tab-content">
-            <div class="header-bar"><h1>Book Expert Session</h1><p>Get 1-on-1 clarity with a certified professional.</p></div>
-            <div class="grid-3-1">
-                <div class="card">
-                    <h3 style="margin-bottom: 20px;">Secure Your Slot</h3>
-                    <div class="form-group">
-                        <label class="form-label">Select Expert Counsellor</label>
-                        <select class="form-select" id="bookCounsellorSelect" onchange="window.showCounsellorTimes(this.value)"><option value="">-- Loading Experts --</option></select>
-                    </div>
-                    
-                    <div id="bookingAvailInfo" style="margin-bottom: 25px; padding: 20px; background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; display:none;">
-                        
-                        <div class="grid-2col" style="margin-bottom:15px; border-bottom: 1px dashed var(--border); padding-bottom:15px;">
-                            <div>
-                                <span style="color:#64748b; font-weight:bold; font-size:0.75rem; text-transform:uppercase; display:block;">Session Type</span>
-                                <span style="color:#0f172a; font-weight:800; font-size:0.95rem;">Career Clarity Session</span>
-                            </div>
-                            <div>
-                                <span style="color:#64748b; font-weight:bold; font-size:0.75rem; text-transform:uppercase; display:block;">Duration</span>
-                                <span style="color:#0f172a; font-weight:800; font-size:0.95rem;">60 Minutes</span>
-                            </div>
-                        </div>
-
-                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Next Available Slot</span><span id="bookingTimeText" style="color:var(--primary); font-weight:800;">Tomorrow, 4:00 PM</span></div>
-                        <div style="display:flex; justify-content:space-between; margin-bottom:15px;"><span style="color:#64748b; font-weight:bold; font-size:0.8rem; text-transform:uppercase;">Consultation Fee</span><span style="color:var(--success); font-weight:800; font-size:1.1rem;">₹1999 (Free via School)</span></div>
-                        
-                        <div class="form-group" style="margin-bottom: 15px; border-top: 1px solid var(--border); padding-top: 15px;">
-                            <label class="form-label" style="color: var(--accent);">Primary Goals for Session (Select all that apply)</label>
-                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.85rem; color:#334155;">
-                                <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Stream Confusion"> Stream Confusion</label>
-                                <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Career Decision"> Career Decision</label>
-                                <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Study Abroad"> Study Abroad</label>
-                                <label style="display:flex; align-items:center; gap:5px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Entrance Exams"> Entrance Exams</label>
-                            </div>
-                        </div>
-
-                        <div style="border-top: 1px solid var(--border); padding-top: 15px;">
-                            <div class="grid-2col" style="margin-bottom: 15px;">
-                                <div class="form-group" style="margin:0;">
-                                    <label class="form-label">Select Date</label>
-                                    <input type="date" id="bookDate" class="form-input" required>
-                                </div>
-                                <div class="form-group" style="margin:0;">
-                                    <label class="form-label">Select Time</label>
-                                    <input type="time" id="bookTime" class="form-input" required>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-bottom: 15px;">
-                                <label class="form-label">Contact Number</label>
-                                <input type="tel" id="bookPhone" class="form-input" placeholder="+91 99999 99999" required>
-                            </div>
-                            <div class="form-group" style="margin:0;">
-                                <label class="form-label">Preferred Medium</label>
-                                <select id="bookMedium" class="form-select">
-                                    <option value="Google Meet">Google Meet (Video)</option>
-                                    <option value="Phone Call">Direct Phone Call</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="btn hide-from-parent" id="confirmBookingBtn" onclick="window.submitBooking()" style="width:100%; padding: 14px;">Confirm Booking</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-chat" class="tab-content">
-            <div class="header-bar">
-                <div>
-                    <h1>Direct Chat</h1>
-                    <p>Secure messaging with your assigned expert.</p>
-                </div>
-            </div>
-            <div class="grid-3-1">
-                <div class="card" style="padding:0; overflow:hidden; display:flex; flex-direction:column; height:60vh;">
-                    <div style="padding: 20px 25px; border-bottom: 1px solid var(--border); background: #f8fafc;">
-                        <div class="form-group" style="margin:0;">
-                            <label class="form-label" style="font-size:0.75rem;">Select Counsellor</label>
-                            <select class="form-select" id="studentChatSelect" onchange="window.loadCounsellorChat(this.value)"><option value="">-- Choose a Counsellor --</option></select>
-                        </div>
-                    </div>
-                    <div style="flex:1; padding: 25px; overflow-y:auto; background: #ffffff;" id="studentChatMessages">
-                        <div style="text-align:center; color:var(--text-muted); margin-top:40px; font-size: 1rem;">Select a counsellor to start chatting.</div>
-                    </div>
-                    <div style="padding: 20px 25px; border-top: 1px solid var(--border); display:flex; gap:15px; background: #f8fafc;">
-                        <input type="text" id="studentChatInput" class="form-input" placeholder="Type a message..." style="margin:0; background:white;">
-                        <button class="btn" onclick="window.sendStudentChatMessage()" style="padding: 0 25px;">Send</button>
-                    </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <h3>Expert Profile</h3>
-                        <div id="counsellorProfileCard" style="text-align:center; color:var(--text-muted); padding: 20px 0; font-size:0.9rem;">Select a counsellor to view profile.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-settings" class="tab-content">
-            <div class="header-bar"><h1>Profile Settings</h1><p>Manage your account details and preferences.</p></div>
-            <div class="card">
-                <div class="grid-2col" style="margin-bottom: 25px;">
-                    <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="setStuName" class="form-input" readonly style="background: #f1f5f9;"></div>
-                    <div class="form-group"><label class="form-label">Registered Email</label><input type="text" id="setStuEmail" class="form-input" readonly style="background: #f1f5f9;"></div>
-                </div>
-                <div class="grid-2col">
-                    <div class="form-group"><label class="form-label">Parent Name</label><input type="text" class="form-input" placeholder="Enter parent's name"></div>
-                    <div class="form-group"><label class="form-label">Parent Phone</label><input type="text" class="form-input" placeholder="+91 XXXXX XXXXX"></div>
-                </div>
-                <button class="btn hide-from-parent" style="margin-top:20px;">💾 Save Details</button>
-            </div>
-        </div>
-
     </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, collection, getDocs, updateDoc, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-    // ⚠️ REPLACE WITH YOUR ACTUAL CONFIG
+    // ⚠️ Ensure this matches the config used in student_portal.html
     const firebaseConfig = {
       apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
       authDomain: "career-intelligence-system.firebaseapp.com",
@@ -854,1234 +197,53 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
     const auth = getAuth(app);
-    
-    let activeUserUid = null;
-    let studentDataObj = null;
-    let growthChartInstance = null;
-    let unsubscribeChat = null; 
-    let globalUnreadCount = 0;
-    const activeChatListeners = []; 
-    let previouslyUnlockedBadges = new Set();
-    
-    let hobbiesArray = [];
-    let uploadedImageBase64 = "";
-    let currentGlobalXP = -1; 
+    const db = getFirestore(app);
 
-    // --- BULLETPROOF SAFE DOM SETTERS ---
-    function safeSetText(id, text) {
-        const el = document.getElementById(id);
-        if (el) el.innerText = text;
-    }
-    function safeSetHTML(id, html) {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = html;
-    }
+    const loginForm = document.getElementById('loginForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const errorMsg = document.getElementById('errorMsg');
 
-    // --- MOBILE SIDEBAR TOGGLE ---
-    window.toggleSidebar = function(forceClose = false) {
-        const sidebar = document.getElementById('mainSidebar');
-        const overlay = document.getElementById('mobileOverlay');
-        if(!sidebar || !overlay) return;
-        
-        if (forceClose || sidebar.classList.contains('active')) {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        } else {
-            sidebar.classList.add('active');
-            overlay.classList.add('active');
-        }
-    }
-
-    // --- SCHOLARSHIP DATA & MODAL LOGIC ---
-    const scholarshipsData = {
-        'state_merit': {
-            title: "State Merit Scholarship", provider: "State Government (Various)", icon: "🏛️",
-            desc: "Financial assistance provided by respective state governments to meritorious students belonging to economically weaker sections to pursue higher education.",
-            amount: "₹10,000 - ₹50,000 / year", eligibility: "Above 80% in 10th/12th, Family Income < ₹2.5L", states: "Karnataka, Maharashtra, Kerala, Gujarat, Tamil Nadu, etc.", deadline: "15 April 2026", link: "https://scholarships.gov.in/"
-        },
-        'stem_grant': {
-            title: "STEM Excellence Grant (INSPIRE)", provider: "Dept. of Science & Technology, Govt. of India", icon: "🔬",
-            desc: "Innovation in Science Pursuit for Inspired Research (INSPIRE) scheme offers financial support to students undertaking Bachelor's/Master's in basic and natural sciences.",
-            amount: "₹80,000 / year", eligibility: "Top 1% in 12th Board Exams (PCM/PCB)", states: "All India", deadline: "31 May 2026", link: "https://online-inspire.gov.in/"
-        },
-        'pm_yasasvi': {
-            title: "PM YASASVI Scholarship", provider: "Ministry of Social Justice, Govt. of India", icon: "🇮🇳",
-            desc: "Awarded to meritorious students from OBC, EBC, and DNT categories studying in Class 9 to 12.",
-            amount: "₹75,000 - ₹1,25,000 / year", eligibility: "OBC/EBC/DNT categories, Family income < ₹2.5L", states: "All India", deadline: "30 August 2026", link: "https://yet.nta.ac.in/"
-        },
-        'pragati': {
-            title: "AICTE Pragati Scholarship for Girls", provider: "AICTE, Govt. of India", icon: "👩‍🎓",
-            desc: "Empowering girls by providing financial assistance for pursuing technical education (Degree/Diploma).",
-            amount: "₹50,000 / year", eligibility: "Girl students admitted to AICTE approved tech programs", states: "All India", deadline: "31 Oct 2026", link: "https://www.aicte-india.org/schemes/students-development-schemes"
-        },
-        'reliance': {
-            title: "Reliance Foundation Scholarship", provider: "Reliance Foundation (Private)", icon: "🏢",
-            desc: "Supports exceptional undergraduates to pursue their higher education and become India's future leaders.",
-            amount: "Up to ₹2,00,000 over the degree", eligibility: "First-year UG students, Merit-based", states: "All India", deadline: "14 Feb 2026", link: "https://scholarships.reliancefoundation.org/"
-        },
-        'hdfc': {
-            title: "HDFC Bank Parivartan's ECSS", provider: "HDFC Bank (Private)", icon: "🏦",
-            desc: "Helps meritorious and needy students belonging to underprivileged sections to continue their education without dropping out.",
-            amount: "Up to ₹75,000 / year", eligibility: "School, UG, and PG students. Family income < ₹2.5L", states: "All India", deadline: "31 March 2026", link: "https://www.hdfcbank.com/"
-        },
-        'tata': {
-            title: "Tata Trusts Means Grant", provider: "Tata Trusts (Private)", icon: "🤝",
-            desc: "Offers partial financial assistance to college students to meet their tuition fee needs.",
-            amount: "Partial or Full Tuition Coverage", eligibility: "College students, based on financial need", states: "All India (Specifically Mumbai for some programs)", deadline: "Rolling", link: "https://www.tatatrusts.org/our-work/individual-grants-programme/education-grants"
-        }
-    };
-
-    window.showScholarship = function(id) {
-        const data = scholarshipsData[id];
-        if(!data) return;
-        safeSetText('scholIcon', data.icon);
-        safeSetText('scholTitle', data.title);
-        safeSetText('scholProvider', data.provider);
-        safeSetText('scholDesc', data.desc);
-        safeSetText('scholAmount', data.amount);
-        safeSetText('scholEligibility', data.eligibility);
-        safeSetText('scholStates', data.states);
-        safeSetText('scholDeadline', data.deadline);
-        const linkEl = document.getElementById('scholLink');
-        if(linkEl) linkEl.href = data.link;
-        window.openModal('scholarshipModal');
-    }
-
-    // --- MODAL CLICK-OUTSIDE & ALERT LOGIC ---
-    window.openModal = function(id) { 
-        const el = document.getElementById(id);
-        if(el) {
-            el.style.display = 'flex'; 
-            setTimeout(()=> {el.classList.add('active');}, 10);
-        }
-    }
-    
-    window.closeModal = function(id) { 
-        const el = document.getElementById(id);
-        if(el) {
-            el.classList.remove('active'); 
-            setTimeout(()=> {el.style.display = 'none';}, 300); 
-        }
-    }
-    
-    document.addEventListener('click', function(event) {
-        if (event.target && event.target.classList && event.target.classList.contains('modal-overlay')) {
-            window.closeModal(event.target.id);
+    // Auto-redirect if already logged in
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.location.href = "student_portal.html";
         }
     });
 
-    window.showCustomAlert = function(message, title = "Notice", isError = true) {
-        safeSetText('customAlertTitle', title);
-        const titleEl = document.getElementById('customAlertTitle');
-        if(titleEl) titleEl.style.color = isError ? 'var(--danger)' : 'var(--primary)';
-        safeSetText('customAlertMessage', message);
-        window.openModal('customAlertModal');
-    }
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const currentStudy = document.getElementById('currentStudy').value;
 
-    window.showToastNotification = function(title, message) {
-        const container = document.getElementById('toastContainer');
-        if(!container) return;
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.innerHTML = `<div class="toast-title">🔔 ${title}</div><div class="toast-body">${message}</div>`;
-        
-        toast.onclick = () => {
-            if(title.includes("New Message") || title.includes("Chat")) {
-                const btns = document.querySelectorAll('.nav-btn');
-                if(btns.length > 5) window.switchTab('tab-chat', btns[5]);
-            } else {
-                const btns = document.querySelectorAll('.nav-btn');
-                if(btns.length > 0) window.switchTab('tab-home', btns[0]);
-            }
-            toast.style.animation = 'fadeOut 0.3s ease forwards';
-            setTimeout(() => toast.remove(), 300);
-        };
+        loginBtn.innerText = "Authenticating... ⏳";
+        loginBtn.disabled = true;
+        errorMsg.style.display = 'none';
 
-        container.appendChild(toast);
-        setTimeout(() => {
-            if(toast.parentElement) {
-                toast.style.animation = 'fadeOut 0.3s ease forwards';
-                setTimeout(() => toast.remove(), 300);
-            }
-        }, 5000);
-    }
+        try {
+            // 1. Sign in the user
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
 
-    window.toggleParentMode = function() {
-        const btn = document.getElementById('parentToggleBtn');
-        const icon = document.getElementById('parentToggleIcon');
-        const text = document.getElementById('parentToggleText');
-        
-        if(!document.body.classList.contains('parent-mode-active')) {
-            document.body.classList.add('parent-mode-active');
-            if(btn) btn.classList.add('active');
-            if(icon) icon.innerText = "🔐";
-            if(text) text.innerText = "Exit Parent View";
-            
-            const activeTabEl = document.querySelector('.tab-content.active');
-            if(activeTabEl) {
-                const activeTab = activeTabEl.id;
-                if(activeTab === 'tab-chat' || activeTab === 'tab-settings' || activeTab === 'tab-counselling' || activeTab === 'tab-portfolio') {
-                    const btns = document.querySelectorAll('.nav-btn');
-                    if(btns.length > 0) window.switchTab('tab-home', btns[0]);
+            // 2. Automatically update their database profile with the selected class
+            // Using merge:true ensures we don't accidentally overwrite their other data
+            await setDoc(doc(db, "students", user.uid), { 
+                academic: {
+                    currentClass: currentStudy
                 }
-            }
-        } else {
-            document.body.classList.remove('parent-mode-active');
-            if(btn) btn.classList.remove('active');
-            if(icon) icon.innerText = "👨‍👩‍👧";
-            if(text) text.innerText = "Parent View";
+            }, { merge: true });
+
+            // 3. onAuthStateChanged will handle the redirect automatically upon success
+        } catch (error) {
+            console.error("Login Error:", error.message);
+            errorMsg.innerText = "Invalid credentials. Please verify your email and password.";
+            errorMsg.style.display = 'block';
+            loginBtn.innerText = "Secure Sign In ➔";
+            loginBtn.disabled = false;
         }
-    }
-
-    window.unlockBadge = function(id, primaryClass, xpValue) {
-        const el = document.getElementById(id);
-        if(el && !previouslyUnlockedBadges.has(id) && !el.classList.contains(primaryClass)) {
-            el.classList.add(primaryClass);
-            el.style.animation = 'none';
-            el.offsetHeight; 
-            el.style.animation = 'badgePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-            window.showToastNotification(`Achievement Unlocked!`, `+${xpValue} XP added to your profile.`);
-            previouslyUnlockedBadges.add(id);
-        }
-    }
-
-    const indiaData = {
-        "Karnataka": ["Bengaluru Urban", "Bengaluru Rural", "Mysuru", "Mangaluru", "Hubballi", "Belagavi", "Chikkamagaluru", "Udupi", "Dakshina Kannada"],
-        "Maharashtra": ["Mumbai City", "Mumbai Suburban", "Pune", "Nagpur", "Thane", "Nashik"],
-        "Delhi": ["New Delhi", "South Delhi", "West Delhi", "North Delhi", "East Delhi"],
-    };
-
-    const dbHobbies = ["Reading", "Writing", "Coding", "Robotics", "Painting", "Photography", "Video Editing", "Gaming", "Fitness", "Cooking", "Public Speaking", "Volunteering"];
-    const dbMusicGenres = ["Pop", "Rock", "Classical", "Hip Hop", "EDM", "Indie", "Bollywood", "Indian Classical", "Lofi"];
-    const dbArtists = ["A.R. Rahman", "Arijit Singh", "Shreya Ghoshal", "Taylor Swift", "The Weeknd", "Drake", "BTS", "Ed Sheeran", "Coldplay", "Divine"];
-    const dbTV = ["Breaking Bad", "Game of Thrones", "Stranger Things", "The Office", "Money Heist", "Dark", "Mirzapur", "The Family Man", "Scam 1992"];
-    const dbMovies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight", "Inception", "Interstellar", "Avengers: Endgame", "Dangal", "3 Idiots"];
-    const dbGames = ["Minecraft", "GTA V", "Valorant", "Fortnite", "PUBG", "CS:GO", "Dota 2", "FIFA", "Roblox", "Genshin Impact"];
-    const dbSports = ["Cricket", "Football", "Basketball", "Tennis", "Formula 1", "Virat Kohli", "MS Dhoni", "Cristiano Ronaldo", "Lionel Messi", "Roger Federer"];
-
-    function attachDynamicSuggest(inputId, listId, dbArray) {
-        const input = document.getElementById(inputId);
-        const datalist = document.getElementById(listId);
-        if(!input || !datalist) return;
-        input.setAttribute('autocomplete', 'off');
-        input.addEventListener('input', (e) => {
-            const val = e.target.value.trim().toLowerCase();
-            if (val.length > 0) {
-                const matches = dbArray.filter(item => item.toLowerCase().includes(val)).slice(0, 20);
-                datalist.innerHTML = matches.map(item => `<option value="${item}">`).join('');
-            } else { datalist.innerHTML = ''; }
-        });
-        input.addEventListener('focus', (e) => { if (e.target.value.trim().length === 0) datalist.innerHTML = ''; });
-    }
-    attachDynamicSuggest('hobbyInput', 'hobbySuggestions', dbHobbies);
-    attachDynamicSuggest('intMusic', 'musicGenreSuggestions', dbMusicGenres);
-    attachDynamicSuggest('intArtist', 'artistSuggestions', dbArtists);
-    attachDynamicSuggest('intTV', 'tvSuggestions', dbTV);
-    attachDynamicSuggest('intMovies', 'movieSuggestions', dbMovies);
-    attachDynamicSuggest('intGames', 'gameSuggestions', dbGames);
-    attachDynamicSuggest('intSports', 'sportSuggestions', dbSports);
-
-    document.getElementById('photoUpload').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader(); reader.readAsDataURL(file);
-        reader.onload = function(event) {
-            const img = new Image(); img.src = event.target.result;
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                const scaleSize = 200 / img.width; canvas.width = 200; canvas.height = img.height * scaleSize;
-                const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                uploadedImageBase64 = canvas.toDataURL("image/jpeg", 0.8);
-                const aImg = document.getElementById('stuAvatarImg');
-                if(aImg) {
-                    aImg.src = uploadedImageBase64;
-                    aImg.style.display = 'block';
-                }
-                const aInit = document.getElementById('stuInitials');
-                if(aInit) aInit.style.display = 'none';
-            }
-        };
     });
-
-    window.populateDistricts = function(stateSelectElem) {
-        const state = stateSelectElem.value;
-        const districtSelect = stateSelectElem.parentElement.nextElementSibling.querySelector('.district-select');
-        if(!districtSelect) return;
-        districtSelect.innerHTML = '<option value="" disabled selected>Select District</option>';
-        if(indiaData[state]) {
-            indiaData[state].forEach(dist => { districtSelect.innerHTML += `<option value="${dist}">${dist}</option>`; });
-        }
-    }
-    
-    window.toggleToDate = function(checkboxElem) {
-        const toDateInput = checkboxElem.parentElement.parentElement.nextElementSibling;
-        if(toDateInput) toDateInput.style.display = checkboxElem.checked ? 'none' : 'block';
-    }
-
-    window.updateDynamicGradingInput = function(selectElem) {
-        const sys = selectElem.value;
-        const block = selectElem.closest('.entry-block');
-        const inp = block.querySelector('.edu-overall-score');
-        if(!inp) return;
-        if(sys.includes('%') || sys === 'Percentile') { inp.placeholder = 'e.g. 88'; inp.max = 100; }
-        else if(sys.includes('4')) { inp.placeholder = 'e.g. 3.8'; inp.max = 4; }
-        else if(sys.includes('10')) { inp.placeholder = 'e.g. 9.2'; inp.max = 10; }
-        else { inp.placeholder = 'Score/Grade'; inp.removeAttribute('max'); }
-    }
-
-    window.updateEduLabels = function(selectElem) {
-        const level = selectElem.value;
-        const block = selectElem.closest('.entry-block');
-        const nameInput = block.querySelector('.edu-name-input');
-        const certNameBox = block.querySelector('.edu-cert-box');
-        const fromBox = block.querySelector('.edu-from-box');
-        const toLabel = block.querySelector('.edu-to-label');
-
-        if(level === 'School') {
-            if(nameInput) nameInput.placeholder = "School Name";
-            if(certNameBox) certNameBox.style.display = 'none';
-            if(fromBox) fromBox.style.display = 'none'; 
-            if(toLabel) toLabel.innerText = "Date of Completion"; 
-        } else if (level === 'Certificate') {
-            if(nameInput) nameInput.placeholder = "Institution / Platform Name";
-            if(certNameBox) certNameBox.style.display = 'block';
-            if(fromBox) fromBox.style.display = 'block'; 
-            if(toLabel) toLabel.innerText = "To Date (Or completion)"; 
-        } else {
-            if(nameInput) nameInput.placeholder = "College / Institute Name";
-            if(certNameBox) certNameBox.style.display = 'none';
-            if(fromBox) fromBox.style.display = 'block'; 
-            if(toLabel) toLabel.innerText = "To Date"; 
-        }
-    }
-
-    window.addEducationEntry = function(data = {}) {
-        const container = document.getElementById('educationContainer');
-        if(!container) return;
-        const id = Date.now() + Math.random();
-        
-        const isSchool = data.level === 'School' || !data.level;
-        const isCert = data.level === 'Certificate';
-        const nameLabel = isSchool ? 'School Name' : (isCert ? 'Institution / Platform' : 'College / Institute Name');
-        const displayCert = isCert ? 'block' : 'none';
-        const displayFromDate = isSchool ? 'none' : 'block';
-        const toLabelTxt = isSchool ? 'Date of Completion' : (isCert ? 'To Date (Or completion)' : 'To Date');
-
-        let sysOptions = `
-            <option value="Percentage (%)" ${data.gradingSystem==='Percentage (%)'?'selected':''}>Percentage (%)</option>
-            <option value="GPA (Out of 4)" ${data.gradingSystem==='GPA (Out of 4)'?'selected':''}>GPA (Out of 4)</option>
-            <option value="CGPA (Out of 10)" ${data.gradingSystem==='CGPA (Out of 10)'?'selected':''}>CGPA (Out of 10)</option>
-            <option value="Grade Letter" ${data.gradingSystem==='Grade Letter'?'selected':''}>Grade Letter (A, B, etc.)</option>
-            <option value="N/A" ${data.gradingSystem==='N/A'?'selected':''}>N/A (Ongoing)</option>
-        `;
-
-        let subjectsHtml = '';
-        if(data.subjects && data.subjects.length > 0) {
-            data.subjects.forEach(sub => {
-                subjectsHtml += `
-                    <div class="subject-row edu-subject-row">
-                        <input type="text" class="form-input edu-sub-name" placeholder="Subject Name (e.g. Physics)" value="${sub.name || ''}" style="flex:2;">
-                        <input type="text" class="form-input edu-sub-score" placeholder="Score/Grade" value="${sub.score || ''}" style="flex:1;">
-                        <button type="button" class="btn-remove-sub" onclick="this.parentElement.remove()">×</button>
-                    </div>`;
-            });
-        }
-
-        const html = `
-        <div class="entry-block edu-block-item" id="edu-${id}">
-            <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
-            <div class="grid-2col">
-                <div class="form-group"><label class="form-label">Education Level</label>
-                    <select class="form-select edu-level" onchange="window.updateEduLabels(this)">
-                        <option value="School" ${data.level==='School'?'selected':''}>School (10th)</option>
-                        <option value="PUC" ${data.level==='PUC'?'selected':''}>PUC / 12th</option>
-                        <option value="Diploma" ${data.level==='Diploma'?'selected':''}>Diploma</option>
-                        <option value="UG" ${data.level==='UG'?'selected':''}>Undergraduate (UG)</option>
-                        <option value="PG" ${data.level==='PG'?'selected':''}>Postgraduate (PG)</option>
-                        <option value="Certificate" ${data.level==='Certificate'?'selected':''}>Certificate Course</option>
-                    </select>
-                </div>
-                <div class="form-group"><label class="form-label">Institution Name</label><input type="text" class="form-input edu-name edu-name-input" placeholder="${nameLabel}" value="${data.name || ''}"></div>
-                
-                <div class="form-group edu-cert-box" style="display: ${displayCert}; grid-column: 1 / -1;"><label class="form-label">Certificate Course Name</label><input type="text" class="form-input edu-cert-name" placeholder="e.g. Google Data Analytics" value="${data.certName || ''}"></div>
-
-                <div class="form-group edu-from-box" style="display: ${displayFromDate};"><label class="form-label">From Date</label><input type="date" class="form-input edu-from" value="${data.from || ''}"></div>
-                <div class="form-group edu-to-box"><label class="form-label edu-to-label">${toLabelTxt}</label><input type="date" class="form-input edu-to" value="${data.to || ''}"></div>
-                
-                <div class="form-group"><label class="form-label">Grading System</label>
-                    <select class="form-select edu-grading-sys" onchange="window.updateDynamicGradingInput(this)">${sysOptions}</select>
-                </div>
-                <div class="form-group"><label class="form-label">Overall Score / CGPA</label><input type="text" class="form-input edu-overall-score" placeholder="e.g. 85 or 9.2" value="${data.score || ''}"></div>
-            </div>
-
-            <div style="border-top: 1px dashed #cbd5e1; padding-top: 15px; margin-top: 10px;">
-                <label class="form-label">Subject-wise Marks (Optional but adds XP!)</label>
-                <div class="edu-subjects-container">${subjectsHtml}</div>
-                <button type="button" class="btn btn-outline" onclick="window.addEduSubjectRow(this)" style="padding: 6px 12px; font-size: 0.8rem; margin-top: 10px;">+ Add Subject</button>
-            </div>
-        </div>`;
-        container.insertAdjacentHTML('beforeend', html);
-    }
-
-    window.addEduSubjectRow = function(btnElement) {
-        const container = btnElement.previousElementSibling; 
-        const row = document.createElement('div');
-        row.className = 'subject-row edu-subject-row';
-        row.innerHTML = `
-            <input type="text" class="form-input edu-sub-name" placeholder="Subject Name (e.g. Physics)" style="flex:2;">
-            <input type="text" class="form-input edu-sub-score" placeholder="Score/Grade" style="flex:1;">
-            <button type="button" class="btn-remove-sub" onclick="this.parentElement.remove()">×</button>
-        `;
-        container.appendChild(row);
-    }
-
-    window.addVolunteerEntry = function(data = {}) {
-        const container = document.getElementById('volunteerContainer');
-        if(!container) return;
-        const id = Date.now() + Math.random();
-        let stateOptions = '<option value="" disabled selected>Select State</option>';
-        Object.keys(indiaData).forEach(s => { stateOptions += `<option value="${s}" ${data.state===s?'selected':''}>${s}</option>`; });
-        let distOptions = '<option value="" disabled selected>Select District</option>';
-        if(data.state && indiaData[data.state]) { indiaData[data.state].forEach(d => { distOptions += `<option value="${d}" ${data.district===d?'selected':''}>${d}</option>`; }); }
-
-        const html = `
-        <div class="entry-block" id="vol-${id}">
-            <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
-            <div class="grid-2col">
-                <div class="form-group"><label class="form-label">Organization / NGO / Company</label><input type="text" class="form-input vol-org" placeholder="e.g. Red Cross, Tech Startup" value="${data.organization || ''}"></div>
-                <div class="form-group"><label class="form-label">Role / Internship Title</label><input type="text" class="form-input vol-role" placeholder="e.g. Marketing Intern, Volunteer" value="${data.role || ''}"></div>
-                <div class="form-group"><label class="form-label">From Date</label><input type="date" class="form-input vol-from" value="${data.from || ''}"></div>
-                <div class="form-group">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                        <label class="form-label" style="margin:0;">To Date</label>
-                        <label style="font-size:0.8rem; color:var(--text-muted); display:flex; align-items:center; gap:5px; cursor:pointer;">
-                            <input type="checkbox" class="vol-current" onchange="window.toggleToDate(this)" ${data.current ? 'checked' : ''}> Currently active here
-                        </label>
-                    </div>
-                    <div class="to-date-container" style="display:${data.current ? 'none' : 'block'}">
-                        <input type="date" class="form-input vol-to" value="${data.to || ''}">
-                    </div>
-                </div>
-                <div class="form-group"><label class="form-label">Engagement Type</label>
-                    <select class="form-select vol-type">
-                        <option value="On site" ${data.type==='On site'?'selected':''}>On site</option>
-                        <option value="Hybrid" ${data.type==='Hybrid'?'selected':''}>Hybrid</option>
-                        <option value="Online" ${data.type==='Online'?'selected':''}>Online / Remote</option>
-                    </select>
-                </div>
-                <div class="form-group"><label class="form-label">State</label><select class="form-select vol-state" onchange="window.populateDistricts(this)">${stateOptions}</select></div>
-            </div>
-            <div class="form-group" style="margin-top:10px;"><label class="form-label">Brief Description of Responsibilities</label><textarea class="form-textarea vol-desc" rows="2" placeholder="Describe your responsibilities, skills learned, or impact made...">${data.desc || ''}</textarea></div>
-        </div>`;
-        container.insertAdjacentHTML('beforeend', html);
-    }
-
-    window.addHobby = function(val = null) {
-        const input = document.getElementById('hobbyInput');
-        const text = val || input.value.trim();
-        if(!text) return;
-        if(hobbiesArray.length >= 10) { window.showCustomAlert("Maximum 10 hobbies allowed.", "Limit Reached", false); return; }
-        if(hobbiesArray.includes(text)) return; 
-        hobbiesArray.push(text);
-        renderHobbies();
-        if(input) input.value = "";
-    }
-    window.removeHobby = function(index) { hobbiesArray.splice(index, 1); renderHobbies(); }
-    function renderHobbies() {
-        const container = document.getElementById('hobbyTagsContainer');
-        if(container) container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="window.removeHobby(${i})">&times;</span></div>`).join('');
-    }
-
-    window.updateTopXP = function(newXp, newLevelName) {
-        const topXpEl = document.getElementById('topXpDisplay');
-        const topLvlEl = document.getElementById('topLevelDisplay');
-        const xpContainer = document.getElementById('topXpContainer');
-        const modalXpTotal = document.getElementById('xpModalTotal');
-
-        if (currentGlobalXP !== newXp) {
-            if (topLvlEl) topLvlEl.innerText = newLevelName.split(' - ')[0].replace('Level', 'Lvl');
-            if (topXpEl) topXpEl.innerText = newXp;
-            if (modalXpTotal) modalXpTotal.innerText = newXp + " XP";
-            
-            if (currentGlobalXP !== -1 && xpContainer) {
-                xpContainer.classList.remove('xp-bump');
-                void xpContainer.offsetWidth; // Trigger reflow
-                xpContainer.classList.add('xp-bump');
-            }
-            currentGlobalXP = newXp;
-        }
-    }
-
-    window.calculateDynamicScore = function(data) {
-      try {
-        let score = 1; let xp = 10; 
-        
-        let breakdownHTML = `<div class="xp-list-item"><span>Registered Account</span><strong style="color:var(--success);">+10 XP</strong></div>`;
-        
-        let profileTasks = [
-            { id: 'photo', name: "Upload Profile Photo", done: false },
-            { id: 'target', name: "Set Academic Target", done: false },
-            { id: 'edu', name: "Add Education History", done: false },
-            { id: 'vol', name: "Add Volunteer/Internship", done: false },
-            { id: 'hob', name: "Add Hobbies", done: false },
-            { id: 'int', name: "Add Media Interests", done: false },
-            { id: 'ass', name: "Complete Psychometric Test", done: false },
-            { id: 'ses', name: "Complete Counselling Session", done: false },
-            { id: 'loc', name: "Lock Final Career Path", done: false }
-        ];
-
-        let focusTitle = "Complete Profile";
-        let focusDesc = "Log your academic history to help the AI contextualize your assessment.";
-        let focusBtnText = "Update Profile ➔";
-        let focusAction = "window.switchTab('tab-portfolio', document.querySelectorAll('.nav-btn')[3])";
-
-        previouslyUnlockedBadges.add('badge-registered');
-
-        if (data.photo) profileTasks.find(t=>t.id==='photo').done = true;
-
-        if (data.academic) {
-            if(data.academic.stream && data.academic.stream !== "Undecided") {
-                profileTasks.find(t=>t.id==='target').done = true;
-                xp += 10; breakdownHTML += `<div class="xp-list-item"><span>Academic Target Set</span><strong style="color:var(--success);">+10 XP</strong></div>`;
-            }
-
-            if(data.academic.eduHistory && data.academic.eduHistory.length > 0 && data.academic.eduHistory[0].name) {
-                profileTasks.find(t=>t.id==='edu').done = true;
-                score += 1;
-                data.academic.eduHistory.forEach(edu => {
-                    if(edu.name) {
-                        xp += 20; breakdownHTML += `<div class="xp-list-item"><span>Education Added (${edu.level})</span><strong style="color:var(--success);">+20 XP</strong></div>`;
-                    }
-                    if(edu.subjects && edu.subjects.length > 0) {
-                        let subXp = edu.subjects.length * 5;
-                        xp += subXp; breakdownHTML += `<div class="xp-list-item"><span>Subjects Added (${edu.level})</span><strong style="color:var(--success);">+${subXp} XP</strong></div>`;
-                    }
-                });
-            }
-
-            if(data.academic.volunteerHistory && data.academic.volunteerHistory.length > 0 && data.academic.volunteerHistory[0].organization) {
-                profileTasks.find(t=>t.id==='vol').done = true;
-                let volXp = data.academic.volunteerHistory.length * 15;
-                xp += volXp; breakdownHTML += `<div class="xp-list-item"><span>Volunteer/Internships</span><strong style="color:var(--success);">+${volXp} XP</strong></div>`;
-            }
-
-            if(data.academic.hobbies && data.academic.hobbies.length > 0) {
-                profileTasks.find(t=>t.id==='hob').done = true;
-                let hobXp = data.academic.hobbies.length * 5;
-                xp += hobXp; breakdownHTML += `<div class="xp-list-item"><span>Hobbies Logged</span><strong style="color:var(--success);">+${hobXp} XP</strong></div>`;
-            }
-
-            if(data.academic.interests && (data.academic.interests.music || data.academic.interests.movies || data.academic.interests.sports)) {
-                profileTasks.find(t=>t.id==='int').done = true;
-                xp += 15; breakdownHTML += `<div class="xp-list-item"><span>Media Interests Logged</span><strong style="color:var(--success);">+15 XP</strong></div>`;
-            }
-            
-            if(profileTasks.find(t=>t.id==='target').done && profileTasks.find(t=>t.id==='edu').done) {
-                score += 1; 
-                window.unlockBadge('badge-academic', 'unlocked-primary', 20);
-                safeSetText('dot-portfolio', "✔");
-                
-                focusTitle = "Take Psychometric Assessment";
-                focusDesc = "Takes approx 25 minutes. Essential to unlock your AI-driven matches.";
-                focusBtnText = "Start Assessment ➔";
-                focusAction = "window.launchAssessment()";
-            }
-        } 
-        
-        if(data.assessmentCompleted) { 
-            profileTasks.find(t=>t.id==='ass').done = true;
-            score += 3; xp += 50; 
-            breakdownHTML += `<div class="xp-list-item"><span>Assessment Completed</span><strong style="color:var(--success);">+50 XP</strong></div>`;
-            window.unlockBadge('badge-assessed', 'unlocked-primary', 40);
-            
-            const step2 = document.getElementById('tl-step-2');
-            if (step2) step2.classList.add('completed');
-            
-            safeSetText('dot-report', "✔");
-            safeSetText('dot-explore', "✔");
-            
-            focusTitle = "Explore Top Careers";
-            focusDesc = "Review your Career Lab pathways, then book a session to discuss with a pro.";
-            focusBtnText = "Explore Careers ➔";
-            focusAction = "window.switchTab('tab-explore', document.querySelectorAll('.nav-btn')[2])";
-        }
-
-        if(data.sessionsHad && data.sessionsHad > 0) { 
-            profileTasks.find(t=>t.id==='ses').done = true;
-            score += 2; xp += 50; 
-            breakdownHTML += `<div class="xp-list-item"><span>Counselling Session</span><strong style="color:var(--success);">+50 XP</strong></div>`;
-            window.unlockBadge('badge-counselled', 'unlocked-primary', 60);
-            
-            const step3 = document.getElementById('tl-step-3');
-            if (step3) step3.classList.add('completed');
-            
-            safeSetText('dot-counselling', "✔");
-            safeSetText('dot-chat', "✔");
-
-            focusTitle = "Commit & Lock Path";
-            focusDesc = "Based on your session, lock in your final choice to generate your execution plan.";
-            focusBtnText = "Lock Final Path ➔";
-            focusAction = "document.getElementById('lockCareerSection').scrollIntoView({behavior: 'smooth'})";
-        }
-
-        if(data.careerLocked) {
-            profileTasks.find(t=>t.id==='loc').done = true;
-            score = 10; xp += 100; 
-            breakdownHTML += `<div class="xp-list-item"><span>Career Path Locked 🔒</span><strong style="color:var(--success);">+100 XP</strong></div>`;
-            window.unlockBadge('badge-locked', 'unlocked-success', 100);
-            
-            const step4 = document.getElementById('tl-step-4');
-            if (step4) step4.classList.add('completed');
-            
-            const lockSection = document.getElementById('lockCareerSection');
-            if (lockSection) lockSection.style.display = 'none'; 
-            
-            const lockedSuccess = document.getElementById('careerLockedSuccess');
-            if (lockedSuccess) lockedSuccess.style.display = 'block';
-            
-            const academicInputCard = document.getElementById('academicInputCard');
-            if (academicInputCard) {
-                academicInputCard.style.pointerEvents = 'none';
-                academicInputCard.style.opacity = '0.6';
-            }
-
-            focusTitle = "Execute Action Plan";
-            focusDesc = "Your path is set. Follow your recommended 1-Year Execution strategy.";
-            focusBtnText = "View Execution Plan ➔";
-            focusAction = "window.switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])";
-        }
-
-        // Apply Logic UI updates safely
-        let profDone = profileTasks.find(t=>t.id==='target').done && profileTasks.find(t=>t.id==='edu').done;
-        let assDone = data.assessmentCompleted;
-        let sesDone = data.sessionsHad && data.sessionsHad > 0;
-        let locDone = data.careerLocked;
-
-        let levelName = "Level 1 - Explorer"; let levelText = "You are beginning your career discovery journey."; let percentile = 82; 
-        if(score >= 10) { levelName = "Level 5 - Decided"; levelText = "Path locked. Action plan activated. Time to execute."; percentile = 95; }
-        else if (score >= 8) { levelName = "Level 4 - Strategist"; levelText = "Excellent clarity! You are ready to lock your final strategic path."; percentile = 88;}
-        else if (score >= 6) { levelName = "Level 3 - Analyst"; levelText = "You've moved from exploration to structured comparison."; percentile = 65;}
-        else if (score >= 4) { levelName = "Level 2 - Discoverer"; levelText = "Assessment complete. Analyzing your natural aptitudes."; percentile = 40;}
-        
-        // --- NEW ROW 1 SAFE UPDATES ---
-        safeSetText('dashClarityScore', score);
-        
-        const assStatusHTML = assDone ? '<span style="color:var(--success);">Completed ✔</span>' : '<span style="color:var(--warning);">Pending ⏳</span>';
-        safeSetHTML('dashAssStatus', assStatusHTML);
-        
-        const sesStatusHTML = sesDone ? '<span style="color:var(--success);">Completed ✔</span>' : '<span style="color:var(--text-muted);">Not Booked</span>';
-        safeSetHTML('dashSessionStatus', sesStatusHTML);
-        
-        safeSetText('dashActionText', focusBtnText.replace(' ➔', ''));
-        const actionCard = document.getElementById('dashActionCard');
-        if (actionCard) actionCard.setAttribute('onclick', focusAction);
-
-        // Update Modals safely
-        safeSetHTML('xpBreakdownList', breakdownHTML);
-        
-        let completedCount = profileTasks.filter(t => t.done).length;
-        let percentProgress = Math.round((completedCount / profileTasks.length) * 100);
-        
-        const modalProgressBar = document.getElementById('modalProgressBar');
-        if (modalProgressBar) modalProgressBar.style.width = percentProgress + "%";
-        
-        const sideProfileBar = document.getElementById('sideProfileBar');
-        if (sideProfileBar) sideProfileBar.style.width = percentProgress + "%";
-        
-        safeSetText('sideProfileText', percentProgress + "%");
-
-        // Render distinct Done / Pending lists
-        const pendingTasks = profileTasks.filter(t => !t.done);
-        const doneTasks = profileTasks.filter(t => t.done);
-        
-        const pendingListEl = document.getElementById('progressTaskListPending');
-        if (pendingListEl) {
-            pendingListEl.innerHTML = pendingTasks.map(t => `<div class="prog-task-item pending"><span>⏳</span><span style="flex:1;">${t.name}</span></div>`).join('');
-            if(pendingTasks.length === 0) { 
-                pendingListEl.innerHTML = `<div style="text-align:center; padding:10px; font-weight:bold; color:var(--success);">All tasks complete!</div>`; 
-            }
-        }
-        
-        const doneListEl = document.getElementById('progressTaskListDone');
-        if (doneListEl) {
-            doneListEl.innerHTML = doneTasks.map(t => `<div class="prog-task-item done"><span>✅</span><span style="flex:1;">${t.name}</span></div>`).join('');
-        }
-
-        window.updateTopXP(xp, levelName);
-
-        // --- NEW ROW 2.5: AI INSIGHT PANEL ---
-        const aiInsightPanel = document.getElementById('aiInsightPanel');
-        if(aiInsightPanel && assDone && data.fullReport && data.fullReport.finalCode) {
-            aiInsightPanel.style.display = 'block';
-            let trait = data.fullReport.finalCode.charAt(0);
-            let insight = "Analyzing your profile...";
-            if(trait === 'R') insight = "Based on your strong Realistic traits, careers involving hands-on problem solving, machinery, or outdoors will suit you best.";
-            else if(trait === 'I') insight = "Based on your strong Investigative traits, careers involving research, analytics, and intellectual problem-solving will suit you perfectly.";
-            else if(trait === 'A') insight = "Based on your strong Artistic traits, careers requiring creativity, design, and unstructured innovation are highly recommended.";
-            else if(trait === 'S') insight = "Based on your strong Social traits, careers focused on teaching, healing, counseling, and teamwork will be highly fulfilling.";
-            else if(trait === 'E') insight = "Based on your strong Enterprising traits, careers in leadership, business, sales, and management align with your natural aptitudes.";
-            else if(trait === 'C') insight = "Based on your strong Conventional traits, careers requiring organization, data management, and structured systems will suit you perfectly.";
-            
-            safeSetText('aiInsightText', insight);
-        }
-
-        // --- NEW ROW 2 & CAREER EXPLORER TAB: CAREERS SAFE UPDATE ---
-        const dashCareersRow = document.getElementById('dashTopCareersRow');
-        const exploreCardsGrid = document.getElementById('exploreCardsGrid');
-        const compTableBody = document.getElementById('comparisonTableBody');
-
-        if(assDone && data.fullReport && data.fullReport.topCareers) {
-            let topCareers = data.fullReport.topCareers.slice(0,3);
-            let cHtml = '';
-            let exploreHtml = '';
-            let tableHtml = '';
-
-            topCareers.forEach((c, idx) => {
-                let searchStr = c.name.split(' ')[0].toLowerCase();
-                let trait = data.fullReport.finalCode ? data.fullReport.finalCode.charAt(0) : 'R';
-                let traitName = trait === 'R' ? 'Realistic (Hands-on)' : trait === 'I' ? 'Investigative (Analytical)' : trait === 'A' ? 'Artistic (Creative)' : trait === 'S' ? 'Social (Helping)' : trait === 'E' ? 'Enterprising (Leading)' : 'Conventional (Organizing)';
-                
-                // Dashboard Cards
-                cHtml += `
-                <div class="card" style="margin:0; padding:20px; border-top: 4px solid ${idx===0?'var(--primary)':idx===1?'var(--secondary)':'var(--warning)'}; display:flex; flex-direction:column;">
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
-                        <h3 style="border:none; padding:0; margin:0; font-size:1.1rem; color:#0f172a; line-height:1.3;">${c.name}</h3>
-                        <span class="status-pill status-success">${c.score}%</span>
-                    </div>
-                    <p style="font-size:0.85rem; color:var(--text-muted); flex:1; margin-bottom:15px;"><strong>Why it matches:</strong> Aligns perfectly with your ${traitName} natural aptitude.</p>
-                    <button onclick="window.switchTab('tab-explore', document.querySelectorAll('.nav-btn')[2])" class="btn btn-outline" style="width:100%; text-align:center; padding:8px; font-size:0.85rem;">View Details ➔</button>
-                </div>`;
-
-                // Explorer Tab Cards
-                let sal = idx===0 ? "₹12-25 LPA" : idx===1 ? "₹8-18 LPA" : "₹6-15 LPA";
-                let growth = idx===0 ? "Very High" : idx===1 ? "High" : "Steady";
-                let subj = trait === 'I' ? "Maths + Science" : trait === 'E' ? "Commerce + English" : trait === 'A' ? "Arts + Humanities" : "Varied";
-
-                exploreHtml += `
-                <div class="card" style="margin:0; padding:25px; border-top: 4px solid ${idx===0?'var(--primary)':idx===1?'var(--secondary)':'var(--warning)'};">
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:15px;">
-                        <h3 style="border:none; padding:0; margin:0; font-size:1.2rem; color:#0f172a;">${c.name}</h3>
-                        <span class="status-pill status-success">${c.score}% Match</span>
-                    </div>
-                    <p style="margin:5px 0; font-size:0.9rem; color:var(--text-main);"><strong>Avg Salary:</strong> <span style="color:var(--success); font-weight:bold;">${sal}</span></p>
-                    <p style="margin:5px 0; font-size:0.9rem; color:var(--text-main);"><strong>Growth Rate:</strong> ${growth}</p>
-                    <p style="margin:5px 0 20px 0; font-size:0.9rem; color:var(--text-main);"><strong>Key Subjects:</strong> ${subj}</p>
-                    
-                    <div style="display:flex; gap:10px;">
-                        <a href="https://antoniovn96.github.io/vidyavantage.github.io/colleges/?search=${searchStr}" target="_blank" class="btn" style="flex:1; padding:10px; font-size:0.85rem; text-decoration:none;">Explore ➔</a>
-                        <button class="btn btn-outline" style="padding:10px; font-size:1rem;" onclick="window.showToastNotification('Saved', 'Career added to your favorites.')">⭐</button>
-                    </div>
-                </div>`;
-
-                // Comparison Table Row
-                tableHtml += `
-                <tr>
-                    <td><strong>${c.name}</strong></td>
-                    <td style="color:var(--success); font-weight:bold;">${sal}</td>
-                    <td>3 - 4 Years</td>
-                    <td>${growth}</td>
-                    <td>${traitName.split(' ')[0]} Skills</td>
-                </tr>`;
-            });
-            
-            if(dashCareersRow) dashCareersRow.innerHTML = cHtml;
-            if(exploreCardsGrid) exploreCardsGrid.innerHTML = exploreHtml;
-            if(compTableBody) compTableBody.innerHTML = tableHtml;
-            
-            const expLocked = document.getElementById('exploreLockedUI');
-            const expUnlocked = document.getElementById('exploreUnlockedUI');
-            if(expLocked) expLocked.style.display = 'none';
-            if(expUnlocked) expUnlocked.style.display = 'block';
-
-        } else {
-            if(dashCareersRow) {
-                dashCareersRow.innerHTML = `
-                <div class="card" style="margin:0; text-align:center; opacity:0.6; padding:40px 20px; grid-column: 1 / -1; border-top: 4px solid var(--border);">
-                    <div style="font-size:3rem; margin-bottom:10px;">🔒</div>
-                    <h3 style="border:none; justify-content:center; font-size:1.4rem;">Assessment Pending</h3>
-                    <p style="color:var(--text-muted); margin-top:-5px;">Complete your psychometric assessment to reveal your top matching careers.</p>
-                    <button class="btn hide-from-parent" style="margin-top:15px;" onclick="window.launchAssessment()">Start Assessment Now</button>
-                </div>`;
-            }
-        }
-
-        // --- NEW ROW 3: PROGRESS TRACK SAFE UPDATE ---
-        const track = document.getElementById('dashJourneyTrack');
-        if(track) {
-            track.innerHTML = `
-                <div class="journey-step">
-                    <div class="j-icon">${profDone ? '✅' : 'Week 1'}</div>
-                    <div class="j-text" style="${profDone?'':'opacity:0.6'}">Complete Career Profile</div>
-                    <div class="j-status ${profDone ? 'status-done' : 'status-pending'}">${profDone ? 'Done' : 'Action Req'}</div>
-                </div>
-                <div class="journey-step">
-                    <div class="j-icon">${assDone ? '✅' : 'Week 2'}</div>
-                    <div class="j-text" style="${assDone?'':'opacity:0.6'}">Take AI Psychometric Assessment</div>
-                    <div class="j-status ${assDone ? 'status-done' : 'status-pending'}">${assDone ? 'Done' : 'Pending'}</div>
-                </div>
-                <div class="journey-step">
-                    <div class="j-icon">${assDone ? '✅' : 'Week 3'}</div>
-                    <div class="j-text" style="${assDone?'':'opacity:0.6'}">Explore Top 3 Career Pathways</div>
-                    <div class="j-status ${assDone ? 'status-done' : 'status-pending'}">${assDone ? 'Done' : 'Pending'}</div>
-                </div>
-                <div class="journey-step">
-                    <div class="j-icon">${sesDone ? '✅' : 'Week 4'}</div>
-                    <div class="j-text" style="${sesDone?'':'opacity:0.6'}">Book Counselling Session</div>
-                    <div class="j-status ${sesDone ? 'status-done' : 'status-pending'}">${sesDone ? 'Done' : 'Pending'}</div>
-                </div>
-                <div class="journey-step">
-                    <div class="j-icon">${locDone ? '✅' : 'Goal'}</div>
-                    <div class="j-text" style="${locDone?'':'opacity:0.6'}">Finalize Stream & Career Path</div>
-                    <div class="j-status ${locDone ? 'status-done' : 'status-pending'}">${locDone ? 'Done' : 'Pending'}</div>
-                </div>
-            `;
-        }
-
-        // SAFELY RENDER ASSESSMENT RESULTS TAB
-        if(data.assessmentCompleted && data.fullReport) {
-            const lockedRepUI = document.getElementById('lockedReportUI');
-            if (lockedRepUI) lockedRepUI.style.display = 'none';
-            
-            const unlockedRepUI = document.getElementById('unlockedReportUI');
-            if (unlockedRepUI) unlockedRepUI.style.display = 'block';
-            
-            const rep = data.fullReport;
-            safeSetText('reportRiasecCode', rep.finalCode || "N/A");
-            safeSetText('reportProfileDesc', rep.profileDesc || "");
-
-            if (document.getElementById('reportCareersContainer') && rep.topCareers) {
-                document.getElementById('reportCareersContainer').innerHTML = rep.topCareers.map(c => `
-                    <div class="career-pill" style="border-left: 4px solid var(--border);"><span>${c.name}</span><span class="status-pill status-success" style="font-size:0.75rem;">${c.score}% Match</span></div>
-                `).join('');
-            }
-            
-            safeSetText('reportAvoid', rep.avoid || "None specified.");
-            
-            if (rep.executionPlan) {
-                if (rep.executionPlan.courses && document.getElementById('reportPlanCourses')) {
-                    document.getElementById('reportPlanCourses').innerHTML = rep.executionPlan.courses.map(c => `<li>${c}</li>`).join('');
-                }
-                if (rep.executionPlan.exams && document.getElementById('reportPlanExams')) {
-                    document.getElementById('reportPlanExams').innerHTML = rep.executionPlan.exams.map(e => `<li>${e}</li>`).join('');
-                }
-            }
-
-            if (typeof Chart !== 'undefined' && rep.scores) {
-                let existingChart = Chart.getChart('reportRiasecChart');
-                if (existingChart) { existingChart.destroy(); }
-
-                const reportCtxEl = document.getElementById('reportRiasecChart');
-                if (reportCtxEl) {
-                    const reportCtx = reportCtxEl.getContext('2d');
-                    new Chart(reportCtx, { 
-                        type: 'radar', 
-                        data: { 
-                            labels: ['Realistic','Investigative','Artistic','Social','Enterprising','Conventional'], 
-                            datasets: [{ 
-                                data: [rep.scores.R, rep.scores.I, rep.scores.A, rep.scores.S, rep.scores.E, rep.scores.C], 
-                                backgroundColor: 'rgba(59, 130, 246, 0.2)', 
-                                borderColor: '#3b82f6', 
-                                pointBackgroundColor: '#0f172a' 
-                            }] 
-                        }, 
-                        options: { maintainAspectRatio: false, scales: { r: { max: 100, min: 0, ticks:{display:false} } }, plugins: { legend: { display: false } } } 
-                    });
-                }
-            }
-        }
-
-        // GROWTH CHART RENDER
-        setTimeout(() => {
-            if (typeof Chart !== 'undefined') {
-                const ctx = document.getElementById('growthChart');
-                if(ctx) {
-                    if(growthChartInstance) growthChartInstance.destroy();
-                    growthChartInstance = new Chart(ctx.getContext('2d'), {
-                        type: 'bar',
-                        data: { 
-                            labels: ['Profile', 'Assessment', 'Explore', 'Counsel', 'Locked'], 
-                            datasets: [{ 
-                                label: 'Clarity Score',
-                                data: [3, assDone?6:0, assDone?7:0, sesDone?8:0, locDone?10:0], 
-                                backgroundColor: 'rgba(59, 130, 246, 0.5)',
-                                borderColor: '#3b82f6',
-                                borderWidth: 2,
-                                borderRadius: 5
-                            }] 
-                        },
-                        options: { 
-                            responsive: true, maintainAspectRatio: false, 
-                            plugins: { legend: { display: false } }, 
-                            scales: { y: { display: true, min: 0, max: 10, grid: { color: '#e2e8f0'} }, x: { grid: { display: false } } } 
-                        }
-                    });
-                }
-            }
-        }, 300);
-
-      } catch (err) {
-        console.error("Dashboard Render Error:", err);
-      }
-    }
-
-    // --- SAVE LOGIC ---
-    window.saveAcademicPortfolio = async function() {
-        if(!activeUserUid) return;
-        const btn = document.getElementById('saveProfileBtn');
-        btn.innerText = "Saving Profile... ⏳"; btn.disabled = true;
-
-        const curTrend = document.getElementById('portTrend').value;
-        const curStream = document.getElementById('portStream').value;
-        const board = document.getElementById('portBoard').value;
-        const currClass = document.getElementById('portClass').value;
-        const marks = document.getElementById('portMarks').value;
-        const strongSub = document.getElementById('portStrong').value;
-        const weakSub = document.getElementById('portWeak').value;
-        const studyStyle = document.getElementById('portStyle').value;
-
-        // Volunteer Data
-        const volBlocks = document.querySelectorAll('#volunteerContainer .entry-block');
-        let volData = [];
-        volBlocks.forEach(b => {
-            let org = b.querySelector('.vol-org').value.trim();
-            if(org) {
-                volData.push({
-                    organization: org,
-                    role: b.querySelector('.vol-role').value,
-                    from: b.querySelector('.vol-from').value,
-                    current: b.querySelector('.vol-current').checked,
-                    to: b.querySelector('.vol-to').value,
-                    type: b.querySelector('.vol-type').value,
-                    state: b.querySelector('.vol-state').value,
-                    district: b.querySelector('.vol-district').value,
-                    city: b.querySelector('.vol-city').value,
-                    desc: b.querySelector('.vol-desc').value
-                });
-            }
-        });
-
-        // Edu Data with nested subjects
-        const eduBlocks = document.querySelectorAll('#educationContainer .entry-block');
-        let eduData = [];
-        eduBlocks.forEach(b => {
-            let n = b.querySelector('.edu-name').value.trim();
-            if(n) {
-                let subjects = [];
-                b.querySelectorAll('.edu-subject-row').forEach(row => {
-                    let sName = row.querySelector('.edu-sub-name').value.trim();
-                    let sScore = row.querySelector('.edu-sub-score').value.trim();
-                    if(sName || sScore) subjects.push({name: sName, score: sScore});
-                });
-
-                eduData.push({
-                    level: b.querySelector('.edu-level').value,
-                    name: n,
-                    certName: b.querySelector('.edu-cert-name') ? b.querySelector('.edu-cert-name').value.trim() : "",
-                    from: b.querySelector('.edu-from').value,
-                    to: b.querySelector('.edu-to').value,
-                    gradingSystem: b.querySelector('.edu-grading-sys').value,
-                    score: b.querySelector('.edu-overall-score').value,
-                    subjects: subjects
-                });
-            }
-        });
-
-        const academicData = { 
-            trend: curTrend,
-            stream: curStream,
-            board: board,
-            currentClass: currClass,
-            overallScore: marks,
-            strongSubject: strongSub,
-            weakSubject: weakSub,
-            studyStyle: studyStyle,
-            extraCurriculars: document.getElementById('portExtraCurricular').value.trim(),
-            volunteerHistory: volData,
-            eduHistory: eduData,
-            hobbies: hobbiesArray,
-            interests: {
-                music: document.getElementById('intMusic').value,
-                artist: document.getElementById('intArtist').value,
-                tv: document.getElementById('intTV').value,
-                movies: document.getElementById('intMovies').value,
-                games: document.getElementById('intGames').value,
-                sports: document.getElementById('intSports').value
-            }
-        };
-
-        try {
-            await setDoc(doc(db, "students", activeUserUid), { academic: academicData }, { merge: true });
-            if(uploadedImageBase64) await updateDoc(doc(db, "students", activeUserUid), { photo: uploadedImageBase64 });
-            window.showToastNotification("Profile Updated!", "Your complete dossier has been securely saved. XP Awarded!");
-            if(!studentDataObj.academic) studentDataObj.academic = {};
-            studentDataObj.academic = {...studentDataObj.academic, ...academicData}; 
-            window.calculateDynamicScore(studentDataObj);
-        } catch(e) { console.error(e); window.showCustomAlert("Failed to save. Check your connection.", "Save Error");}
-        finally { btn.innerText = "💾 Save Complete Profile"; btn.disabled = false; }
-    }
-
-    // --- RESTORED REQUIRED FUNCTIONS ---
-    window.globalCounsellors = {};
-
-    window.showNotificationPopup = function() {
-        if(globalUnreadCount > 0) {
-            window.showCustomAlert(`You have ${globalUnreadCount} unread message(s) from your counsellor. Please check the Direct Chat tab.`, "New Messages", false);
-        } else {
-            window.showCustomAlert("You have no new notifications right now.", "No Notifications", false);
-        }
-    }
-
-    window.showCounsellorTimes = function(cid) {
-        const infoBox = document.getElementById('bookingAvailInfo');
-        if(cid) { infoBox.style.display = 'block'; } else { infoBox.style.display = 'none'; }
-    }
-
-    window.submitBooking = async function() {
-        const cid = document.getElementById('bookCounsellorSelect').value;
-        const date = document.getElementById('bookDate').value;
-        const time = document.getElementById('bookTime').value;
-        const phone = document.getElementById('bookPhone').value;
-        const medium = document.getElementById('bookMedium').value;
-
-        // Get session goals
-        let goals = [];
-        document.querySelectorAll('.session-goal-cb:checked').forEach(cb => { goals.push(cb.value); });
-
-        if(!cid || !date || !time || !phone) return window.showCustomAlert("Please complete all booking fields.", "Missing Info");
-
-        const btn = document.getElementById('confirmBookingBtn');
-        btn.innerText = "Processing Booking... ⏳";
-        btn.disabled = true;
-
-        try {
-            await addDoc(collection(db, "bookings"), {
-                studentId: activeUserUid,
-                studentName: studentDataObj.name,
-                studentEmail: studentDataObj.email,
-                counsellorId: cid,
-                counsellorName: window.globalCounsellors[cid].name,
-                date: date, time: time, phone: phone, medium: medium,
-                goals: goals,
-                status: "Pending", timestamp: serverTimestamp()
-            });
-
-            const currentSessions = studentDataObj.sessionsHad || 0;
-            await updateDoc(doc(db, "students", activeUserUid), { sessionsHad: currentSessions + 1 });
-            studentDataObj.sessionsHad = currentSessions + 1;
-            window.calculateDynamicScore(studentDataObj);
-
-            window.showToastNotification("Booking Confirmed! 🎉", `Your session on ${date} at ${time} is locked.`);
-            document.getElementById('bookDate').value = ""; document.getElementById('bookTime').value = ""; document.getElementById('bookPhone').value = ""; document.getElementById('bookCounsellorSelect').value = ""; window.showCounsellorTimes(""); 
-            document.querySelectorAll('.session-goal-cb').forEach(cb => cb.checked = false);
-        } catch (e) { console.error(e); window.showCustomAlert("Error connecting to the scheduling system.", "System Error"); } finally { btn.innerText = "Confirm Booking"; btn.disabled = false; }
-    }
-
-    async function loadCounsellors() {
-        const chatSelect = document.getElementById('studentChatSelect');
-        const bookSelect = document.getElementById('bookCounsellorSelect');
-        window.globalCounsellors = {};
-        try {
-            const snap = await getDocs(collection(db, "counsellor_profiles"));
-            if(!snap.empty) {
-                if(chatSelect) chatSelect.innerHTML = '<option value="">-- Choose your assigned Counsellor --</option>';
-                if(bookSelect) bookSelect.innerHTML = '<option value="">-- Choose an Expert --</option>';
-                activeChatListeners.forEach(unsub => unsub()); activeChatListeners.length = 0;
-
-                snap.forEach(docSnap => {
-                    const data = docSnap.data();
-                    window.globalCounsellors[docSnap.id] = data;
-                    const optionHtml = `<option value="${docSnap.id}">🟢 ${data.name || docSnap.id} - Online</option>`;
-                    if(chatSelect) chatSelect.innerHTML += optionHtml; 
-                    if(bookSelect) bookSelect.innerHTML += optionHtml;
-
-                    const chatId = `${activeUserUid}_${docSnap.id}`;
-                    const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
-                    let isInitialLoad = true;
-
-                    const unsub = onSnapshot(q, (snapshot) => {
-                        snapshot.docChanges().forEach((change) => {
-                            if (change.type === "added") {
-                                const msg = change.doc.data();
-                                if (!isInitialLoad && msg.senderId !== activeUserUid) {
-                                    const activeTabEl = document.querySelector('.tab-content.active');
-                                    const isViewingChat = activeTabEl && activeTabEl.id === 'tab-chat' && document.getElementById('studentChatSelect') && document.getElementById('studentChatSelect').value === docSnap.id;
-                                    if(!isViewingChat) {
-                                        globalUnreadCount++;
-                                        const badge = document.getElementById('notifBadge');
-                                        if(badge) {
-                                            badge.innerText = globalUnreadCount; 
-                                            badge.style.display = 'flex';
-                                        }
-                                        window.showToastNotification("New Message", `${data.name || "Counsellor"} sent you a message.`);
-                                    }
-                                }
-                            }
-                        });
-                        isInitialLoad = false;
-                    });
-                    activeChatListeners.push(unsub);
-                });
-            } else { 
-                if(chatSelect) chatSelect.innerHTML = '<option value="">No counsellors registered.</option>'; 
-                if(bookSelect) bookSelect.innerHTML = '<option value="">No experts registered.</option>'; 
-            }
-        } catch(e) { console.error("Error loading counsellors:", e); }
-    }
-
-    window.loadCounsellorChat = function(counsellorId) {
-        if(!counsellorId) { 
-            if(document.getElementById('counsellorProfileCard')) document.getElementById('counsellorProfileCard').innerHTML = "Select a counsellor to view profile."; 
-            return; 
-        }
-        const c = window.globalCounsellors[counsellorId];
-        if(c && document.getElementById('counsellorProfileCard')) {
-            document.getElementById('counsellorProfileCard').innerHTML = `
-                <img src="${c.photo || 'https://ui-avatars.com/api/?name=Expert&background=3b82f6&color=fff'}" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid var(--success); margin-bottom:15px;">
-                <h4 style="margin:0; color:#0f172a; font-size:1.1rem;">${c.name}</h4>
-                <p style="font-size:0.8rem; margin:5px 0; color:var(--success); font-weight:bold;">🟢 Online Now</p>
-                <p style="font-size:0.85rem; line-height:1.5;">${c.bio || 'Clinical Career Expert'}</p>
-            `;
-        }
-
-        if(unsubscribeChat) unsubscribeChat();
-        const chatBox = document.getElementById('studentChatMessages');
-        if(chatBox) chatBox.innerHTML = '<div style="text-align:center; color:var(--text-muted); margin-top:40px;">Loading messages...</div>';
-
-        const chatId = `${activeUserUid}_${counsellorId}`;
-        const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
-
-        unsubscribeChat = onSnapshot(q, (snapshot) => {
-            let html = '<div style="text-align:center; color:var(--text-muted); margin-bottom: 25px; font-size:0.8rem; padding: 5px 15px; background: #f1f5f9; border-radius: 50px; display:inline-block; margin-left: 50%; transform: translateX(-50%);">🔒 Secure connection established.</div>';
-            if(snapshot.empty) { html += `<div class="chat-message chat-counsellor">Hi! I am your career expert. Send a message to start our session.</div>`; } 
-            else {
-                snapshot.forEach(doc => {
-                    const msg = doc.data();
-                    const isStudent = msg.senderId === activeUserUid;
-                    const timeString = msg.timestamp ? new Date(msg.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Sending...';
-                    html += `<div class="chat-message ${isStudent ? 'chat-student' : 'chat-counsellor'}">${msg.text}<span class="chat-time" style="${isStudent ? 'color:rgba(255,255,255,0.7);' : ''}">${timeString}</span></div>`;
-                });
-            }
-            if(chatBox) {
-                chatBox.innerHTML = html; 
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-        });
-    }
-
-    window.sendStudentChatMessage = async function() {
-        const input = document.getElementById('studentChatInput');
-        if(!input) return;
-        const text = input.value.trim();
-        const counsellorId = document.getElementById('studentChatSelect').value;
-        if(!text) return; 
-        if(!counsellorId) return window.showCustomAlert("Please select a counsellor to chat.", "Select Expert");
-        input.value = ""; 
-        try { await addDoc(collection(db, "chats", `${activeUserUid}_${counsellorId}`, "messages"), { text: text, senderId: activeUserUid, senderType: 'student', timestamp: serverTimestamp() }); } 
-        catch(e) { console.error("Failed to send:", e); }
-    }
-
-    window.switchTab = function(tabId, btn) {
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        const targetTab = document.getElementById(tabId);
-        if(targetTab) targetTab.classList.add('active');
-        if(btn) btn.classList.add('active');
-        
-        const headerTitle = document.getElementById('headerTitle');
-        if(headerTitle && btn) headerTitle.innerText = btn.innerText.replace(/[^\w\s]/gi, '').trim();
-        
-        if(tabId === 'tab-chat') {
-            globalUnreadCount = 0;
-            const badge = document.getElementById('notifBadge');
-            if(badge) {
-                badge.style.display = 'none';
-                badge.innerText = '0';
-            }
-        }
-
-        // Close sidebar on mobile after clicking a link
-        if(window.innerWidth <= 768) {
-            window.toggleSidebar(true);
-        }
-    };
-
-    onAuthStateChanged(auth, async (user) => {
-        if (!user) { window.location.href = "index.html"; return; }
-        activeUserUid = user.uid;
-        loadCounsellors();
-
-        try {
-            const studentSnap = await getDoc(doc(db, "students", user.uid));
-            if (studentSnap.exists()) {
-                const data = studentSnap.data();
-                studentDataObj = data; 
-                
-                const firstName = data.name.split(' ')[0];
-                
-                safeSetText('stuName', data.name);
-                safeSetText('welcomeText', `Welcome back, ${firstName}.`);
-                
-                if (document.getElementById('setStuName')) document.getElementById('setStuName').value = data.name;
-                if (document.getElementById('setStuEmail')) document.getElementById('setStuEmail').value = data.email;
-                
-                if(data.photo) {
-                    uploadedImageBase64 = data.photo;
-                    const avaImg1 = document.getElementById('stuAvatarImg');
-                    if(avaImg1) { avaImg1.src = data.photo; avaImg1.style.display = 'block'; }
-                    const avaImg2 = document.getElementById('stuInitials');
-                    if(avaImg2) avaImg2.style.display = 'none';
-                } else {
-                    safeSetText('stuInitials', firstName.charAt(0).toUpperCase());
-                }
-                
-                if(data.academic) {
-                    if(data.academic.board && document.getElementById('portBoard')) document.getElementById('portBoard').value = data.academic.board;
-                    if(data.academic.currentClass && document.getElementById('portClass')) document.getElementById('portClass').value = data.academic.currentClass;
-                    if(data.academic.overallScore && document.getElementById('portMarks')) document.getElementById('portMarks').value = data.academic.overallScore;
-                    if(data.academic.strongSubject && document.getElementById('portStrong')) document.getElementById('portStrong').value = data.academic.strongSubject;
-                    if(data.academic.weakSubject && document.getElementById('portWeak')) document.getElementById('portWeak').value = data.academic.weakSubject;
-                    if(data.academic.studyStyle && document.getElementById('portStyle')) document.getElementById('portStyle').value = data.academic.studyStyle;
-
-                    if(data.academic.trend && document.getElementById('portTrend')) document.getElementById('portTrend').value = data.academic.trend;
-                    if(data.academic.stream && document.getElementById('portStream')) document.getElementById('portStream').value = data.academic.stream;
-                    if(data.academic.extraCurriculars && document.getElementById('portExtraCurricular')) document.getElementById('portExtraCurricular').value = data.academic.extraCurriculars;
-                    
-                    if(data.academic.hobbies && Array.isArray(data.academic.hobbies)) { hobbiesArray = data.academic.hobbies; renderHobbies(); }
-                    if(data.academic.interests) {
-                        if(document.getElementById('intMusic')) document.getElementById('intMusic').value = data.academic.interests.music || '';
-                        if(document.getElementById('intArtist')) document.getElementById('intArtist').value = data.academic.interests.artist || '';
-                        if(document.getElementById('intTV')) document.getElementById('intTV').value = data.academic.interests.tv || '';
-                        if(document.getElementById('intMovies')) document.getElementById('intMovies').value = data.academic.interests.movies || '';
-                        if(document.getElementById('intGames')) document.getElementById('intGames').value = data.academic.interests.games || '';
-                        if(document.getElementById('intSports')) document.getElementById('intSports').value = data.academic.interests.sports || '';
-                    }
-
-                    if(data.academic.volunteerHistory && data.academic.volunteerHistory.length > 0) {
-                        data.academic.volunteerHistory.forEach(v => window.addVolunteerEntry(v));
-                    } else if (data.academic.workHistory && data.academic.workHistory.length > 0) {
-                        data.academic.workHistory.forEach(v => window.addVolunteerEntry({ organization: v.company, role: v.position, from: v.from, to: v.to, current: v.current, type: v.type, state: v.state, desc: v.desc }));
-                    } else window.addVolunteerEntry();
-
-                    if(data.academic.eduHistory && data.academic.eduHistory.length > 0) {
-                        data.academic.eduHistory.forEach(e => window.addEducationEntry(e));
-                    } else window.addEducationEntry();
-                } else {
-                    window.addVolunteerEntry(); window.addEducationEntry();
-                }
-
-                window.calculateDynamicScore(data);
-            } else { window.location.href = "register.html"; }
-        } catch (error) { console.error("Data load failed:", error); }
-    });
-
-    const logoutBtn = document.getElementById('logoutBtnTop');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            if(confirm("Are you sure you want to log out?")) { signOut(auth).then(() => { window.location.href = "index.html"; }); }
-        });
-    }
 </script>
+
 </body>
 </html>
