@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Guidance & Psychometric Test for Students | Career Intelligence</title>
+    <title>India's Career Intelligence Platform | Guidance & Psychometric Test</title>
     
     <meta name="description" content="AI-powered career guidance and psychometric testing for students of Class 8 to 12. Discover the right stream and career path with expert counselling.">
     <meta property="og:title" content="Career Guidance & Psychometric Test for Students">
@@ -241,7 +241,7 @@
                 <div class="divider"><span>OR</span></div>
                 
                 <button type="button" class="btn-google" id="googleBtn">
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;">
+                    <img src="[https://www.svgrepo.com/show/475656/google-color.svg](https://www.svgrepo.com/show/475656/google-color.svg)" alt="Google" style="width: 22px; height: 22px;">
                     Sign in with Google
                 </button>
 
@@ -511,9 +511,9 @@
 </footer>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { initializeApp } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js)";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js)";
+    import { getFirestore, doc, setDoc, getDoc } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js)";
 
     // ⚠️ REPLACE WITH YOUR FIREBASE CONFIG
     const firebaseConfig = {
@@ -568,8 +568,6 @@
 
     // --- SMART LOGGED-IN STATE DETECTION ---
     onAuthStateChanged(auth, (user) => {
-        // Stop forcing redirect! Let them read the homepage if they want to.
-        // Instead, we dynamically change the Login UI to a "Go to Dashboard" button.
         if (user && !isProcessingLogin) {
             
             // 1. Update Navbar
