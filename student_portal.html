@@ -12,22 +12,22 @@
     
     <style>
       :root {
-        /* Vibrant, Modern EdTech Color Palette */
+        /* Vibrant, Modern EdTech Color Palette (Contrast Optimized) */
         --bg: #F4F7FB; 
         --sidebar: #0F172A; 
         --sidebar-hover: #1E293B;
         --card-bg: #FFFFFF; 
-        --primary: #4F46E5; /* Indigo */
-        --primary-hover: #4338CA; 
+        --primary: #4338CA; /* Deepened Indigo for better contrast */
+        --primary-hover: #3730A3; 
         --primary-light: #EEF2FF;
-        --secondary: #10B981; /* Emerald */
-        --accent: #F59E0B; /* Amber */
-        --text-main: #334155; 
-        --text-muted: #64748B; 
-        --border: #E2E8F0;
-        --success: #10B981; 
-        --warning: #F59E0B; 
-        --danger: #EF4444;
+        --secondary: #059669; /* Deepened Emerald */
+        --accent: #D97706; /* Deepened Amber */
+        --text-main: #1E293B; /* Darkened for readability */
+        --text-muted: #475569; /* Darkened for contrast */
+        --border: #CBD5E1; /* Slightly darker border */
+        --success: #059669; 
+        --warning: #D97706; 
+        --danger: #DC2626;
       }
       
       body { 
@@ -42,11 +42,17 @@
       
       h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; letter-spacing: -0.5px; }
 
+      /* --- FOCUS OUTLINE FOR ACCESSIBILITY --- */
+      *:focus-visible {
+          outline: 3px solid var(--primary);
+          outline-offset: 2px;
+      }
+
       /* --- CUSTOM SCROLLBAR --- */
       ::-webkit-scrollbar { width: 8px; height: 8px; }
       ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+      ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
       /* --- SIDEBAR --- */
       .sidebar { width: 280px; background: var(--sidebar); border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; overflow-y: auto; color: white; transition: 0.3s; z-index: 2000;}
@@ -59,15 +65,15 @@
       .avatar-wrapper:hover { transform: scale(1.05); }
       
       .nav-menu { padding: 0 15px; display: flex; flex-direction: column; gap: 8px; }
-      .nav-btn { background: transparent; color: #94a3b8; border: none; text-align: left; padding: 14px 20px; width: 100%; cursor: pointer; border-radius: 14px; font-weight: 700; font-size: 1rem; display: flex; align-items: center; transition: all 0.2s ease; font-family: 'Nunito', sans-serif;}
+      .nav-btn { background: transparent; color: #cbd5e1; border: none; text-align: left; padding: 14px 20px; width: 100%; cursor: pointer; border-radius: 14px; font-weight: 700; font-size: 1rem; display: flex; align-items: center; transition: all 0.2s ease; font-family: 'Nunito', sans-serif;}
       .nav-btn:hover { background: var(--sidebar-hover); color: white; transform: translateX(4px);}
       .nav-btn.active { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);}
-      .nav-dot { width: 24px; display: inline-block; font-size: 1rem; opacity: 0.5; transition: 0.3s;}
+      .nav-dot { width: 24px; display: inline-block; font-size: 1rem; opacity: 0.8; transition: 0.3s;}
       .nav-btn.active .nav-dot { opacity: 1; }
 
       /* --- MAIN CONTENT & HEADER --- */
       .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; background: var(--bg);}
-      .top-header { background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); height: 75px; min-height: 75px; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; z-index: 10;}
+      .top-header { background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); height: 75px; min-height: 75px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 40px; z-index: 10;}
       
       .hamburger-btn { display: none; font-size: 1.5rem; background: none; border: none; color: #0f172a; cursor: pointer; padding: 5px; margin-right: 15px;}
 
@@ -76,14 +82,14 @@
       .site-link { color: var(--primary); text-decoration: none; font-weight: 800; padding: 8px 16px; border-radius: 12px; background: var(--primary-light); transition: 0.2s; font-size: 0.9rem;}
       .site-link:hover { background: var(--primary); color: white; }
       
-      .notif-bell { position: relative; font-size: 1.4rem; cursor: pointer; transition: 0.2s; padding: 8px; border-radius: 50%; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
+      .notif-bell { position: relative; font-size: 1.4rem; cursor: pointer; transition: 0.2s; padding: 8px; border-radius: 50%; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid var(--border);}
       .notif-bell:hover { transform: scale(1.1);}
       .notif-badge { position: absolute; top: -2px; right: -2px; background: var(--danger); color: white; font-size: 0.65rem; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; display: none;}
       
-      .top-xp-display { display: flex; align-items: center; gap: 8px; background: #FFFBEB; border: 2px solid #FDE68A; padding: 6px 16px; border-radius: 50px; transition: 0.3s; cursor:pointer; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.1);}
+      .top-xp-display { display: flex; align-items: center; gap: 8px; background: #FFFBEB; border: 2px solid var(--accent); padding: 6px 16px; border-radius: 50px; transition: 0.3s; cursor:pointer; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.1);}
       .top-xp-display:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(245, 158, 11, 0.2); }
-      .top-xp-display span.lvl { color: #B45309; font-weight: 900; font-size: 0.9rem; font-family: 'Outfit', sans-serif;}
-      .top-xp-display span.xp { color: var(--accent); font-weight: 800; font-size: 0.9rem;}
+      .top-xp-display span.lvl { color: #92400E; font-weight: 900; font-size: 0.9rem; font-family: 'Outfit', sans-serif;}
+      .top-xp-display span.xp { color: #B45309; font-weight: 800; font-size: 0.9rem;}
       @keyframes xpBumpAnim { 0% { transform: scale(1); } 50% { transform: scale(1.15); background: #FEF3C7; box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); } 100% { transform: scale(1); } }
       .xp-bump { animation: xpBumpAnim 0.6s ease-out; }
 
@@ -98,13 +104,13 @@
       .header-bar p { margin: 0; color: var(--text-muted); font-size: 1.1rem; font-weight: 600;}
 
       /* WELCOME BANNER (HOME TAB ONLY) */
-      .welcome-banner { background: linear-gradient(135deg, var(--primary) 0%, #8B5CF6 100%); border-radius: 24px; padding: 40px; color: white; margin-bottom: 30px; box-shadow: 0 15px 30px rgba(79, 70, 229, 0.2); position: relative; overflow: hidden;}
+      .welcome-banner { background: linear-gradient(135deg, var(--primary) 0%, #6D28D9 100%); border-radius: 24px; padding: 40px; color: white; margin-bottom: 30px; box-shadow: 0 15px 30px rgba(79, 70, 229, 0.2); position: relative; overflow: hidden;}
       .welcome-banner::after { content: '🚀'; position: absolute; right: 20px; bottom: -20px; font-size: 8rem; opacity: 0.2; transform: rotate(-15deg);}
       .welcome-banner h1 { color: white; margin: 0 0 10px 0; font-size: 2.5rem; position: relative; z-index: 2;}
       .welcome-banner p { margin: 0; font-size: 1.15rem; opacity: 0.9; position: relative; z-index: 2; max-width: 600px;}
 
       /* --- UI COMPONENTS --- */
-      .card { background: var(--card-bg); padding: 35px; border-radius: 24px; border: 1px solid rgba(0,0,0,0.03); margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s ease, box-shadow 0.3s ease;}
+      .card { background: var(--card-bg); padding: 35px; border-radius: 24px; border: 1px solid var(--border); margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s ease, box-shadow 0.3s ease;}
       .card:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
       .card h3 { margin-top: 0; color: #0f172a; padding-bottom: 15px; font-size: 1.3rem; font-weight: 800;}
       
@@ -115,21 +121,21 @@
 
       /* MODERN INPUTS & BUTTONS */
       .form-group { margin-bottom: 20px; }
-      .form-label { display: block; font-weight: 800; margin-bottom: 8px; color: var(--text-main); font-size: 0.9rem; font-family: 'Outfit', sans-serif;}
-      .form-input, .form-select, .form-textarea { width: 100%; padding: 16px; border-radius: 14px; border: 2px solid transparent; background: #F1F5F9; color: #0f172a; box-sizing: border-box; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 600; transition: 0.3s;}
+      .form-label { display: block; font-weight: 800; margin-bottom: 8px; color: var(--text-main); font-size: 0.95rem; font-family: 'Outfit', sans-serif;}
+      .form-input, .form-select, .form-textarea { width: 100%; padding: 16px; border-radius: 14px; border: 2px solid var(--border); background: #F8FAFC; color: #0f172a; box-sizing: border-box; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 600; transition: 0.3s;}
       .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); outline: none; background: white; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);}
       
       .btn { background: var(--primary); color: white; border: none; padding: 14px 28px; font-size: 1.05rem; font-weight: 800; font-family: 'Outfit', sans-serif; border-radius: 14px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);}
       .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4); background: var(--primary-hover);}
       .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none;}
-      .btn-outline { background: white; border: 2px solid var(--border); color: var(--text-main); box-shadow: none;}
-      .btn-outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--primary-light);}
+      .btn-outline { background: white; border: 2px solid var(--primary); color: var(--primary); box-shadow: none;}
+      .btn-outline:hover:not(:disabled) { border-color: var(--primary-hover); color: white; background: var(--primary);}
 
       /* --- DASHBOARD SPECIFIC --- */
-      .stat-card { padding: 25px; border-radius: 20px; text-align: center; background: white; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: 0.3s; display: flex; flex-direction: column; justify-content: center;}
+      .stat-card { padding: 25px; border-radius: 20px; text-align: center; background: white; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: 0.3s; display: flex; flex-direction: column; justify-content: center;}
       .stat-card:hover { transform: translateY(-5px); }
       .stat-icon { font-size: 2.5rem; margin-bottom: 10px; }
-      .stat-title { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 5px 0;}
+      .stat-title { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 5px 0;}
       .stat-value { font-size: 1.8rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif; margin:0;}
 
       /* --- ACCORDIONS (Profile) --- */
@@ -141,22 +147,22 @@
       details.profile-acc[open] summary { border-bottom: 1px solid var(--border); background: #F8FAFC;}
       .acc-body { padding: 30px; background: white;}
 
-      .entry-block { background: #F8FAFC; border: 2px dashed #CBD5E1; padding: 30px; border-radius: 16px; margin-bottom: 20px; position: relative; transition: 0.3s;}
+      .entry-block { background: #F8FAFC; border: 2px dashed var(--border); padding: 30px; border-radius: 16px; margin-bottom: 20px; position: relative; transition: 0.3s;}
       .entry-block:hover { border-color: #94A3B8; }
-      .remove-entry-btn { position: absolute; top: 15px; right: 15px; background: #FEE2E2; color: var(--danger); border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.8rem; transition: 0.2s;}
+      .remove-entry-btn { position: absolute; top: 15px; right: 15px; background: #FEE2E2; color: var(--danger); border: 1px solid #FCA5A5; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: 0.2s;}
       .remove-entry-btn:hover { background: var(--danger); color: white; }
 
       /* --- BADGES & TAGS --- */
-      .status-pill { padding: 6px 14px; border-radius: 50px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block;}
-      .status-success { background: #D1FAE5; color: #059669; }
-      .status-pending { background: #FEF3C7; color: #D97706; }
+      .status-pill { padding: 6px 14px; border-radius: 50px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block;}
+      .status-success { background: #D1FAE5; color: #065F46; border: 1px solid #10B981;}
+      .status-pending { background: #FEF3C7; color: #92400E; border: 1px solid #F59E0B;}
       
-      .hobby-tag { background: var(--primary-light); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; margin-bottom:10px;}
-      .hobby-tag span { cursor: pointer; background: white; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--primary); transition: 0.2s;}
+      .hobby-tag { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 0.95rem; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; margin-bottom:10px;}
+      .hobby-tag span { cursor: pointer; background: white; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--primary); transition: 0.2s;}
       .hobby-tag span:hover { background: var(--danger); color: white; }
 
       /* --- PARENT MODE UI --- */
-      .parent-toggle-wrap { display: flex; align-items: center; gap: 8px; background: white; border: 2px solid var(--border); padding: 8px 16px; border-radius: 50px; cursor: pointer; font-weight: 800; font-size: 0.9rem; color: var(--text-main); transition: 0.3s; font-family: 'Outfit', sans-serif;}
+      .parent-toggle-wrap { display: flex; align-items: center; gap: 8px; background: white; border: 2px solid var(--border); padding: 8px 16px; border-radius: 50px; cursor: pointer; font-weight: 800; font-size: 0.95rem; color: var(--text-main); transition: 0.3s; font-family: 'Outfit', sans-serif;}
       .parent-toggle-wrap:hover { border-color: var(--warning); color: var(--warning);}
       .parent-toggle-wrap.active { background: var(--warning); color: white; border-color: var(--warning); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);}
       
@@ -181,7 +187,7 @@
           .grid-4, .grid-3, .grid-2, .grid-3-1, .grid-2col { grid-template-columns: 1fr; gap: 15px;}
           .header-bar { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 20px;}
           .hide-on-mobile { display: none !important; }
-          .parent-toggle-wrap span:last-child { display: none; } /* hide text, keep icon */
+          .parent-toggle-wrap span:last-child { display: none; }
       }
       
       /* --- MODALS --- */
@@ -189,14 +195,14 @@
       .modal-overlay.active { display: flex; opacity: 1; }
       .modal-content { background: var(--card-bg); width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 40px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.2); transform: scale(0.95); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;}
       .modal-overlay.active .modal-content { transform: scale(1); }
-      .modal-close { position: absolute; top: 20px; right: 20px; background: #F1F5F9; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; color: var(--text-main); cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; font-weight: bold;}
-      .modal-close:hover { background: #FEE2E2; color: var(--danger); }
+      .modal-close { position: absolute; top: 20px; right: 20px; background: #F1F5F9; border: 2px solid var(--border); width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; color: var(--text-main); cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; font-weight: bold;}
+      .modal-close:hover { background: #FEE2E2; color: var(--danger); border-color: var(--danger); }
       
       /* Toast Notifications */
       .toast-container { position: absolute; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-      .toast { background: white; border-left: 6px solid var(--primary); padding: 20px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; display: flex; flex-direction: column; min-width: 280px; cursor: pointer;}
+      .toast { background: white; border-left: 6px solid var(--primary); padding: 20px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 1px solid var(--border); animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; display: flex; flex-direction: column; min-width: 280px; cursor: pointer;}
       .toast-title { font-family: 'Outfit', sans-serif; font-weight: 800; color: #0f172a; font-size: 1.05rem; margin-bottom: 5px; }
-      .toast-body { font-size: 0.9rem; color: var(--text-muted); font-weight: 600;}
+      .toast-body { font-size: 0.95rem; color: var(--text-muted); font-weight: 600;}
       @keyframes slideInRight { from { transform: translateX(100%); opacity: 0;} to { transform: translateX(0); opacity: 1;} }
     </style>
 </head>
@@ -206,85 +212,106 @@
 
 <div class="mobile-sidebar-overlay" id="mobileOverlay" onclick="window.toggleSidebar()"></div>
 
-<div class="modal-overlay" id="customAlertModal" style="z-index: 9999;" onclick="if(event.target === this) window.closeModal('customAlertModal')">
+<div class="modal-overlay" id="customAlertModal" style="z-index: 9999;" onclick="if(event.target === this) window.closeModal('customAlertModal')" role="dialog" aria-modal="true" aria-labelledby="customAlertTitle">
     <div class="modal-content" style="max-width: 400px; text-align: center; padding: 40px 30px;">
-        <div style="font-size: 3.5rem; margin-bottom: 10px;" id="alertIcon">🔔</div>
+        <div style="font-size: 3.5rem; margin-bottom: 10px;" id="alertIcon" aria-hidden="true">🔔</div>
         <h3 id="customAlertTitle" style="color: var(--dark); margin-top: 0; font-size: 1.8rem;">Notice</h3>
         <p id="customAlertMessage" style="color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; font-size: 1.05rem; font-weight: 600;"></p>
         <button class="btn" style="width: 100%;" onclick="window.closeModal('customAlertModal')">Got it, thanks!</button>
     </div>
 </div>
 
-<div class="modal-overlay" id="progressModal" onclick="if(event.target === this) window.closeModal('progressModal')">
+<div class="modal-overlay" id="progressModal" onclick="if(event.target === this) window.closeModal('progressModal')" role="dialog" aria-modal="true" aria-labelledby="progressModalTitle">
     <div class="modal-content" style="position:relative;">
-        <button class="modal-close" onclick="window.closeModal('progressModal')">✕</button>
+        <button class="modal-close" onclick="window.closeModal('progressModal')" aria-label="Close Progress Modal">✕</button>
         <div style="text-align:center; margin-bottom:25px;">
-            <div style="font-size:3.5rem; margin-bottom:10px;">🎯</div>
-            <h2 style="margin:0 0 5px 0; color:#0f172a;">Profile Power</h2>
+            <div style="font-size:3.5rem; margin-bottom:10px;" aria-hidden="true">🎯</div>
+            <h2 id="progressModalTitle" style="margin:0 0 5px 0; color:#0f172a;">Profile Power</h2>
             <p style="color:var(--text-muted); font-weight:600; margin:0;">Feed the AI to generate hyper-accurate matches.</p>
         </div>
-        <div style="width:100%; height:12px; background:#F1F5F9; border-radius:10px; margin-bottom:25px; overflow:hidden;">
-            <div style="width:0%; height:100%; background: linear-gradient(90deg, #10B981, #34D399); border-radius:10px; transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);" id="modalProgressBar"></div>
+        <div style="width:100%; height:12px; background:#E2E8F0; border-radius:10px; margin-bottom:25px; overflow:hidden;" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="ariaProgressBar">
+            <div style="width:0%; height:100%; background: linear-gradient(90deg, #059669, #10B981); border-radius:10px; transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);" id="modalProgressBar"></div>
         </div>
         <h4 style="margin:0 0 10px 0; color:var(--danger); font-size: 1.1rem;">⏳ Action Required</h4>
-        <div id="progressTaskListPending" style="margin-bottom: 25px; background: #FEF2F2; padding: 15px; border-radius: 16px;"></div>
+        <div id="progressTaskListPending" style="margin-bottom: 25px; background: #FEF2F2; padding: 15px; border-radius: 16px; border: 1px solid #FECDD3;"></div>
         <h4 style="margin:0 0 10px 0; color:var(--success); font-size: 1.1rem;">✅ Achievements Unlocked</h4>
-        <div id="progressTaskListDone" style="background: #ECFDF5; padding: 15px; border-radius: 16px;"></div>
+        <div id="progressTaskListDone" style="background: #ECFDF5; padding: 15px; border-radius: 16px; border: 1px solid #A7F3D0;"></div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="scholarshipModal" onclick="if(event.target === this) window.closeModal('scholarshipModal')" role="dialog" aria-modal="true" aria-labelledby="scholTitle">
+    <div class="modal-content" style="position:relative;">
+        <button class="modal-close" onclick="window.closeModal('scholarshipModal')" aria-label="Close Scholarship Info">✕</button>
+        <div style="text-align:center; margin-bottom:20px;">
+            <div style="font-size:3rem;" id="scholIcon" aria-hidden="true">🎓</div>
+            <h2 style="margin:5px 0 0 0; color:#0f172a; font-size:1.4rem; line-height: 1.3;" id="scholTitle">Scholarship Name</h2>
+            <p style="color:var(--primary); font-weight: 800; margin:5px 0;" id="scholProvider">Provider</p>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <p style="margin:0 0 15px 0; font-size:1rem; color:#1E293B; line-height: 1.5; font-weight:600;" id="scholDesc">Description here</p>
+            <ul style="margin:0; padding-left:20px; font-size:0.95rem; color:#334155; line-height: 1.8; font-weight:600;">
+                <li><strong>Amount:</strong> <span id="scholAmount" style="color:var(--success); font-weight:800;">₹0</span></li>
+                <li><strong>Eligibility:</strong> <span id="scholEligibility">Criteria</span></li>
+                <li><strong>States Applicable:</strong> <span id="scholStates">All India</span></li>
+                <li><strong>Deadline:</strong> <span id="scholDeadline" style="color:var(--danger); font-weight: 800;">Date</span></li>
+            </ul>
+        </div>
+        <a href="#" target="_blank" id="scholLink" class="btn" style="width:100%; text-align:center; text-decoration:none;">Apply on Official Portal ➔</a>
     </div>
 </div>
 
 <div class="sidebar" id="mainSidebar">
     <div class="profile-info">
-        <div class="avatar-wrapper" onclick="document.getElementById('photoUpload').click()" title="Change Profile Picture">
-            <img class="stu-avatar" id="stuAvatarImg" style="display:none;">
+        <div class="avatar-wrapper" onclick="document.getElementById('photoUpload').click()" title="Change Profile Picture" tabindex="0" role="button" aria-label="Upload Profile Picture">
+            <img class="stu-avatar" id="stuAvatarImg" style="display:none;" alt="Student Avatar">
             <div class="stu-avatar" id="stuInitials">--</div>
         </div>
-        <input type="file" id="photoUpload" class="hide-from-parent" style="display: none;" accept="image/png, image/jpeg">
+        <input type="file" id="photoUpload" class="hide-from-parent" style="display: none;" accept="image/png, image/jpeg" aria-label="File upload">
         
         <h3 id="stuName" style="margin: 0 0 5px 0; font-size: 1.3rem; font-weight:900;">Loading...</h3>
-        <p id="stuInst" style="font-size:0.85rem; color:#94a3b8; font-weight:600; margin:0;">Student Portal</p>
+        <p id="stuInst" style="font-size:0.9rem; color:#94a3b8; font-weight:700; margin:0;">Student Portal</p>
         
-        <div style="margin-top: 25px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 16px; cursor:pointer; border: 1px solid rgba(255,255,255,0.1); transition:0.3s;" onclick="window.openModal('progressModal'); window.toggleSidebar(true);" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+        <div style="margin-top: 25px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 16px; cursor:pointer; border: 1px solid rgba(255,255,255,0.1); transition:0.3s;" onclick="window.openModal('progressModal'); window.toggleSidebar(true);" title="View Completion Details" tabindex="0" role="button" aria-label="View Profile Completion Details">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                <span style="font-size:0.75rem; color: #cbd5e1; text-transform:uppercase; font-weight:800; letter-spacing: 0.5px;">Profile Strength</span>
-                <span style="font-size:0.85rem; color: var(--success); font-weight:900;" id="sideProfileText">10%</span>
+                <span style="font-size:0.8rem; color: #cbd5e1; text-transform:uppercase; font-weight:800; letter-spacing: 0.5px;">Profile Strength</span>
+                <span style="font-size:0.9rem; color: #34D399; font-weight:900;" id="sideProfileText">10%</span>
             </div>
-            <div style="width:100%; height:6px; background:rgba(0,0,0,0.3); border-radius:4px; overflow:hidden;">
-                <div style="width:10%; height:100%; background:var(--success); border-radius:4px; transition: 1s ease;" id="sideProfileBar"></div>
+            <div style="width:100%; height:8px; background:rgba(0,0,0,0.4); border-radius:4px; overflow:hidden;">
+                <div style="width:10%; height:100%; background:#34D399; border-radius:4px; transition: 1s ease;" id="sideProfileBar"></div>
             </div>
         </div>
     </div>
     
-    <nav class="nav-menu">
-        <button class="nav-btn active" onclick="window.switchTab('tab-home', this)"><span class="nav-dot">🏠</span> Dashboard</button>
-        <button class="nav-btn" onclick="window.switchTab('tab-report', this)"><span class="nav-dot">📄</span> Career Report</button>
-        <button class="nav-btn" onclick="window.switchTab('tab-explore', this)"><span class="nav-dot">🔍</span> Career Explorer</button>
-        <button class="nav-btn" onclick="window.switchTab('tab-portfolio', this)"><span class="nav-dot">📝</span> My Profile</button>
-        <button class="nav-btn" onclick="window.switchTab('tab-counselling', this)"><span class="nav-dot">📅</span> Book Expert</button>
-        <button class="nav-btn hide-from-parent" onclick="window.switchTab('tab-chat', this)"><span class="nav-dot">💬</span> Direct Chat</button>
+    <nav class="nav-menu" aria-label="Main Sidebar Navigation">
+        <button class="nav-btn active" onclick="window.switchTab('tab-home', this)"><span class="nav-dot" aria-hidden="true">🏠</span> Dashboard</button>
+        <button class="nav-btn" onclick="window.switchTab('tab-report', this)"><span class="nav-dot" aria-hidden="true">📄</span> Career Report</button>
+        <button class="nav-btn" onclick="window.switchTab('tab-explore', this)"><span class="nav-dot" aria-hidden="true">🔍</span> Career Explorer</button>
+        <button class="nav-btn" onclick="window.switchTab('tab-portfolio', this)"><span class="nav-dot" aria-hidden="true">📝</span> My Profile</button>
+        <button class="nav-btn" onclick="window.switchTab('tab-counselling', this)"><span class="nav-dot" aria-hidden="true">📅</span> Book Expert</button>
+        <button class="nav-btn hide-from-parent" onclick="window.switchTab('tab-chat', this)"><span class="nav-dot" aria-hidden="true">💬</span> Direct Chat</button>
         
-        <div class="hide-from-parent" style="border-top: 1px solid rgba(255,255,255,0.05); margin: 15px 0;"></div>
-        <button class="nav-btn hide-from-parent" onclick="window.switchTab('tab-settings', this)"><span class="nav-dot">⚙️</span> Settings</button>
+        <div class="hide-from-parent" style="border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;"></div>
+        <button class="nav-btn hide-from-parent" onclick="window.switchTab('tab-settings', this)"><span class="nav-dot" aria-hidden="true">⚙️</span> Settings</button>
     </nav>
 </div>
 
 <div class="main-wrapper">
-    <div class="toast-container" id="toastContainer"></div>
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
     <div class="top-header">
         <div style="display:flex; align-items:center;">
-            <button class="hamburger-btn" onclick="window.toggleSidebar()">☰</button>
-            <h2 style="margin:0; font-size:1.3rem; color:var(--dark); font-weight:900;" id="headerTitle">Dashboard</h2>
+            <button class="hamburger-btn" onclick="window.toggleSidebar()" aria-label="Open Mobile Menu">☰</button>
+            <h2 style="margin:0; font-size:1.4rem; color:var(--dark); font-weight:900;" id="headerTitle">Dashboard</h2>
         </div>
         <div class="header-actions">
             
-            <div class="top-xp-display" id="topXpContainer" onclick="window.showToastNotification('XP System', 'Complete your profile and log achievements to earn XP!')">
+            <div class="top-xp-display" id="topXpContainer" onclick="window.showToastNotification('XP System', 'Complete your profile and log achievements to earn XP!')" tabindex="0" role="button" aria-label="Your Experience Points">
                 <span class="lvl hide-on-mobile" id="topLevelDisplay">Lvl 1</span>
                 <span class="xp">⚡ <span id="topXpDisplay">10</span> XP</span>
             </div>
 
-            <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="window.toggleParentMode()" title="Toggle Parent View">
-                <span id="parentToggleIcon">👁️</span> <span id="parentToggleText" class="hide-on-mobile">Parent View</span>
+            <div class="parent-toggle-wrap" id="parentToggleBtn" onclick="window.toggleParentMode()" title="Toggle Parent View" tabindex="0" role="button" aria-label="Toggle Parent View">
+                <span id="parentToggleIcon" aria-hidden="true">👁️</span> <span id="parentToggleText" class="hide-on-mobile">Parent View</span>
             </div>
             
             <button class="btn btn-outline hide-from-parent hide-on-mobile" style="color: var(--danger); border-color: #fecdd3; padding: 8px 16px; border-radius: 50px;" id="logoutBtnTop">Logout</button>
@@ -302,22 +329,22 @@
 
             <div class="grid-4" style="margin-bottom: 40px;">
                 <div class="stat-card" style="border-bottom: 5px solid var(--primary);">
-                    <div class="stat-icon">🎯</div>
+                    <div class="stat-icon" aria-hidden="true">🎯</div>
                     <p class="stat-title">Clarity Score</p>
                     <div class="stat-value"><span id="dashClarityScore">1</span><span style="font-size:1.2rem; color:var(--text-muted);">/10</span></div>
                 </div>
                 <div class="stat-card" style="border-bottom: 5px solid var(--secondary);">
-                    <div class="stat-icon">🧠</div>
+                    <div class="stat-icon" aria-hidden="true">🧠</div>
                     <p class="stat-title">Assessment</p>
                     <div class="stat-value" id="dashAssStatus" style="font-size:1.4rem;">Pending</div>
                 </div>
-                <div class="stat-card hide-from-parent" style="border-bottom: 5px solid var(--accent); background: #FFFBEB; cursor:pointer;" id="dashActionCard">
-                    <div class="stat-icon">⚡</div>
-                    <p class="stat-title" style="color: var(--accent);">Next Action</p>
-                    <div class="stat-value" id="dashActionText" style="font-size:1.1rem; color: #B45309;">Complete Profile</div>
+                <div class="stat-card hide-from-parent" style="border-bottom: 5px solid var(--accent); background: #FFFBEB; cursor:pointer;" id="dashActionCard" tabindex="0" role="button" aria-label="Next Action Step">
+                    <div class="stat-icon" aria-hidden="true">⚡</div>
+                    <p class="stat-title" style="color: #92400E;">Next Action</p>
+                    <div class="stat-value" id="dashActionText" style="font-size:1.1rem; color: #B45309; text-decoration: underline;">Complete Profile</div>
                 </div>
                 <div class="stat-card" style="border-bottom: 5px solid #8B5CF6;">
-                    <div class="stat-icon">📅</div>
+                    <div class="stat-icon" aria-hidden="true">📅</div>
                     <p class="stat-title">Next Session</p>
                     <div class="stat-value" id="dashSessionStatus" style="font-size:1.4rem;">Not Booked</div>
                 </div>
@@ -325,7 +352,7 @@
 
             <div id="aiInsightPanel" style="display:none; background: var(--dark); color: white; padding: 30px; border-radius: 20px; margin-bottom: 40px; box-shadow: 0 15px 30px rgba(15, 23, 42, 0.15);">
                 <div style="display:flex; align-items:center; gap:15px; margin-bottom: 10px;">
-                    <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">🤖</div>
+                    <div style="background: var(--primary); width: 40px; height: 40px; border-radius: 12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;" aria-hidden="true">🤖</div>
                     <h3 style="margin:0; font-size:1.4rem; font-weight:800; color:white;">AI Career Insight</h3>
                 </div>
                 <p id="aiInsightText" style="font-size: 1.1rem; line-height: 1.7; margin:10px 0 0 0; color: #cbd5e1;">Analyzing your data...</p>
@@ -335,9 +362,9 @@
                 <h2 style="font-size: 1.8rem; color: var(--dark); margin: 0 0 20px 0;">🌟 Your Top AI Matches</h2>
                 <div class="grid-3" id="dashTopCareersRow">
                     <div class="card" style="margin:0; text-align:center; padding:50px 20px; grid-column: 1 / -1; border: 2px dashed #CBD5E1; background: transparent; box-shadow: none;">
-                        <div style="font-size:4rem; margin-bottom:15px; filter: grayscale(100%); opacity:0.5;">🔒</div>
+                        <div style="font-size:4rem; margin-bottom:15px; filter: grayscale(100%); opacity:0.5;" aria-hidden="true">🔒</div>
                         <h3 style="font-size:1.5rem; color: var(--text-muted); margin-bottom: 5px;">Matches Locked</h3>
-                        <p style="color:var(--text-muted); margin:0 0 20px 0; font-weight:600;">Complete your psychometric assessment to reveal your perfect careers.</p>
+                        <p style="color:var(--text-main); margin:0 0 20px 0; font-weight:700;">Complete your psychometric assessment to reveal your perfect careers.</p>
                         <button class="btn hide-from-parent" onclick="window.launchAssessment()">Start Assessment Now ➔</button>
                     </div>
                 </div>
@@ -346,24 +373,24 @@
             <div class="card" style="margin-bottom:40px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                     <h2 style="font-size: 1.6rem; margin:0;">📈 Career Clarity Growth</h2>
-                    <span class="status-pill status-success" style="background:#EEF2FF; color:var(--primary);">Live Tracking</span>
+                    <span class="status-pill status-success" style="background:#EEF2FF; color:var(--primary); border: 1px solid var(--primary);">Live Tracking</span>
                 </div>
                 <div style="height: 280px; width: 100%;">
-                    <canvas id="growthChart"></canvas>
+                    <canvas id="growthChart" aria-label="Career Clarity Growth Chart" role="img"></canvas>
                 </div>
             </div>
             
             <div id="lockCareerSection" class="hide-from-parent" style="display:none; margin-top: 20px; background: #FFFBEB; padding: 40px; border-radius: 24px; text-align: center; border: 2px dashed var(--accent);">
-                <div style="font-size:3rem; margin-bottom:10px;">🏆</div>
-                <h3 style="color: #B45309; font-size: 1.5rem; margin: 0 0 10px 0;">You've reached the final step!</h3>
-                <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 25px; font-weight:600;">Had your session? Ready to commit to your chosen path?</p>
+                <div style="font-size:3rem; margin-bottom:10px;" aria-hidden="true">🏆</div>
+                <h3 style="color: #92400E; font-size: 1.5rem; margin: 0 0 10px 0;">You've reached the final step!</h3>
+                <p style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 25px; font-weight:700;">Had your session? Ready to commit to your chosen path?</p>
                 <button onclick="window.lockFinalCareer()" class="btn" style="background: var(--accent); padding: 16px 40px; font-size: 1.2rem;">🔒 Lock My Final Career Path</button>
             </div>
 
-            <div id="careerLockedSuccess" style="display:none; margin-top: 20px; background: #ECFDF5; padding: 40px; border-radius: 24px; text-align: center; border: 2px solid #34D399;">
-                <div style="font-size: 4rem; margin-bottom: 10px;">🎊</div>
-                <h3 style="margin: 0 0 10px 0; color: var(--success); font-size: 1.8rem;">Career Path Locked!</h3>
-                <p style="color: #065F46; font-size: 1.1rem; margin-bottom: 25px; font-weight:600;">Your parents and counselor have been notified. It's time to execute the plan.</p>
+            <div id="careerLockedSuccess" style="display:none; margin-top: 20px; background: #ECFDF5; padding: 40px; border-radius: 24px; text-align: center; border: 2px solid #10B981;">
+                <div style="font-size: 4rem; margin-bottom: 10px;" aria-hidden="true">🎊</div>
+                <h3 style="margin: 0 0 10px 0; color: #065F46; font-size: 1.8rem;">Career Path Locked!</h3>
+                <p style="color: #065F46; font-size: 1.1rem; margin-bottom: 25px; font-weight:700;">Your parents and counselor have been notified. It's time to execute the plan.</p>
                 <button class="btn" style="background: var(--success);" onclick="window.switchTab('tab-report', document.querySelectorAll('.nav-btn')[1])">📄 View Execution Report</button>
             </div>
         </div>
@@ -381,9 +408,9 @@
             
             <div id="exploreLockedUI">
                 <div class="card" style="text-align:center; padding: 100px 20px; border: 2px dashed #CBD5E1; background: transparent;">
-                    <div style="font-size: 5rem; opacity: 0.5; margin-bottom: 20px; filter: grayscale(100%);">🔍</div>
+                    <div style="font-size: 5rem; opacity: 0.5; margin-bottom: 20px; filter: grayscale(100%);" aria-hidden="true">🔍</div>
                     <h2 style="font-size:2rem; margin:0 0 10px 0; color:var(--text-muted);">Explorer Locked</h2>
-                    <p style="color:var(--text-muted); font-size: 1.1rem; font-weight:600; margin-bottom:25px;">Complete your Psychometric Assessment to unlock the AI comparison engine.</p>
+                    <p style="color:var(--text-main); font-size: 1.1rem; font-weight:700; margin-bottom:25px;">Complete your Psychometric Assessment to unlock the AI comparison engine.</p>
                     <button class="btn hide-from-parent" onclick="window.launchAssessment()" style="padding: 16px 40px; font-size:1.1rem;">Take Assessment</button>
                 </div>
             </div>
@@ -398,11 +425,11 @@
                         <table class="data-table" id="comparisonTable">
                             <thead>
                                 <tr>
-                                    <th>Career Path</th>
-                                    <th>Avg Salary (INR)</th>
-                                    <th>Study Years</th>
-                                    <th>Growth Rate</th>
-                                    <th>Core Skills Needed</th>
+                                    <th scope="col">Career Path</th>
+                                    <th scope="col">Avg Salary (INR)</th>
+                                    <th scope="col">Study Years</th>
+                                    <th scope="col">Growth Rate</th>
+                                    <th scope="col">Core Skills Needed</th>
                                 </tr>
                             </thead>
                             <tbody id="comparisonTableBody">
@@ -413,25 +440,31 @@
 
                 <div class="grid-2col">
                     <div class="card" style="background: linear-gradient(135deg, var(--sidebar), #1e293b); color: white;">
-                        <div style="font-size:3rem; margin-bottom:15px;">🏫</div>
+                        <div style="font-size:3rem; margin-bottom:15px;" aria-hidden="true">🏫</div>
                         <h3 style="color:white; margin-bottom:10px;">College Finder GPS</h3>
-                        <p style="font-size: 1rem; color: #94a3b8; margin-bottom: 25px; line-height:1.6;">Search our verified database of Indian institutions matching your preferred career path.</p>
+                        <p style="font-size: 1rem; color: #cbd5e1; margin-bottom: 25px; line-height:1.6; font-weight:600;">Search our verified database of Indian institutions matching your preferred career path.</p>
                         <button class="btn hide-from-parent" style="width: 100%; background: var(--primary);" onclick="window.open('https://antoniovn96.github.io/vidyavantage.github.io/colleges/', '_blank')">Open Directory ➔</button>
                     </div>
                     
                     <div class="card" style="max-height: 400px; overflow-y: auto; padding-right: 15px;">
                         <h3 style="margin-bottom: 5px;">🎓 Scholarship Alerts</h3>
-                        <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0; margin-bottom:20px; font-weight:600;">Financial aid opportunities you may qualify for.</p>
+                        <p style="font-size:0.95rem; color:var(--text-main); margin-top:0; margin-bottom:20px; font-weight:700;">Financial aid opportunities you may qualify for.</p>
                         
-                        <div class="journey-step" style="padding:15px 0; background: #F8FAFC; border:1px solid var(--border); border-radius:12px; margin-bottom:10px; padding-left:15px; padding-right:15px;">
-                            <div class="j-icon">🏛️</div>
-                            <div class="j-text" style="font-size:1rem;">State Merit Scholarship<br><span style="color:var(--danger); font-size:0.8rem;">Deadline: 15 April</span></div>
-                            <button class="btn btn-outline hide-from-parent" style="padding: 6px 14px; font-size:0.85rem;" onclick="window.showScholarship('state_merit')">View</button>
+                        <div style="padding:15px; background: #F8FAFC; border:1px solid var(--border); border-radius:12px; margin-bottom:10px; display:flex; align-items:center; gap:15px;">
+                            <div style="font-size:1.5rem;" aria-hidden="true">🏛️</div>
+                            <div style="flex:1;">
+                                <div style="font-size:1.05rem; font-weight:800; color:var(--dark);">State Merit Scholarship</div>
+                                <div style="color:#B91C1C; font-size:0.85rem; font-weight:700;">Deadline: 15 April</div>
+                            </div>
+                            <button class="btn btn-outline hide-from-parent" style="padding: 8px 16px; font-size:0.85rem;" onclick="window.showScholarship('state_merit')">View</button>
                         </div>
-                        <div class="journey-step" style="padding:15px 0; background: #F8FAFC; border:1px solid var(--border); border-radius:12px; margin-bottom:10px; padding-left:15px; padding-right:15px;">
-                            <div class="j-icon">🔬</div>
-                            <div class="j-text" style="font-size:1rem;">STEM Grant (INSPIRE)<br><span style="color:var(--text-muted); font-size:0.8rem;">12th PCM/PCB</span></div>
-                            <button class="btn btn-outline hide-from-parent" style="padding: 6px 14px; font-size:0.85rem;" onclick="window.showScholarship('stem_grant')">View</button>
+                        <div style="padding:15px; background: #F8FAFC; border:1px solid var(--border); border-radius:12px; margin-bottom:10px; display:flex; align-items:center; gap:15px;">
+                            <div style="font-size:1.5rem;" aria-hidden="true">🔬</div>
+                            <div style="flex:1;">
+                                <div style="font-size:1.05rem; font-weight:800; color:var(--dark);">STEM Grant (INSPIRE)</div>
+                                <div style="color:var(--text-muted); font-size:0.85rem; font-weight:700;">12th PCM/PCB</div>
+                            </div>
+                            <button class="btn btn-outline hide-from-parent" style="padding: 8px 16px; font-size:0.85rem;" onclick="window.showScholarship('stem_grant')">View</button>
                         </div>
                     </div>
                 </div>
@@ -444,34 +477,34 @@
             </div>
             
             <div id="lockedReportUI" class="card" style="text-align:center; padding: 100px 20px; border: 2px dashed #CBD5E1; background: transparent;">
-                <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.5; filter:grayscale(100%);">📄</div>
+                <div style="font-size: 5rem; margin-bottom: 20px; opacity: 0.5; filter:grayscale(100%);" aria-hidden="true">📄</div>
                 <h2 style="color: var(--text-muted); font-size: 2rem; margin: 0 0 15px 0;">Report Locked</h2>
-                <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6; font-weight:600;">You need to complete your Psychometric Assessment before the AI can generate your personalized report.</p>
+                <p style="color: var(--text-main); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px; line-height: 1.6; font-weight:700;">You need to complete your Psychometric Assessment before the AI can generate your personalized report.</p>
                 <button onclick="window.launchAssessment()" class="btn hide-from-parent" style="padding: 16px 40px; font-size:1.1rem;">Take Assessment Now ➔</button>
             </div>
 
             <div id="unlockedReportUI" style="display:none;" class="report-render-area">
                 <div class="grid-2">
                     <div class="card">
-                        <h3 style="display:flex; align-items:center; gap:10px;"><span>🧠</span> Psychometric Profile</h3>
+                        <h3 style="display:flex; align-items:center; gap:10px;"><span aria-hidden="true">🧠</span> Psychometric Profile</h3>
                         <div style="margin-bottom: 20px;">
                             <span class="badge-code" id="reportRiasecCode" style="font-size:1.6rem; padding: 10px 25px;"></span>
                         </div>
-                        <p id="reportProfileDesc" style="color: var(--text-main); line-height: 1.7; font-size: 1.05rem; font-weight:600;"></p>
-                        <div style="height: 280px; width: 100%; margin-top:30px; background:#F8FAFC; border-radius:16px; padding:10px;">
-                            <canvas id="reportRiasecChart"></canvas>
+                        <p id="reportProfileDesc" style="color: var(--text-main); line-height: 1.7; font-size: 1.05rem; font-weight:700;"></p>
+                        <div style="height: 280px; width: 100%; margin-top:30px; background:#F8FAFC; border-radius:16px; padding:10px; border: 1px solid var(--border);">
+                            <canvas id="reportRiasecChart" aria-label="RIASEC Radar Chart" role="img"></canvas>
                         </div>
                     </div>
                     
                     <div class="card">
-                        <h3 style="display:flex; align-items:center; gap:10px;"><span>🎯</span> Recommended Fields</h3>
-                        <p style="font-size: 0.95rem; color: var(--text-muted); font-weight:600; margin-top:-10px; margin-bottom: 20px;">Fields matching your natural aptitudes.</p>
+                        <h3 style="display:flex; align-items:center; gap:10px;"><span aria-hidden="true">🎯</span> Recommended Fields</h3>
+                        <p style="font-size: 0.95rem; color: var(--text-main); font-weight:700; margin-top:-10px; margin-bottom: 20px;">Fields matching your natural aptitudes.</p>
                         <div id="reportCareersContainer" style="display:flex; flex-direction:column; gap:15px;"></div>
                         
                         <div style="margin-top: 40px; background: #FEF2F2; border: 1px solid #FECDD3; padding: 25px; border-radius: 16px;">
-                            <h3 style="color: var(--danger); margin: 0 0 10px 0; font-size:1.2rem; display:flex; align-items:center; gap:8px;"><span>🚫</span> Vulnerability Zones</h3>
-                            <p style="font-size: 0.95rem; color: #7F1D1D; font-weight:600; margin: 0 0 15px 0;">Careers leading to higher burnout probability.</p>
-                            <p id="reportAvoid" style="color: var(--danger); font-weight: 800; font-size: 1.1rem; margin:0;"></p>
+                            <h3 style="color: #B91C1C; margin: 0 0 10px 0; font-size:1.2rem; display:flex; align-items:center; gap:8px;"><span aria-hidden="true">🚫</span> Vulnerability Zones</h3>
+                            <p style="font-size: 0.95rem; color: #7F1D1D; font-weight:700; margin: 0 0 15px 0;">Careers leading to higher burnout probability.</p>
+                            <p id="reportAvoid" style="color: #B91C1C; font-weight: 900; font-size: 1.1rem; margin:0;"></p>
                         </div>
                     </div>
                 </div>
@@ -481,11 +514,11 @@
                     <div class="grid-2">
                         <div style="background: #F8FAFC; padding: 30px; border-radius: 16px; border: 1px solid var(--border);">
                             <h4 style="color: var(--primary); margin: 0 0 15px 0; font-size:1.2rem;">📚 Recommended Courses</h4>
-                            <ul id="reportPlanCourses" style="color: var(--text-main); line-height: 1.8; font-size: 1.05rem; font-weight:600; padding-left:20px;"></ul>
+                            <ul id="reportPlanCourses" style="color: var(--text-main); line-height: 1.8; font-size: 1.05rem; font-weight:700; padding-left:20px;"></ul>
                         </div>
                         <div style="background: #F8FAFC; padding: 30px; border-radius: 16px; border: 1px solid var(--border);">
                             <h4 style="color: var(--primary); margin: 0 0 15px 0; font-size:1.2rem;">🎯 Entrance Exams Focus</h4>
-                            <ul id="reportPlanExams" style="color: var(--text-main); line-height: 1.8; font-size: 1.05rem; font-weight:600; padding-left:20px;"></ul>
+                            <ul id="reportPlanExams" style="color: var(--text-main); line-height: 1.8; font-size: 1.05rem; font-weight:700; padding-left:20px;"></ul>
                         </div>
                     </div>
                 </div>
@@ -502,7 +535,7 @@
                 <div class="acc-body">
                     <div class="grid-3" style="margin-bottom: 20px;">
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Board / Curriculum</label>
+                            <label class="form-label" for="portBoard">Board / Curriculum</label>
                             <select id="portBoard" class="form-select">
                                 <option value="CBSE">CBSE</option>
                                 <option value="ICSE">ICSE</option>
@@ -512,26 +545,26 @@
                             </select>
                         </div>
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Current Class / Year</label>
+                            <label class="form-label" for="portClass">Current Class / Year</label>
                             <input type="text" id="portClass" class="form-input" placeholder="e.g. 10th, 12th, B.Tech 2nd Yr">
                         </div>
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Latest Marks (%)</label>
+                            <label class="form-label" for="portMarks">Latest Marks (%)</label>
                             <input type="number" id="portMarks" class="form-input" placeholder="e.g. 85" max="100">
                         </div>
                     </div>
 
                     <div class="grid-3">
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Strongest Subject</label>
+                            <label class="form-label" for="portStrong">Strongest Subject</label>
                             <input type="text" id="portStrong" class="form-input" placeholder="e.g. Mathematics">
                         </div>
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Weakest Subject</label>
+                            <label class="form-label" for="portWeak">Weakest Subject</label>
                             <input type="text" id="portWeak" class="form-input" placeholder="e.g. History">
                         </div>
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Preferred Study Style</label>
+                            <label class="form-label" for="portStyle">Preferred Study Style</label>
                             <select id="portStyle" class="form-select">
                                 <option value="Visual">Visual (Diagrams, Videos)</option>
                                 <option value="Auditory">Auditory (Lectures)</option>
@@ -555,10 +588,10 @@
                 <summary>🎨 Extra-Curriculars & Hobbies</summary>
                 <div class="acc-body">
                     <div class="form-group" style="margin-bottom:25px;">
-                        <label class="form-label">Major Achievements / Awards</label>
+                        <label class="form-label" for="portExtraCurricular">Major Achievements / Awards</label>
                         <textarea class="form-textarea" rows="3" placeholder="e.g. 1st Place State Science Fair..." id="portExtraCurricular"></textarea>
                     </div>
-                    <label class="form-label">Hobbies (Earns XP!)</label>
+                    <label class="form-label" for="hobbyInput">Hobbies (Earns XP!)</label>
                     <div style="display:flex; gap:10px;">
                         <input type="text" id="hobbyInput" list="hobbySuggestions" autocomplete="off" class="form-input" placeholder="Type a hobby..." style="max-width:300px;">
                         <button class="btn" onclick="window.addHobby()">Add</button>
@@ -576,38 +609,38 @@
             <div class="card" style="max-width: 700px; margin: 0 auto;">
                 <h3 style="margin-bottom: 25px; font-size:1.5rem;">Secure Your Slot</h3>
                 <div class="form-group">
-                    <label class="form-label">Select Expert Counsellor</label>
+                    <label class="form-label" for="bookCounsellorSelect">Select Expert Counsellor</label>
                     <select class="form-select" id="bookCounsellorSelect" onchange="window.showCounsellorTimes(this.value)"><option value="">-- Loading Experts --</option></select>
                 </div>
                 
                 <div id="bookingAvailInfo" style="margin-bottom: 25px; padding: 25px; background: #F8FAFC; border: 1px solid var(--border); border-radius: 16px; display:none;">
                     <div class="grid-2col" style="margin-bottom:20px; border-bottom: 1px dashed var(--border); padding-bottom:20px;">
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Select Date</label>
+                            <label class="form-label" for="bookDate">Select Date</label>
                             <input type="date" id="bookDate" class="form-input" required>
                         </div>
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label">Select Time</label>
+                            <label class="form-label" for="bookTime">Select Time</label>
                             <input type="time" id="bookTime" class="form-input" required>
                         </div>
                     </div>
                     
                     <div class="form-group" style="margin-bottom: 20px;">
                         <label class="form-label">Primary Goals for Session</label>
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.95rem; color:var(--text-main); font-weight:600;">
-                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Stream Confusion" style="width:18px; height:18px;"> Stream Confusion</label>
-                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Career Decision" style="width:18px; height:18px;"> Career Decision</label>
-                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Study Abroad" style="width:18px; height:18px;"> Study Abroad</label>
-                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Entrance Exams" style="width:18px; height:18px;"> Entrance Exams</label>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:1rem; color:var(--text-main); font-weight:700;">
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Stream Confusion" style="width:20px; height:20px;"> Stream Confusion</label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Career Decision" style="width:20px; height:20px;"> Career Decision</label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Study Abroad" style="width:20px; height:20px;"> Study Abroad</label>
+                            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;"><input type="checkbox" class="session-goal-cb" value="Entrance Exams" style="width:20px; height:20px;"> Entrance Exams</label>
                         </div>
                     </div>
 
                     <div class="form-group" style="margin-bottom: 20px;">
-                        <label class="form-label">Contact Number</label>
+                        <label class="form-label" for="bookPhone">Contact Number</label>
                         <input type="tel" id="bookPhone" class="form-input" placeholder="+91 99999 99999" required>
                     </div>
                     <div class="form-group" style="margin:0;">
-                        <label class="form-label">Preferred Medium</label>
+                        <label class="form-label" for="bookMedium">Preferred Medium</label>
                         <select id="bookMedium" class="form-select">
                             <option value="Google Meet">Google Meet (Video)</option>
                             <option value="Phone Call">Direct Phone Call</option>
@@ -627,22 +660,22 @@
                 <div class="card" style="padding:0; overflow:hidden; display:flex; flex-direction:column; height:65vh;">
                     <div style="padding: 20px 30px; border-bottom: 1px solid var(--border); background: #F8FAFC;">
                         <div class="form-group" style="margin:0;">
-                            <label class="form-label" style="font-size:0.8rem;">Select Counsellor</label>
+                            <label class="form-label" for="studentChatSelect" style="font-size:0.8rem;">Select Counsellor</label>
                             <select class="form-select" id="studentChatSelect" onchange="window.loadCounsellorChat(this.value)"><option value="">-- Choose a Counsellor --</option></select>
                         </div>
                     </div>
                     <div style="flex:1; padding: 30px; overflow-y:auto; background: #ffffff;" id="studentChatMessages">
-                        <div style="text-align:center; color:var(--text-muted); margin-top:60px; font-size: 1.1rem; font-weight:600;">Select a counsellor to start chatting.</div>
+                        <div style="text-align:center; color:var(--text-main); margin-top:60px; font-size: 1.1rem; font-weight:700;">Select a counsellor to start chatting.</div>
                     </div>
                     <div style="padding: 20px 30px; border-top: 1px solid var(--border); display:flex; gap:15px; background: #F8FAFC;">
-                        <input type="text" id="studentChatInput" class="form-input" placeholder="Type a message..." style="margin:0; background:white;">
+                        <input type="text" id="studentChatInput" aria-label="Type a message" class="form-input" placeholder="Type a message..." style="margin:0; background:white;">
                         <button class="btn" onclick="window.sendStudentChatMessage()" style="padding: 0 30px;">Send</button>
                     </div>
                 </div>
                 <div>
                     <div class="card" style="text-align: center;">
                         <h3 style="margin-bottom:20px;">Expert Profile</h3>
-                        <div id="counsellorProfileCard" style="color:var(--text-muted); font-size:1rem; font-weight:600;">Select a counsellor to view profile.</div>
+                        <div id="counsellorProfileCard" style="color:var(--text-main); font-size:1rem; font-weight:700;">Select a counsellor to view profile.</div>
                     </div>
                 </div>
             </div>
@@ -652,12 +685,12 @@
             <div class="header-bar"><h1>Account Settings</h1><p>Manage your portal details.</p></div>
             <div class="card" style="max-width: 600px;">
                 <div class="grid-2col" style="margin-bottom: 25px;">
-                    <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="setStuName" class="form-input" readonly style="background: #E2E8F0; opacity:0.8;"></div>
-                    <div class="form-group"><label class="form-label">Registered Email</label><input type="text" id="setStuEmail" class="form-input" readonly style="background: #E2E8F0; opacity:0.8;"></div>
+                    <div class="form-group"><label class="form-label" for="setStuName">Full Name</label><input type="text" id="setStuName" class="form-input" readonly style="background: #E2E8F0; opacity:0.8;"></div>
+                    <div class="form-group"><label class="form-label" for="setStuEmail">Registered Email</label><input type="text" id="setStuEmail" class="form-input" readonly style="background: #E2E8F0; opacity:0.8;"></div>
                 </div>
                 <div class="grid-2col">
-                    <div class="form-group"><label class="form-label">Parent Name</label><input type="text" class="form-input" placeholder="Enter parent's name"></div>
-                    <div class="form-group"><label class="form-label">Parent Phone</label><input type="text" class="form-input" placeholder="+91 XXXXX XXXXX"></div>
+                    <div class="form-group"><label class="form-label" for="setParentName">Parent Name</label><input type="text" id="setParentName" class="form-input" placeholder="Enter parent's name"></div>
+                    <div class="form-group"><label class="form-label" for="setParentPhone">Parent Phone</label><input type="text" id="setParentPhone" class="form-input" placeholder="+91 XXXXX XXXXX"></div>
                 </div>
                 <button class="btn hide-from-parent" style="margin-top:20px; width: 100%;">💾 Save Details</button>
             </div>
@@ -813,10 +846,8 @@
 
         if(level === 'School') {
             if(nameInput) nameInput.placeholder = "School Name";
-            if(toLabel) toLabel.innerText = "Date of Completion"; 
         } else {
             if(nameInput) nameInput.placeholder = "College / Institute Name";
-            if(toLabel) toLabel.innerText = "To Date"; 
         }
     }
 
@@ -837,9 +868,9 @@
             data.subjects.forEach(sub => {
                 subjectsHtml += `
                     <div class="subject-row edu-subject-row" style="display:flex; gap:10px; margin-bottom:10px;">
-                        <input type="text" class="form-input edu-sub-name" placeholder="Subject (e.g. Physics)" value="${sub.name || ''}" style="flex:2;">
-                        <input type="text" class="form-input edu-sub-score" placeholder="Score" value="${sub.score || ''}" style="flex:1;">
-                        <button type="button" class="remove-entry-btn" style="position:static;" onclick="this.parentElement.remove()">×</button>
+                        <input type="text" class="form-input edu-sub-name" aria-label="Subject Name" placeholder="Subject (e.g. Physics)" value="${sub.name || ''}" style="flex:2;">
+                        <input type="text" class="form-input edu-sub-score" aria-label="Subject Score" placeholder="Score" value="${sub.score || ''}" style="flex:1;">
+                        <button type="button" class="remove-entry-btn" style="position:static;" aria-label="Remove Subject" onclick="this.parentElement.remove()">✕</button>
                     </div>`;
             });
         }
@@ -848,22 +879,22 @@
         <div class="entry-block edu-block-item" id="edu-${id}">
             <button class="remove-entry-btn" onclick="this.parentElement.remove()">✕ Remove</button>
             <div class="grid-2col">
-                <div class="form-group"><label class="form-label">Education Level</label>
-                    <select class="form-select edu-level" onchange="window.updateEduLabels(this)">
+                <div class="form-group"><label class="form-label" for="edu-level-${id}">Education Level</label>
+                    <select class="form-select edu-level" id="edu-level-${id}" onchange="window.updateEduLabels(this)">
                         <option value="School" ${data.level==='School'?'selected':''}>School (10th)</option>
                         <option value="PUC" ${data.level==='PUC'?'selected':''}>PUC / 12th</option>
                         <option value="UG" ${data.level==='UG'?'selected':''}>Undergraduate (UG)</option>
                         <option value="PG" ${data.level==='PG'?'selected':''}>Postgraduate (PG)</option>
                     </select>
                 </div>
-                <div class="form-group"><label class="form-label">Institution Name</label><input type="text" class="form-input edu-name edu-name-input" placeholder="School Name" value="${data.name || ''}"></div>
-                <div class="form-group"><label class="form-label">Grading System</label><select class="form-select edu-grading-sys" onchange="window.updateDynamicGradingInput(this)">${sysOptions}</select></div>
-                <div class="form-group"><label class="form-label">Overall Score</label><input type="text" class="form-input edu-overall-score" placeholder="e.g. 85" value="${data.score || ''}"></div>
+                <div class="form-group"><label class="form-label" for="edu-name-${id}">Institution Name</label><input type="text" id="edu-name-${id}" class="form-input edu-name edu-name-input" placeholder="School Name" value="${data.name || ''}"></div>
+                <div class="form-group"><label class="form-label" for="edu-grading-${id}">Grading System</label><select id="edu-grading-${id}" class="form-select edu-grading-sys" onchange="window.updateDynamicGradingInput(this)">${sysOptions}</select></div>
+                <div class="form-group"><label class="form-label" for="edu-score-${id}">Overall Score</label><input type="text" id="edu-score-${id}" class="form-input edu-overall-score" placeholder="e.g. 85" value="${data.score || ''}"></div>
             </div>
-            <div style="border-top: 1px dashed #CBD5E1; padding-top: 15px; margin-top: 10px;">
+            <div style="border-top: 2px dashed var(--border); padding-top: 15px; margin-top: 10px;">
                 <label class="form-label">Key Subjects (Optional)</label>
                 <div class="edu-subjects-container">${subjectsHtml}</div>
-                <button type="button" class="btn btn-outline" onclick="window.addEduSubjectRow(this)" style="padding: 8px 16px; font-size: 0.9rem; margin-top: 10px;">+ Add Subject</button>
+                <button type="button" class="btn btn-outline" onclick="window.addEduSubjectRow(this)" style="padding: 10px 20px; font-size: 0.95rem; margin-top: 10px; width:100%;">+ Add Subject</button>
             </div>
         </div>`;
         container.insertAdjacentHTML('beforeend', html);
@@ -875,9 +906,9 @@
         row.className = 'subject-row edu-subject-row';
         row.style.cssText = "display:flex; gap:10px; margin-bottom:10px;";
         row.innerHTML = `
-            <input type="text" class="form-input edu-sub-name" placeholder="Subject" style="flex:2;">
-            <input type="text" class="form-input edu-sub-score" placeholder="Score" style="flex:1;">
-            <button type="button" class="remove-entry-btn" style="position:static;" onclick="this.parentElement.remove()">×</button>
+            <input type="text" class="form-input edu-sub-name" aria-label="Subject Name" placeholder="Subject" style="flex:2;">
+            <input type="text" class="form-input edu-sub-score" aria-label="Subject Score" placeholder="Score" style="flex:1;">
+            <button type="button" class="remove-entry-btn" style="position:static;" aria-label="Remove Subject" onclick="this.parentElement.remove()">✕</button>
         `;
         container.appendChild(row);
     }
@@ -893,7 +924,7 @@
     window.removeHobby = function(index) { hobbiesArray.splice(index, 1); renderHobbies(); }
     function renderHobbies() {
         const container = document.getElementById('hobbyTagsContainer');
-        if(container) container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span onclick="window.removeHobby(${i})">✕</span></div>`).join('');
+        if(container) container.innerHTML = hobbiesArray.map((h, i) => `<div class="hobby-tag">${h} <span aria-label="Remove Hobby" onclick="window.removeHobby(${i})">✕</span></div>`).join('');
     }
 
     window.updateTopXP = function(newXp, newLevelName) {
@@ -1025,6 +1056,9 @@
         
         const modalProgressBar = document.getElementById('modalProgressBar');
         if (modalProgressBar) modalProgressBar.style.width = percentProgress + "%";
+        const ariaProgressBar = document.getElementById('ariaProgressBar');
+        if(ariaProgressBar) ariaProgressBar.setAttribute('aria-valuenow', percentProgress);
+
         const sideProfileBar = document.getElementById('sideProfileBar');
         if (sideProfileBar) sideProfileBar.style.width = percentProgress + "%";
         safeSetText('sideProfileText', percentProgress + "%");
@@ -1032,13 +1066,13 @@
         const pendingListEl = document.getElementById('progressTaskListPending');
         if (pendingListEl) {
             const pendingTasks = profileTasks.filter(t => !t.done);
-            pendingListEl.innerHTML = pendingTasks.map(t => `<div class="prog-task-item pending"><span>⏳</span><span style="flex:1;">${t.name}</span></div>`).join('');
+            pendingListEl.innerHTML = pendingTasks.map(t => `<div class="prog-task-item pending" style="color: #991B1B;"><span aria-hidden="true">⏳</span><span style="flex:1;">${t.name}</span></div>`).join('');
             if(pendingTasks.length === 0) pendingListEl.innerHTML = `<div style="text-align:center; padding:10px; font-weight:bold; color:var(--success);">All tasks complete!</div>`; 
         }
         
         const doneListEl = document.getElementById('progressTaskListDone');
         if (doneListEl) {
-            doneListEl.innerHTML = profileTasks.filter(t => t.done).map(t => `<div class="prog-task-item done"><span>✅</span><span style="flex:1;">${t.name}</span></div>`).join('');
+            doneListEl.innerHTML = profileTasks.filter(t => t.done).map(t => `<div class="prog-task-item done" style="color: #065F46;"><span aria-hidden="true">✅</span><span style="flex:1;">${t.name}</span></div>`).join('');
         }
 
         window.updateTopXP(xp, levelName);
@@ -1081,7 +1115,7 @@
                         <h3 style="border:none; padding:0; margin:0; font-size:1.3rem; color:#0f172a; line-height:1.3;">${c.name}</h3>
                         <span class="status-pill status-success">${c.score}%</span>
                     </div>
-                    <p style="font-size:0.95rem; color:var(--text-muted); margin-bottom:20px; font-weight:600;">Aligns perfectly with your ${traitName} natural aptitude.</p>
+                    <p style="font-size:0.95rem; color:var(--text-main); margin-bottom:20px; font-weight:700;">Aligns perfectly with your ${traitName} natural aptitude.</p>
                     <button onclick="window.switchTab('tab-explore', document.querySelectorAll('.nav-btn')[2])" class="btn btn-outline" style="width:100%;">View Details ➔</button>
                 </div>`;
 
@@ -1125,7 +1159,7 @@
 
             if (document.getElementById('reportCareersContainer') && rep.topCareers) {
                 document.getElementById('reportCareersContainer').innerHTML = rep.topCareers.map(c => `
-                    <div style="padding:15px 20px; background:#F8FAFC; border-radius:12px; border-left: 5px solid var(--primary); display:flex; justify-content:space-between; align-items:center;">
+                    <div style="padding:15px 20px; background:#F8FAFC; border-radius:12px; border-left: 5px solid var(--primary); display:flex; justify-content:space-between; align-items:center; border: 1px solid var(--border);">
                         <span style="font-weight:800; color:var(--dark); font-size:1.1rem;">${c.name}</span>
                         <span class="status-pill status-success">${c.score}% Match</span>
                     </div>
@@ -1285,21 +1319,21 @@
         const c = window.globalCounsellors[counsellorId];
         if(c && document.getElementById('counsellorProfileCard')) {
             document.getElementById('counsellorProfileCard').innerHTML = `
-                <img src="${c.photo || 'https://ui-avatars.com/api/?name=Expert&background=4F46E5&color=fff'}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:4px solid var(--primary-light); margin-bottom:15px;">
+                <img src="${c.photo || 'https://ui-avatars.com/api/?name=Expert&background=4F46E5&color=fff'}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:4px solid var(--primary-light); margin-bottom:15px;" alt="Counsellor Photo">
                 <h4 style="margin:0; color:#0f172a; font-size:1.2rem;">${c.name}</h4>
                 <p style="font-size:0.85rem; margin:5px 0; color:var(--success); font-weight:800;">🟢 Online Now</p>
-                <p style="font-size:0.9rem; line-height:1.6; padding:0 15px;">${c.bio || 'Clinical Career Expert'}</p>
+                <p style="font-size:0.95rem; color:var(--text-main); font-weight:600; line-height:1.6; padding:0 15px;">${c.bio || 'Clinical Career Expert'}</p>
             `;
         }
         const chatBox = document.getElementById('studentChatMessages');
-        if(chatBox) chatBox.innerHTML = '<div style="text-align:center; color:var(--text-muted); margin-top:40px;">Loading secure channel...</div>';
+        if(chatBox) chatBox.innerHTML = '<div style="text-align:center; color:var(--text-main); font-weight:600; margin-top:40px;">Loading secure channel...</div>';
 
         const chatId = `${activeUserUid}_${counsellorId}`;
         const q = query(collection(db, "chats", chatId, "messages"), orderBy("timestamp", "asc"));
         
         if(unsubscribeChat) unsubscribeChat();
         unsubscribeChat = onSnapshot(q, (snapshot) => {
-            let html = '<div style="text-align:center; color:var(--text-muted); margin-bottom: 25px; font-size:0.85rem; padding: 6px 20px; background: #F1F5F9; border-radius: 50px; display:inline-block; margin-left: 50%; transform: translateX(-50%); font-weight:700;">🔒 Secure connection established.</div>';
+            let html = '<div style="text-align:center; color:var(--text-main); margin-bottom: 25px; font-size:0.9rem; padding: 8px 20px; background: #F1F5F9; border-radius: 50px; display:inline-block; margin-left: 50%; transform: translateX(-50%); font-weight:700; border:1px solid var(--border);">🔒 Secure connection established.</div>';
             if(!snapshot.empty) {
                 snapshot.forEach(doc => {
                     const msg = doc.data();
