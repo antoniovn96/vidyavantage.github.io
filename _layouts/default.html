@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ page.title }} | {{ site.title }}</title>
 
-    <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
+    <link rel="icon" type="image/x-icon" href="{{ '/assets/image/favicon-16x16.png' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     
     {% seo %}
@@ -32,6 +32,13 @@
         color: #D4AF37; /* Gold */
         text-decoration: none;
         letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-logo img {
+        height: 28px; /* Perfectly sizes the 16x16 or larger logo for the navbar */
+        width: auto;
       }
       .nav-links {
         display: flex;
@@ -144,9 +151,9 @@
       .footer-heading { color: #D4AF37; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
       .footer-links a { display: block; color: #f4f6f8; text-decoration: none; margin-bottom: 10px; transition: color 0.3s; }
       .footer-links a:hover { color: #D4AF37; padding-left: 5px; }
-      .copyright { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; /* UPDATED COLOR */ }
+      .copyright { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; }
       
-      @media (max-width: 900px) {
+      @media (max-width: 1050px) {
         .top-nav { flex-direction: column; gap: 15px; padding: 15px; }
         .nav-links { flex-wrap: wrap; justify-content: center; font-size: 0.85rem; }
       }
@@ -156,13 +163,17 @@
   <body>
     
     <nav class="top-nav">
-      <a href="{{ '/' | relative_url }}" class="nav-logo">VIDYAVANTAGE</a>
+      <a href="{{ '/' | relative_url }}" class="nav-logo">
+        <img src="{{ '/assets/image/favicon-16x16.png' | relative_url }}" alt="VidyaVantage Logo">
+        VIDYAVANTAGE
+      </a>
       
       <div class="nav-links">
         <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/stream-selector/' | relative_url }}">Stream Selector</a>
         <a href="{{ '/colleges/' | relative_url }}">Colleges</a>
         <a href="{{ '/visa/' | relative_url }}">Global Visas</a>
-        <a href="{{ '/blog/' | relative_url }}">Blogs & Research</a>
+        <a href="{{ '/blog/' | relative_url }}">Blogs</a>
         <a href="https://github.com/antoniovn96" target="_blank" class="nav-btn" style="margin-left: 10px;">Contact Me</a>
         
         <button id="globalLoginBtn" class="nav-btn-login">Portal Login</button>
@@ -192,6 +203,7 @@
           <div class="footer-heading">Quick Links</div>
           <div class="footer-links">
              <a href="{{ '/' | relative_url }}">Home</a>
+             <a href="{{ '/stream-selector/' | relative_url }}">Stream Selector</a>
              <a href="{{ '/colleges/' | relative_url }}">Top Colleges</a>
              <a href="{{ '/visa/' | relative_url }}">Visa Rules</a>
              <a href="{{ '/blog/' | relative_url }}">Research Blog</a>
@@ -289,7 +301,7 @@
                 
                 // If they click Login while logged out, send them to homepage Auth Box
                 loginBtn.onclick = () => {
-                    window.location.href = "{{ '/' | relative_url }}";
+                    window.location.href = "{{ '/index.html' | relative_url }}";
                 };
             }
         });
