@@ -62,7 +62,7 @@ layout: none
         .btn-nav { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: 0.3s;}
         .btn-nav:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(59,130,246,0.3);}
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (WITH LOGIN ON THE RIGHT) --- */
         .hero { padding: 140px 0 80px; background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 40%), radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.05), transparent 40%); }
         .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;}
         
@@ -517,7 +517,7 @@ layout: none
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
@@ -660,6 +660,7 @@ layout: none
                 const result = await signInWithPopup(auth, provider);
                 const user = result.user;
 
+                // STRICT CHECK: If they don't have a profile, kick them out.
                 const docRef = doc(db, "students", user.uid);
                 const docSnap = await getDoc(docRef);
                 
@@ -675,6 +676,7 @@ layout: none
                 window.location.href = "student_portal.html";
 
             } catch (error) {
+                console.error("Google Login Error:", error.message);
                 errorMsg.innerText = "Google Sign-In failed or was cancelled.";
                 errorMsg.style.display = 'block';
                 googleBtn.innerHTML = `<img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;"> Sign in with Google`;
