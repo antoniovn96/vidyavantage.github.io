@@ -1,3 +1,6 @@
+---
+layout: none
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +62,7 @@
         .btn-nav { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: 0.3s;}
         .btn-nav:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(59,130,246,0.3);}
 
-        /* --- HERO SECTION (WITH LOGIN ON THE RIGHT) --- */
+        /* --- HERO SECTION --- */
         .hero { padding: 140px 0 80px; background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 40%), radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.05), transparent 40%); }
         .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;}
         
@@ -242,7 +245,7 @@
                 <div class="divider"><span>OR</span></div>
                 
                 <button type="button" class="btn-google" id="googleBtn">
-                    <img src="[https://www.svgrepo.com/show/475656/google-color.svg](https://www.svgrepo.com/show/475656/google-color.svg)" alt="Google" style="width: 22px; height: 22px;">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;">
                     Sign in with Google
                 </button>
 
@@ -512,11 +515,10 @@
 </footer>
 
 <script type="module">
-    import { initializeApp } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js)";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js)";
-    import { getFirestore, doc, getDoc } from "[https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js](https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js)";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-    // ⚠️ REPLACE WITH YOUR FIREBASE CONFIG
     const firebaseConfig = {
       apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
       authDomain: "career-intelligence-system.firebaseapp.com",
@@ -580,7 +582,7 @@
                     <div style="text-align:center;">
                         <div style="font-size: 3rem; margin-bottom: 10px;">👋</div>
                         <h2 style="color:var(--dark); margin:0 0 10px 0;">Welcome Back!</h2>
-                        <p style="color:var(--text-muted); margin-bottom:25px;">You are securely logged into VidyaVantage.</p>
+                        <p style="color:var(--text-muted); margin-bottom:25px;">You are securely authenticated.</p>
                         <button onclick="window.location.href='student_portal.html'" class="btn-large" style="width:100%; margin-bottom:15px; border:none;">Enter My Dashboard ➔</button>
                         <br>
                         <button id="quickLogoutBtn" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:800; font-size:0.95rem; font-family:inherit; text-decoration:underline; margin-top: 10px;">Sign Out Securely</button>
