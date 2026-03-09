@@ -15,6 +15,7 @@
             --text-main: #334155;
             --text-muted: #64748b;
             --border: #e2e8f0;
+            --danger: #ef4444;
         }
         
         body { 
@@ -167,7 +168,7 @@
     </div>
 
     <div class="login-wrapper">
-        <div class="login-card">
+        <div class="login-card" id="authCardContainer">
             <h2>Student Login</h2>
             <p>Enter your details below to access your dashboard.</p>
             
@@ -204,8 +205,8 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     // ⚠️ Ensure this matches the config used in student_portal.html
     const firebaseConfig = {
@@ -222,88 +223,108 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
-    const loginForm = document.getElementById('loginForm');
-    const loginBtn = document.getElementById('loginBtn');
-    const googleBtn = document.getElementById('googleBtn');
-    const errorMsg = document.getElementById('errorMsg');
-    
+    const authCardContainer = document.getElementById('authCardContainer');
     let isProcessingLogin = false;
 
-    // Auto-redirect if already logged in (Only triggers on initial page load)
+    // --- SMART LOGGED-IN STATE DETECTION ---
     onAuthStateChanged(auth, (user) => {
         if (user && !isProcessingLogin) {
-            window.location.href = "student_portal.html";
+            // Instead of force-redirecting, we change the UI of the card!
+            authCardContainer.innerHTML = `
+                <h2>Welcome Back!</h2>
+                <p>You are securely logged into Career Intelligence.</p>
+                <button onclick="window.location.href='student_portal.html'" class="btn-large" style="margin-top:15px; margin-bottom:10px;">Access Dashboard ➔</button>
+                <div style="text-align:center; margin-top:20px;">
+                    <button id="quickLogoutBtn" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:800; font-size:0.95rem; font-family:inherit;">Sign Out Securely</button>
+                </div>
+            `;
+            
+            document.getElementById('quickLogoutBtn').addEventListener('click', () => {
+                signOut(auth).then(() => { window.location.reload(); });
+            });
         }
     });
 
     // 1. STANDARD EMAIL / PASSWORD LOGIN
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        isProcessingLogin = true; 
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            isProcessingLogin = true; 
 
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const loginBtn = document.getElementById('loginBtn');
+            const googleBtn = document.getElementById('googleBtn');
+            const errorMsg = document.getElementById('errorMsg');
 
-        loginBtn.innerText = "Authenticating... ⏳";
-        loginBtn.disabled = true;
-        googleBtn.disabled = true;
-        errorMsg.style.display = 'none';
+            loginBtn.innerText = "Authenticating... ⏳";
+            loginBtn.disabled = true;
+            googleBtn.disabled = true;
+            errorMsg.style.display = 'none';
 
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            window.location.href = "student_portal.html";
-        } catch (error) {
-            console.error("Login Error:", error.message);
-            errorMsg.innerText = "Invalid email or password. Please verify your credentials.";
-            errorMsg.style.display = 'block';
-            loginBtn.innerText = "Secure Sign In";
-            loginBtn.disabled = false;
-            googleBtn.disabled = false;
-            isProcessingLogin = false;
-        }
-    });
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = "student_portal.html";
+            } catch (error) {
+                console.error("Login Error:", error.message);
+                errorMsg.innerText = "Invalid email or password. Please verify your credentials.";
+                errorMsg.style.display = 'block';
+                loginBtn.innerText = "Secure Sign In";
+                loginBtn.disabled = false;
+                googleBtn.disabled = false;
+                isProcessingLogin = false;
+            }
+        });
+    }
 
     // 2. GOOGLE LOGIN
-    googleBtn.addEventListener('click', async () => {
-        isProcessingLogin = true;
-        googleBtn.innerText = "Connecting... ⏳";
-        googleBtn.disabled = true;
-        loginBtn.disabled = true;
-        errorMsg.style.display = 'none';
+    const googleBtn = document.getElementById('googleBtn');
+    if(googleBtn) {
+        googleBtn.addEventListener('click', async () => {
+            isProcessingLogin = true;
+            const loginBtn = document.getElementById('loginBtn');
+            const errorMsg = document.getElementById('errorMsg');
 
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
+            googleBtn.innerText = "Connecting... ⏳";
+            googleBtn.disabled = true;
+            loginBtn.disabled = true;
+            errorMsg.style.display = 'none';
 
-            // Safe check: If this is a completely brand new student using Google, initialize their profile
-            const docRef = doc(db, "students", user.uid);
-            const docSnap = await getDoc(docRef);
-            
-            if (!docSnap.exists()) {
-                await setDoc(docRef, {
-                    name: user.displayName || "Student",
-                    email: user.email,
-                    schoolId: "GENERAL",
-                    joinedAt: new Date().toISOString(),
-                    assessmentCompleted: false,
-                    sessionsHad: 0,
-                    careerLocked: false,
-                    academic: {}
-                }, { merge: true });
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+
+                // Safe check: If this is a completely brand new student using Google, initialize their profile
+                const docRef = doc(db, "students", user.uid);
+                const docSnap = await getDoc(docRef);
+                
+                if (!docSnap.exists()) {
+                    await setDoc(docRef, {
+                        name: user.displayName || "Student",
+                        email: user.email,
+                        schoolId: "GENERAL",
+                        joinedAt: new Date().toISOString(),
+                        assessmentCompleted: false,
+                        sessionsHad: 0,
+                        careerLocked: false,
+                        academic: {}
+                    }, { merge: true });
+                }
+
+                window.location.href = "student_portal.html";
+
+            } catch (error) {
+                console.error("Google Login Error:", error.message);
+                errorMsg.innerText = "Google Sign-In failed or was cancelled.";
+                errorMsg.style.display = 'block';
+                googleBtn.innerHTML = `<img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;"> Sign in with Google`;
+                googleBtn.disabled = false;
+                loginBtn.disabled = false;
+                isProcessingLogin = false;
             }
-
-            window.location.href = "student_portal.html";
-
-        } catch (error) {
-            console.error("Google Login Error:", error.message);
-            errorMsg.innerText = "Google Sign-In failed or was cancelled.";
-            errorMsg.style.display = 'block';
-            googleBtn.innerHTML = `<img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;"> Sign in with Google`;
-            googleBtn.disabled = false;
-            loginBtn.disabled = false;
-            isProcessingLogin = false;
-        }
-    });
+        });
+    }
 </script>
 
 </body>
