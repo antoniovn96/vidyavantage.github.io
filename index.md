@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Guidance & Psychometric Test for Students | Career Intelligence</title>
+    <title>India's Career Intelligence Platform | Guidance & Psychometric Test</title>
+    
     <meta name="description" content="AI-powered career guidance and psychometric testing for students of Class 8 to 12. Discover the right stream and career path with expert counselling.">
+    <meta property="og:title" content="Career Guidance & Psychometric Test for Students">
+    <meta property="og:description" content="AI-powered career guidance platform for students of Class 8–12. Discover the right stream and career path.">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/image/favicon-16x16.png">
+    
     <style>
         :root {
             --bg: #f8fafc;
@@ -51,26 +58,53 @@
         .btn-nav { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: 0.3s;}
         .btn-nav:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(59,130,246,0.3);}
 
-        /* --- HERO SECTION --- */
-        .hero { padding: 160px 0 100px; background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 40%), radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.05), transparent 40%); text-align: center;}
+        /* --- HERO SECTION (WITH LOGIN) --- */
+        .hero { padding: 140px 0 80px; background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 40%), radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.05), transparent 40%); }
+        .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;}
+        
+        .hero-content { flex: 1; min-width: 320px; }
         .hero-tag { display: inline-block; background: rgba(59,130,246,0.1); color: var(--primary); font-weight: 800; padding: 6px 16px; border-radius: 50px; font-size: 0.9rem; margin-bottom: 20px;}
-        .hero h1 { font-size: 4rem; font-weight: 900; color: var(--dark); line-height: 1.1; margin-bottom: 20px; letter-spacing: -1.5px; max-width: 900px; margin-left: auto; margin-right: auto;}
-        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px;}
-        .hero-buttons { display: flex; justify-content: center; gap: 15px; }
-        .btn-large { background: var(--primary); color: white; border: none; padding: 16px 32px; font-size: 1.1rem; font-weight: 800; border-radius: 12px; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);}
-        .btn-large:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);}
-        .btn-outline { background: white; color: var(--text-main); border: 2px solid var(--border); box-shadow: none;}
-        .btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px);}
+        .hero h1 { font-size: 3.5rem; font-weight: 900; color: var(--dark); line-height: 1.1; margin-top:0; margin-bottom: 20px; letter-spacing: -1.5px;}
+        .hero p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px;}
+        
+        .feature-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;}
+        .tag { background: white; border: 1px solid var(--border); padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; color: var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.03);}
+
+        /* --- LOGIN CARD --- */
+        .login-wrapper { flex: 0.8; min-width: 320px; max-width: 450px; }
+        .login-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08); border: 1px solid rgba(255,255,255,0.5);}
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase;}
+        .form-input { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background: #f8fafc; color: var(--dark); box-sizing: border-box; font-family: inherit; font-size: 1rem; transition: 0.3s;}
+        .form-input:focus { border-color: var(--primary); outline: none; background: white;}
+        .btn-large { width: 100%; background: var(--primary); color: white; border: none; padding: 16px; font-size: 1.1rem; font-weight: 900; border-radius: 12px; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px;}
+        .btn-large:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.35);}
+        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: var(--text-muted); font-size: 0.85rem; font-weight: bold; text-transform: uppercase;}
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
+        .divider::before { margin-right: .75em; }
+        .divider::after { margin-left: .75em; }
+        .btn-google { width: 100%; background: white; color: var(--text-main); border: 2px solid var(--border); padding: 14px; font-size: 1.05rem; font-weight: 800; border-radius: 12px; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px;}
+        .btn-google:hover { background: #f8fafc; border-color: #cbd5e1;}
+        .error-msg { color: var(--danger); font-size: 0.85rem; margin-top: 10px; font-weight: 600; text-align: center; display: none;}
+        .register-link { text-align: center; margin-top: 25px; font-size: 1rem; color: var(--text-muted); }
+        .register-link a { color: var(--accent); font-weight: 900; text-decoration: none; transition: 0.2s;}
+        .register-link a:hover { text-decoration: underline; }
 
         /* --- TRUST STRIP --- */
         .trust-strip { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 40px 0;}
         .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;}
-        .trust-item h3 { font-size: 2.2rem; color: var(--primary); margin: 0 0 5px; font-weight: 900;}
+        .trust-item h3 { font-size: 2.5rem; color: var(--primary); margin: 0 0 5px; font-weight: 900;}
         .trust-item p { margin: 0; color: var(--text-muted); font-weight: 700; font-size: 0.95rem; text-transform: uppercase;}
+
+        /* --- WHO IS THIS FOR --- */
+        .audience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px;}
+        .audience-card { background: white; border: 1px solid var(--border); padding: 25px; border-radius: 16px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.02);}
+        .audience-card h4 { color: var(--dark); font-size: 1.2rem; margin: 0 0 5px;}
+        .audience-card p { color: var(--primary); font-weight: 800; margin: 0; font-size: 0.9rem; text-transform: uppercase;}
 
         /* --- PROBLEM SECTION --- */
         .problem-section { background: #fff; }
-        .problem-card { background: #fff1f2; border: 1px solid #fecdd3; padding: 30px; border-radius: 16px; margin-bottom: 20px;}
+        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;}
         .problem-list { list-style: none; padding: 0; font-size: 1.1rem; color: var(--text-main);}
         .problem-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-weight: 600;}
         .problem-list li::before { content: '❌'; font-size: 1.2rem;}
@@ -92,7 +126,6 @@
         .parent-card h4 { color: var(--secondary); font-size: 1.2rem; margin: 0 0 10px;}
 
         /* --- STORY & REPORT SECTION --- */
-        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;}
         .story-card { background: white; padding: 40px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.05);}
         .badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase;}
         .badge-before { background: #fee2e2; color: #ef4444; }
@@ -101,20 +134,11 @@
         /* --- FOUNDER AUTHORITY SECTION --- */
         .founder-section { background: #eff6ff; border-top: 1px solid #bfdbfe; border-bottom: 1px solid #bfdbfe;}
         .founder-card { background: white; border-radius: 20px; padding: 40px; display: flex; gap: 40px; align-items: center; box-shadow: 0 15px 40px rgba(59,130,246,0.1); max-width: 900px; margin: 0 auto;}
-        .founder-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.1);}
+        .founder-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center; font-size:4rem; background:#e2e8f0; flex-shrink:0;}
         .founder-info h3 { margin: 0 0 5px 0; font-size: 1.8rem; color: var(--dark); }
         .founder-info h4 { margin: 0 0 15px 0; font-size: 1.1rem; color: var(--primary); }
         .founder-stats { display: flex; gap: 20px; margin-top: 20px;}
         .f-stat { background: #f8fafc; padding: 10px 15px; border-radius: 10px; border: 1px solid var(--border); font-weight: bold; color: var(--dark); font-size: 0.9rem;}
-
-        /* --- DASHBOARD PREVIEW --- */
-        .dash-mockup { background: white; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 25px 50px rgba(0,0,0,0.1); overflow: hidden; display: flex; height: 400px; max-width: 900px; margin: 0 auto;}
-        .mock-sidebar { width: 200px; background: var(--dark); padding: 20px;}
-        .mock-line { height: 12px; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 15px;}
-        .mock-content { flex: 1; padding: 30px; background: #f8fafc;}
-        .mock-header { height: 30px; width: 40%; background: #e2e8f0; border-radius: 8px; margin-bottom: 30px;}
-        .mock-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;}
-        .mock-card { height: 100px; background: white; border-radius: 12px; border: 1px solid #e2e8f0;}
 
         /* --- BLOG PREVIEW --- */
         .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
@@ -125,6 +149,11 @@
         .blog-content h4 { margin: 0 0 10px 0; font-size: 1.15rem; color: var(--dark); line-height: 1.4;}
         .blog-content p { margin: 0; font-size: 0.9rem; color: var(--text-muted);}
 
+        /* --- CTA SECTION --- */
+        .cta-section { background: var(--primary); color: white; text-align: center; padding: 60px 0; }
+        .cta-section h2 { font-size: 2.2rem; margin: 0 0 15px 0; color: white;}
+        .cta-section p { font-size: 1.1rem; opacity: 0.9; margin: 0 0 30px 0;}
+
         /* --- FAQ --- */
         details.faq-item { background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; overflow: hidden; transition: 0.3s;}
         details.faq-item summary { padding: 20px; font-weight: 800; font-size: 1.1rem; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; outline: none; }
@@ -134,32 +163,19 @@
         details.faq-item[open] summary { border-bottom: 1px solid var(--border); }
         .faq-body { padding: 20px; background: #f8fafc; color: var(--text-main); font-size: 1rem; line-height: 1.6;}
 
-        /* --- LOGIN SECTION (BOTTOM) --- */
-        .login-section { background: var(--bg); border-top: 1px solid var(--border); padding: 80px 0; }
-        .login-card-container { max-width: 450px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08); border: 1px solid rgba(255,255,255,0.5);}
-        .form-group { margin-bottom: 20px; }
-        .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase;}
-        .form-input { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background: #f8fafc; color: var(--dark); box-sizing: border-box; font-family: inherit; font-size: 1rem; transition: 0.3s;}
-        .form-input:focus { border-color: var(--primary); outline: none; background: white;}
-        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: var(--text-muted); font-size: 0.85rem; font-weight: bold; text-transform: uppercase;}
-        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
-        .divider::before { margin-right: .75em; }
-        .divider::after { margin-left: .75em; }
-        .btn-google { width: 100%; background: white; color: var(--text-main); border: 2px solid var(--border); padding: 14px; font-size: 1.05rem; font-weight: 800; border-radius: 12px; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px;}
-        .btn-google:hover { background: #f8fafc; border-color: #cbd5e1;}
-        .error-msg { color: var(--danger); font-size: 0.85rem; margin-top: 10px; font-weight: 600; text-align: center; display: none;}
-
-        footer { background: var(--dark); color: #64748b; text-align: center; padding: 30px; font-size: 0.9rem;}
+        footer { background: var(--dark); color: #64748b; text-align: center; padding: 30px 20px; font-size: 0.95rem;}
 
         /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 900px) {
             .hero h1 { font-size: 2.8rem; }
-            .hero-buttons { flex-direction: column; }
-            .trust-grid, .steps-grid, .parent-grid, .split-grid, .blog-grid { grid-template-columns: 1fr; }
+            .trust-grid, .steps-grid, .parent-grid, .split-grid, .blog-grid, .audience-grid { grid-template-columns: 1fr; }
             .founder-card { flex-direction: column; text-align: center; }
             .founder-stats { justify-content: center; flex-wrap: wrap; }
             .step-card { margin-bottom: 10px; }
-            .dash-mockup { display: none; }
+            .audience-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 500px) {
+            .audience-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -175,28 +191,95 @@
     </div>
 </header>
 
-<section class="hero">
-    <div class="container">
-        <span class="hero-tag">Class 8th - 12th & Undergraduates</span>
-        <h1>Confused About Science, Commerce or Arts?</h1>
-        <p>Discover the Right Career Path Before It’s Too Late. AI-powered psychometric testing combined with expert human counsellors to help you make confident, data-driven career decisions.</p>
-        <div class="hero-buttons">
-            <a href="#loginArea" class="btn-large">Take Career Assessment →</a>
-            <a href="#howItWorks" class="btn-large btn-outline">See How It Works</a>
+<section class="hero" id="loginArea">
+    <div class="container hero-inner">
+        
+        <div class="hero-content">
+            <span class="hero-tag">For Class 8th - 12th & Undergraduates</span>
+            <h1>Confused About Science, Commerce or Arts?</h1>
+            <p>Discover the Right Career Path Before It’s Too Late. AI-powered psychometric testing combined with expert human counsellors to help you make confident, data-driven decisions.</p>
+            
+            <div class="feature-tags">
+                <div class="tag">🧠 Psychometric Matching</div>
+                <div class="tag">📈 Stream Comparisons</div>
+                <div class="tag">🤝 Expert Counselling</div>
+            </div>
         </div>
+
+        <div class="login-wrapper">
+            <div class="login-card" id="authCardContainer">
+                <h2 style="margin: 0 0 5px 0; font-size: 1.8rem; color: var(--dark); text-align:center;">Student Login</h2>
+                <p style="margin: 0 0 25px 0; color: var(--text-muted); font-size: 0.95rem; text-align:center;">Enter your details to access your dashboard.</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="student@school.com" required>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="error-msg" id="errorMsg">Invalid email or password.</div>
+                    
+                    <button type="submit" class="btn-large" id="loginBtn" style="width:100%; margin-top:15px;">Secure Sign In</button>
+                </form>
+
+                <div class="divider"><span>OR</span></div>
+                
+                <button type="button" class="btn-google" id="googleBtn">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;">
+                    Sign in with Google
+                </button>
+
+                <div class="register-link">
+                    New to the Platform?<br><br>
+                    <a href="register.html">Click here to create an account.</a>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </section>
 
 <section class="trust-strip">
     <div class="container trust-grid">
-        <div class="trust-item"><h3>5000+</h3><p>Students Guided</p></div>
-        <div class="trust-item"><h3>98%</h3><p>Clarity Improvement</p></div>
-        <div class="trust-item"><h3>75+</h3><p>Data Points Analyzed</p></div>
-        <div class="trust-item"><h3>100%</h3><p>Scientific Method</p></div>
+        <div class="trust-item"><h3 class="counter-value" data-target="5000" data-suffix="+">0</h3><p>Students Guided</p></div>
+        <div class="trust-item"><h3 class="counter-value" data-target="98" data-suffix="%">0</h3><p>Clarity Improvement</p></div>
+        <div class="trust-item"><h3 class="counter-value" data-target="75" data-suffix="+">0</h3><p>Data Points Analyzed</p></div>
+        <div class="trust-item"><h3 class="counter-value" data-target="100" data-suffix="%">0</h3><p>Scientific Method</p></div>
     </div>
 </section>
 
-<section class="section problem-section">
+<section class="section" style="background: #fff;">
+    <div class="container">
+        <h2 class="section-title">Who Is This Platform For?</h2>
+        <p class="section-subtitle">Tailored career intelligence depending on where you are in your academic journey.</p>
+        
+        <div class="audience-grid">
+            <div class="audience-card">
+                <h4>Class 8–10</h4>
+                <p>Stream Selection</p>
+            </div>
+            <div class="audience-card">
+                <h4>Class 11–12</h4>
+                <p>Career Locking</p>
+            </div>
+            <div class="audience-card">
+                <h4>Undergraduates</h4>
+                <p>Major Correction</p>
+            </div>
+            <div class="audience-card">
+                <h4>Parents</h4>
+                <p>Decision Clarity</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section problem-section" style="background: var(--bg);">
     <div class="container split-grid">
         <div>
             <h2 class="section-title" style="text-align: left;">Why Most Students Choose the Wrong Career</h2>
@@ -214,7 +297,7 @@
     </div>
 </section>
 
-<section class="section" id="howItWorks">
+<section class="section" id="howItWorks" style="background: #fff;">
     <div class="container">
         <h2 class="section-title">How Our Intelligence System Works</h2>
         <p class="section-subtitle">A simple, 5-step scientific approach to completely eliminate career confusion.</p>
@@ -249,7 +332,7 @@
     </div>
 </section>
 
-<section class="section" style="background: white;">
+<section class="section">
     <div class="container split-grid">
         <div class="story-card">
             <h3 style="margin-top:0; color:var(--dark);">Real Student Transformation</h3>
@@ -280,6 +363,24 @@
     </div>
 </section>
 
+<section class="section founder-section">
+    <div class="container">
+        <div class="founder-card">
+            <div class="founder-img">👨‍💼</div>
+            <div class="founder-info">
+                <p style="text-transform: uppercase; font-weight: 800; color: var(--text-muted); font-size: 0.85rem; margin: 0 0 5px 0; letter-spacing: 1px;">Meet the Career Architect</p>
+                <h3>Antonio Vian Noronha</h3>
+                <h4>Lead School Counsellor</h4>
+                <p style="color: var(--text-main); margin: 0; line-height: 1.6;">"My mission is to replace career anxiety with data-driven confidence. Combining deep psychometric testing with human empathy allows us to find the exact intersection of what a student loves and what they are naturally built to succeed in."</p>
+                <div class="founder-stats">
+                    <div class="f-stat">🎓 MSW (Medical & Psychiatric)</div>
+                    <div class="f-stat">🌟 5000+ Students Guided</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="section parent-section">
     <div class="container">
         <h2 class="section-title">Built for Parents Who Want Clarity — Not Conflict</h2>
@@ -297,51 +398,6 @@
             <div class="parent-card">
                 <h4>🤝 Family Alignment</h4>
                 <p style="font-size:0.95rem; margin:0; opacity:0.8;">Our expert counsellors mediate sessions to ensure both parents and students are excited about the final career path.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section founder-section">
-    <div class="container">
-        <div class="founder-card">
-            <div style="width: 150px; height: 150px; border-radius: 50%; background: #e2e8f0; display:flex; align-items:center; justify-content:center; font-size:4rem; border: 4px solid var(--primary); flex-shrink: 0;">👨‍💼</div>
-            <div class="founder-info">
-                <p style="text-transform: uppercase; font-weight: 800; color: var(--text-muted); font-size: 0.85rem; margin: 0 0 5px 0; letter-spacing: 1px;">Meet the Career Architect</p>
-                <h3>Antonio Vian Noronha</h3>
-                <h4>Lead School Counsellor & Architect</h4>
-                <p style="color: var(--text-main); margin: 0; line-height: 1.6;">"My mission is to replace career anxiety with data-driven confidence. Combining deep psychometric testing with human empathy allows us to find the exact intersection of what a student loves and what they are naturally built to succeed in."</p>
-                <div class="founder-stats">
-                    <div class="f-stat">🎓 MSW (Medical & Psychiatric)</div>
-                    <div class="f-stat">🌟 5000+ Students Guided</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">Inside Your Career Dashboard</h2>
-        <p class="section-subtitle">A premium digital workspace designed to keep students motivated, structured, and on track.</p>
-        
-        <div class="dash-mockup">
-            <div class="mock-sidebar">
-                <div class="mock-line" style="width: 80%; background:var(--primary); margin-bottom: 30px;"></div>
-                <div class="mock-line" style="width: 100%;"></div>
-                <div class="mock-line" style="width: 90%;"></div>
-                <div class="mock-line" style="width: 95%;"></div>
-            </div>
-            <div class="mock-content">
-                <div class="mock-header"></div>
-                <div class="mock-grid">
-                    <div class="mock-card" style="border-top: 4px solid var(--primary);"></div>
-                    <div class="mock-card" style="border-top: 4px solid var(--secondary);"></div>
-                    <div class="mock-card" style="border-top: 4px solid var(--accent);"></div>
-                </div>
-                <div style="margin-top:20px; height: 150px; background: white; border-radius: 12px; border: 1px solid #e2e8f0; display:flex; align-items:center; justify-content:center; color: #cbd5e1; font-weight:bold;">
-                    Interactive Career Explorer Engine
-                </div>
             </div>
         </div>
     </div>
@@ -378,6 +434,14 @@
     </div>
 </section>
 
+<section class="cta-section">
+    <div class="container">
+        <h2>Still Confused About Your Career?</h2>
+        <p>Take the 25-Minute Career Assessment to find your true path.</p>
+        <a href="#loginArea" class="btn-large" style="background: white; color: var(--primary);">Take the Career Assessment →</a>
+    </div>
+</section>
+
 <section class="section">
     <div class="container" style="max-width: 800px;">
         <h2 class="section-title">Frequently Asked Questions</h2>
@@ -401,51 +465,9 @@
     </div>
 </section>
 
-<section class="login-section" id="loginArea">
-    <div class="container">
-        
-        <div style="text-align: center; margin-bottom: 50px;">
-            <h2 style="font-size: 2.8rem; color: var(--dark); font-weight: 900; margin-bottom: 10px; letter-spacing: -1px;">Ready to Discover Your Career Path?</h2>
-            <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;">25 minutes could save you years of academic confusion. Access your intelligence dashboard below.</p>
-        </div>
-
-        <div class="login-card-container" id="authCardContainer">
-            <h2 style="margin: 0 0 5px 0; font-size: 1.8rem; color: var(--dark); text-align:center;">Student Login</h2>
-            <p style="margin: 0 0 25px 0; color: var(--text-muted); font-size: 0.95rem; text-align:center;">Enter your details to access your dashboard.</p>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" id="email" class="form-input" placeholder="student@school.com" required>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 10px;">
-                    <label class="form-label">Password</label>
-                    <input type="password" id="password" class="form-input" placeholder="••••••••" required>
-                </div>
-                
-                <div class="error-msg" id="errorMsg">Invalid email or password.</div>
-                
-                <button type="submit" class="btn-large" id="loginBtn">Secure Sign In</button>
-            </form>
-
-            <div class="divider"><span>OR</span></div>
-            
-            <button type="button" class="btn-google" id="googleBtn">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;">
-                Sign in with Google
-            </button>
-
-            <div class="register-link">
-                New to the Platform?<br><br>
-                <a href="register.html">Click here to create an account.</a>
-            </div>
-        </div>
-    </div>
-</section>
-
 <footer>
     <div class="container">
+        <p style="margin:0 0 10px 0; font-weight: bold; color: #94a3b8;">Serving students across India | Career counselling headquartered in Bangalore</p>
         &copy; 2026 Career Intelligence System. All rights reserved. Designed to empower students.
     </div>
 </footer>
@@ -474,25 +496,53 @@
     const navAuthContainer = document.getElementById('nav-auth-container');
     let isProcessingLogin = false;
 
+    // --- ANIMATED COUNTERS ---
+    document.addEventListener("DOMContentLoaded", () => {
+        const counters = document.querySelectorAll('.counter-value');
+        const speed = 100; 
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    const suffix = counter.getAttribute('data-suffix') || '';
+                    
+                    const updateCount = () => {
+                        const count = parseInt(counter.innerText.replace(/\D/g,'')) || 0;
+                        const inc = target / speed;
+                        
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc) + suffix;
+                            setTimeout(updateCount, 20);
+                        } else {
+                            counter.innerText = target + suffix;
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => observer.observe(counter));
+    });
+
     // --- SMART LOGGED-IN STATE DETECTION ---
     onAuthStateChanged(auth, (user) => {
-        // Stop forcing redirect! Let them read the homepage if they want to.
-        // Instead, we dynamically change the Login UI to a "Go to Dashboard" button.
         if (user && !isProcessingLogin) {
             
-            // 1. Update Navbar
             if(navAuthContainer) {
-                navAuthContainer.innerHTML = `<a href="student_portal.html" class="btn-nav">Go to Dashboard ➔</a>`;
+                navAuthContainer.innerHTML = `<a href="student_portal.html" class="btn-nav">Dashboard ➔</a>`;
             }
 
-            // 2. Update bottom Login Card to a Welcome Card
             if(authCardContainer) {
                 authCardContainer.innerHTML = `
                     <div style="text-align:center;">
                         <div style="font-size: 3rem; margin-bottom: 10px;">👋</div>
                         <h2 style="color:var(--dark); margin:0 0 10px 0;">Welcome Back!</h2>
                         <p style="color:var(--text-muted); margin-bottom:25px;">You are already securely authenticated.</p>
-                        <button onclick="window.location.href='student_portal.html'" class="btn-large" style="width:100%; margin-bottom:15px;">Enter My Dashboard ➔</button>
+                        <button onclick="window.location.href='student_portal.html'" class="btn-large" style="width:100%; margin-bottom:15px; border:none;">Enter My Dashboard ➔</button>
                         <br>
                         <button id="quickLogoutBtn" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:800; font-size:0.95rem; font-family:inherit; text-decoration:underline; margin-top: 10px;">Sign Out Securely</button>
                     </div>
@@ -555,7 +605,6 @@
                 const result = await signInWithPopup(auth, provider);
                 const user = result.user;
 
-                // Safe check: If this is a brand new student using Google, initialize their empty profile
                 const docRef = doc(db, "students", user.uid);
                 const docSnap = await getDoc(docRef);
                 
