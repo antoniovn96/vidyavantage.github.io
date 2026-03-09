@@ -88,8 +88,8 @@
             background: var(--primary); 
             color: white; 
             border: none; 
-            padding: 18px; /* Increased padding */
-            font-size: 1.25rem; /* Larger font */
+            padding: 18px; 
+            font-size: 1.25rem; 
             font-weight: 900; 
             border-radius: 12px; 
             cursor: pointer; 
@@ -101,7 +101,7 @@
             margin-top: 10px;
             box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
         }
-        .btn-large:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 12px 25px rgba(59, 130, 246, 0.35);}
+        .btn-large:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 12px 25px rgba(59, 130, 246, 0.35);}
         .btn-large:disabled { background: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none;}
         
         .error-msg { color: var(--danger); font-size: 0.85rem; margin-top: 10px; font-weight: 600; text-align: center; display: none;}
@@ -186,7 +186,7 @@
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-    // ⚠️ Ensure this matches the config used in student_portal.html
+    // ⚠️ REPLACE WITH YOUR FIREBASE CONFIG
     const firebaseConfig = {
       apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
       authDomain: "career-intelligence-system.firebaseapp.com",
@@ -203,16 +203,22 @@
     const loginForm = document.getElementById('loginForm');
     const loginBtn = document.getElementById('loginBtn');
     const errorMsg = document.getElementById('errorMsg');
+    
+    // Safety flag to prevent redirecting before database saves
+    let isProcessingLogin = false;
 
-    // Auto-redirect if already logged in
+    // Auto-redirect if already logged in (Only triggers on initial page load)
     onAuthStateChanged(auth, (user) => {
-        if (user) {
+        if (user && !isProcessingLogin) {
             window.location.href = "student_portal.html";
         }
     });
 
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
+        isProcessingLogin = true; // Tell the system to wait
+
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
         const currentStudy = document.getElementById('currentStudy').value;
@@ -226,21 +232,23 @@
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // 2. Automatically update their database profile with the selected class
-            // Using merge:true ensures we don't accidentally overwrite their other data
+            // 2. Safely update their profile with the selected class
             await setDoc(doc(db, "students", user.uid), { 
                 academic: {
                     currentClass: currentStudy
                 }
             }, { merge: true });
 
-            // 3. onAuthStateChanged will handle the redirect automatically upon success
+            // 3. Manually redirect to dashboard once saving is 100% complete
+            window.location.href = "student_portal.html";
+            
         } catch (error) {
             console.error("Login Error:", error.message);
             errorMsg.innerText = "Invalid credentials. Please verify your email and password.";
             errorMsg.style.display = 'block';
             loginBtn.innerText = "Secure Sign In ➔";
             loginBtn.disabled = false;
+            isProcessingLogin = false;
         }
     });
 </script>
