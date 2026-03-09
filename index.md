@@ -78,9 +78,8 @@
 
         .form-group { margin-bottom: 20px; }
         .form-label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;}
-        .form-input, .form-select { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background: #f8fafc; color: var(--dark); box-sizing: border-box; font-family: inherit; font-size: 1rem; transition: 0.3s;}
-        .form-input:focus, .form-select:focus { border-color: var(--primary); outline: none; background: white; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);}
-        .form-select { cursor: pointer; }
+        .form-input { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background: #f8fafc; color: var(--dark); box-sizing: border-box; font-family: inherit; font-size: 1rem; transition: 0.3s;}
+        .form-input:focus { border-color: var(--primary); outline: none; background: white; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);}
 
         /* BIG LOGIN BUTTON */
         .btn-large { 
@@ -104,6 +103,33 @@
         .btn-large:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 12px 25px rgba(59, 130, 246, 0.35);}
         .btn-large:disabled { background: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none;}
         
+        /* GOOGLE LOGIN STYLES */
+        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: var(--text-muted); font-size: 0.85rem; font-weight: bold; text-transform: uppercase;}
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
+        .divider::before { margin-right: .75em; }
+        .divider::after { margin-left: .75em; }
+        
+        .btn-google {
+            width: 100%; 
+            background: white; 
+            color: var(--text-main); 
+            border: 2px solid var(--border); 
+            padding: 14px; 
+            font-size: 1.05rem; 
+            font-weight: 800; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            font-family: 'Nunito', sans-serif;
+        }
+        .btn-google:hover:not(:disabled) { background: #f8fafc; border-color: #cbd5e1; transform: translateY(-2px); }
+        .btn-google:disabled { opacity: 0.7; cursor: not-allowed; }
+
         .error-msg { color: var(--danger); font-size: 0.85rem; margin-top: 10px; font-weight: 600; text-align: center; display: none;}
         
         /* REGISTER LINK */
@@ -146,21 +172,8 @@
             <p>Enter your details below to access your dashboard.</p>
             
             <form id="loginForm">
-                
                 <div class="form-group">
-                    <label class="form-label">Current Education Level</label>
-                    <select id="currentStudy" class="form-select" required>
-                        <option value="" disabled selected>Select your current class...</option>
-                        <option value="10th">10th Grade / SSLC</option>
-                        <option value="11th">11th Grade / PUC 1</option>
-                        <option value="12th">12th Grade / PUC 2</option>
-                        <option value="Undergraduate">Undergraduate (Degree)</option>
-                        <option value="Postgraduate">Postgraduate (Masters)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
+                    <label class="form-label">Email</label>
                     <input type="email" id="email" class="form-input" placeholder="student@school.com" required>
                 </div>
 
@@ -171,11 +184,19 @@
                 
                 <div class="error-msg" id="errorMsg">Invalid email or password.</div>
                 
-                <button type="submit" class="btn-large" id="loginBtn">Secure Sign In ➔</button>
+                <button type="submit" class="btn-large" id="loginBtn">Secure Sign In</button>
             </form>
 
+            <div class="divider"><span>OR</span></div>
+            
+            <button type="button" class="btn-google" id="googleBtn">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;">
+                Sign in with Google
+            </button>
+
             <div class="register-link">
-                New to the platform? <br><br> <a href="register.html">Click Here to Create an Account</a>
+                New to the Platform?<br><br>
+                <a href="register.html">Click here to create an account.</a>
             </div>
         </div>
     </div>
@@ -183,10 +204,10 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-    // ⚠️ REPLACE WITH YOUR FIREBASE CONFIG
+    // ⚠️ Ensure this matches the config used in student_portal.html
     const firebaseConfig = {
       apiKey: "AIzaSyBygHYMOSuKueZf9nE5LmSwCyCeZ2dNeD0",
       authDomain: "career-intelligence-system.firebaseapp.com",
@@ -199,12 +220,13 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
 
     const loginForm = document.getElementById('loginForm');
     const loginBtn = document.getElementById('loginBtn');
+    const googleBtn = document.getElementById('googleBtn');
     const errorMsg = document.getElementById('errorMsg');
     
-    // Safety flag to prevent redirecting before database saves
     let isProcessingLogin = false;
 
     // Auto-redirect if already logged in (Only triggers on initial page load)
@@ -214,39 +236,70 @@
         }
     });
 
+    // 1. STANDARD EMAIL / PASSWORD LOGIN
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        isProcessingLogin = true; // Tell the system to wait
+        isProcessingLogin = true; 
 
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
-        const currentStudy = document.getElementById('currentStudy').value;
 
         loginBtn.innerText = "Authenticating... ⏳";
+        loginBtn.disabled = true;
+        googleBtn.disabled = true;
+        errorMsg.style.display = 'none';
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            window.location.href = "student_portal.html";
+        } catch (error) {
+            console.error("Login Error:", error.message);
+            errorMsg.innerText = "Invalid email or password. Please verify your credentials.";
+            errorMsg.style.display = 'block';
+            loginBtn.innerText = "Secure Sign In";
+            loginBtn.disabled = false;
+            googleBtn.disabled = false;
+            isProcessingLogin = false;
+        }
+    });
+
+    // 2. GOOGLE LOGIN
+    googleBtn.addEventListener('click', async () => {
+        isProcessingLogin = true;
+        googleBtn.innerText = "Connecting... ⏳";
+        googleBtn.disabled = true;
         loginBtn.disabled = true;
         errorMsg.style.display = 'none';
 
         try {
-            // 1. Sign in the user
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
 
-            // 2. Safely update their profile with the selected class
-            await setDoc(doc(db, "students", user.uid), { 
-                academic: {
-                    currentClass: currentStudy
-                }
-            }, { merge: true });
-
-            // 3. Manually redirect to dashboard once saving is 100% complete
-            window.location.href = "student_portal.html";
+            // Safe check: If this is a completely brand new student using Google, initialize their profile
+            const docRef = doc(db, "students", user.uid);
+            const docSnap = await getDoc(docRef);
             
+            if (!docSnap.exists()) {
+                await setDoc(docRef, {
+                    name: user.displayName || "Student",
+                    email: user.email,
+                    schoolId: "GENERAL",
+                    joinedAt: new Date().toISOString(),
+                    assessmentCompleted: false,
+                    sessionsHad: 0,
+                    careerLocked: false,
+                    academic: {}
+                }, { merge: true });
+            }
+
+            window.location.href = "student_portal.html";
+
         } catch (error) {
-            console.error("Login Error:", error.message);
-            errorMsg.innerText = "Invalid credentials. Please verify your email and password.";
+            console.error("Google Login Error:", error.message);
+            errorMsg.innerText = "Google Sign-In failed or was cancelled.";
             errorMsg.style.display = 'block';
-            loginBtn.innerText = "Secure Sign In ➔";
+            googleBtn.innerHTML = `<img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 22px; height: 22px;"> Sign in with Google`;
+            googleBtn.disabled = false;
             loginBtn.disabled = false;
             isProcessingLogin = false;
         }
