@@ -85,7 +85,7 @@
         .divider::after { margin-left: .75em; }
         .btn-google { width: 100%; background: white; color: var(--text-main); border: 2px solid var(--border); padding: 14px; font-size: 1.05rem; font-weight: 800; border-radius: 12px; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px;}
         .btn-google:hover { background: #f8fafc; border-color: #cbd5e1;}
-        .error-msg { color: var(--danger); font-size: 0.85rem; margin-top: 10px; font-weight: 600; text-align: center; display: none;}
+        .error-msg { color: var(--danger); font-size: 0.9rem; margin-top: 15px; font-weight: 600; text-align: center; display: none; line-height: 1.5; background: #fff1f2; padding: 10px; border-radius: 8px; border: 1px solid #fecdd3;}
         .register-link { text-align: center; margin-top: 25px; font-size: 1rem; color: var(--text-muted); }
         .register-link a { color: var(--accent); font-weight: 900; text-decoration: none; transition: 0.2s;}
         .register-link a:hover { text-decoration: underline; }
@@ -140,6 +140,15 @@
         .founder-stats { display: flex; gap: 20px; margin-top: 20px;}
         .f-stat { background: #f8fafc; padding: 10px 15px; border-radius: 10px; border: 1px solid var(--border); font-weight: bold; color: var(--dark); font-size: 0.9rem;}
 
+        /* --- DASHBOARD PREVIEW --- */
+        .dash-mockup { background: white; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 25px 50px rgba(0,0,0,0.1); overflow: hidden; display: flex; height: 400px; max-width: 900px; margin: 0 auto;}
+        .mock-sidebar { width: 200px; background: var(--dark); padding: 20px;}
+        .mock-line { height: 12px; background: rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 15px;}
+        .mock-content { flex: 1; padding: 30px; background: #f8fafc;}
+        .mock-header { height: 30px; width: 40%; background: #e2e8f0; border-radius: 8px; margin-bottom: 30px;}
+        .mock-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;}
+        .mock-card { height: 100px; background: white; border-radius: 12px; border: 1px solid #e2e8f0;}
+
         /* --- BLOG PREVIEW --- */
         .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .blog-card { background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: 0.3s; text-decoration: none; color: inherit; display: block;}
@@ -168,11 +177,13 @@
         /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 900px) {
             .hero h1 { font-size: 2.8rem; }
+            .hero-buttons { flex-direction: column; }
             .trust-grid, .steps-grid, .parent-grid, .split-grid, .blog-grid, .audience-grid { grid-template-columns: 1fr; }
             .founder-card { flex-direction: column; text-align: center; }
             .founder-stats { justify-content: center; flex-wrap: wrap; }
             .step-card { margin-bottom: 10px; }
             .audience-grid { grid-template-columns: 1fr 1fr; }
+            .dash-mockup { display: none; }
         }
         @media (max-width: 500px) {
             .audience-grid { grid-template-columns: 1fr; }
@@ -403,6 +414,33 @@
     </div>
 </section>
 
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Inside Your Career Dashboard</h2>
+        <p class="section-subtitle">A premium digital workspace designed to keep students motivated, structured, and on track.</p>
+        
+        <div class="dash-mockup">
+            <div class="mock-sidebar">
+                <div class="mock-line" style="width: 80%; background:var(--primary); margin-bottom: 30px;"></div>
+                <div class="mock-line" style="width: 100%;"></div>
+                <div class="mock-line" style="width: 90%;"></div>
+                <div class="mock-line" style="width: 95%;"></div>
+            </div>
+            <div class="mock-content">
+                <div class="mock-header"></div>
+                <div class="mock-grid">
+                    <div class="mock-card" style="border-top: 4px solid var(--primary);"></div>
+                    <div class="mock-card" style="border-top: 4px solid var(--secondary);"></div>
+                    <div class="mock-card" style="border-top: 4px solid var(--accent);"></div>
+                </div>
+                <div style="margin-top:20px; height: 150px; background: white; border-radius: 12px; border: 1px solid #e2e8f0; display:flex; align-items:center; justify-content:center; color: #cbd5e1; font-weight:bold;">
+                    Interactive Career Explorer Engine
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="section" style="background: white;">
     <div class="container">
         <h2 class="section-title">Latest Career Insights</h2>
@@ -475,7 +513,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     // ⚠️ REPLACE WITH YOUR FIREBASE CONFIG
     const firebaseConfig = {
@@ -532,16 +570,18 @@
     onAuthStateChanged(auth, (user) => {
         if (user && !isProcessingLogin) {
             
+            // 1. Update Navbar
             if(navAuthContainer) {
                 navAuthContainer.innerHTML = `<a href="student_portal.html" class="btn-nav">Dashboard ➔</a>`;
             }
 
+            // 2. Update bottom Login Card to a Welcome Card
             if(authCardContainer) {
                 authCardContainer.innerHTML = `
                     <div style="text-align:center;">
                         <div style="font-size: 3rem; margin-bottom: 10px;">👋</div>
                         <h2 style="color:var(--dark); margin:0 0 10px 0;">Welcome Back!</h2>
-                        <p style="color:var(--text-muted); margin-bottom:25px;">You are already securely authenticated.</p>
+                        <p style="color:var(--text-muted); margin-bottom:25px;">You are securely authenticated.</p>
                         <button onclick="window.location.href='student_portal.html'" class="btn-large" style="width:100%; margin-bottom:15px; border:none;">Enter My Dashboard ➔</button>
                         <br>
                         <button id="quickLogoutBtn" style="background:none; border:none; color:var(--danger); cursor:pointer; font-weight:800; font-size:0.95rem; font-family:inherit; text-decoration:underline; margin-top: 10px;">Sign Out Securely</button>
@@ -574,21 +614,38 @@
             errorMsg.style.display = 'none';
 
             try {
-                await signInWithEmailAndPassword(auth, email, password);
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                
+                // Extra Security Check: Does their profile actually exist?
+                const docRef = doc(db, "students", userCredential.user.uid);
+                const docSnap = await getDoc(docRef);
+                
+                if (!docSnap.exists()) {
+                    await signOut(auth);
+                    throw new Error("unregistered_user");
+                }
+
                 window.location.href = "student_portal.html";
             } catch (error) {
                 console.error("Login Error:", error.message);
-                errorMsg.innerText = "Invalid email or password. Please verify your credentials.";
-                errorMsg.style.display = 'block';
-                loginBtn.innerText = "Secure Sign In";
-                loginBtn.disabled = false;
-                if(googleBtn) googleBtn.disabled = false;
-                isProcessingLogin = false;
+                
+                if(error.message === "unregistered_user" || error.message.includes("user-not-found") || error.message.includes("invalid-credential")) {
+                    errorMsg.innerHTML = "🕵️‍♂️ <strong>User Not Found!</strong><br><br>Did you try sneaking in through the back door? You need to register first!<br><br>Redirecting...";
+                    errorMsg.style.display = 'block';
+                    setTimeout(() => { window.location.href = "register.html"; }, 3500);
+                } else {
+                    errorMsg.innerText = "Invalid email or password. Please verify your credentials.";
+                    errorMsg.style.display = 'block';
+                    loginBtn.innerText = "Secure Sign In";
+                    loginBtn.disabled = false;
+                    if(googleBtn) googleBtn.disabled = false;
+                    isProcessingLogin = false;
+                }
             }
         });
     }
 
-    // 2. GOOGLE LOGIN
+    // 2. GOOGLE LOGIN (BOUNCER LOGIC APPLIED)
     const googleBtn = document.getElementById('googleBtn');
     if(googleBtn) {
         googleBtn.addEventListener('click', async () => {
@@ -605,22 +662,22 @@
                 const result = await signInWithPopup(auth, provider);
                 const user = result.user;
 
+                // STRICT CHECK: If they don't have a profile, kick them out.
                 const docRef = doc(db, "students", user.uid);
                 const docSnap = await getDoc(docRef);
                 
                 if (!docSnap.exists()) {
-                    await setDoc(docRef, {
-                        name: user.displayName || "Student",
-                        email: user.email,
-                        schoolId: "GENERAL",
-                        joinedAt: new Date().toISOString(),
-                        assessmentCompleted: false,
-                        sessionsHad: 0,
-                        careerLocked: false,
-                        academic: {}
-                    }, { merge: true });
+                    await signOut(auth); // Kick them out of Auth
+                    errorMsg.innerHTML = "🕵️‍♂️ <strong>Profile Not Found!</strong><br><br>Hold your horses! 🐎 You can't enter the VIP club without making a profile first.<br><br>Taking you to registration...";
+                    errorMsg.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        window.location.href = "register.html";
+                    }, 3500);
+                    return; // Stop script execution so it doesn't redirect to dashboard
                 }
 
+                // If profile exists, let them in.
                 window.location.href = "student_portal.html";
 
             } catch (error) {
