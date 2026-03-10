@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkamagaluru. Filter by courses, location, and fees for IISc, IIT Roorkee, JGU, IHM Pusa, Christ, and more."
+description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkamagaluru. Filter by courses, location, and fees for IISc, IIT Roorkee, JGU, IHM Pusa, Christ, CII, and more."
 ---
 
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&auto=format&fit=crop">
@@ -22,7 +22,7 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   }
   .colleges-hero h1 { margin: 0; font-size: 3rem; font-weight: 800; color: white !important; }
-  .colleges-hero p { font-size: 1.2rem; color: #F3F4F6 !important; margin-top: 10px; } /* Improved contrast */
+  .colleges-hero p { font-size: 1.2rem; color: #F3F4F6 !important; margin-top: 10px; }
 
   /* 2. FILTER BAR */
   .filter-container {
@@ -47,7 +47,7 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
     font-size: 0.95rem;
     outline: none;
     transition: border 0.3s;
-    min-height: 48px; /* Accessibility: 48px Touch Target */
+    min-height: 48px;
     color: #1F2937;
   }
   .search-input:focus { border-color: #0A2342; }
@@ -57,26 +57,26 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
     border: 2px solid #E5E7EB;
     border-radius: 50px;
     background: white;
-    color: #374151; /* Darkened for accessibility */
+    color: #374151;
     font-weight: 600;
     cursor: pointer;
     outline: none;
     transition: all 0.3s;
     min-width: 180px;
-    min-height: 48px; /* Accessibility: 48px Touch Target */
+    min-height: 48px;
   }
   .filter-select:hover, .filter-select:focus { border-color: #0A2342; color: #0A2342; }
 
   .reset-btn {
     padding: 10px 25px;
-    background: #dc2626; /* Darker red for WCAG Contrast compliance */
+    background: #dc2626;
     color: white;
     border: none;
     border-radius: 50px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.2s;
-    min-height: 48px; /* Accessibility: 48px Touch Target */
+    min-height: 48px;
     touch-action: manipulation;
   }
   .reset-btn:hover { background: #991b1b; }
@@ -84,7 +84,7 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
   /* 3. GRID LAYOUT */
   .college-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Adjusted for mobile safety */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 30px;
     padding: 0 20px 60px;
     max-width: 1200px;
@@ -102,7 +102,7 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
     flex-direction: column;
     border-top: 5px solid #0A2342;
     animation: fadeIn 0.5s ease;
-    content-visibility: auto; /* Performance Optimization */
+    content-visibility: auto;
   }
   
   .college-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
@@ -112,7 +112,7 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
     width: 100%;
     height: 180px;
     object-fit: cover;
-    background: #f3f4f6; /* Placeholder color before image loads */
+    background: #f3f4f6;
   }
 
   .card-body { padding: 25px; flex-grow: 1; }
@@ -124,12 +124,12 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
     font-weight: 800; 
   }
   
-  .college-meta { font-size: 0.9rem; color: #4B5563; margin-bottom: 15px; } /* Contrast fix */
+  .college-meta { font-size: 0.9rem; color: #4B5563; margin-bottom: 15px; }
   
   .tag { 
     display: inline-block; 
-    background: #E5E7EB; /* Contrast fix */
-    color: #1F2937; /* Contrast fix */
+    background: #E5E7EB;
+    color: #1F2937;
     padding: 4px 10px; 
     border-radius: 4px; 
     font-size: 0.8rem; 
@@ -137,7 +137,7 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
     margin-right: 5px; 
   }
 
-  .card-desc { color: #374151; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; } /* Contrast fix */
+  .card-desc { color: #374151; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
 
   .card-footer { padding: 20px; border-top: 1px solid #eee; background: #fafafa; text-align: center; }
 
@@ -150,7 +150,7 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
     text-decoration: none;
     font-weight: bold;
     transition: all 0.2s;
-    min-height: 44px; /* Accessibility touch target */
+    min-height: 44px;
     touch-action: manipulation;
   }
 
@@ -236,6 +236,23 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
       </div>
       <div class="card-footer">
         <a href="{{ '/colleges/ihm-pusa/' | relative_url }}" class="view-btn" style="background: #8B0000; color: white;" aria-label="View Programs at IHM Pusa">View Programs ➔</a>
+      </div>
+    </div>
+
+    <div class="college-card" data-category="management hospitality" data-location="New Delhi Bengaluru" style="border-top-color: #00509E;">
+      <img src="https://www.ciiih.com/images/about.jpg" class="card-img" alt="CII Institute of Hospitality" width="400" height="225" loading="lazy" decoding="async">
+      <div class="card-body">
+        <h2 class="college-name" style="color: #00509E;">CII Institute of Hospitality</h2>
+        <div class="college-meta">
+          <span class="tag">📍 Pan India</span>
+          <span class="tag">🇨🇭 Swiss Curriculum</span>
+        </div>
+        <p class="card-desc">
+          An industry-led hospitality institute by the Confederation of Indian Industry. Offers the prestigious VET by EHL Swiss Professional Hospitality Diploma in Culinary, F&B, and Rooms.
+        </p>
+      </div>
+      <div class="card-footer">
+        <a href="{{ '/colleges/cii-ih/' | relative_url }}" class="view-btn" style="background: #00509E; color: white;" aria-label="View Programs at CII IH">View Programs ➔</a>
       </div>
     </div>
 
@@ -525,57 +542,6 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
       </div>
       <div class="card-footer">
         <a href="{{ '/colleges/st-josephs/' | relative_url }}" class="view-btn" style="background: #0A2342; color: #D4AF37;" aria-label="View Programs at St. Joseph's University">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering" data-location="Bengaluru Basavanagudi" style="border-top-color: #0056b3;">
-      <img src="https://shiksha-tech.com/wp-content/uploads/2025/12/direct_admission_in_bms_college.png" class="card-img" alt="BMSCE Bangalore" width="400" height="225" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name" style="color: #0056b3;">B.M.S. College of Engineering</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Basavanagudi</span>
-          <span class="tag">🏆 Est. 1946</span>
-        </div>
-        <p class="card-desc">
-          India's first private engineering college. Top choice for Engineering (BE/M.Tech) with outstanding placements and campus culture.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/bmsce/' | relative_url }}" class="view-btn" style="background: #0056b3; color: white;" aria-label="View Programs at B.M.S. College of Engineering">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering management" data-location="Bengaluru South West" style="border-top-color: #f39c12;">
-      <img src="https://pes.edu/wp-content/uploads/2025/06/PESU-EC-Campus.jpg" class="card-img" alt="PES University" width="400" height="225" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name" style="color: #d35400;">PES University</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Ring Road / EC</span>
-          <span class="tag">🏆 Est. 1972</span>
-        </div>
-        <p class="card-desc">
-          Known for the PESSAT exam and rigorous academic standards. Excellent for Computer Science, Design (B.Des), and Architecture.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/pes-university/' | relative_url }}" class="view-btn" style="background: #d35400; color: white;" aria-label="View Programs at PES University">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering" data-location="Bengaluru West" style="border-top-color: #008080;">
-      <img src="https://www.highereducationdigest.com/wp-content/uploads/2019/04/Img-3_800x480-4-768x461.jpg" class="card-img" alt="RVCE" width="400" height="225" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name" style="color: #008080;">RV College of Engineering</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Mysore Road</span>
-          <span class="tag">🏆 Est. 1963</span>
-        </div>
-        <p class="card-desc">
-          One of the most preferred engineering colleges under VTU. Famous for its research centers, innovation, and high package placements.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/rvce/' | relative_url }}" class="view-btn" style="background: #008080; color: white;" aria-label="View Programs at RV College of Engineering">View Programs ➔</a>
       </div>
     </div>
 
