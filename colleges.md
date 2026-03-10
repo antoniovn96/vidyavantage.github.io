@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore, Chikkamagaluru & Roorkee. Filter by courses, location, and fees for IISc, IIT Roorkee, AIT, BMSCE, Christ, and more."
+description: "Browse top universities in Bangalore, Chikkamagaluru, Roorkee & New Delhi. Filter by courses, location, and fees for IISc, IIT Roorkee, IHM Pusa, Christ, and more."
 ---
 
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&auto=format&fit=crop">
@@ -186,6 +186,7 @@ description: "Browse top universities in Bangalore, Chikkamagaluru & Roorkee. Fi
     <select id="locationFilter" class="filter-select" aria-label="Filter by Location" onchange="filterColleges()">
       <option value="all">📍 All Locations</option>
       <option value="Bengaluru">Bengaluru (General)</option>
+      <option value="New Delhi">New Delhi</option>
       <option value="Roorkee">Roorkee (IITR)</option>
       <option value="Chikkamagaluru">Chikkamagaluru (AIT)</option>
       <option value="Yelahanka">Yelahanka</option>
@@ -202,6 +203,23 @@ description: "Browse top universities in Bangalore, Chikkamagaluru & Roorkee. Fi
   </div>
 
   <div class="college-grid" id="collegeGrid">
+
+    <div class="college-card" data-category="management hospitality" data-location="New Delhi" style="border-top-color: #8B0000;">
+      <img src="https://www.collegebatch.com/static/clg-gallery/institute-of-hotel-management-catering-nutrition-pusa-new-delhi-322357.webp" class="card-img" alt="IHM Pusa Campus Building" width="400" height="225" loading="lazy" decoding="async">
+      <div class="card-body">
+        <h2 class="college-name" style="color: #8B0000;">Institute of Hotel Management (IHM) Pusa</h2>
+        <div class="college-meta">
+          <span class="tag">📍 New Delhi</span>
+          <span class="tag">🏆 Govt. of India</span>
+        </div>
+        <p class="card-desc">
+          India's premier institute for Hospitality Education and Culinary Arts. Renowned for its globally recognized B.Sc, M.Sc, and specialized diploma programs.
+        </p>
+      </div>
+      <div class="card-footer">
+        <a href="{{ '/colleges/ihm-pusa/' | relative_url }}" class="view-btn" style="background: #8B0000; color: white;" aria-label="View Programs at IHM Pusa">View Programs ➔</a>
+      </div>
+    </div>
 
     <div class="college-card" data-category="science" data-location="Bengaluru Malleshwaram" style="border-top-color: #005a9c;">
       <img src="https://ioe.iisc.ac.in/wp-content/uploads/2021/04/bg-image-1-500x286.jpg" class="card-img" alt="IISc Bangalore Campus Building" width="400" height="225" loading="lazy" decoding="async">
