@@ -93,6 +93,7 @@ description: "Browse B.Sc, M.Sc, PG Diplomas, and Diploma programs at IHM Pusa. 
   .level-Masters { border-left-color: #8e44ad; }
   .level-PG_Diploma { border-left-color: #16a085; }
   .level-Diploma { border-left-color: #f39c12; }
+  .level-Certificate { border-left-color: #e74c3c; }
 
   .c-school { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #888; margin-bottom: 5px; }
   .c-title { font-size: 1.1rem; font-weight: 700; color: #333; margin: 0 0 10px 0; line-height: 1.4; }
@@ -164,6 +165,7 @@ description: "Browse B.Sc, M.Sc, PG Diplomas, and Diploma programs at IHM Pusa. 
         <option value="Masters">Postgraduate Degree (M.Sc)</option>
         <option value="PG_Diploma">Post Graduate Diploma</option>
         <option value="Diploma">Diploma Courses</option>
+        <option value="Certificate">Short Term & Skill (HSR/STC)</option>
       </select>
     </div>
 
@@ -291,6 +293,24 @@ description: "Browse B.Sc, M.Sc, PG Diplomas, and Diploma programs at IHM Pusa. 
       fee: { "Total Course Fee": "~₹99,700" },
       desc: "A 1.5-year program imparting specialized skills in bread making, patisserie, chocolate crafts, and modern baking techniques.",
       career: "Pastry Chef, Artisan Baker, Confectionery Entrepreneur."
+    },
+
+    // --- SKILL DEVELOPMENT / SHORT TERM COURSES ---
+    { 
+      id: 8, name: "Hunar Se Rozgar (HSR) Skill Development", level: "Certificate", dept: "Culinary",
+      elig: "Minimum 8th pass (Cook/Bakery) or 10th pass (F&B/Front Office). Age 18-28 years.",
+      process: "Direct admission on a first-come-first-serve basis.",
+      fee: { "Total Course Fee": "Free (Sponsored by Ministry of Tourism)", "Stipend": "Provided upon successful completion" },
+      desc: "A 6-to-8 week completely free skill development initiative by the Ministry of Tourism. Offers training in Multi-Cuisine Cook, Bakery, Food & Beverage Service, and Room Attendant to create employable skills in youth.",
+      career: "Entry-level jobs (Commis, Steward, Room Attendant) in hotels, restaurants, and catering establishments."
+    },
+    { 
+      id: 9, name: "Skill Testing & Certification (STC)", level: "Certificate", dept: "Operations",
+      elig: "Existing hospitality workers with practical experience but lacking formal certification.",
+      process: "Direct enrollment for a 6-day testing and certification program.",
+      fee: { "Total Course Fee": "Nominal / Sponsored" },
+      desc: "A 6-day short-term certification program. It is designed to test, upgrade, and officially certify the skills of uncertified workers currently employed in Food Production, F&B Service, and Housekeeping.",
+      career: "Formalizes existing employment, allowing for better appraisals, promotions, and mobility within the organized hospitality sector."
     }
   ];
 
