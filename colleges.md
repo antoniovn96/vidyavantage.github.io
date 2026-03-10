@@ -3,7 +3,7 @@ layout: default
 title: Top Colleges & Universities 🎓
 permalink: /colleges/
 image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&h=630&fit=crop"
-description: "Browse top universities in Bangalore, Chikkamagaluru, Roorkee & New Delhi. Filter by courses, location, and fees for IISc, IIT Roorkee, IHM Pusa, Christ, and more."
+description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkamagaluru. Filter by courses, location, and fees for IISc, IIT Roorkee, JGU, IHM Pusa, Christ, and more."
 ---
 
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&auto=format&fit=crop">
@@ -187,6 +187,7 @@ description: "Browse top universities in Bangalore, Chikkamagaluru, Roorkee & Ne
       <option value="all">📍 All Locations</option>
       <option value="Bengaluru">Bengaluru (General)</option>
       <option value="New Delhi">New Delhi</option>
+      <option value="Sonipat">Sonipat (NCR)</option>
       <option value="Roorkee">Roorkee (IITR)</option>
       <option value="Chikkamagaluru">Chikkamagaluru (AIT)</option>
       <option value="Yelahanka">Yelahanka</option>
@@ -203,6 +204,23 @@ description: "Browse top universities in Bangalore, Chikkamagaluru, Roorkee & Ne
   </div>
 
   <div class="college-grid" id="collegeGrid">
+
+    <div class="college-card" data-category="management law science" data-location="Sonipat New Delhi NCR" style="border-top-color: #0B2B5E;">
+      <img src="https://jgu.edu.in/blog/wp-content/uploads/2020/04/CUSM-FINAL_APP8758_ACAD_AP-2048x1195.jpg" class="card-img" alt="O.P. Jindal Global University Campus" width="400" height="225" loading="lazy" decoding="async">
+      <div class="card-body">
+        <h2 class="college-name" style="color: #0B2B5E;">O.P. Jindal Global University (JGU)</h2>
+        <div class="college-meta">
+          <span class="tag">📍 Sonipat (NCR)</span>
+          <span class="tag">🏆 Institution of Eminence</span>
+        </div>
+        <p class="card-desc">
+          India's #1 Ranked Private University. Recognized globally for its interdisciplinary approach and world-class programs in Law, Business, Public Policy, and Humanities.
+        </p>
+      </div>
+      <div class="card-footer">
+        <a href="{{ '/colleges/jgu-online/' | relative_url }}" class="view-btn" style="background: #0B2B5E; color: white;" aria-label="View Programs at JGU">View Programs ➔</a>
+      </div>
+    </div>
 
     <div class="college-card" data-category="management hospitality" data-location="New Delhi" style="border-top-color: #8B0000;">
       <img src="https://www.collegebatch.com/static/clg-gallery/institute-of-hotel-management-catering-nutrition-pusa-new-delhi-322357.webp" class="card-img" alt="IHM Pusa Campus Building" width="400" height="225" loading="lazy" decoding="async">
