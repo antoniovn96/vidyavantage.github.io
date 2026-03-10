@@ -2,12 +2,12 @@
 layout: default
 title: "O.P. Jindal Global University (JGU Online) Course Portal 🎓"
 permalink: /colleges/jgu-online/
-image: "https://jgu.edu.in/blog/wp-content/uploads/2020/04/CUSM-FINAL_APP8758_ACAD_AP-2048x1195.jpg"
-description: "Browse 100% online Undergraduate (BBA, B.Sc) and Masters (MBA, M.A., M.Sc) programs at JGU Online. Check eligibility, fees, and career outcomes."
+image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&auto=format&fit=crop"
+description: "Browse 100% online Undergraduate (BBA, B.Sc, B.Com) and Masters (MBA, M.A., M.Sc, M.Des) programs at JGU Online. Check eligibility, fees, and career outcomes."
 ---
 
 <meta property="og:title" content="JGU Online Course Portal 🎓">
-<meta property="og:description" content="Access details for Online MBA, M.A. in Public Policy, BBA, and more. Check fees, eligibility, and selection process.">
+<meta property="og:description" content="Access details for Online MBA, M.A. in Public Policy, BBA, M.Sc in AI, and more. Check fees, eligibility, and selection process.">
 <meta property="og:image" content="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&auto=format&fit=crop">
 
 <style>
@@ -168,9 +168,13 @@ description: "Browse 100% online Undergraduate (BBA, B.Sc) and Masters (MBA, M.A
       <select id="deptFilter" class="filter-select" onchange="renderCourses()">
         <option value="All">All Domains</option>
         <option value="Business">Business & Management</option>
-        <option value="Finance">Finance & Risk</option>
-        <option value="Public Policy">Public Policy</option>
-        <option value="Humanities">Humanities & Arts</option>
+        <option value="Finance">Finance & Accounting</option>
+        <option value="Public Policy">Public Policy & IR</option>
+        <option value="Humanities">Humanities & Social Sciences</option>
+        <option value="Science">Science & Technology</option>
+        <option value="Education">Education</option>
+        <option value="Design">Design & Innovation</option>
+        <option value="Law">Law & Governance</option>
       </select>
     </div>
 
@@ -226,76 +230,192 @@ description: "Browse 100% online Undergraduate (BBA, B.Sc) and Masters (MBA, M.A
 </div>
 
 <script>
-  // --- 1. COURSE DATABASE (Based on JGU Online 2026 Data) ---
+  // --- 1. COURSE DATABASE ---
   const courses = [
-    // --- UG ---
+    // --- UG PROGRAMS ---
     { 
       id: 1, name: "Online Bachelor of Business Administration (BBA)", level: "UG", dept: "Business",
-      elig: "12th Std with 50% aggregate (Humanities, Science, or Commerce).",
-      process: "JSAT (Online Test) / SAT (≥1100) / ACT (≥27) / CUET.",
-      fee: { "Total Tuition": "₹1,80,000 - ₹2,00,000", "EMI Option": "Available via JODO" },
-      desc: "A 3-year comprehensive online BBA offering 4 specializations: Finance, Marketing, HR, and Operations & Supply Chain.",
-      career: "Business Strategist, Financial Analyst, Marketing Lead, Operations Manager."
+      elig: "12th Std with 50% aggregate.", process: "JSAT / SAT / ACT / CUET or Profile Review.",
+      fee: { "Total Tuition": "₹1,80,000 - ₹2,00,000" },
+      desc: "A 3-year comprehensive online BBA offering 4 specializations: Finance, Marketing, HR, and Operations.", career: "Business Strategist, Marketing Lead, Operations Manager."
     },
     { 
       id: 2, name: "B.Sc. in Risk Management", level: "UG", dept: "Finance",
-      elig: "12th Std with 50%. Must have studied Maths, Business Maths, Statistics, or IT.",
-      process: "Application Screening + JSAT / SAT / ACT.",
-      fee: { "Total Tuition": "₹3,00,000", "Registration": "₹25,000" },
-      desc: "A 3-year globally recognized undergraduate program aligned with IRM's Enterprise Risk Management framework.",
-      career: "Risk Analyst, Insurance Underwriter, Compliance Officer, Credit Risk Manager."
+      elig: "12th Std with 50% (Maths/Stats/IT preferred).", process: "Application Screening + JSAT / SAT / ACT.",
+      fee: { "Total Tuition": "₹3,00,000" },
+      desc: "A 3-year globally recognized undergraduate program aligned with IRM's Enterprise Risk Management framework.", career: "Risk Analyst, Compliance Officer, Credit Risk Manager."
+    },
+    { 
+      id: 3, name: "B.Com in International Accounting and Finance", level: "UG", dept: "Finance",
+      elig: "12th Std with 50% aggregate in Commerce/Maths.", process: "Academic Transcript Review.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "A globally focused B.Com designed for students aiming for international accounting standards and global finance roles.", career: "Financial Accountant, Auditor, Tax Consultant."
+    },
+    { 
+      id: 4, name: "B.Sc. in Psychology (Blended)", level: "UG", dept: "Humanities",
+      elig: "12th Std with 50% aggregate.", process: "Application Review & Interview.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "A blended learning program focusing on cognitive, developmental, and clinical psychology fundamentals.", career: "Behavioral Analyst, HR Consultant, Mental Health Advocate."
     },
 
-    // --- PG (MBA) ---
+    // --- PG BUSINESS & MANAGEMENT ---
     { 
-      id: 3, name: "Online MBA (7 Specializations)", level: "PG", dept: "Business",
-      elig: "Bachelor's degree in any discipline with a minimum of 50%.",
-      process: "JMAT Exam OR valid CAT/MAT/GMAT/GRE score + Profile Review.",
-      fee: { "Total Tuition": "₹1,80,000", "EMI Option": "Available via JODO" },
-      desc: "A 1-year accelerated online MBA with specializations in Finance, Marketing, HR, AI for Business, and more. AACSB Accredited.",
-      career: "Management Consultant, HR Manager, Brand Strategist, Project Manager."
+      id: 5, name: "Online MBA (7 Specializations)", level: "PG", dept: "Business",
+      elig: "Bachelor's degree with minimum 50%.", process: "JMAT Exam OR valid CAT/MAT/GMAT + Profile Review.",
+      fee: { "Total Tuition": "₹1,80,000" },
+      desc: "A 1-year accelerated online MBA with specializations in Finance, Marketing, HR, AI for Business, and more. AACSB Accredited.", career: "Management Consultant, HR Manager, Brand Strategist."
     },
     { 
-      id: 4, name: "MBA in Business Analytics", level: "PG", dept: "Business",
-      elig: "Bachelor's degree from a recognized university with 50% aggregate.",
-      process: "Academic Transcript Review + Statement of Purpose.",
-      fee: { "Total Tuition": "₹1,65,000 - ₹2,00,000", "Registration": "₹25,000" },
-      desc: "A data-driven MBA program focusing on tools like Python, Tableau, SQL, and Machine Learning to drive digital transformation.",
-      career: "Business Analyst, Management Consultant, Data Strategist, Financial Analyst."
+      id: 6, name: "MBA in Business Analytics", level: "PG", dept: "Business",
+      elig: "Bachelor's degree with 50%.", process: "Transcript Review + SOP.",
+      fee: { "Total Tuition": "₹1,65,000 - ₹2,00,000" },
+      desc: "A data-driven MBA program focusing on tools like Python, Tableau, SQL, and Machine Learning.", career: "Business Analyst, Management Consultant, Data Strategist."
+    },
+    { 
+      id: 7, name: "MBA in Business and Law", level: "PG", dept: "Business",
+      elig: "Bachelor's degree with minimum 50%.", process: "Profile Review & SOP.",
+      fee: { "Total Tuition": "₹2,00,000" },
+      desc: "Bridges the gap between corporate management and legal compliance, tailored for future corporate leaders.", career: "Corporate Strategist, Compliance Director, Business Consultant."
+    },
+    { 
+      id: 8, name: "M.Sc. in Family Business", level: "PG", dept: "Business",
+      elig: "Bachelor's degree with 50%.", process: "Application Review.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "Equips the next generation of family business leaders with modern management tools while preserving family legacies.", career: "Family Business Leader, Entrepreneur, Wealth Manager."
     },
 
-    // --- PG (MA / MSc) ---
+    // --- PG FINANCE & ACCOUNTING ---
     { 
-      id: 5, name: "M.A. in Public Policy", level: "PG", dept: "Public Policy",
-      elig: "Undergraduate degree in any discipline.",
-      process: "Statement of Purpose (800 words) + Profile Review.",
-      fee: { "Total Tuition": "₹3,00,000", "Registration": "₹50,000" },
-      desc: "A 1-year master's program hosted on Coursera. Features tracks in Data Analytics and Policy Design.",
-      career: "Policy Analyst, Governance Consultant, NGO Leader, Impact Evaluator."
+      id: 9, name: "M.Sc. in Global Risk Management", level: "PG", dept: "Finance",
+      elig: "Undergraduate degree with 50%.", process: "SOP Review + JSAT/Interview.",
+      fee: { "Total Tuition": "₹2,75,000" },
+      desc: "Master risk analysis, financial modeling, and global regulatory frameworks over a flexible 12-month curriculum.", career: "Risk Manager, Fintech Consultant, Financial Operations Lead."
     },
     { 
-      id: 6, name: "M.A. in Political Communication", level: "PG", dept: "Humanities",
-      elig: "Undergraduate degree in any discipline.",
-      process: "Application Review + Statement of Purpose.",
-      fee: { "Total Tuition": "₹2,75,000", "Registration": "₹25,000" },
-      desc: "A 1-year program combining political science, journalism, and digital media to shape modern political narratives and campaigns.",
-      career: "Political Strategist, Campaign Manager, Digital Audience Lead, Media Consultant."
-    },
-     { 
-      id: 7, name: "M.Sc. in Global Risk Management", level: "PG", dept: "Finance",
-      elig: "Undergraduate degree with at least 50% marks.",
-      process: "SOP Review + JSAT / Interview for candidates below 50%.",
-      fee: { "Total Tuition": "₹2,75,000", "Registration": "₹25,000" },
-      desc: "Master risk analysis, financial modeling, and global regulatory frameworks over a flexible 12-month curriculum.",
-      career: "Risk Manager, Fintech Consultant, Financial Operations Lead."
+      id: 10, name: "Master’s Degree in International Accounting and Finance (Integrated with ACCA)", level: "PG", dept: "Finance",
+      elig: "Bachelor's degree in Commerce/Finance.", process: "Application Review.",
+      fee: { "Total Tuition": "₹3,50,000" },
+      desc: "An integrated master's program embedding ACCA professional level curriculum for global accounting careers.", career: "Global Auditor, Chief Financial Officer, International Tax Advisor."
     },
     { 
-      id: 8, name: "M.A. in Museology & Cultural Heritage", level: "PG", dept: "Humanities",
-      elig: "Bachelor's degree in any discipline.",
-      process: "Application and SOP Review.",
-      fee: { "Total Tuition": "₹2,50,000", "Registration": "₹25,000" },
-      desc: "A 1-year interdisciplinary program connecting art, history, culture, and tech, including a hands-on Constitution Museum immersion.",
-      career: "Museum Curator, Cultural Heritage Manager, Archival Specialist."
+      id: 11, name: "Masters of Science in Artificial Intelligence Finance", level: "PG", dept: "Finance",
+      elig: "Bachelor's degree with 50%.", process: "Profile Review & SOP.",
+      fee: { "Total Tuition": "₹3,00,000" },
+      desc: "Combines cutting-edge AI and machine learning techniques with complex financial modeling and quant analysis.", career: "Quant Analyst, Algorithmic Trader, Fintech Product Manager."
+    },
+
+    // --- PG PUBLIC POLICY & IR ---
+    { 
+      id: 12, name: "Master in Public Policy (M.A.)", level: "PG", dept: "Public Policy",
+      elig: "Undergraduate degree in any discipline.", process: "SOP (800 words) + Profile Review.",
+      fee: { "Total Tuition": "₹3,00,000" },
+      desc: "A 1-year master's program hosted on Coursera. Features tracks in Data Analytics and Policy Design.", career: "Policy Analyst, Governance Consultant, NGO Leader."
+    },
+    { 
+      id: 13, name: "M.A. in International Relations, Security and Strategy", level: "PG", dept: "Public Policy",
+      elig: "Undergraduate degree in any discipline.", process: "Application Review + SOP.",
+      fee: { "Total Tuition": "₹2,75,000" },
+      desc: "Analyzes global geopolitics, national security challenges, and grand strategy in a multipolar world.", career: "Diplomat, Intelligence Analyst, Risk Consultant."
+    },
+    { 
+      id: 14, name: "M.Sc. in Global Health and Human Development", level: "PG", dept: "Public Policy",
+      elig: "Bachelor's degree with 50%.", process: "Application Review.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "Explores the intersection of health policy, economics, and international development.", career: "Global Health Consultant, Policy Advisor, NGO Director."
+    },
+    { 
+      id: 15, name: "M.Sc. in Development Studies", level: "PG", dept: "Public Policy",
+      elig: "Undergraduate degree with 50%.", process: "Profile Review & Interview.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "A multidisciplinary approach to understanding global inequalities, sustainable development, and poverty alleviation.", career: "Development Consultant, UN Policy Maker, Research Analyst."
+    },
+    { 
+      id: 16, name: "M.A. in Electoral Analysis and Management", level: "PG", dept: "Public Policy",
+      elig: "Undergraduate degree.", process: "Application Review.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "Specialized training in psephology, election management, voting behavior, and campaign strategy.", career: "Political Strategist, Psephologist, Campaign Manager."
+    },
+
+    // --- PG HUMANITIES & SOCIAL SCIENCES ---
+    { 
+      id: 17, name: "M.A. in Political Communication", level: "PG", dept: "Humanities",
+      elig: "Undergraduate degree in any discipline.", process: "Application Review + SOP.",
+      fee: { "Total Tuition": "₹2,75,000" },
+      desc: "Combines political science, journalism, and digital media to shape modern political narratives and campaigns.", career: "Political Strategist, Campaign Manager, Media Consultant."
+    },
+    { 
+      id: 18, name: "M.A. in Museology & Cultural Heritage", level: "PG", dept: "Humanities",
+      elig: "Bachelor's degree in any discipline.", process: "Application and SOP Review.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "An interdisciplinary program connecting art, history, culture, and tech, including a hands-on Museum immersion.", career: "Museum Curator, Cultural Heritage Manager, Archival Specialist."
+    },
+    { 
+      id: 19, name: "M.A. in India Studies", level: "PG", dept: "Humanities",
+      elig: "Undergraduate degree.", process: "SOP Review.",
+      fee: { "Total Tuition": "₹2,00,000" },
+      desc: "An in-depth exploration of Indian history, culture, philosophy, and contemporary society.", career: "Cultural Consultant, Academic Researcher, Diplomatic Attaché."
+    },
+    { 
+      id: 20, name: "M.A. in American Studies", level: "PG", dept: "Humanities",
+      elig: "Undergraduate degree.", process: "Application Review.",
+      fee: { "Total Tuition": "₹2,00,000" },
+      desc: "Comprehensive study of US history, politics, literature, and its role in global affairs.", career: "Foreign Policy Analyst, International Educator, Researcher."
+    },
+    { 
+      id: 21, name: "M.Sc. in Strategic Communications", level: "PG", dept: "Humanities",
+      elig: "Undergraduate degree with 50%.", process: "Profile Review.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "Focuses on corporate communications, PR, crisis management, and digital brand strategy.", career: "PR Director, Corporate Comm Lead, Media Strategist."
+    },
+
+    // --- PG EDUCATION ---
+    { 
+      id: 22, name: "M.A. in Teaching English to Speakers of Other Languages (TESOL)", level: "PG", dept: "Education",
+      elig: "Undergraduate degree.", process: "Application Review.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "Advanced pedagogical training for teaching English globally, focusing on linguistics and classroom methodology.", career: "ESL Instructor, Curriculum Developer, Educational Consultant."
+    },
+    { 
+      id: 23, name: "M.A. in Educational Leadership & Governance", level: "PG", dept: "Education",
+      elig: "Undergraduate degree.", process: "Application and SOP Review.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "Prepares educators and administrators to lead schools, shape education policy, and manage academic institutions.", career: "School Principal, Education Policy Advisor, EdTech Leader."
+    },
+
+    // --- PG SCIENCE & TECHNOLOGY ---
+    { 
+      id: 24, name: "Master’s Degree in Artificial Intelligence and Data Science", level: "PG", dept: "Science",
+      elig: "Undergraduate degree in STEM or related field.", process: "Technical Profile Review.",
+      fee: { "Total Tuition": "₹3,00,000" },
+      desc: "Deep dive into machine learning, neural networks, big data infrastructure, and ethical AI applications.", career: "AI Engineer, Data Scientist, ML Architect."
+    },
+    { 
+      id: 25, name: "M.Sc. in Environmental Change & Sustainability", level: "PG", dept: "Science",
+      elig: "Undergraduate degree.", process: "Profile Review & SOP.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "Focuses on climate change mitigation, sustainable resource management, and corporate ESG (Environmental, Social, Governance) reporting.", career: "Sustainability Consultant, ESG Analyst, Environmental Policy Advisor."
+    },
+
+    // --- PG DESIGN & INNOVATION ---
+    { 
+      id: 26, name: "Master of Design in User Experience (UX)", level: "PG", dept: "Design",
+      elig: "Undergraduate degree in any discipline.", process: "Portfolio Submission & Interview.",
+      fee: { "Total Tuition": "₹3,50,000" },
+      desc: "Human-centered design program covering UX research, interaction design, prototyping, and usability testing.", career: "UX Researcher, Lead Product Designer, UI/UX Specialist."
+    },
+    { 
+      id: 27, name: "M.Sc. in Design Thinking and Innovation", level: "PG", dept: "Design",
+      elig: "Undergraduate degree.", process: "Application Review.",
+      fee: { "Total Tuition": "₹2,75,000" },
+      desc: "Trains professionals to solve complex business and social problems using creative, empathetic design frameworks.", career: "Innovation Strategist, Product Manager, Design Consultant."
+    },
+
+    // --- PG LAW & GOVERNANCE ---
+    { 
+      id: 28, name: "Master Of Arts (M.A.) Legislative Drafting", level: "PG", dept: "Law",
+      elig: "Undergraduate degree (Law preferred but not mandatory).", process: "Application & SOP.",
+      fee: { "Total Tuition": "₹2,50,000" },
+      desc: "A niche program teaching the technical skills required to draft clear, effective legislation and corporate policies.", career: "Legislative Drafter, Legal Policy Consultant, Parliamentary Advisor."
     }
   ];
 
