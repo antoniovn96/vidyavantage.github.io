@@ -825,7 +825,7 @@
     // --- ASSESSMENT NAVIGATION ---
     window.launchAssessment = function() {
         // Navigates to the assessment page. Adjust "assessment.html" if your file is named differently.
-        window.location.href = "assessment.html"; 
+        window.location.href = "{{ '/assessment/' | relative_url }}"; 
     };
     
     // Edit Mode Toggles for Profile Sections
