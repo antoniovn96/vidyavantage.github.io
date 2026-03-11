@@ -14,8 +14,8 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
 <style>
   :root {
     --bg-main: #F4F7FB;
-    --text-dark: #0F172A; /* Very high contrast for headings */
-    --text-muted: #334155; /* High contrast for body */
+    --text-dark: #0F172A; 
+    --text-muted: #334155; 
     --border-color: #CBD5E1;
     --white: #FFFFFF;
     --focus-ring: #4338CA;
@@ -112,7 +112,6 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
     margin: 0 auto;
   }
 
-  /* Notice the --theme variable used below for dynamic styling */
   .college-card {
     background: var(--white);
     border-radius: 20px;
@@ -243,297 +242,7 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
   </div>
 
   <div class="college-grid" id="collegeGrid">
-
-    <div class="college-card" data-category="engineering management science architecture medicine pharmacy law" data-location="Mangaluru Bengaluru Yelahanka Nitte" style="--theme: #1E3A8A;">
-      <img src="https://daijiworld.ap-south-1.linodeobjects.com/Linode/images3/nitte_230224_1.jpg" class="card-img" alt="NITTE University Campus" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">NITTE (Deemed to be University)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Mangaluru / Bengaluru</span>
-          <span class="tag tag-theme">🏆 NAAC A+ Grade</span>
-        </div>
-        <p class="card-desc">
-          A premier Deemed-to-be University offering 160+ elite programs across Medicine, Engineering, Management, Architecture, Pharmacy, and Sciences.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/nitte/' | relative_url }}" class="view-btn" aria-label="View Programs at NITTE">View Programs ➔</a>
-      </div>
     </div>
-
-    <div class="college-card" data-category="management law science" data-location="Sonipat New Delhi NCR" style="--theme: #0B2B5E;">
-      <img src="https://jgu.edu.in/blog/wp-content/uploads/2020/04/CUSM-FINAL_APP8758_ACAD_AP-2048x1195.jpg" class="card-img" alt="O.P. Jindal Global University Campus" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">O.P. Jindal Global University (JGU)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Sonipat (NCR)</span>
-          <span class="tag tag-theme">🏆 Inst. of Eminence</span>
-        </div>
-        <p class="card-desc">
-          India's #1 Ranked Private University. Recognized globally for its interdisciplinary approach and world-class programs in Law, Business, and Humanities.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/jgu-online/' | relative_url }}" class="view-btn" aria-label="View Programs at JGU">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="management hospitality" data-location="New Delhi Bengaluru" style="--theme: #00509E;">
-      <img src="https://www.ciiih.com/images/about.jpg" class="card-img" alt="CII Institute of Hospitality" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">CII Institute of Hospitality</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Pan India</span>
-          <span class="tag tag-theme">🇨🇭 Swiss Curriculum</span>
-        </div>
-        <p class="card-desc">
-          An industry-led hospitality institute by the Confederation of Indian Industry. Offers the prestigious VET by EHL Swiss Professional Hospitality Diploma.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/cii-ih/' | relative_url }}" class="view-btn" aria-label="View Programs at CII IH">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="management hospitality" data-location="New Delhi" style="--theme: #B91C1C;">
-      <img src="https://www.collegebatch.com/static/clg-gallery/institute-of-hotel-management-catering-nutrition-pusa-new-delhi-322357.webp" class="card-img" alt="IHM Pusa Campus Building" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Institute of Hotel Management (IHM) Pusa</h2>
-        <div class="college-meta">
-          <span class="tag">📍 New Delhi</span>
-          <span class="tag tag-theme">🏆 Govt. of India</span>
-        </div>
-        <p class="card-desc">
-          India's premier institute for Hospitality Education and Culinary Arts. Renowned for its globally recognized B.Sc, M.Sc, and specialized diploma programs.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/ihm-pusa/' | relative_url }}" class="view-btn" aria-label="View Programs at IHM Pusa">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="science engineering" data-location="Bengaluru Malleshwaram" style="--theme: #0369A1;">
-      <img src="https://ioe.iisc.ac.in/wp-content/uploads/2021/04/bg-image-1-500x286.jpg" class="card-img" alt="IISc Bangalore Campus Building" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Indian Institute of Science (IISc)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Bengaluru</span>
-          <span class="tag tag-theme">🏆 NIRF Rank #1</span>
-        </div>
-        <p class="card-desc">
-          India's premier institute for advanced scientific research. Known for B.Sc (Research), M.Tech, and PhDs in Science & Engineering.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/iisc/' | relative_url }}" class="view-btn" aria-label="View Programs at IISc Bangalore">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering architecture management science" data-location="Roorkee" style="--theme: #0F766E;">
-      <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/34/36/84/the-beautiful-main-building.jpg?w=1000&h=600&s=1" class="card-img" alt="IIT Roorkee Main Building" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">IIT Roorkee</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Roorkee</span>
-          <span class="tag tag-theme">🏆 NIRF Rank #5</span>
-        </div>
-        <p class="card-desc">
-          Asia's oldest technical institution (formerly Thomason College). Renowned for its Civil Engineering, Architecture, and strong research output.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/iitr/' | relative_url }}" class="view-btn" aria-label="View Programs at IIT Roorkee">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering management" data-location="Chikkamagaluru" style="--theme: #047857;">
-      <img src="https://images.jdmagicbox.com/comp/chikmagalur/06/9999pmulblrstd1008006/catalogue/adichunchanagiri-institute-of-technology-jyothinagar-chikmagalur-chikmagalur-colleges-bp76m2q.jpg" class="card-img" alt="Adichunchanagiri Institute of Technology Campus" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Adichunchanagiri Institute of Technology (AIT)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Chikkamagaluru</span>
-          <span class="tag tag-theme">🏆 Est. 1980</span>
-        </div>
-        <p class="card-desc">
-          A premier institute located in the scenic hills. Known for strong discipline, extensive campus facilities, and specialized Robotics/AI programs.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/ait/' | relative_url }}" class="view-btn" aria-label="View Programs at AIT">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering management science" data-location="Bengaluru V.V. Puram" style="--theme: #1D4ED8;">
-      <img src="https://bit-bangalore.edu.in/assets/images/explore/about-bit-1.jpg" class="card-img" alt="BIT Bangalore Campus" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Bangalore Institute of Technology (BIT)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 V.V. Puram</span>
-          <span class="tag tag-theme">🏆 Est. 1979</span>
-        </div>
-        <p class="card-desc">
-          A reputed VTU-affiliated college located in the heart of the city. Known for strong placements in core tech and high-end research centers.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/bit/' | relative_url }}" class="view-btn" aria-label="View Programs at BIT">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering" data-location="Bengaluru Malleshwaram" style="--theme: #991B1B;">
-      <img src="https://msrit-bucket.s3.us-west-2.amazonaws.com/Gallery/rit-1.jpeg" class="card-img" alt="MSRIT Bangalore Campus" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Ramaiah Institute of Technology</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Mathikere</span>
-          <span class="tag tag-theme">🏆 Est. 1962</span>
-        </div>
-        <p class="card-desc">
-          A premier autonomous engineering institute affiliated to VTU. Renowned for its academic excellence, infrastructure, and high placement records.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/msrit/' | relative_url }}" class="view-btn" aria-label="View Programs at MSRIT">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering" data-location="Bengaluru South" style="--theme: #1E40AF;">
-      <img src="https://www.admissionbangalore.com/images/engg_col/dayananda-sagar-college-of-engg.jpg" class="card-img" alt="DSCE Bangalore Campus" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Dayananda Sagar College of Engineering</h2>
-        <div class="college-meta">
-          <span class="tag">📍 South Bengaluru</span>
-          <span class="tag tag-theme">🏆 Est. 1979</span>
-        </div>
-        <p class="card-desc">
-          An autonomous institute offering the widest range of engineering branches. Known for its huge campus and excellent core placements.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/dsce/' | relative_url }}" class="view-btn" aria-label="View Programs at DSCE">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering management" data-location="Bengaluru Marathahalli" style="--theme: #4338CA;">
-      <img src="https://newhorizoncollegeofengineering.in/wp-content/uploads/2024/03/NHCE-Campus-Temple.webp" class="card-img" alt="NHCE Bangalore Campus" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">New Horizon College of Engineering</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Marathahalli</span>
-          <span class="tag tag-theme">🏆 NAAC A Grade</span>
-        </div>
-        <p class="card-desc">
-          An autonomous college in the heart of Bangalore's IT corridor. Famous for high placement records and integrated Minor Degree options.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/nhce/' | relative_url }}" class="view-btn" aria-label="View Programs at NHCE">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering management science" data-location="Bengaluru K.R. Puram" style="--theme: #0369A1;">
-      <img src="https://engg.cambridge.edu.in/wp-content/uploads/2025/05/College-Photo-2-1024x576.jpg.webp" class="card-img" alt="Cambridge Institute of Technology Campus" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Cambridge Institute of Technology (CITech)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 K.R. Puram</span>
-          <span class="tag tag-theme">🏆 NAAC A+ Grade</span>
-        </div>
-        <p class="card-desc">
-          A highly accredited institution known for excellent engineering programs, specialized research centers, and a strong focus on industry alignment.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/cambridge/' | relative_url }}" class="view-btn" aria-label="View Programs at CITech">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="architecture engineering" data-location="Bengaluru West" style="--theme: #334155;">
-      <img src="https://www.collegebatch.com/static/clg-gallery/east-west-school-of-architecture-167519.webp" class="card-img" alt="East West School of Architecture" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">East West School of Architecture (EWSA)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 West Bengaluru</span>
-          <span class="tag tag-theme">🏆 COA Approved</span>
-        </div>
-        <p class="card-desc">
-          A dedicated VTU-affiliated architecture institution offering a comprehensive, highly-rated 5-year Bachelor of Architecture (B.Arch) program.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/ewsa/' | relative_url }}" class="view-btn" aria-label="View Programs at EWSA">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="management hospitality" data-location="Bengaluru" style="--theme: #C2410C;">
-      <img src="https://ihmbangalore.ac.in/wp-content/uploads/2024/06/EDC-3-1536x691.jpg" class="card-img" alt="IHM Bangalore" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Institute of Hotel Management (IHM)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Central Bengaluru</span>
-          <span class="tag tag-theme">🏆 Govt. of India</span>
-        </div>
-        <p class="card-desc">
-          A premier public institute offering India's top B.Sc and M.Sc programs in Hospitality Administration, Food Production, and Culinary Arts.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/ihmb/' | relative_url }}" class="view-btn" aria-label="View Programs at IHM Bangalore">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="science management" data-location="Bengaluru" style="--theme: #BE123C;">
-      <img src="https://infoadmission.com/wp-content/uploads/2025/05/mount-carmel-college-1-1-1024x570-1.jpg" class="card-img" alt="Mount Carmel College" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Mount Carmel College (MCC)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Vasanth Nagar</span>
-          <span class="tag tag-theme">🏆 Est. 1948</span>
-        </div>
-        <p class="card-desc">
-          A premier autonomous institution known for holistic education, empowering student culture, and absolute excellence in Science, Commerce & Arts.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/mcc/' | relative_url }}" class="view-btn" aria-label="View Programs at Mount Carmel College">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="engineering management" data-location="Bengaluru South" style="--theme: #EA580C;">
-      <img src="https://www.jainuniversity.ac.in/uploads/blog/01eb9e52fb4fbc94a1c18aeca7bab841.jpg" class="card-img" alt="Jain University" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Jain (Deemed-to-be University)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Jayanagar / Kanakapura</span>
-          <span class="tag tag-theme">🏆 NAAC A++ Grade</span>
-        </div>
-        <p class="card-desc">
-          A top-ranked university known for its massive emphasis on entrepreneurship, national sports, and industry-integrated modern courses.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/jain-university/' | relative_url }}" class="view-btn" aria-label="View Programs at Jain University">View Programs ➔</a>
-      </div>
-    </div>
-
-    <div class="college-card" data-category="management science law" data-location="Bengaluru West South" style="--theme: #9F1239;">
-      <img src="https://christuniversity.in/images/chris-building.jpg" class="card-img" alt="Christ University" width="400" height="200" loading="lazy" decoding="async">
-      <div class="card-body">
-        <h2 class="college-name">Christ (Deemed to be University)</h2>
-        <div class="college-meta">
-          <span class="tag">📍 Central / Kengeri</span>
-          <span class="tag tag-theme">🏆 Est. 1969</span>
-        </div>
-        <p class="card-desc">
-          A multi-disciplinary powerhouse famous for high academic discipline and elite placements in Management (BBA/MBA), Law, and Humanities.
-        </p>
-      </div>
-      <div class="card-footer">
-        <a href="{{ '/colleges/christ-university/' | relative_url }}" class="view-btn" aria-label="View Programs at Christ University">View Programs ➔</a>
-      </div>
-    </div>
-
-  </div>
 
   <div id="noResults">
       <div style="font-size: 4rem; margin-bottom: 15px;">🔍</div>
@@ -544,46 +253,84 @@ description: "Browse top universities in Bangalore, Roorkee, Delhi NCR & Chikkam
 </main>
 
 <script>
+  let collegeData = []; 
+  const grid = document.getElementById('collegeGrid');
+  const noResults = document.getElementById('noResults');
+
+  // 1. Fetch the data from your colleges.json file
+  fetch("{{ '/colleges.json' | relative_url }}")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Could not load colleges.json. Make sure the file exists in your repository.");
+      }
+      return response.json();
+    })
+    .then(data => {
+      collegeData = data;
+      renderCards(collegeData); // Draw the cards when page loads
+    })
+    .catch(error => {
+      console.error("Database Error:", error);
+      grid.innerHTML = `<p style="text-align:center; color: red; grid-column: 1/-1;">Error loading college data. Have you created colleges.json yet?</p>`;
+    });
+
+  // 2. The function that builds your HTML cards
+  function renderCards(data) {
+    grid.innerHTML = ''; 
+    
+    if (data.length === 0) {
+      noResults.style.display = "block";
+      return;
+    }
+    noResults.style.display = "none";
+
+    const cardsHTML = data.map(college => `
+      <div class="college-card" style="--theme: ${college.theme || '#1E3A8A'};">
+        <img src="${college.image}" class="card-img" alt="${college.name} Campus" width="400" height="200" loading="lazy">
+        <div class="card-body">
+          <h2 class="college-name">${college.name}</h2>
+          <div class="college-meta">
+            <span class="tag">📍 ${college.displayLocation}</span>
+            <span class="tag tag-theme">🏆 ${college.accreditation}</span>
+          </div>
+          <p class="card-desc">${college.description}</p>
+        </div>
+        <div class="card-footer">
+          <a href="${college.url}" class="view-btn" aria-label="View Programs at ${college.name}">View Programs ➔</a>
+        </div>
+      </div>
+    `).join('');
+
+    grid.innerHTML = cardsHTML;
+  }
+
+  // 3. The completely upgraded Filter Function
   function filterColleges() {
     const searchInput = document.getElementById('searchInput').value.toLowerCase();
     const courseFilter = document.getElementById('courseFilter').value.toLowerCase();
     const locationFilter = document.getElementById('locationFilter').value.toLowerCase();
-    
-    const cards = document.getElementsByClassName("college-card");
-    const noResults = document.getElementById('noResults');
-    let visibleCount = 0;
 
-    for (let i = 0; i < cards.length; i++) {
-      const card = cards[i];
-      const name = card.querySelector('.college-name').innerText.toLowerCase();
-      const categories = card.getAttribute('data-category').toLowerCase();
-      const locations = card.getAttribute('data-location').toLowerCase();
+    const filteredData = collegeData.filter(c => {
+      const matchesSearch = c.name.toLowerCase().includes(searchInput) || 
+                            c.description.toLowerCase().includes(searchInput);
+      
+      const matchesCourse = courseFilter === 'all' || 
+                           (c.category && c.category.toLowerCase().includes(courseFilter));
+                           
+      const matchesLocation = locationFilter === 'all' || 
+                             (c.location && c.location.toLowerCase().includes(locationFilter));
+      
+      return matchesSearch && matchesCourse && matchesLocation;
+    });
 
-      // Check Criteria
-      const matchesSearch = name.includes(searchInput);
-      const matchesCourse = courseFilter === 'all' || categories.includes(courseFilter);
-      const matchesLocation = locationFilter === 'all' || locations.includes(locationFilter);
-
-      if (matchesSearch && matchesCourse && matchesLocation) {
-        card.classList.remove("hidden");
-        visibleCount++;
-      } else {
-        card.classList.add("hidden");
-      }
-    }
-
-    // Toggle No Results Message
-    if (visibleCount === 0) {
-        noResults.style.display = "block";
-    } else {
-        noResults.style.display = "none";
-    }
+    renderCards(filteredData); 
   }
 
+  // 4. Reset Function
   function resetFilters() {
     document.getElementById('searchInput').value = '';
     document.getElementById('courseFilter').value = 'all';
     document.getElementById('locationFilter').value = 'all';
-    filterColleges();
+    renderCards(collegeData); 
   }
 </script>
