@@ -1,0 +1,24 @@
+[
+  {
+    "name": "NITTE (Deemed to be University)",
+    "location": "Mangaluru Bengaluru Yelahanka Nitte",
+    "displayLocation": "Mangaluru / Bengaluru",
+    "category": "engineering management science architecture medicine pharmacy law",
+    "theme": "#1E3A8A",
+    "image": "https://daijiworld.ap-south-1.linodeobjects.com/Linode/images3/nitte_230224_1.jpg",
+    "accreditation": "NAAC A+ Grade",
+    "description": "A premier Deemed-to-be University offering 160+ elite programs across Medicine, Engineering, Management, Architecture, Pharmacy, and Sciences.",
+    "url": "/colleges/nitte/"
+  },
+  {
+    "name": "Indian Institute of Science (IISc)",
+    "location": "Bengaluru Malleshwaram",
+    "displayLocation": "Bengaluru",
+    "category": "science engineering",
+    "theme": "#0369A1",
+    "image": "https://ioe.iisc.ac.in/wp-content/uploads/2021/04/bg-image-1-500x286.jpg",
+    "accreditation": "NIRF Rank #1",
+    "description": "India's premier institute for advanced scientific research. Known for B.Sc (Research), M.Tech, and PhDs in Science & Engineering.",
+    "url": "/colleges/iisc/"
+  }
+]
