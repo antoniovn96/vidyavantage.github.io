@@ -121,6 +121,7 @@
 
       /* --- DASHBOARD SPECIFIC --- */
       .stat-card { padding: 25px; border-radius: 20px; text-align: center; background: white; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: 0.3s; display: flex; flex-direction: column; justify-content: center; min-width:0;}
+      .stat-card:hover { transform: translateY(-5px); }
       .stat-icon { font-size: 2.5rem; margin-bottom: 10px; }
       .stat-title { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; margin: 0 0 5px 0;}
       .stat-value { font-size: 1.8rem; font-weight: 900; color: #0f172a; font-family: 'Outfit', sans-serif; margin:0;}
@@ -820,6 +821,12 @@
             overlay.classList.add('active');
         }
     }
+
+    // --- ASSESSMENT NAVIGATION ---
+    window.launchAssessment = function() {
+        // Navigates to the assessment page. Adjust "assessment.html" if your file is named differently.
+        window.location.href = "assessment.html"; 
+    };
     
     // Edit Mode Toggles for Profile Sections
     window.toggleEditMode = function(cardId) {
@@ -1023,7 +1030,7 @@
                     <label class="form-label" for="edu-score-${id}">Overall Score</label>
                     <div style="display:flex; gap:10px; height:52px;">
                         <input type="text" id="edu-score-${id}" class="form-input edu-overall-score" placeholder="e.g. 85" value="${data.score || ''}" style="flex:1;">
-                        <button type="button" class="convert-btn" onclick="window.convertMarks('edu-score-${id}')" title="Convert CGPA to % (x 9.5)">🔄</button>
+                        <button type="button" class="convert-btn hide-in-readonly" onclick="window.convertMarks('edu-score-${id}')" title="Convert CGPA to % (x 9.5)">🔄</button>
                     </div>
                 </div>
             </div>
