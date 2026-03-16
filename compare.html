@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Courses | VidyaVantage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --bg-main: #F8FAFC; 
+            --text-dark: #0F172A; 
+            --text-muted: #475569; 
+            --theme: #0A2342; 
+            --theme-light: #1E3A8A;
+            --gold: #D4AF37; 
+            --white: #FFFFFF; 
+            --success: #059669;
+            --radius: 16px;
+        }
+        
+        * { box-sizing: border-box; }
+        body { font-family: 'Nunito', sans-serif; background: var(--bg-main); color: var(--text-dark); margin: 0; padding-bottom: 50px; line-height: 1.6;}
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; margin-top: 0; }
+        
+        /* Premium Navigation */
+        .top-nav { background: rgba(10, 35, 66, 0.98); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.1); backdrop-filter: blur(10px); }
+        .nav-logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--gold); text-decoration: none; letter-spacing: 1px; }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { color: #f8fafc; text-decoration: none; font-size: 0.95rem; font-weight: 700; transition: color 0.3s; font-family: 'Nunito', sans-serif;}
+        .nav-links a:hover { color: var(--gold); }
+        .nav-btn-login { background: var(--white); color: var(--theme) !important; padding: 10px 24px; border-radius: 50px; font-weight: 800 !important; transition: all 0.3s ease; }
+        .nav-btn-login:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,255,255,0.2); }
+
+        /* Modern Hero Section */
+        .header-section { background: linear-gradient(135deg, rgba(10, 35, 66, 0.95), rgba(30, 58, 138, 0.95)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&auto=format&fit=crop'); background-size: cover; background-position: center; color: white; padding: 80px 5% 100px; text-align: center; position: relative;}
+        .header-section::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50px; background: var(--bg-main); clip-path: polygon(0 100%, 100% 100%, 100% 0); }
+        .header-section h1 { font-size: 3.5rem; margin: 0 0 15px; text-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .header-section p { font-size: 1.2rem; opacity: 0.9; margin: 0; font-weight: 600; display: inline-block; background: rgba(255,255,255,0.1); padding: 8px 25px; border-radius: 50px; backdrop-filter: blur(5px);}
+
+        /* Main Container */
+        .container { max-width: 1400px; margin: -30px auto 50px; padding: 0 20px; position: relative; z-index: 10; }
+        
+        /* ✨ UPGRADED CONTROLS (Add More & Clear Cart) ✨ */
+        .controls { display: flex; justify-content: flex-end; margin-bottom: 20px; gap: 15px; }
+        .add-more-btn { background: #f8fafc; color: var(--theme); border: 2px solid #cbd5e1; padding: 12px 25px; border-radius: 50px; font-weight: 800; text-decoration: none; transition: all 0.3s ease; font-size: 1rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); display: inline-flex; align-items: center; gap: 8px;}
+        .add-more-btn:hover { background: #e2e8f0; border-color: var(--theme); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(10, 35, 66, 0.1);}
+        
+        .clear-btn { background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: 800; font-family: 'Nunito'; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);}
+        .clear-btn:hover { background: #dc2626; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3);}
+
+        /* Premium Table UI */
+        .table-wrapper { background: white; border-radius: var(--radius); box-shadow: 0 10px 40px rgba(10, 35, 66, 0.06); overflow-x: auto; overflow-y: hidden; border: 1px solid #e2e8f0; }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; table-layout: fixed; }
+        
+        /* Sticky Column & Header Logic */
+        th:first-child, td:first-child { position: sticky; left: 0; background: #f8fafc; z-index: 2; width: 220px; border-right: 2px solid #cbd5e1; font-weight: 800; color: var(--theme-light); text-transform: uppercase; font-size: 0.85rem; padding: 25px; letter-spacing: 0.5px;}
+        
+        th { background: var(--theme); color: white; padding: 25px; font-size: 1.2rem; text-align: left; border-bottom: 4px solid var(--gold); z-index: 1; vertical-align: top;}
+        th:first-child { background: var(--theme); color: var(--gold); z-index: 3; vertical-align: middle;}
+        
+        td { padding: 25px; vertical-align: top; border-bottom: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; }
+        tr:nth-child(even) td:not(:first-child) { background-color: #fcfcfc; }
+        tr:hover td:not(:first-child) { background-color: #f1f5f9; }
+
+        .college-tag { display: inline-block; background: rgba(255,255,255,0.15); color: var(--gold); padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; margin-bottom: 15px; border: 1px solid rgba(212, 175, 55, 0.3); text-transform: uppercase; letter-spacing: 0.5px;}
+        .course-title { font-size: 1.4rem; font-weight: 900; color: var(--white); margin: 0; line-height: 1.3;}
+        
+        /* Highlighters */
+        .highlight-green { color: var(--success); font-weight: 900; font-size: 1.2rem; display: inline-block; background: var(--success-bg); padding: 4px 10px; border-radius: 6px; border: 1px solid #a7f3d0;}
+        .highlight-blue { color: var(--theme-light); font-weight: 800; }
+        
+        /* Embedded HTML styling (Curriculum & Pathways) */
+        .scrollable-content { max-height: 300px; overflow-y: auto; padding-right: 15px; }
+        .scrollable-content::-webkit-scrollbar { width: 8px; }
+        .scrollable-content::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px;}
+        .scrollable-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .scrollable-content::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .scrollable-content ul { padding-left: 20px; margin-top: 5px; }
+        .scrollable-content li { margin-bottom: 8px; }
+        
+        /* Fix Table inside the Table for Curriculum */
+        .scrollable-content table { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; min-width: 100%; table-layout: auto;}
+        .scrollable-content th { background: var(--theme-light); padding: 10px; font-size: 0.85rem; border-bottom: none;}
+        .scrollable-content td { padding: 10px; font-size: 0.85rem; border: 1px solid #e2e8f0; background: white;}
+        .scrollable-content td:first-child { position: static; width: auto; background: white; border-right: 1px solid #e2e8f0; color: var(--text-muted); font-weight: bold;}
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: 100px 20px; background: white; border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.04); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .empty-state h2 { font-size: 2.2rem; color: var(--theme); margin-bottom: 15px; }
+        .empty-state a { display: inline-block; background: var(--theme); color: white; padding: 15px 35px; font-weight: 800; border-radius: 50px; text-decoration: none; margin-top: 25px; transition: all 0.3s ease; font-size: 1.1rem; box-shadow: 0 10px 20px rgba(10, 35, 66, 0.15);}
+        .empty-state a:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(10, 35, 66, 0.2); background: var(--theme-light);}
+
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <a href="index.html" class="nav-logo">VIDYAVANTAGE</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="colleges.html">Colleges</a>
+            <a href="login.html" class="nav-btn-login">Login / Sign Up</a>
+        </div>
+    </nav>
+
+    <div class="header-section">
+        <h1>Head-to-Head Comparison</h1>
+        <p>Analyze your selected programs side-by-side to make the best career decision.</p>
+    </div>
+
+    <div class="container" id="mainContainer">
+        </div>
+
+    <script>
+        // 1. Fetch the saved courses from localStorage
+        const savedData = localStorage.getItem('vidyaVantageCompare');
+        const mainContainer = document.getElementById('mainContainer');
+
+        if (!savedData) {
+            showEmptyState();
+        } else {
+            const courses = JSON.parse(savedData);
+            if (courses.length === 0) {
+                showEmptyState();
+            } else {
+                renderComparisonTable(courses);
+            }
+        }
+
+        function showEmptyState() {
+            mainContainer.innerHTML = `
+                <div class="empty-state">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">⚖️</div>
+                    <h2>No Courses Selected</h2>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">You haven't selected any programs to compare yet. Head back to the directory, select a college, and check the boxes next to the courses you are interested in!</p>
+                    <a href="colleges.html">Explore Colleges ➔</a>
+                </div>
+            `;
+        }
+
+        function clearComparison() {
+            localStorage.removeItem('vidyaVantageCompare');
+            showEmptyState();
+        }
+
+        function renderComparisonTable(courses) {
+            // Determine column width so it doesn't squish if there are 2 courses vs 4 courses
+            const colWidth = 100 / courses.length;
+
+            // Build the table headers (Course Names & College Tags)
+            let headersHTML = `<th>Features</th>`;
+            courses.forEach(course => {
+                headersHTML += `
+                    <th style="width: ${colWidth}%;">
+                        <div class="college-tag">${course.parentCollege || 'Institution'}</div><br>
+                        <div class="course-title">${course.courseName}</div>
+                    </th>`;
+            });
+
+            // Helper function to build a row
+            function buildRow(title, property, formatFunc = null) {
+                let rowHTML = `<tr><td>${title}</td>`;
+                courses.forEach(course => {
+                    let val = course[property];
+                    if (!val) val = "N/A";
+                    if (formatFunc) val = formatFunc(val);
+                    rowHTML += `<td>${val}</td>`;
+                });
+                rowHTML += `</tr>`;
+                return rowHTML;
+            }
+
+            // Build the table body
+            let bodyHTML = "";
+            
+            bodyHTML += buildRow("Overview", "overview");
+            bodyHTML += buildRow("Duration", "duration", val => `<span class="highlight-blue">${val}</span>`);
+            bodyHTML += buildRow("Est. Fees", "fees", val => `<strong style="font-size: 1.1rem;">${val}</strong>`);
+            
+            bodyHTML += buildRow("Eligibility & Exams", "eligibilityCriteria", (val) => {
+                const courseIndex = courses.findIndex(c => c.eligibilityCriteria === val);
+                const exams = courses[courseIndex].entranceExams || "N/A";
+                return `${val}<br><br><strong style="color: var(--theme-light);">Exams:</strong> ${exams}`;
+            });
+            
+            bodyHTML += buildRow("Placement Rate", "placementRate", val => `<span class="highlight-green">${val}</span>`);
+            
+            bodyHTML += buildRow("Salary Insights", "averageSalary", (val) => {
+                const courseIndex = courses.findIndex(c => c.averageSalary === val);
+                const high = courses[courseIndex].highestSalary || "N/A";
+                return `<strong>Avg:</strong> ${val}<br><strong>High:</strong> ${high}`;
+            });
+            
+            bodyHTML += buildRow("Top Recruiters", "topRecruiters");
+            
+            // New Career Pathways Data
+            bodyHTML += buildRow("Detailed Career Paths", "careerPathwaysHTML", val => `
+                <div class="scrollable-content" style="font-size:0.95rem;">
+                    ${val === 'N/A' ? 'General paths apply. See overview.' : val}
+                </div>
+            `);
+            
+            // Scholarships and Curriculum
+            bodyHTML += buildRow("Scholarships", "scholarshipsHTML", val => `
+                <div class="scrollable-content" style="font-size:0.95rem;">
+                    ${val === 'N/A' ? 'Check official prospectus for scholarship details.' : val}
+                </div>
+            `);
+            
+            bodyHTML += buildRow("Curriculum Outline", "curriculumHTML", val => `
+                <div class="scrollable-content">
+                    ${val === 'N/A' ? 'Detailed curriculum currently being updated.' : val}
+                </div>
+            `);
+
+            // ✨ INJECT THE NEW BUTTONS HERE ✨
+            mainContainer.innerHTML = `
+                <div class="controls">
+                    <a href="colleges.html" class="add-more-btn">➕ Add Another Program</a>
+                    <button class="clear-btn" onclick="clearComparison()">🗑️ Clear Cart</button>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead><tr>${headersHTML}</tr></thead>
+                        <tbody>${bodyHTML}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
