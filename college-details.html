@@ -539,8 +539,9 @@
         const urlParams = new URLSearchParams(window.location.search);
         const targetName = urlParams.get('name');
 
+        // ✨ THIS IS THE ONLY LINE WE CHANGED (Line 241) ✨
         if (targetName) {
-            fetch('colleges.json?v=' + new Date().getTime())
+            fetch('https://firebasestorage.googleapis.com/v0/b/career-intelligence-system.firebasestorage.app/o/colleges.json?alt=media&token=cd33625c-ef8e-44f6-b9e6-026226a9df17')
                 .then(response => response.json())
                 .then(data => {
                     currentCollegeData = data.find(c => c.name === targetName);
