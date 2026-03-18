@@ -236,7 +236,7 @@
             Array.from(disciplines).sort().map(d => `<option value="${d.toLowerCase()}">${d}</option>`).join('');
     }
 
-    fetch('gs://career-intelligence-system.firebasestorage.app/colleges.json')
+    fetch('https://firebasestorage.googleapis.com/v0/b/career-intelligence-system.firebasestorage.app/o/colleges.json?alt=media&token=cd33625c-ef8e-44f6-b9e6-026226a9df17')
       .then(response => {
         if (!response.ok) throw new Error("Network response was not ok");
         return response.json();
